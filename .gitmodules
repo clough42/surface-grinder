@@ -1,0 +1,3 @@
+[submodule "Firmware/third-party/ClearCore-library"]
+	path = Firmware/third-party/ClearCore-library
+	url = https://github.com/clough42/ClearCore-library.git
