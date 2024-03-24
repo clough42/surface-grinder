@@ -10,7 +10,7 @@
 #define LEFT * 1
 
 int32_t velocity = 100 RPM;
-int32_t acceleration = 1000 RPM; // per second
+int32_t acceleration = 5000 RPM; // per second
 
 DigitalInOut *EStop = &ConnectorIO1;
 DigitalInOut *LeftLimit = &ConnectorIO2;
