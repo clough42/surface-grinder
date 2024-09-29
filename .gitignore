@@ -36,3 +36,8 @@ jlink.*
 .vs/
 Debug/
 Release/
+/Firmware/HMI/SurfaceGrinder.4DWork
+Firmware/HMI/SURFAC~1.gci
+Firmware/HMI/SURFAC~1.dat
+Firmware/HMI/SurfaceGrinder.4XE
+Firmware/HMI/SurfaceGrinder.cfg

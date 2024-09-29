@@ -1,0 +1,303 @@
+﻿Version     0.0
+Platform    Gen4-uLCD-70DT-L
+PlatRes     480x800
+Depends
+end
+Options
+    Genie
+    Speed                        9600
+    Checksum                     No
+    ResponseSize                 2
+    Multidrop                    No
+    Destination                  1
+    DestBank                     0
+    MainForm                     0
+    SndBuf                       0
+    ButtonDisable                No
+    SignedDigits                 Yes
+    MaxString                    75
+    ComPort                      0
+    ComTX1pinIdx                 0
+    ComRX1pinIdx                 0
+    FileSystem                   FATfs
+    FlashEraseOption             Optimal
+    SPIenable                    0
+    SPIsdo                       3
+    SPIsdi                       2
+    SPIsck                       1
+    ForceProgramFlash            No
+    PixxiuSDSpeed                0
+    FlashForceLT16MB             No
+end
+Form
+    Name                         Form0
+    Alias                        SurfaceGrinder
+    Bgtype                       Color
+    Color                        BLACK
+    Image                        (None)
+    Source.Height                0
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 0
+    OnActivate                   ''
+    OnCreate                     ''
+    OnRepeat                     ''
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+iLedDigits
+    Name                         ILedDigits0
+    Alias                        XDro
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         261
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         3
+    Spacing                      0
+    Top                          50
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits1
+    Alias                        YDro
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         261
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         3
+    Spacing                      0
+    Top                          120
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits2
+    Alias                        ZDro
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         261
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         3
+    Spacing                      0
+    Top                          190
+    OnChanged                    ''
+end
+WinButton
+    Name                         Winbutton0
+    Alias                        'X Zero'
+    Appearance.Alignment         Center
+    Appearance.Layout            Left
+    Appearance.PictureAlignment  Right
+    Appearance.SimpleLayout      No
+    Appearance.Spacing           3
+    AutoSizeToPicture            No
+    Bevel                        Yes
+    BevelColor                   clWhite
+    Caption                      ZERO
+    Color                        GRAY
+    Font.Color                   BLACK
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    18
+    Font.Style                   []
+    Height                       55
+    Left                         630
+    Matrix                       -1
+    Momentary                    Yes
+    Picture                      (None)
+    StatusWhenOff.BGcolor        RED
+    StatusWhenOff.Caption        ''
+    StatusWhenOff.Glow           Yes
+    StatusWhenOff.Color          WHITE
+    StatusWhenOff.Effects        []
+    StatusWhenOff.Name           Tahoma
+    StatusWhenOff.Size           8
+    StatusWhenOff.Style          []
+    StatusWhenOff.Visible        Yes
+    StatusWhenOn.BGcolor         RED
+    StatusWhenOn.Caption         ''
+    StatusWhenOn.Glow            Yes
+    StatusWhenOn.Color           WHITE
+    StatusWhenOn.Effects         []
+    StatusWhenOn.Name            Tahoma
+    StatusWhenOn.Size            8
+    StatusWhenOn.Style           []
+    StatusWhenOn.Visible         Yes
+    Top                          53
+    Width                        57
+    OnChanged                    'Report Message'
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+WinButton
+    Name                         Winbutton1
+    Alias                        'Y Zero'
+    Appearance.Alignment         Center
+    Appearance.Layout            Left
+    Appearance.PictureAlignment  Right
+    Appearance.SimpleLayout      No
+    Appearance.Spacing           3
+    AutoSizeToPicture            No
+    Bevel                        Yes
+    BevelColor                   clWhite
+    Caption                      ZERO
+    Color                        clGray
+    Font.Color                   clWindowText
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    18
+    Font.Style                   []
+    Height                       55
+    Left                         630
+    Matrix                       -1
+    Momentary                    Yes
+    Picture                      (None)
+    StatusWhenOff.BGcolor        RED
+    StatusWhenOff.Caption        ''
+    StatusWhenOff.Glow           Yes
+    StatusWhenOff.Color          WHITE
+    StatusWhenOff.Effects        []
+    StatusWhenOff.Name           Tahoma
+    StatusWhenOff.Size           8
+    StatusWhenOff.Style          []
+    StatusWhenOff.Visible        Yes
+    StatusWhenOn.BGcolor         RED
+    StatusWhenOn.Caption         ''
+    StatusWhenOn.Glow            Yes
+    StatusWhenOn.Color           WHITE
+    StatusWhenOn.Effects         []
+    StatusWhenOn.Name            Tahoma
+    StatusWhenOn.Size            8
+    StatusWhenOn.Style           []
+    StatusWhenOn.Visible         Yes
+    Top                          123
+    Width                        57
+    OnChanged                    'Report Message'
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+WinButton
+    Name                         Winbutton2
+    Alias                        'Z Zero'
+    Appearance.Alignment         Center
+    Appearance.Layout            Left
+    Appearance.PictureAlignment  Right
+    Appearance.SimpleLayout      No
+    Appearance.Spacing           3
+    AutoSizeToPicture            No
+    Bevel                        Yes
+    BevelColor                   clWhite
+    Caption                      ZERO
+    Color                        clGray
+    Font.Color                   clWindowText
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    18
+    Font.Style                   []
+    Height                       55
+    Left                         630
+    Matrix                       -1
+    Momentary                    Yes
+    Picture                      (None)
+    StatusWhenOff.BGcolor        RED
+    StatusWhenOff.Caption        ''
+    StatusWhenOff.Glow           Yes
+    StatusWhenOff.Color          WHITE
+    StatusWhenOff.Effects        []
+    StatusWhenOff.Name           Tahoma
+    StatusWhenOff.Size           8
+    StatusWhenOff.Style          []
+    StatusWhenOff.Visible        Yes
+    StatusWhenOn.BGcolor         RED
+    StatusWhenOn.Caption         ''
+    StatusWhenOn.Glow            Yes
+    StatusWhenOn.Color           WHITE
+    StatusWhenOn.Effects         []
+    StatusWhenOn.Name            Tahoma
+    StatusWhenOn.Size            8
+    StatusWhenOn.Style           []
+    StatusWhenOn.Visible         Yes
+    Top                          193
+    Width                        57
+    OnChanged                    'Report Message'
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+iLed
+    Name                         ILed0
+    Alias                        'X Active'
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       60
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         612
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          50
+    Width                        15
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed1
+    Alias                        'Y Active'
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       60
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         612
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          120
+    Width                        15
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed2
+    Alias                        'Z Active'
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       60
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         612
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          190
+    Width                        15
+    OnChanged                    ''
+end
