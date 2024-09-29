@@ -11,7 +11,7 @@
 #define LEFT * 1
 
 int32_t velocity = 100 RPM;
-int32_t acceleration = 1000 RPM; // per second
+int32_t acceleration = 5000 RPM; // per second
 
 auto& EStop = ConnectorIO1;
 auto& LeftLimit = ConnectorIO2;
