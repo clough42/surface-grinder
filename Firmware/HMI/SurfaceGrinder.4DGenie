@@ -39,7 +39,7 @@ Form
     Source.Left                  0
     Source.Top                   0
     Source.Width                 0
-    OnActivate                   ''
+    OnActivate                   'Report Message'
     OnCreate                     ''
     OnRepeat                     ''
     OnTouchMoving                ''
@@ -102,7 +102,7 @@ iLedDigits
 end
 WinButton
     Name                         Winbutton0
-    Alias                        'X Zero'
+    Alias                        XZero
     Appearance.Alignment         Center
     Appearance.Layout            Left
     Appearance.PictureAlignment  Right
@@ -150,7 +150,7 @@ WinButton
 end
 WinButton
     Name                         Winbutton1
-    Alias                        'Y Zero'
+    Alias                        YZero
     Appearance.Alignment         Center
     Appearance.Layout            Left
     Appearance.PictureAlignment  Right
@@ -198,7 +198,7 @@ WinButton
 end
 WinButton
     Name                         Winbutton2
-    Alias                        'Z Zero'
+    Alias                        ZZero
     Appearance.Alignment         Center
     Appearance.Layout            Left
     Appearance.PictureAlignment  Right
@@ -246,7 +246,7 @@ WinButton
 end
 iLed
     Name                         ILed0
-    Alias                        'X Active'
+    Alias                        XJog
     BaseColorA                   0x282C28
     BaseColorB                   BLACK
     BaseInnerCorner              5
@@ -265,7 +265,7 @@ iLed
 end
 iLed
     Name                         ILed1
-    Alias                        'Y Active'
+    Alias                        YJog
     BaseColorA                   0x282C28
     BaseColorB                   BLACK
     BaseInnerCorner              5
@@ -284,7 +284,7 @@ iLed
 end
 iLed
     Name                         ILed2
-    Alias                        'Z Active'
+    Alias                        ZJog
     BaseColorA                   0x282C28
     BaseColorB                   BLACK
     BaseInnerCorner              5
@@ -300,4 +300,109 @@ iLed
     Top                          190
     Width                        15
     OnChanged                    ''
+end
+StaticText
+    Name                         Statictext0
+    Alias                        XLabel
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      X
+    Color                        BLACK
+    Font.Color                   SILVER
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    50
+    Font.Style                   [Bold]
+    Height                       80
+    Left                         203
+    Top                          43
+    Transparent                  Yes
+    Width                        50
+    WordWrap                     Yes
+end
+StaticText
+    Name                         Statictext1
+    Alias                        YLabel
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      Y
+    Color                        BLACK
+    Font.Color                   SILVER
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    48
+    Font.Style                   [Bold]
+    Height                       77
+    Left                         203
+    Top                          113
+    Transparent                  Yes
+    Width                        50
+    WordWrap                     Yes
+end
+StaticText
+    Name                         Statictext2
+    Alias                        ZLabel
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      Z
+    Color                        BLACK
+    Font.Color                   SILVER
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    48
+    Font.Style                   [Bold]
+    Height                       77
+    Left                         203
+    Top                          183
+    Transparent                  Yes
+    Width                        50
+    WordWrap                     Yes
+end
+WinButton
+    Name                         Winbutton3
+    Alias                        UnitToggle
+    Appearance.Alignment         Center
+    Appearance.Layout            Left
+    Appearance.PictureAlignment  Right
+    Appearance.SimpleLayout      No
+    Appearance.Spacing           3
+    AutoSizeToPicture            No
+    Bevel                        Yes
+    BevelColor                   clWhite
+    Caption                      UNIT
+    Color                        clGray
+    Font.Color                   clWindowText
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    18
+    Font.Style                   []
+    Height                       65
+    Left                         8
+    Matrix                       -1
+    Momentary                    No
+    Picture                      (None)
+    StatusWhenOff.BGcolor        RED
+    StatusWhenOff.Caption        INCH
+    StatusWhenOff.Glow           Yes
+    StatusWhenOff.Color          WHITE
+    StatusWhenOff.Effects        []
+    StatusWhenOff.Name           Tahoma
+    StatusWhenOff.Size           8
+    StatusWhenOff.Style          []
+    StatusWhenOff.Visible        Yes
+    StatusWhenOn.BGcolor         RED
+    StatusWhenOn.Caption         MM
+    StatusWhenOn.Glow            Yes
+    StatusWhenOn.Color           WHITE
+    StatusWhenOn.Effects         []
+    StatusWhenOn.Name            Tahoma
+    StatusWhenOn.Size            8
+    StatusWhenOn.Style           []
+    StatusWhenOn.Visible         Yes
+    Top                          408
+    Width                        66
+    OnChanged                    'Report Message'
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
 end
