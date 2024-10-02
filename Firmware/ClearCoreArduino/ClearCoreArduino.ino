@@ -56,7 +56,7 @@ void setup() {
 	XMotor.AccelMax(acceleration);
 	XMotor.MoveStopDecel(0);
 
-  HMI.begin(9600);
+  HMI.begin(200000);
   while(!genie.Begin(HMI)) {
     Console.println("Waiting for HMI...");
   }
