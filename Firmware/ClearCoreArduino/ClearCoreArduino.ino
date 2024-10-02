@@ -56,7 +56,7 @@ void setup() {
 	XMotor.AccelMax(acceleration);
 	XMotor.MoveStopDecel(0);
 
-  HMI.begin(200000);
+  HMI.begin(115200);
   while(!genie.Begin(HMI)) {
     Console.println("Waiting for HMI...");
   }
@@ -124,5 +124,5 @@ void hmiEventHandler(void)
   Console.print("Data: ");
   Console.print(Event.reportObject.data_lsb);
   Console.print(" ");
-  Console.print(Event.reportObject.data_msb);
+  Console.println(Event.reportObject.data_msb);
 }
