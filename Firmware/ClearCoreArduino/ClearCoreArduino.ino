@@ -67,7 +67,7 @@ void setup() {
 void loop() {
     genie.DoEvents();
 
-		count = EncoderIn.Position();
+	count = EncoderIn.Position();
     if( count != oldCount ) {
       genie.WriteIntLedDigits(0,count/4);
       oldCount = count;
@@ -78,34 +78,34 @@ void loop() {
     //Console.print("Resolution: ");
     //Console.println(JogResolution.AnalogVoltage());
 
-		if( ! EStop.State() ) {
-			XMotor.MoveStopDecel(0);
-			return;
-		}
- 		if( ! RightLimit.State() && ! LeftLimit.State() ) {
- 			XMotor.MoveStopDecel(0);
- 			return;
- 		}
+	if( ! EStop.State() ) {
+		XMotor.MoveStopDecel(0);
+		return;
+	}
+	if( ! RightLimit.State() && ! LeftLimit.State() ) {
+ 		XMotor.MoveStopDecel(0);
+ 		return;
+ 	}
  		
- 		if( ! LeftLimit.State() ) {
- 			currentMove = MoveDirection::MOVING_RIGHT;
- 		}
- 		else if( ! RightLimit.State() ) {
- 			currentMove = MoveDirection::MOVING_LEFT;
- 		}
+ 	if( ! LeftLimit.State() ) {
+ 		currentMove = MoveDirection::MOVING_RIGHT;
+ 	}
+ 	else if( ! RightLimit.State() ) {
+ 		currentMove = MoveDirection::MOVING_LEFT;
+ 	}
 
-		switch(currentMove) {
-			case MoveDirection::MOVING_RIGHT:
-				XMotor.MoveVelocity(velocity RIGHT);
-				break;
+	switch(currentMove) {
+		case MoveDirection::MOVING_RIGHT:
+			XMotor.MoveVelocity(velocity RIGHT);
+			break;
 				
-			case MoveDirection::MOVING_LEFT:
-				XMotor.MoveVelocity(velocity LEFT);
-				break;
+		case MoveDirection::MOVING_LEFT:
+			XMotor.MoveVelocity(velocity LEFT);
+			break;
 				
-			default:
-				XMotor.MoveStopDecel(0);
-		}
+		default:
+			XMotor.MoveStopDecel(0);
+	}
 }
 
 void hmiEventHandler(void)
