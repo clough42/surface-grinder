@@ -41,3 +41,6 @@ Firmware/HMI/SURFAC~1.gci
 Firmware/HMI/SURFAC~1.dat
 Firmware/HMI/SurfaceGrinder.4XE
 Firmware/HMI/SurfaceGrinder.cfg
+/Firmware/ClearCoreArduino/__vm
+*.user
+*.filters
