@@ -36,6 +36,7 @@ enum class MoveDirection { MOVING_RIGHT, MOVING_LEFT };
 MoveDirection currentMove = MoveDirection::MOVING_RIGHT;
 
 int32_t count = 0, oldCount = 0;
+int axis, oldAxis = 0, resolution, oldResolution = 0;
 
 void setup() {
   Console.begin(9600);
@@ -73,10 +74,18 @@ void loop() {
       oldCount = count;
     }
 
-    //Console.print("Axis: ");
-    //Console.println(JogAxis.AnalogVoltage());
-    //Console.print("Resolution: ");
-    //Console.println(JogResolution.AnalogVoltage());
+	axis = quadrant(JogAxis.AnalogVoltage());
+	resolution = quadrant(JogResolution.AnalogVoltage());
+
+	if (abs(axis - oldAxis) > 0.5 || abs(resolution - oldResolution) > 0.5) {
+		Console.print("Axis: ");
+		Console.println(axis);
+		Console.print("Resolution: ");
+		Console.println(resolution);
+		oldAxis = axis;
+		oldResolution = resolution;
+	}
+
 
 	if( ! EStop.State() ) {
 		XMotor.MoveStopDecel(0);
@@ -107,6 +116,11 @@ void loop() {
 			XMotor.MoveStopDecel(0);
 	}
 }
+
+int quadrant(float voltage) {
+	return ((int)((voltage * 0.6) + 1)) / 2;
+}
+
 
 void hmiEventHandler(void)
 {
