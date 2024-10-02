@@ -13,9 +13,10 @@
 int32_t velocity = 100 RPM;
 int32_t acceleration = 5000 RPM; // per second
 
-auto& EStop = ConnectorIO1;
-auto& LeftLimit = ConnectorIO2;
-auto& RightLimit = ConnectorIO3;
+auto& LED = ConnectorLed;
+auto& EStop = ConnectorIO0;
+auto& LeftLimit = ConnectorIO1;
+auto& RightLimit = ConnectorIO2;
 
 auto& XMotor = ConnectorM0;
 
@@ -25,6 +26,9 @@ int main(void) {
 	EStop.Mode(Connector::INPUT_DIGITAL);
 	LeftLimit.Mode(Connector::INPUT_DIGITAL);
 	RightLimit.Mode(Connector::INPUT_DIGITAL);
+	
+	EncoderIn.Enable(true);
+	
 	
 	MotorMgr.MotorInputClocking(MotorManager::CLOCK_RATE_NORMAL);
 	MotorMgr.MotorModeSet(MotorManager::MOTOR_M0M1, Connector::CPM_MODE_STEP_AND_DIR);
@@ -36,23 +40,27 @@ int main(void) {
 	
 	MoveDirection currentMove = MoveDirection::MOVING_RIGHT;
 	
+	int32_t count = 0;
     while (true)
     {
+		count = EncoderIn.Position();
+		LED.State(count > 10);
+
 		if( ! EStop.State() ) {
 			XMotor.MoveStopDecel(0);
 			continue;
 		}
-		if( ! RightLimit.State() && ! LeftLimit.State() ) {
-			XMotor.MoveStopDecel(0);
-			continue;
-		}
-		
-		if( ! LeftLimit.State() ) {
-			currentMove = MoveDirection::MOVING_RIGHT;
-		}
-		else if( ! RightLimit.State() ) {
-			currentMove = MoveDirection::MOVING_LEFT;
-		}
+ 		if( ! RightLimit.State() && ! LeftLimit.State() ) {
+ 			XMotor.MoveStopDecel(0);
+ 			continue;
+ 		}
+ 		
+ 		if( ! LeftLimit.State() ) {
+ 			currentMove = MoveDirection::MOVING_RIGHT;
+ 		}
+ 		else if( ! RightLimit.State() ) {
+ 			currentMove = MoveDirection::MOVING_LEFT;
+ 		}
 
 		switch(currentMove) {
 			case MoveDirection::MOVING_RIGHT:
