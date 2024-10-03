@@ -44,3 +44,4 @@ Firmware/HMI/SurfaceGrinder.cfg
 /Firmware/ClearCoreArduino/__vm
 *.user
 *.filters
+*.4DGTX

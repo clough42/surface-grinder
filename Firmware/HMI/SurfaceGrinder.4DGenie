@@ -406,3 +406,79 @@ WinButton
     OnTouchPressed               ''
     OnTouchReleased              ''
 end
+iLed
+    Name                         ILed3
+    Alias                        Resolution1
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         574
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          30
+    Width                        35
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed4
+    Alias                        Resolution10
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         534
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          30
+    Width                        35
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed5
+    Alias                        Resolution100
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         495
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          30
+    Width                        35
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed6
+    Alias                        Resolution1000
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         456
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          30
+    Width                        35
+    OnChanged                    ''
+end

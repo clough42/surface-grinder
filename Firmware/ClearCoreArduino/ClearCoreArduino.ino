@@ -7,6 +7,8 @@
 
 #include <genieArduinoDEV.h>
 
+#include "HMIConstants.h"
+
 #define STEPS_PER_REV 1000
 #define SECONDS_PER_MINUTE 60
 #define RPM * STEPS_PER_REV / SECONDS_PER_MINUTE
@@ -16,7 +18,7 @@
 int32_t velocity = 100 RPM;
 int32_t acceleration = 5000 RPM; // per second
 
-auto& LED = ConnectorLed;
+auto& RedLED = ConnectorLed;
 auto& EStop = ConnectorIO0;
 auto& LeftLimit = ConnectorIO1;
 auto& RightLimit = ConnectorIO2;
@@ -25,7 +27,7 @@ auto& CycleStop = ConnectorIO4;
 auto& JogAxis = ConnectorA9;
 auto& JogResolution = ConnectorA10;
 auto& Console = Serial;
-auto& HMI = Serial0;
+auto& HMI = Serial1;
 
 Genie genie;
 
@@ -35,18 +37,26 @@ enum class MoveDirection { MOVING_RIGHT, MOVING_LEFT };
 
 MoveDirection currentMove = MoveDirection::MOVING_RIGHT;
 
-int32_t count = 0, oldCount = 0;
+int32_t oldCount = 0;
 int axis, oldAxis = 0, resolution, oldResolution = 0;
 
-void setup() {
-  Console.begin(9600);
+int sendCount = 0;
 
-  EStop.Mode(Connector::INPUT_DIGITAL);
+int32_t droX, droY, droZ;
+bool updateDros = true;
+
+void setup() {
+	RedLED.Mode(Connector::OUTPUT_DIGITAL);
+	RedLED.State(true);
+
+	Console.begin(9600);
+
+	EStop.Mode(Connector::INPUT_DIGITAL);
 	LeftLimit.Mode(Connector::INPUT_DIGITAL);
 	RightLimit.Mode(Connector::INPUT_DIGITAL);
 	
-  JogAxis.Mode(Connector::INPUT_ANALOG);
-  JogResolution.Mode(Connector::INPUT_ANALOG);
+	JogAxis.Mode(Connector::INPUT_ANALOG);
+	JogResolution.Mode(Connector::INPUT_ANALOG);
 	EncoderIn.Enable(true);
 		
 	MotorMgr.MotorInputClocking(MotorManager::CLOCK_RATE_NORMAL);
@@ -57,22 +67,67 @@ void setup() {
 	XMotor.AccelMax(acceleration);
 	XMotor.MoveStopDecel(0);
 
-  HMI.begin(115200);
-  while(!genie.Begin(HMI)) {
-    Console.println("Waiting for HMI...");
-  }
-  genie.AttachEventHandler(hmiEventHandler);
-  genie.SetForm(0);
+	HMI.begin(115200);
+
+	ConnectorCOM1.RtsMode(SerialBase::LINE_ON);
+	delay(100);
+	ConnectorCOM1.RtsMode(SerialBase::LINE_OFF);
+	delay(100);
+
+	while(!genie.Begin(HMI)) {
+		Console.println("Waiting for HMI...");
+	}
+	while (!genie.IsOnline()) {
+		Console.println("Waiting for HMI...");
+	}
+	genie.AttachEventHandler(hmiEventHandler);
+	genie.SetForm(0);
+	genie.WriteContrast(16);
+
+	RedLED.State(false);
+
 }
 
 void loop() {
     genie.DoEvents();
-
-	count = EncoderIn.Position();
+	
+	int32_t count = (EncoderIn.Position())/4;
     if( count != oldCount ) {
-      genie.WriteIntLedDigits(0,count/4);
+		int32_t increment = count - oldCount;
+		switch (resolution) {
+		case 0:
+			increment *= 1000;
+			break;
+		case 1:
+			increment *= 100;
+			break;
+		case 2:
+			increment *= 10;
+			break;
+		}
+		switch (axis) {
+		case 1:
+			droX += increment;
+			updateDros = true;
+			break;
+		case 2:
+			droY += increment;
+			updateDros = true;
+			break;
+		case 3:
+			droZ += increment;
+			updateDros = true;
+			break;
+		}
+
       oldCount = count;
     }
+	if (updateDros) {
+		genie.WriteIntLedDigits(HMI_DRO_DIGITS_X, droX);
+		genie.WriteIntLedDigits(HMI_DRO_DIGITS_Y, droY);
+		genie.WriteIntLedDigits(HMI_DRO_DIGITS_Z, droZ);
+		updateDros = false;
+	}
 
 	axis = quadrant(JogAxis.AnalogVoltage());
 	resolution = quadrant(JogResolution.AnalogVoltage());
@@ -84,6 +139,17 @@ void loop() {
 		Console.println(resolution);
 		oldAxis = axis;
 		oldResolution = resolution;
+
+		EncoderIn.Position(0);
+		oldCount = 0;
+
+		genie.WriteObject(GENIE_OBJ_ILED, HMI_DRO_LED_X, axis == 1 ? 1 : 0);
+		genie.WriteObject(GENIE_OBJ_ILED, HMI_DRO_LED_Y, axis == 2 ? 1 : 0);
+		genie.WriteObject(GENIE_OBJ_ILED, HMI_DRO_LED_Z, axis == 3 ? 1 : 0);
+		genie.WriteObject(GENIE_OBJ_ILED, HMI_DRO_LED_1S, axis != 0 && resolution == 3 ? 1 : 0);
+		genie.WriteObject(GENIE_OBJ_ILED, HMI_DRO_LED_10S, axis != 0 && resolution == 2 ? 1 : 0);
+		genie.WriteObject(GENIE_OBJ_ILED, HMI_DRO_LED_100S, axis != 0 && resolution == 1 ? 1 : 0);
+		genie.WriteObject(GENIE_OBJ_ILED, HMI_DRO_LED_1000S, axis != 0 && resolution == 0 ? 1 : 0);
 	}
 
 
@@ -124,19 +190,51 @@ int quadrant(float voltage) {
 
 void hmiEventHandler(void)
 {
-  Console.println("Got HMI event");
-
   genieFrame Event;
   genie.DequeueEvent(&Event);
 
-  Console.print("Object: ");
-  Console.println(Event.reportObject.object);
-  Console.print("Cmd: ");
+  // DRO Zero Buttons
+  if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI_DRO_ZERO_BUTTON_X)) {
+	  droX = 0;
+	  updateDros = true;
+	  return;
+  }
+  if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI_DRO_ZERO_BUTTON_Y)) {
+	  droY = 0;
+	  updateDros = true;
+	  return;
+  }
+  if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI_DRO_ZERO_BUTTON_Z)) {
+	  droZ = 0;
+	  updateDros = true;
+	  return;
+  }
+ 
+  // Unit Selection
+  if (genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI_UNITS_BUTTON)) {
+	  switch (Event.reportObject.data_lsb) {
+	  case HMI_UNITS_BUTTON_VAL_INCH:
+		  Console.println("Switch to Inches");
+		  return;
+	  case HMI_UNITS_BUTTON_VAL_MM:
+		  Console.println("Switch to Millimeters");
+		  return;
+
+	  }
+  }
+
+  Console.println("Unknown HMI event: ");
+
+  Console.print("cmd=");
   Console.println(Event.reportObject.cmd);
-  Console.print("Index: ");
+  Console.print("object=");
+  Console.println(Event.reportObject.object);
+  Console.print("index=");
   Console.println(Event.reportObject.index);
-  Console.print("Data: ");
-  Console.print(Event.reportObject.data_lsb);
-  Console.print(" ");
+  Console.print("lsb=");
+  Console.println(Event.reportObject.data_lsb);
+  Console.print("msb=");
   Console.println(Event.reportObject.data_msb);
+
 }
+
