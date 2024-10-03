@@ -11,7 +11,7 @@ Options
     Multidrop                    No
     Destination                  1
     DestBank                     0
-    MainForm                     0
+    MainForm                     1
     SndBuf                       0
     ButtonDisable                No
     SignedDigits                 Yes
@@ -481,4 +481,56 @@ iLed
     Top                          30
     Width                        35
     OnChanged                    ''
+end
+Form
+    Name                         Form1
+    Alias                        Splash
+    Bgtype                       Color
+    Color                        WHITE
+    Image                        (None)
+    Source.Height                0
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 0
+    OnActivate                   ''
+    OnCreate                     ''
+    OnRepeat                     ''
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image0
+    Alias                        Logo
+    Height                       165
+    Image                        'CLOUGH42-only-01 -600.png'
+    Left                         100
+    Source.Height                165
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 600
+    Top                          132
+    Width                        600
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+StaticText
+    Name                         Statictext3
+    Alias                        LoadingMessage
+    Alignment                    Left
+    AutoSize                     Yes
+    Caption                      'Establishing communication, please wait...'
+    Color                        BLACK
+    Font.Color                   BLACK
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    24
+    Font.Style                   []
+    Height                       40
+    Left                         192
+    Top                          400
+    Transparent                  Yes
+    Width                        416
+    WordWrap                     No
 end

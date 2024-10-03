@@ -1,4 +1,9 @@
-#pragma once
+#ifndef __HMICONSTANTS_H
+#define __HMICONSTANTS_H
+
+
+// Form 0 - DRO
+#define HMI_FORM_DRO 0
 
 #define HMI_DRO_DIGITS_X 0
 #define HMI_DRO_DIGITS_Y 1
@@ -20,3 +25,10 @@
 #define HMI_UNITS_BUTTON 3
 #define HMI_UNITS_BUTTON_VAL_INCH 0
 #define HMI_UNITS_BUTTON_VAL_MM 1
+
+
+// Form 1 - Splash
+#define HMI_FORM_SPLASH 1
+
+
+#endif // __HMICONSTANTS_H
