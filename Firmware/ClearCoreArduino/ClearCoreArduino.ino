@@ -72,20 +72,17 @@ void setup() {
 	ConnectorCOM1.RtsMode(SerialBase::LINE_ON);
 	delay(100);
 	ConnectorCOM1.RtsMode(SerialBase::LINE_OFF);
-	delay(100);
+	delay(3000); // let the HMI boot after resetting, before trying to talk to it
 
-	while(!genie.Begin(HMI)) {
-		Console.println("Waiting for HMI...");
-	}
-	while (!genie.IsOnline()) {
-		Console.println("Waiting for HMI...");
-	}
+	while(!genie.Begin(HMI));
+	while (!genie.IsOnline()) delay(100);
+
 	genie.AttachEventHandler(hmiEventHandler);
+
 	genie.SetForm(0);
-	genie.WriteContrast(16);
+	genie.WriteContrast(15);
 
 	RedLED.State(false);
-
 }
 
 void loop() {
