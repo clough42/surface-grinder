@@ -1,5 +1,5 @@
-#ifndef __HMICONSTANTS_H
-#define __HMICONSTANTS_H
+#ifndef __HMICONSTANTS_H__
+#define __HMICONSTANTS_H__
 
 
 // Form 0 - DRO
@@ -31,4 +31,4 @@
 #define HMI_FORM_SPLASH 1
 
 
-#endif // __HMICONSTANTS_H
+#endif // __HMICONSTANTS_H__
