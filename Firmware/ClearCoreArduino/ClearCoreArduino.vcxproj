@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HMIConstants.h" />
+    <ClInclude Include="MachineAxis.h" />
     <ClInclude Include="__vm\.ClearCoreArduino.vsarduino.h" />
   </ItemGroup>
   <PropertyGroup>

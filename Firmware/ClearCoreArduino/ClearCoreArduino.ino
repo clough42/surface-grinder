@@ -8,15 +8,11 @@
 #include <genieArduinoDEV.h>
 
 #include "HMIConstants.h"
+#include "MachineAxis.h"
 
-#define STEPS_PER_REV 1000
-#define SECONDS_PER_MINUTE 60
-#define RPM * STEPS_PER_REV / SECONDS_PER_MINUTE
-#define RIGHT * -1
-#define LEFT * 1
-
-int32_t velocity = 100 RPM;
-int32_t acceleration = 5000 RPM; // per second
+MachineAxis XAxis(ConnectorM0, 1, 1, CLEARCORE_PIN_IO0);
+MachineAxis YAxis(ConnectorM1, 1, 1, CLEARCORE_PIN_IO0);
+MachineAxis ZAxis(ConnectorM2, 1, 1, CLEARCORE_PIN_IO0);
 
 auto& RedLED = ConnectorLed;
 auto& EStop = ConnectorIO0;
@@ -31,11 +27,7 @@ auto& HMI = Serial1;
 
 Genie genie;
 
-auto& XMotor = ConnectorM0;
-
-enum class MoveDirection { MOVING_RIGHT, MOVING_LEFT };
-
-MoveDirection currentMove = MoveDirection::MOVING_RIGHT;
+int32_t targetPosition = 1000;
 
 int32_t oldCount = 0;
 int axis, oldAxis = 0, resolution, oldResolution = 0;
@@ -62,13 +54,11 @@ void setup() {
 	EncoderIn.Enable(true);
 		
 	MotorMgr.MotorInputClocking(MotorManager::CLOCK_RATE_NORMAL);
-	MotorMgr.MotorModeSet(MotorManager::MOTOR_M0M1, Connector::CPM_MODE_STEP_AND_DIR);
-	
-	XMotor.EStopConnector(CLEARCORE_PIN_IO0);
-	XMotor.EnableRequest(true);
-	
-	XMotor.AccelMax(acceleration);
-	XMotor.MoveStopDecel(0);
+	MotorMgr.MotorModeSet(MotorManager::MOTOR_ALL, Connector::CPM_MODE_STEP_AND_DIR);
+
+	XAxis.initHardware();
+	YAxis.initHardware();
+	ZAxis.initHardware();
 
 	HMI.begin(115200);
 
@@ -152,11 +142,16 @@ void loop() {
 		genie.WriteObject(GENIE_OBJ_ILED, HMI_DRO_LED_1000S, axis != 0 && resolution == 0 ? 1 : 0);
 	}
 
+	Console.print("Current/Target position: ");
+	Console.print(XAxis.GetPositionInNanometers());
+	Console.print("/");
+	Console.println(targetPosition);
 
 	bool estopButton = EStop.State();
 	if( estopButton != inEstop )  {
 		if (estopButton) {
-			XMotor.ClearAlerts();
+			XAxis.ClearAlerts();
+			XAxis.Move(targetPosition);
 		}
 		inEstop = estopButton;
 	}
@@ -172,18 +167,11 @@ void loop() {
  		currentMove = MoveDirection::MOVING_LEFT;
  	}*/
 
-	switch(currentMove) {
-		case MoveDirection::MOVING_RIGHT:
-			XMotor.MoveVelocity(velocity RIGHT);
-			break;
-				
-		case MoveDirection::MOVING_LEFT:
-			XMotor.MoveVelocity(velocity LEFT);
-			break;
-				
-		default:
-			XMotor.MoveStopDecel(0);
+	if (XAxis.IsMoveComplete()) {
+		targetPosition = -targetPosition;
+		XAxis.Move(targetPosition);
 	}
+
 }
 
 int quadrant(float voltage) {
