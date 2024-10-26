@@ -45,6 +45,8 @@ int sendCount = 0;
 int32_t droX, droY, droZ;
 bool updateDros = true;
 
+bool inEstop = false;
+
 void setup() {
 	RedLED.Mode(Connector::OUTPUT_DIGITAL);
 	RedLED.State(true);
@@ -62,6 +64,7 @@ void setup() {
 	MotorMgr.MotorInputClocking(MotorManager::CLOCK_RATE_NORMAL);
 	MotorMgr.MotorModeSet(MotorManager::MOTOR_M0M1, Connector::CPM_MODE_STEP_AND_DIR);
 	
+	XMotor.EStopConnector(CLEARCORE_PIN_IO0);
 	XMotor.EnableRequest(true);
 	
 	XMotor.AccelMax(acceleration);
@@ -150,11 +153,14 @@ void loop() {
 	}
 
 
-	if( ! EStop.State() ) {
-		XMotor.MoveStopDecel(0);
-		return;
+	bool estopButton = EStop.State();
+	if( estopButton != inEstop )  {
+		if (estopButton) {
+			XMotor.ClearAlerts();
+		}
+		inEstop = estopButton;
 	}
-	if( ! RightLimit.State() && ! LeftLimit.State() ) {
+	/*if( ! RightLimit.State() && ! LeftLimit.State() ) {
  		XMotor.MoveStopDecel(0);
  		return;
  	}
@@ -164,7 +170,7 @@ void loop() {
  	}
  	else if( ! RightLimit.State() ) {
  		currentMove = MoveDirection::MOVING_LEFT;
- 	}
+ 	}*/
 
 	switch(currentMove) {
 		case MoveDirection::MOVING_RIGHT:
