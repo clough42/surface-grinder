@@ -1,3 +1,4 @@
+// MachineAxis.h
 #ifndef MACHINE_AXIS_H
 #define MACHINE_AXIS_H
 
@@ -15,38 +16,20 @@ public:
     MachineAxis(MotorDriver& motor, int32_t numerator, int32_t denominator, ClearCorePins eStopPin)
         : m_stepsPerNmNumerator(numerator), m_stepsPerNmDenominator(denominator), m_motor(motor), m_eStopPin(eStopPin) {}
 
-    void initHardware() {
-        m_motor.EStopConnector(m_eStopPin);
-        m_motor.EnableRequest(true);
-		m_motor.VelMax(MAX_VELOCITY);
-        m_motor.AccelMax(MAX_ACCELERATION);
-        m_motor.MoveStopDecel(0);
-    }
+    void Init();
 
-    void Move(int32_t positionInNanometers) {
-        m_targetMotorSteps = (positionInNanometers * m_stepsPerNmNumerator) / m_stepsPerNmDenominator;
-        m_motor.Move(m_targetMotorSteps, StepGenerator::MOVE_TARGET_ABSOLUTE);
-    }
+    void Move(int32_t positionInNanometers);
 
-    int32_t GetPositionInNanometers() const {
-        int32_t motorSteps = m_motor.PositionRefCommanded();
-        return (motorSteps * m_stepsPerNmDenominator) / m_stepsPerNmNumerator;
-    }
+    int32_t GetPositionInNanometers() const;
 
-    bool IsMoveComplete() const {
-        return m_motor.StepsComplete() && m_motor.PositionRefCommanded() == m_targetMotorSteps;
-    }
+    bool IsMoveComplete() const;
 
-    void ClearAlerts() {
-        m_motor.ClearAlerts();
-    }
+    void ClearAlerts();
 
 private:
     // Ratio of nanometers to motor steps
     int32_t m_stepsPerNmNumerator;
     int32_t m_stepsPerNmDenominator;
-
-    int32_t m_targetMotorSteps = 0;
 
     // The motor driver to use for this axis
     MotorDriver &m_motor;
