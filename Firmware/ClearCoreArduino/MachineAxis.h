@@ -8,13 +8,19 @@
 #define STEPS_PER_REV 1000
 #define SECONDS_PER_MINUTE 60
 #define RPM * STEPS_PER_REV / SECONDS_PER_MINUTE
-#define MAX_VELOCITY 10 RPM
-#define MAX_ACCELERATION 500
+#define MAX_VELOCITY 1000 RPM
+#define MAX_ACCELERATION 50000
 
 class MachineAxis {
 public:
-    MachineAxis(MotorDriver& motor, int32_t stepsPerNmNumerator, int32_t stepsPerNmDenominator, ClearCorePins eStopPin)
-        : m_stepsPerNmNumerator(stepsPerNmNumerator), m_stepsPerNmDenominator(stepsPerNmDenominator), m_motor(motor), m_eStopPin(eStopPin) {}
+
+    enum Direction {
+        NORMAL = 1,
+        REVERSE = -1
+    };
+
+    MachineAxis(MotorDriver& motor, int32_t stepsPerNmNumerator, int32_t stepsPerNmDenominator, ClearCorePins eStopPin, Direction motorDirection = NORMAL)
+        : m_stepsPerNmNumerator(stepsPerNmNumerator), m_stepsPerNmDenominator(stepsPerNmDenominator), m_motor(motor), m_eStopPin(eStopPin), m_motorDirection(motorDirection) {}
 
     void Init();
     void MoveToPositionNm(int32_t positionInNanometers);
@@ -31,6 +37,9 @@ private:
 
     // The motor driver to use for this axis
     MotorDriver &m_motor;
+
+    // Direction config
+    Direction m_motorDirection;
 
     // EStop pin
     ClearCorePins m_eStopPin;

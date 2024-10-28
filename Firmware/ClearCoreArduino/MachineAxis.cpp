@@ -1,5 +1,6 @@
 #include "MachineAxis.h"
 #include "HMIConstants.h"
+#include <Arduino.h>
 
 void MachineAxis::Init() {
     m_motor.EStopConnector(m_eStopPin);
@@ -10,9 +11,15 @@ void MachineAxis::Init() {
 }
 
 void MachineAxis::MoveToPositionNm(int32_t positionInNanometers) {
-    int32_t motorSteps = (positionInNanometers * m_stepsPerNmNumerator) / m_stepsPerNmDenominator;
-    m_motor.Move(motorSteps, StepGenerator::MOVE_TARGET_ABSOLUTE);
+    int64_t motorSteps = (static_cast<int64_t>(positionInNanometers) * m_stepsPerNmNumerator) / m_stepsPerNmDenominator;
+    m_motor.Move(static_cast<int32_t>(motorSteps) * m_motorDirection, StepGenerator::MOVE_TARGET_ABSOLUTE);
     m_lastCommandedPosition = positionInNanometers;
+
+    Serial.print("Move to position (nm): ");
+    Serial.println(positionInNanometers);
+	Serial.print("Motor steps: ");
+    Serial.println(motorSteps);
+    Serial.println();
 }
 
 void MachineAxis::JogNm(int32_t distanceInNanometers)
@@ -21,8 +28,9 @@ void MachineAxis::JogNm(int32_t distanceInNanometers)
 }
 
 int32_t MachineAxis::GetCurrentPositionNm() const {
-    int32_t motorSteps = m_motor.PositionRefCommanded();
-    return (motorSteps * m_stepsPerNmDenominator) / m_stepsPerNmNumerator;
+    int32_t motorSteps = m_motor.PositionRefCommanded() * m_motorDirection;
+    int64_t currentPositionNm = (static_cast<int64_t>(motorSteps) * m_stepsPerNmDenominator) / m_stepsPerNmNumerator;
+	return static_cast<int32_t>(currentPositionNm);
 }
 
 int32_t MachineAxis::GetLastCommandedPositionNm() const

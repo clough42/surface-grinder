@@ -12,13 +12,14 @@
 
 auto& RedLED = ConnectorLed;
 
-MachineAxis XAxis(ConnectorM0, 3, 130175, CLEARCORE_PIN_IO0);
-MachineAxis YAxis(ConnectorM1, 6, 3175, CLEARCORE_PIN_IO0);
-MachineAxis ZAxis(ConnectorM2, 3, 6350, CLEARCORE_PIN_IO0);
+MachineAxis XAxis(ConnectorM0, 3, 130175, CLEARCORE_PIN_IO0, MachineAxis::REVERSE);
+MachineAxis YAxis(ConnectorM1, 6, 3175, CLEARCORE_PIN_IO0, MachineAxis::REVERSE);
+MachineAxis ZAxis(ConnectorM2, 3, 6350, CLEARCORE_PIN_IO0, MachineAxis::REVERSE);
 
 MachineAxis* axes[3] = { &XAxis, &YAxis, &ZAxis };
 GrinderModel Model(axes);
 
+GrinderControlPanel::DroDirection droDirections[3] = { GrinderControlPanel::DOWN, GrinderControlPanel::UP, GrinderControlPanel::UP };
 GrinderControlPanel ControlPanel(
 	ConnectorIO0,	// ESTOP
 	ConnectorIO1,	// Left Limit
@@ -30,7 +31,8 @@ GrinderControlPanel ControlPanel(
 	Serial1,		// HMI Serial Port
 	ConnectorCOM1,	// HMI Serial Connector
 	EncoderIn,		// Encoder Input
-	Model			// Grinder Model
+	Model,			// Model
+	droDirections	// DRO Directions
 );
 
 int32_t targetPosition = 1000;
@@ -59,36 +61,7 @@ void setup() {
 
 void loop() {
 	ControlPanel.Update();
-    	
-	//Serial.print("Current/Target position: ");
-	//Serial.print(XAxis.GetCurrentPositionNm());
-	//Serial.print("/");
-	//Serial.println(targetPosition);
-
-	bool estopButton = ControlPanel.EStopState();
-	if( estopButton != inEstop )  {
-		if (estopButton) {
-			XAxis.ResetAndEnable();
-			XAxis.MoveToPositionNm(targetPosition);
-		}
-		inEstop = estopButton;
-	}
-	/*if( ! RightLimit.State() && ! LeftLimit.State() ) {
- 		XMotor.MoveStopDecel(0);
- 		return;
- 	}
- 		
- 	if( ! LeftLimit.State() ) {
- 		currentMove = MoveDirection::MOVING_RIGHT;
- 	}
- 	else if( ! RightLimit.State() ) {
- 		currentMove = MoveDirection::MOVING_LEFT;
- 	}*/
-
-	if (XAxis.IsMoveComplete()) {
-		targetPosition = -targetPosition;
-		XAxis.MoveToPositionNm(targetPosition);
-	}
+	Model.Update();
 
 }
 
