@@ -57,7 +57,6 @@ public:
 
     void Init();
     void Update();
-    bool EStopState();
     void HandleHmiEvent(genieFrame& Event);
 
 private:
@@ -86,8 +85,6 @@ private:
     AnalogSwitch m_jogResolution;
 
 	GrinderModel& m_grinderModel;
-
-    int quadrant(float voltage);
 
     static void HmiEventHandler();
     static GrinderControlPanel *s_instance;

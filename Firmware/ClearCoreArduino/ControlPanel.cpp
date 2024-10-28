@@ -122,7 +122,8 @@ void GrinderControlPanel::UpdateJogControls() {
 		GrinderModel::Axis selectedAxis = (GrinderModel::Axis)(axisSwitchPosition - 1);
 
         // read the encoder and figure out the desired jog amount
-        int32_t encoderCount = (EncoderIn.Position() + 2) / 4; // each click is one full quadrature cycle
+        int32_t rawEncoderCount = EncoderIn.Position();
+        int32_t encoderCount = (rawEncoderCount >= 0 ? rawEncoderCount + 2 : rawEncoderCount - 2) / 4; // divide by four, rounding
         if (encoderCount != m_previousEncoderCount) {
             int32_t increment = encoderCount - m_previousEncoderCount;
 
@@ -164,11 +165,6 @@ void GrinderControlPanel::UpdateEstop() {
     if (m_eStop.InputRisen()) {
         m_model.ResetAndEnable();
     }
-}
-
-bool GrinderControlPanel::EStopState()
-{
-    return m_eStop.State();
 }
 
 void GrinderControlPanel::HmiEventHandler() {
