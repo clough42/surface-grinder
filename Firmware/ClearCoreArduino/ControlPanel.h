@@ -64,6 +64,7 @@ private:
     void UpdateDros();
     void UpdateJogControls();
     void UpdateDro(GrinderModel::Axis axis, int hmiDigitsId);
+	void UpdateEstop();
     int32_t ConvertToUnits(int32_t nanometers); // convert to (units * 2^5)
 	int32_t ConvertToNm(int32_t units); // convert from (units * 2^5)
 

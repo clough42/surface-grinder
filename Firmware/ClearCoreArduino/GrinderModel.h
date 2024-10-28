@@ -30,6 +30,12 @@ public:
 		m_axes[axis]->JogNm(distanceInNanometers);
 	}
 
+	void ResetAndEnable() {
+		for (int i = 0; i < 3; ++i) {
+			m_axes[i]->ResetAndEnable();
+		}
+	}
+
 private:
     MachineAxis* m_axes[3];
 };

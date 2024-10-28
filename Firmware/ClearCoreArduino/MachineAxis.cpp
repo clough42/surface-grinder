@@ -43,5 +43,7 @@ bool MachineAxis::IsMoveComplete() const {
 }
 
 void MachineAxis::ResetAndEnable() {
+    m_lastCommandedPosition = GetCurrentPositionNm();
     m_motor.ClearAlerts();
+	m_motor.EnableRequest(true);
 }

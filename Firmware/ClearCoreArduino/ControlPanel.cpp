@@ -35,6 +35,7 @@ void GrinderControlPanel::Update() {
 
     UpdateDros();
     UpdateJogControls();
+    UpdateEstop();
 
 	m_forceHmiUpdate = false; // reset the force update flag
 }
@@ -156,6 +157,12 @@ void GrinderControlPanel::UpdateJogControls() {
 
             m_previousEncoderCount = encoderCount;
         }
+    }
+}
+
+void GrinderControlPanel::UpdateEstop() {
+    if (m_eStop.InputRisen()) {
+        m_model.ResetAndEnable();
     }
 }
 
