@@ -3,16 +3,10 @@
 #define GRINDER_MODEL_H
 
 #include "MachineAxis.h"
+#include "GrinderViewModel.h"
 
-class GrinderModel {
+class GrinderModel : public GrinderViewModel {
 public:
-    // Namespace to specify the axes
-    enum Axis {
-        X = 0,
-        Y = 1,
-        Z = 2
-    };
-
     // Constructor that takes an array of three MachineAxis objects
     GrinderModel(MachineAxis* axes[3]);
 
@@ -22,9 +16,9 @@ public:
     // Method to update all axes
     void Update();
 
-	int32_t GetCurrentPositionNm(Axis axis) const {
+    int32_t GetCurrentPositionNm(Axis axis) const override {
 		return m_axes[axis]->GetCurrentPositionNm();
-	}
+	};
 
 	void JogAxisNm(Axis axis, int32_t distanceInNanometers) {
 		m_axes[axis]->JogNm(distanceInNanometers);

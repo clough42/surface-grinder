@@ -9,6 +9,7 @@
 
 #include "MachineAxis.h"
 #include "ControlPanel.h"
+#include "GrinderController.h"
 
 auto& RedLED = ConnectorLed;
 
@@ -16,9 +17,11 @@ MachineAxis XAxis(ConnectorM0, 3, 130175, CLEARCORE_PIN_IO0, MachineAxis::REVERS
 MachineAxis YAxis(ConnectorM1, 6, 3175, CLEARCORE_PIN_IO0, MachineAxis::REVERSE);
 MachineAxis ZAxis(ConnectorM2, 3, 6350, CLEARCORE_PIN_IO0, MachineAxis::REVERSE);
 
+// Model
 MachineAxis* axes[3] = { &XAxis, &YAxis, &ZAxis };
 GrinderModel Model(axes);
 
+// View
 GrinderControlPanel::DroDirection droDirections[3] = { GrinderControlPanel::DOWN, GrinderControlPanel::UP, GrinderControlPanel::UP };
 GrinderControlPanel ControlPanel(
 	ConnectorIO0,	// ESTOP
@@ -35,6 +38,9 @@ GrinderControlPanel ControlPanel(
 	droDirections	// DRO Directions
 );
 
+// Controller
+GrinderController Controller(Model, ControlPanel);
+
 int32_t targetPosition = 1000;
 bool inEstop = false;
 
@@ -49,20 +55,14 @@ void setup() {
 	MotorMgr.MotorInputClocking(MotorManager::CLOCK_RATE_NORMAL);
 	MotorMgr.MotorModeSet(MotorManager::MOTOR_ALL, Connector::CPM_MODE_STEP_AND_DIR);
 
-	XAxis.Init();
-	YAxis.Init();
-	ZAxis.Init();
-
-	ControlPanel.Init();
+	Controller.Init(); // also initializes model and view
 
 	// Red LED off at the end
 	RedLED.State(false);
 }
 
 void loop() {
-	ControlPanel.Update();
-	Model.Update();
-
+	Controller.Update();
 }
 
 

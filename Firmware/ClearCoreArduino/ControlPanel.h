@@ -8,6 +8,7 @@
 #include <genieArduinoDEV.h>
 #include "GrinderModel.h"
 #include "AnalogSwitch.h"
+#include "Controller.h"
 
 class GrinderControlPanel {
 public:
@@ -33,7 +34,7 @@ public:
         Uart& hmiSerial,
         Connector& hmiConnector,
         EncoderInput& encoderIn,
-        GrinderModel& model,
+        GrinderViewModel& model,
         DroDirection droDirections[3]
     ) : m_eStop(eStop),
         m_leftLimit(leftLimit),
@@ -43,7 +44,6 @@ public:
         m_hmiSerial(hmiSerial),
         m_hmiConnector(hmiConnector),
         m_encoderIn(encoderIn),
-        m_grinderModel(model),
         m_jogAxis(jogAxisInput),
         m_jogResolution(jogResolutionInput),
         m_model(model),
@@ -55,7 +55,7 @@ public:
 		}
     }
 
-    void Init();
+    void Init(Controller* controller);
     void Update();
     void HandleHmiEvent(genieFrame& Event);
 
@@ -76,15 +76,14 @@ private:
     Connector& m_hmiConnector;
     EncoderInput& m_encoderIn;
 
-    GrinderModel& m_model;
+    GrinderViewModel& m_model;
+    Controller* m_controller = nullptr;
 
     Genie m_genie;
 	Units m_currentUnits;
 
     AnalogSwitch m_jogAxis;
     AnalogSwitch m_jogResolution;
-
-	GrinderModel& m_grinderModel;
 
     static void HmiEventHandler();
     static GrinderControlPanel *s_instance;

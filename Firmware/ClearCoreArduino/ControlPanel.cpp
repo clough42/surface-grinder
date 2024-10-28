@@ -4,7 +4,9 @@
 
 GrinderControlPanel* GrinderControlPanel::s_instance = nullptr;
 
-void GrinderControlPanel::Init() {
+void GrinderControlPanel::Init(Controller* controller) {
+    m_controller = controller;
+
     m_jogAxis.Init();
 	m_jogResolution.Init();
 
@@ -143,7 +145,7 @@ void GrinderControlPanel::UpdateJogControls() {
                 increment *= 10; // Metric resolutions are 10X larger on a pure decimal basis
             }
 
-			int32_t jogAmountNm = ConvertToNm(increment);
+            int32_t jogAmountNm = ConvertToNm(increment);
 
             // Debug output
             Serial.print("Selected Axis: ");
@@ -154,7 +156,9 @@ void GrinderControlPanel::UpdateJogControls() {
             Serial.println(jogAmountNm);
             Serial.println();
 
-			m_model.JogAxisNm(selectedAxis, jogAmountNm);
+            if (m_controller) {
+                m_controller->JogAxisNm(selectedAxis, jogAmountNm);
+            }
 
             m_previousEncoderCount = encoderCount;
         }
@@ -162,8 +166,15 @@ void GrinderControlPanel::UpdateJogControls() {
 }
 
 void GrinderControlPanel::UpdateEstop() {
+	if (m_eStop.InputFallen()) {
+		if (m_controller) {
+			m_controller->EnterEstop();
+		}
+	}
     if (m_eStop.InputRisen()) {
-        m_model.ResetAndEnable();
+        if (m_controller) {
+            m_controller->ClearEstop();
+        }
     }
 }
 
