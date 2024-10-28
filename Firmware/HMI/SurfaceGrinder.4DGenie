@@ -482,6 +482,25 @@ iLed
     Width                        35
     OnChanged                    ''
 end
+iLed
+    Name                         ILed7
+    Alias                        ILed7
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         417
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          30
+    Width                        35
+    OnChanged                    ''
+end
 Form
     Name                         Form1
     Alias                        Splash

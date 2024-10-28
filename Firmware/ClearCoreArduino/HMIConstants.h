@@ -18,6 +18,7 @@ namespace HMI {
     constexpr int DRO_LED_10S = 4;
     constexpr int DRO_LED_100S = 5;
     constexpr int DRO_LED_1000S = 6;
+    constexpr int DRO_LED_10000S = 7;
 
     constexpr int DRO_ZERO_BUTTON_X = 0;
     constexpr int DRO_ZERO_BUTTON_Y = 1;

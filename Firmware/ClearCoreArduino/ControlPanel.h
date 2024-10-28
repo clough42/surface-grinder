@@ -61,9 +61,9 @@ public:
     void HandleHmiEvent(genieFrame& Event);
 
 private:
-    void UpdateDros(bool force = false);
-    void UpdateEncoder();
-    void UpdateDro(GrinderModel::Axis axis, int hmiDigitsId, bool force);
+    void UpdateDros();
+    void UpdateJogControls();
+    void UpdateDro(GrinderModel::Axis axis, int hmiDigitsId);
     int32_t ConvertToUnits(int32_t nanometers); // convert to (units * 2^5)
 	int32_t ConvertToNm(int32_t units); // convert from (units * 2^5)
 
@@ -96,6 +96,8 @@ private:
 	int32_t m_previousDroValues[3] = { 0, 0, 0 };
 	int32_t m_previousEncoderCount = 0;
     int32_t m_previousAxisSwitchPosition = 0;
+	int32_t m_previousResolutionSwitchPosition = 0;
+    bool m_forceHmiUpdate = true;
 };
 
 #endif // CONTROL_PANEL_H
