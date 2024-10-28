@@ -10,12 +10,12 @@ bool updateDros = true;
 GrinderControlPanel* GrinderControlPanel::s_instance = nullptr;
 
 void GrinderControlPanel::Init() {
+    m_jogAxis.Init();
+	m_jogResolution.Init();
+
     m_eStop.Mode(Connector::INPUT_DIGITAL);
     m_leftLimit.Mode(Connector::INPUT_DIGITAL);
     m_rightLimit.Mode(Connector::INPUT_DIGITAL);
-    
-    m_jogAxis.Mode(Connector::INPUT_ANALOG);
-    m_jogResolution.Mode(Connector::INPUT_ANALOG);
     
     EncoderIn.Enable(true);
         
@@ -31,12 +31,14 @@ void GrinderControlPanel::Init() {
 
     m_genie.AttachEventHandler(GrinderControlPanel::HmiEventHandler);
 
-    m_genie.SetForm(HMI_FORM_DRO);
+    m_genie.SetForm(HMI::FORM_DRO);
     m_genie.WriteContrast(15);
 }
 
 void GrinderControlPanel::Update() {
     m_genie.DoEvents();
+
+    
 
     int32_t count = (EncoderIn.Position()) / 4;
     if (count != oldCount) {
@@ -70,16 +72,16 @@ void GrinderControlPanel::Update() {
         oldCount = count;
     }
     if (updateDros) {
-        m_genie.WriteIntLedDigits(HMI_DRO_DIGITS_X, droX);
-        m_genie.WriteIntLedDigits(HMI_DRO_DIGITS_Y, droY);
-        m_genie.WriteIntLedDigits(HMI_DRO_DIGITS_Z, droZ);
+        m_genie.WriteIntLedDigits(HMI::DRO_DIGITS_X, droX);
+        m_genie.WriteIntLedDigits(HMI::DRO_DIGITS_Y, droY);
+        m_genie.WriteIntLedDigits(HMI::DRO_DIGITS_Z, droZ);
         updateDros = false;
     }
 
-    axis = quadrant(m_jogAxis.AnalogVoltage());
-    resolution = quadrant(m_jogResolution.AnalogVoltage());
+	axis = m_jogAxis.GetSwitchPosition();
+    resolution = m_jogResolution.GetSwitchPosition();
 
-    if (abs(axis - oldAxis) > 0.5 || abs(resolution - oldResolution) > 0.5) {
+    if (axis != oldAxis || resolution != oldResolution) {
         Serial.print("Axis: ");
         Serial.println(axis);
         Serial.print("Resolution: ");
@@ -90,13 +92,13 @@ void GrinderControlPanel::Update() {
         EncoderIn.Position(0);
         oldCount = 0;
 
-        m_genie.WriteObject(GENIE_OBJ_ILED, HMI_DRO_LED_X, axis == 1 ? 1 : 0);
-        m_genie.WriteObject(GENIE_OBJ_ILED, HMI_DRO_LED_Y, axis == 2 ? 1 : 0);
-        m_genie.WriteObject(GENIE_OBJ_ILED, HMI_DRO_LED_Z, axis == 3 ? 1 : 0);
-        m_genie.WriteObject(GENIE_OBJ_ILED, HMI_DRO_LED_1S, axis != 0 && resolution == 3 ? 1 : 0);
-        m_genie.WriteObject(GENIE_OBJ_ILED, HMI_DRO_LED_10S, axis != 0 && resolution == 2 ? 1 : 0);
-        m_genie.WriteObject(GENIE_OBJ_ILED, HMI_DRO_LED_100S, axis != 0 && resolution == 1 ? 1 : 0);
-        m_genie.WriteObject(GENIE_OBJ_ILED, HMI_DRO_LED_1000S, axis != 0 && resolution == 0 ? 1 : 0);
+        m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_X, axis == 1 ? 1 : 0);
+        m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_Y, axis == 2 ? 1 : 0);
+        m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_Z, axis == 3 ? 1 : 0);
+        m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_1S, axis != 0 && resolution == 3 ? 1 : 0);
+        m_genie.WriteObject(GENIE_OBJ_ILED, HMI:: DRO_LED_10S, axis != 0 && resolution == 2 ? 1 : 0);
+        m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_100S, axis != 0 && resolution == 1 ? 1 : 0);
+        m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_1000S, axis != 0 && resolution == 0 ? 1 : 0);
     }
 }
 
@@ -116,29 +118,29 @@ void GrinderControlPanel::HmiEventHandler() {
 void GrinderControlPanel::HandleHmiEvent(genieFrame& Event)
 {
     // DRO Zero Buttons
-    if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI_DRO_ZERO_BUTTON_X)) {
+    if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_ZERO_BUTTON_X)) {
         droX = 0;
         updateDros = true;
         return;
     }
-    if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI_DRO_ZERO_BUTTON_Y)) {
+    if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_ZERO_BUTTON_Y)) {
         droY = 0;
         updateDros = true;
         return;
     }
-    if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI_DRO_ZERO_BUTTON_Z)) {
+    if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_ZERO_BUTTON_Z)) {
         droZ = 0;
         updateDros = true;
         return;
     }
 
     // Unit Selection
-    if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI_UNITS_BUTTON)) {
+    if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::UNITS_BUTTON)) {
         switch (Event.reportObject.data_lsb) {
-        case HMI_UNITS_BUTTON_VAL_INCH:
+        case HMI::UNITS_BUTTON_VAL_INCH:
             Serial.println("Switch to Inches");
             return;
-        case HMI_UNITS_BUTTON_VAL_MM:
+        case HMI::UNITS_BUTTON_VAL_MM:
             Serial.println("Switch to Millimeters");
             return;
         }

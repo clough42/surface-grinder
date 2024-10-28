@@ -13,18 +13,16 @@
 
 class MachineAxis {
 public:
-    MachineAxis(MotorDriver& motor, int32_t numerator, int32_t denominator, ClearCorePins eStopPin)
-        : m_stepsPerNmNumerator(numerator), m_stepsPerNmDenominator(denominator), m_motor(motor), m_eStopPin(eStopPin) {}
+    MachineAxis(MotorDriver& motor, int32_t stepsPerNmNumerator, int32_t stepsPerNmDenominator, ClearCorePins eStopPin)
+        : m_stepsPerNmNumerator(stepsPerNmNumerator), m_stepsPerNmDenominator(stepsPerNmDenominator), m_motor(motor), m_eStopPin(eStopPin) {}
 
     void Init();
-
-    void Move(int32_t positionInNanometers);
-
-    int32_t GetPositionInNanometers() const;
-
+    void MoveToPositionNm(int32_t positionInNanometers);
+	void JogNm(int32_t distanceInNanometers);
+    int32_t GetCurrentPositionNm() const;
+    int32_t GetLastCommandedPositionNm() const;
     bool IsMoveComplete() const;
-
-    void ClearAlerts();
+    void ResetAndEnable();
 
 private:
     // Ratio of nanometers to motor steps
@@ -36,6 +34,9 @@ private:
 
     // EStop pin
     ClearCorePins m_eStopPin;
+
+    // Last commanded position in nanometers
+    int32_t m_lastCommandedPosition;
 };
 
 #endif // MACHINE_AXIS_H

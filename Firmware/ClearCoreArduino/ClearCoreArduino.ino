@@ -12,9 +12,12 @@
 
 auto& RedLED = ConnectorLed;
 
-MachineAxis XAxis(ConnectorM0, 1, 1, CLEARCORE_PIN_IO0);
-MachineAxis YAxis(ConnectorM1, 1, 1, CLEARCORE_PIN_IO0);
-MachineAxis ZAxis(ConnectorM2, 1, 1, CLEARCORE_PIN_IO0);
+MachineAxis XAxis(ConnectorM0, 3, 130175, CLEARCORE_PIN_IO0);
+MachineAxis YAxis(ConnectorM1, 6, 3175, CLEARCORE_PIN_IO0);
+MachineAxis ZAxis(ConnectorM2, 3, 6350, CLEARCORE_PIN_IO0);
+
+MachineAxis* axes[3] = { &XAxis, &YAxis, &ZAxis };
+GrinderModel Model(axes);
 
 GrinderControlPanel ControlPanel(
 	ConnectorIO0,	// ESTOP
@@ -26,7 +29,8 @@ GrinderControlPanel ControlPanel(
 	ConnectorA10,	// Jog Resolution
 	Serial1,		// HMI Serial Port
 	ConnectorCOM1,	// HMI Serial Connector
-	EncoderIn		// Encoder Input
+	EncoderIn,		// Encoder Input
+	Model			// Grinder Model
 );
 
 int32_t targetPosition = 1000;
@@ -56,16 +60,16 @@ void setup() {
 void loop() {
 	ControlPanel.Update();
     	
-	Serial.print("Current/Target position: ");
-	Serial.print(XAxis.GetPositionInNanometers());
-	Serial.print("/");
-	Serial.println(targetPosition);
+	//Serial.print("Current/Target position: ");
+	//Serial.print(XAxis.GetCurrentPositionNm());
+	//Serial.print("/");
+	//Serial.println(targetPosition);
 
 	bool estopButton = ControlPanel.EStopState();
 	if( estopButton != inEstop )  {
 		if (estopButton) {
-			XAxis.ClearAlerts();
-			XAxis.Move(targetPosition);
+			XAxis.ResetAndEnable();
+			XAxis.MoveToPositionNm(targetPosition);
 		}
 		inEstop = estopButton;
 	}
@@ -83,7 +87,7 @@ void loop() {
 
 	if (XAxis.IsMoveComplete()) {
 		targetPosition = -targetPosition;
-		XAxis.Move(targetPosition);
+		XAxis.MoveToPositionNm(targetPosition);
 	}
 
 }
