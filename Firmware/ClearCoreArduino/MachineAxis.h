@@ -1,3 +1,4 @@
+// MachineAxis.h
 #ifndef MACHINE_AXIS_H
 #define MACHINE_AXIS_H
 
@@ -7,52 +8,44 @@
 #define STEPS_PER_REV 1000
 #define SECONDS_PER_MINUTE 60
 #define RPM * STEPS_PER_REV / SECONDS_PER_MINUTE
-#define MAX_VELOCITY 10 RPM
-#define MAX_ACCELERATION 500
+#define MAX_VELOCITY 1000 RPM
+#define MAX_ACCELERATION 50000
 
 class MachineAxis {
 public:
-    MachineAxis(MotorDriver& motor, int32_t numerator, int32_t denominator, ClearCorePins eStopPin)
-        : m_stepsPerNmNumerator(numerator), m_stepsPerNmDenominator(denominator), m_motor(motor), m_eStopPin(eStopPin) {}
 
-    void initHardware() {
-        m_motor.EStopConnector(m_eStopPin);
-        m_motor.EnableRequest(true);
-		m_motor.VelMax(MAX_VELOCITY);
-        m_motor.AccelMax(MAX_ACCELERATION);
-        m_motor.MoveStopDecel(0);
-    }
+    enum Direction {
+        NORMAL = 1,
+        REVERSE = -1
+    };
 
-    void Move(int32_t positionInNanometers) {
-        m_targetMotorSteps = (positionInNanometers * m_stepsPerNmNumerator) / m_stepsPerNmDenominator;
-        m_motor.Move(m_targetMotorSteps, StepGenerator::MOVE_TARGET_ABSOLUTE);
-    }
+    MachineAxis(MotorDriver& motor, int32_t stepsPerNmNumerator, int32_t stepsPerNmDenominator, ClearCorePins eStopPin, Direction motorDirection = NORMAL)
+        : m_stepsPerNmNumerator(stepsPerNmNumerator), m_stepsPerNmDenominator(stepsPerNmDenominator), m_motor(motor), m_eStopPin(eStopPin), m_motorDirection(motorDirection) {}
 
-    int32_t GetPositionInNanometers() const {
-        int32_t motorSteps = m_motor.PositionRefCommanded();
-        return (motorSteps * m_stepsPerNmDenominator) / m_stepsPerNmNumerator;
-    }
-
-    bool IsMoveComplete() const {
-        return m_motor.StepsComplete() && m_motor.PositionRefCommanded() == m_targetMotorSteps;
-    }
-
-    void ClearAlerts() {
-        m_motor.ClearAlerts();
-    }
+    void Init();
+    void MoveToPositionNm(int32_t positionInNanometers);
+	void JogNm(int32_t distanceInNanometers);
+    int32_t GetCurrentPositionNm() const;
+    int32_t GetLastCommandedPositionNm() const;
+    bool IsMoveComplete() const;
+    void ResetAndEnable();
 
 private:
     // Ratio of nanometers to motor steps
     int32_t m_stepsPerNmNumerator;
     int32_t m_stepsPerNmDenominator;
 
-    int32_t m_targetMotorSteps = 0;
-
     // The motor driver to use for this axis
     MotorDriver &m_motor;
 
+    // Direction config
+    Direction m_motorDirection;
+
     // EStop pin
     ClearCorePins m_eStopPin;
+
+    // Last commanded position in nanometers
+    int32_t m_lastCommandedPosition;
 };
 
 #endif // MACHINE_AXIS_H
