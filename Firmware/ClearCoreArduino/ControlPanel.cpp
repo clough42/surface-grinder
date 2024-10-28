@@ -51,7 +51,7 @@ void GrinderControlPanel::UpdateDro(GrinderModel::Axis axis, int hmiDigitsId) {
         Serial.print("DRO Current position (nm): ");
         Serial.println(currentPosition);
         Serial.println();
-        int32_t currentUnits = ConvertToUnits(currentPosition);
+        int32_t currentUnits = ConvertToUnits(currentPosition - m_droWorkOffsets[axis]);
 		m_genie.WriteIntLedDigits(hmiDigitsId, currentUnits * m_droDirections[axis]);
 		m_previousDroValues[axis] = currentPosition;
 	}
@@ -175,21 +175,21 @@ void GrinderControlPanel::HmiEventHandler() {
 void GrinderControlPanel::HandleHmiEvent(genieFrame& Event)
 {
     // DRO Zero Buttons
-    //if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_ZERO_BUTTON_X)) {
-    //    droX = 0;
-    //    updateDros = true;
-    //    return;
-    //}
-    //if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_ZERO_BUTTON_Y)) {
-    //    droY = 0;
-    //    updateDros = true;
-    //    return;
-    //}
-    //if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_ZERO_BUTTON_Z)) {
-    //    droZ = 0;
-    //    updateDros = true;
-    //    return;
-    //}
+    if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_ZERO_BUTTON_X)) {
+		m_droWorkOffsets[GrinderModel::X] = m_model.GetCurrentPositionNm(GrinderModel::X);
+		m_forceHmiUpdate = true;
+        return;
+    }
+    if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_ZERO_BUTTON_Y)) {
+        m_droWorkOffsets[GrinderModel::Y] = m_model.GetCurrentPositionNm(GrinderModel::Y);
+        m_forceHmiUpdate = true;
+        return;
+    }
+    if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_ZERO_BUTTON_Z)) {
+        m_droWorkOffsets[GrinderModel::Z] = m_model.GetCurrentPositionNm(GrinderModel::Z);
+        m_forceHmiUpdate = true;
+        return;
+    }
 
     // Unit Selection
     if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::UNITS_BUTTON)) {

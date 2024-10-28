@@ -93,6 +93,7 @@ private:
 
     int32_t m_droDirections[3];
 
+	int32_t m_droWorkOffsets[3] = { 0, 0, 0 };
 	int32_t m_previousDroValues[3] = { 0, 0, 0 };
 	int32_t m_previousEncoderCount = 0;
     int32_t m_previousAxisSwitchPosition = 0;
