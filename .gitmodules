@@ -1,6 +1,0 @@
-[submodule "Firmware/third-party/ClearCore-library"]
-	path = Firmware/third-party/ClearCore-library
-	url = https://github.com/clough42/ClearCore-library.git
-[submodule "Firmware/third-party/ViSi-Genie-Arduino-Library-DEV"]
-	path = Firmware/third-party/ViSi-Genie-Arduino-Library-DEV
-	url = https://github.com/clough42/ViSi-Genie-Arduino-Library-DEV.git
