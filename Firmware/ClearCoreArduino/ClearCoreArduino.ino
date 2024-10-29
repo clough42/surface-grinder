@@ -10,44 +10,46 @@
 #include "MachineAxis.h"
 #include "ControlPanel.h"
 #include "GrinderController.h"
+#include "CommonEnums.h"
 
-auto& RedLED = ConnectorLed;
+// Dependency Injection
+namespace Injected {
 
-MachineAxis XAxis(ConnectorM0, 3, 130175, CLEARCORE_PIN_IO0, MachineAxis::REVERSE);
-MachineAxis YAxis(ConnectorM1, 6, 3175, CLEARCORE_PIN_IO0, MachineAxis::REVERSE);
-MachineAxis ZAxis(ConnectorM2, 3, 6350, CLEARCORE_PIN_IO0, MachineAxis::REVERSE);
+	auto& RedLED = ConnectorLed;
 
-// Model
-MachineAxis* axes[3] = { &XAxis, &YAxis, &ZAxis };
-GrinderModel Model(axes);
+	// Model
+	MachineAxis XAxis(ConnectorM0, 3, 130175, CLEARCORE_PIN_IO0, Direction::REVERSE);
+	MachineAxis YAxis(ConnectorM1, 6, 3175, CLEARCORE_PIN_IO0, Direction::REVERSE);
+	MachineAxis ZAxis(ConnectorM2, 3, 6350, CLEARCORE_PIN_IO0, Direction::REVERSE);
+	MachineAxis* axes[3] = { &XAxis, &YAxis, &ZAxis };
+	GrinderModel Model(axes);
 
-// View
-GrinderControlPanel::DroDirection droDirections[3] = { GrinderControlPanel::DOWN, GrinderControlPanel::UP, GrinderControlPanel::UP };
-GrinderControlPanel ControlPanel(
-	ConnectorIO0,	// ESTOP
-	ConnectorIO1,	// Left Limit
-	ConnectorIO2,	// Right Limit Switch
-	ConnectorIO3,	// Cycle Run
-	ConnectorIO4,	// Cycle Stop
-	ConnectorA9,	// Jog Axis
-	ConnectorA10,	// Jog Resolution
-	Serial1,		// HMI Serial Port
-	ConnectorCOM1,	// HMI Serial Connector
-	EncoderIn,		// Encoder Input
-	Model,			// Model
-	droDirections	// DRO Directions
-);
+	// View
+	Direction droDirections[3] = { Direction::REVERSE, Direction::NORMAL, Direction::NORMAL };
+	GrinderControlPanel View(
+		ConnectorIO0,	// ESTOP
+		ConnectorIO1,	// Left Limit
+		ConnectorIO2,	// Right Limit Switch
+		ConnectorIO3,	// Cycle Run
+		ConnectorIO4,	// Cycle Stop
+		ConnectorA9,	// Jog Axis
+		ConnectorA10,	// Jog Resolution
+		Serial1,		// HMI Serial Port
+		ConnectorCOM1,	// HMI Serial Connector
+		EncoderIn,		// Encoder Input
+		Model,			// Model
+		droDirections	// DRO Directions
+	);
 
-// Controller
-GrinderController Controller(Model, ControlPanel);
+	// Controller
+	GrinderController Controller(Model, View);
 
-int32_t targetPosition = 1000;
-bool inEstop = false;
+}
 
 void setup() {
 	// Red LED on while initializing
-	RedLED.Mode(Connector::OUTPUT_DIGITAL);
-	RedLED.State(true);
+	Injected::RedLED.Mode(Connector::OUTPUT_DIGITAL);
+	Injected::RedLED.State(true);
 
 	// serial port for debugging
 	Serial.begin(9600);
@@ -55,14 +57,14 @@ void setup() {
 	MotorMgr.MotorInputClocking(MotorManager::CLOCK_RATE_NORMAL);
 	MotorMgr.MotorModeSet(MotorManager::MOTOR_ALL, Connector::CPM_MODE_STEP_AND_DIR);
 
-	Controller.Init(); // also initializes model and view
+	Injected::Controller.Init(); // also initializes model and view
 
 	// Red LED off at the end
-	RedLED.State(false);
+	Injected::RedLED.State(false);
 }
 
 void loop() {
-	Controller.Update();
+	Injected::Controller.Update();
 }
 
 

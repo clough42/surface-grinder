@@ -6,22 +6,12 @@
 #include <ClearCore.h> // Include the ClearCore library
 #include <SerialUsb.h>
 #include <genieArduinoDEV.h>
-#include "GrinderModel.h"
+#include "GrinderViewModel.h"
 #include "AnalogSwitch.h"
 #include "Controller.h"
 
 class GrinderControlPanel {
 public:
-
-    enum Units {
-        INCHES,
-        MILLIMETERS
-    };
-
-    enum DroDirection {
-        UP = 1,
-        DOWN = -1
-    };
 
     GrinderControlPanel(
         DigitalInOut& eStop,
@@ -35,7 +25,7 @@ public:
         Connector& hmiConnector,
         EncoderInput& encoderIn,
         GrinderViewModel& model,
-        DroDirection droDirections[3]
+        Direction droDirections[3]
     ) : m_eStop(eStop),
         m_leftLimit(leftLimit),
         m_rightLimit(rightLimit),
@@ -62,7 +52,7 @@ public:
 private:
     void UpdateDros();
     void UpdateJogControls();
-    void UpdateDro(GrinderModel::Axis axis, int hmiDigitsId);
+    void UpdateDro(Axis axis, int hmiDigitsId);
 	void UpdateEstop();
     int32_t ConvertToUnits(int32_t nanometers); // convert to (units * 2^5)
 	int32_t ConvertToNm(int32_t units); // convert from (units * 2^5)

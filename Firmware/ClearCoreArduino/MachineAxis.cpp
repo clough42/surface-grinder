@@ -1,5 +1,4 @@
 #include "MachineAxis.h"
-#include "HMIConstants.h"
 #include <Arduino.h>
 
 void MachineAxis::Init() {

@@ -21,7 +21,7 @@ void GrinderController::Update() {
 #include "GrinderViewModel.h" // Add this include to ensure Axis is defined
 
 void GrinderController::JogAxisNm(int selectedAxis, int jogAmountNm) {
-	m_model.JogAxisNm(static_cast<GrinderViewModel::Axis>(selectedAxis), jogAmountNm);
+	m_model.JogAxisNm(static_cast<Axis>(selectedAxis), jogAmountNm);
 }
 
 void GrinderController::EnterEstop() {

@@ -4,6 +4,7 @@
 
 #include <cstdint>
 #include "ClearCore.h" // Include the ClearCore library
+#include "CommonEnums.h"
 
 #define STEPS_PER_REV 1000
 #define SECONDS_PER_MINUTE 60
@@ -14,12 +15,7 @@
 class MachineAxis {
 public:
 
-    enum Direction {
-        NORMAL = 1,
-        REVERSE = -1
-    };
-
-    MachineAxis(MotorDriver& motor, int32_t stepsPerNmNumerator, int32_t stepsPerNmDenominator, ClearCorePins eStopPin, Direction motorDirection = NORMAL)
+    MachineAxis(MotorDriver& motor, int32_t stepsPerNmNumerator, int32_t stepsPerNmDenominator, ClearCorePins eStopPin, Direction motorDirection = Direction::NORMAL)
         : m_stepsPerNmNumerator(stepsPerNmNumerator), m_stepsPerNmDenominator(stepsPerNmDenominator), m_motor(motor), m_eStopPin(eStopPin), m_motorDirection(motorDirection) {}
 
     void Init();

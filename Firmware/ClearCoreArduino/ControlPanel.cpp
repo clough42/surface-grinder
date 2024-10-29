@@ -1,6 +1,6 @@
-// ControlPanel.cpp
 #include "ControlPanel.h"
 #include "HMIConstants.h"
+#include "Controller.h"
 
 GrinderControlPanel* GrinderControlPanel::s_instance = nullptr;
 
@@ -43,12 +43,12 @@ void GrinderControlPanel::Update() {
 }
 
 void GrinderControlPanel::UpdateDros() {
-    UpdateDro(GrinderModel::X, HMI::DRO_DIGITS_X);
-    UpdateDro(GrinderModel::Y, HMI::DRO_DIGITS_Y);
-    UpdateDro(GrinderModel::Z, HMI::DRO_DIGITS_Z);
+    UpdateDro(Axis::X, HMI::DRO_DIGITS_X);
+    UpdateDro(Axis::Y, HMI::DRO_DIGITS_Y);
+    UpdateDro(Axis::Z, HMI::DRO_DIGITS_Z);
 }
 
-void GrinderControlPanel::UpdateDro(GrinderModel::Axis axis, int hmiDigitsId) {
+void GrinderControlPanel::UpdateDro(Axis axis, int hmiDigitsId) {
     int32_t currentPosition = m_model.GetCurrentPositionNm(axis);
 	if (m_forceHmiUpdate || currentPosition != m_previousDroValues[axis]) {
         Serial.print("DRO Current position (nm): ");
@@ -62,7 +62,7 @@ void GrinderControlPanel::UpdateDro(GrinderModel::Axis axis, int hmiDigitsId) {
 
 int32_t GrinderControlPanel::ConvertToUnits(int32_t nanometers) {
     switch (m_currentUnits) {
-	case MILLIMETERS:
+    case Units::MILLIMETERS:
 		return nanometers / 10;
     case INCHES:
 		return nanometers / 254;   
@@ -72,7 +72,7 @@ int32_t GrinderControlPanel::ConvertToUnits(int32_t nanometers) {
 
 int32_t GrinderControlPanel::ConvertToNm(int32_t units) {
     switch (m_currentUnits) {
-    case MILLIMETERS:
+    case Units::MILLIMETERS:
         return units * 10;
     case INCHES:
         return units * 254;
@@ -105,7 +105,7 @@ void GrinderControlPanel::UpdateJogControls() {
             m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_1000S, axisSwitchPosition != 0 && resolutionSwitchPosition == 0 ? 1 : 0);
             m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_10000S, 0);
             break;
-        case MILLIMETERS:
+        case Units::MILLIMETERS:
             m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_1S, 0);
             m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_10S, axisSwitchPosition != 0 && resolutionSwitchPosition == 3 ? 1 : 0);
             m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_100S, axisSwitchPosition != 0 && resolutionSwitchPosition == 2 ? 1 : 0);
@@ -121,7 +121,7 @@ void GrinderControlPanel::UpdateJogControls() {
 
     // only bother messing with the encoder if an axis is selected
     if (axisSwitchPosition > 0) {
-		GrinderModel::Axis selectedAxis = (GrinderModel::Axis)(axisSwitchPosition - 1);
+		Axis selectedAxis = static_cast<Axis>(axisSwitchPosition - 1);
 
         // read the encoder and figure out the desired jog amount
         int32_t rawEncoderCount = EncoderIn.Position();
@@ -141,7 +141,7 @@ void GrinderControlPanel::UpdateJogControls() {
                 break;
             }
 
-            if (m_currentUnits == MILLIMETERS) {
+            if (m_currentUnits == Units::MILLIMETERS) {
                 increment *= 10; // Metric resolutions are 10X larger on a pure decimal basis
             }
 
@@ -190,17 +190,17 @@ void GrinderControlPanel::HandleHmiEvent(genieFrame& Event)
 {
     // DRO Zero Buttons
     if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_ZERO_BUTTON_X)) {
-		m_droWorkOffsets[GrinderModel::X] = m_model.GetCurrentPositionNm(GrinderModel::X);
+		m_droWorkOffsets[Axis::X] = m_model.GetCurrentPositionNm(Axis::X);
 		m_forceHmiUpdate = true;
         return;
     }
     if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_ZERO_BUTTON_Y)) {
-        m_droWorkOffsets[GrinderModel::Y] = m_model.GetCurrentPositionNm(GrinderModel::Y);
+        m_droWorkOffsets[Axis::Y] = m_model.GetCurrentPositionNm(Axis::Y);
         m_forceHmiUpdate = true;
         return;
     }
     if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_ZERO_BUTTON_Z)) {
-        m_droWorkOffsets[GrinderModel::Z] = m_model.GetCurrentPositionNm(GrinderModel::Z);
+        m_droWorkOffsets[Axis::Z] = m_model.GetCurrentPositionNm(Axis::Z);
         m_forceHmiUpdate = true;
         return;
     }
@@ -212,7 +212,7 @@ void GrinderControlPanel::HandleHmiEvent(genieFrame& Event)
 			m_currentUnits = INCHES;
             break;
         case HMI::UNITS_BUTTON_VAL_MM:
-			m_currentUnits = MILLIMETERS;
+			m_currentUnits = Units::MILLIMETERS;
             break;
         }
 		

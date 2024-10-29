@@ -4,16 +4,11 @@
 #define GRINDERVIEWMODEL_H
 
 #include <cstdint>
+#include "CommonEnums.h"
 
 class GrinderViewModel {
 
 public:
-	enum Axis {
-		X,
-		Y,
-		Z
-	};
-
     virtual ~GrinderViewModel() = default;
     virtual int32_t GetCurrentPositionNm(Axis axis) const = 0;
 };
