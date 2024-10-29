@@ -13,12 +13,6 @@ void MachineAxis::MoveToPositionNm(int32_t positionInNanometers) {
     int64_t motorSteps = (static_cast<int64_t>(positionInNanometers) * m_stepsPerNmNumerator) / m_stepsPerNmDenominator;
     m_motor.Move(static_cast<int32_t>(motorSteps) * m_motorDirection, StepGenerator::MOVE_TARGET_ABSOLUTE);
     m_lastCommandedPosition = positionInNanometers;
-
-    Serial.print("Move to position (nm): ");
-    Serial.println(positionInNanometers);
-	Serial.print("Motor steps: ");
-    Serial.println(motorSteps);
-    Serial.println();
 }
 
 void MachineAxis::JogNm(int32_t distanceInNanometers)

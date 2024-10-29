@@ -5,9 +5,9 @@
 
 #include "GrinderModel.h"
 #include "GrinderView.h"
-#include "GrinderViewController.h"
+#include "IViewController.h"
 
-class GrinderController : public GrinderViewController {
+class GrinderController : public IViewController {
 public:
     GrinderController(GrinderModel& model, GrinderView& view)
         : m_model(model), m_view(view)

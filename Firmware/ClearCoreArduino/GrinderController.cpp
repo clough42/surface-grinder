@@ -18,8 +18,6 @@ void GrinderController::Update() {
 	m_view.Update();
 }
 
-#include "GrinderViewModel.h" // Add this include to ensure Axis is defined
-
 void GrinderController::JogAxisNm(int selectedAxis, int jogAmountNm) {
 	m_model.JogAxisNm(static_cast<Axis>(selectedAxis), jogAmountNm);
 }

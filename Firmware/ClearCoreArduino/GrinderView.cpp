@@ -4,7 +4,7 @@
 
 GrinderView* GrinderView::s_instance = nullptr;
 
-void GrinderView::Init(GrinderViewController* controller) {
+void GrinderView::Init(IViewController* controller) {
     m_controller = controller;
 
     m_jogAxis.Init();
@@ -51,9 +51,6 @@ void GrinderView::UpdateDros() {
 void GrinderView::UpdateDro(Axis axis, int hmiDigitsId) {
     int32_t currentPosition = m_model.GetCurrentPositionNm(axis);
 	if (m_forceHmiUpdate || currentPosition != m_previousDroValues[axis]) {
-        Serial.print("DRO Current position (nm): ");
-        Serial.println(currentPosition);
-        Serial.println();
         int32_t currentUnits = ConvertToUnits(currentPosition - m_droWorkOffsets[axis]);
 		m_genie.WriteIntLedDigits(hmiDigitsId, currentUnits * m_droDirections[axis]);
 		m_previousDroValues[axis] = currentPosition;
@@ -147,15 +144,6 @@ void GrinderView::UpdateJogControls() {
 
             int32_t jogAmountNm = ConvertToNm(increment);
 
-            // Debug output
-            Serial.print("Selected Axis: ");
-            Serial.println(selectedAxis);
-            Serial.print("Increment: ");
-            Serial.println(increment);
-            Serial.print("Jog Amount (nm): ");
-            Serial.println(jogAmountNm);
-            Serial.println();
-
             if (m_controller) {
                 m_controller->JogAxisNm(selectedAxis, jogAmountNm);
             }
@@ -217,6 +205,7 @@ void GrinderView::HandleHmiEvent(genieFrame& Event)
         }
 		
         m_forceHmiUpdate = true;
+        return;
     }
 
     Serial.println("Unknown HMI event: ");

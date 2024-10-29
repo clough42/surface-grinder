@@ -3,9 +3,9 @@
 #define GRINDER_MODEL_H
 
 #include "MachineAxis.h"
-#include "GrinderViewModel.h"
+#include "IViewModel.h"
 
-class GrinderModel : public GrinderViewModel {
+class GrinderModel : public IViewModel {
 public:
     // Constructor that takes an array of three MachineAxis objects
     GrinderModel(MachineAxis* axes[3]);

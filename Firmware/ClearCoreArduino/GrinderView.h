@@ -5,9 +5,9 @@
 #include <ClearCore.h> // Include the ClearCore library
 #include <SerialUsb.h>
 #include <genieArduinoDEV.h>
-#include "GrinderViewModel.h"
+#include "IViewModel.h"
 #include "AnalogSwitch.h"
-#include "GrinderViewController.h"
+#include "IViewController.h"
 
 class GrinderView {
 public:
@@ -23,7 +23,7 @@ public:
         Uart& hmiSerial,
         Connector& hmiConnector,
         EncoderInput& encoderIn,
-        GrinderViewModel& model,
+        IViewModel& model,
         Direction droDirections[3]
     ) : m_eStop(eStop),
         m_leftLimit(leftLimit),
@@ -44,7 +44,7 @@ public:
 		}
     }
 
-    void Init(GrinderViewController* controller);
+    void Init(IViewController* controller);
     void Update();
     void HandleHmiEvent(genieFrame& Event);
 
@@ -65,8 +65,8 @@ private:
     Connector& m_hmiConnector;
     EncoderInput& m_encoderIn;
 
-    GrinderViewModel& m_model;
-    GrinderViewController* m_controller = nullptr;
+    IViewModel& m_model;
+    IViewController* m_controller = nullptr;
 
     Genie m_genie;
 	Units m_currentUnits;
