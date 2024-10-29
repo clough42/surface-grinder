@@ -55,11 +55,6 @@ void GrinderView::SetDroValue(Axis axis, int32_t unitsValue) {
 		    break;
 	    }
 
-		Serial.print("Setting DRO value for axis ");
-		Serial.print(static_cast<int>(axis));
-		Serial.print(" to ");
-		Serial.println(unitsValue);
-
 		m_genie.WriteIntLedDigits(hmiDigitsId, unitsValue * static_cast<int>(m_droDirections[static_cast<int>(axis)]));
 		m_previousDroValues[static_cast<int>(axis)] = unitsValue;
 	}
@@ -78,12 +73,6 @@ void GrinderView::UpdateAxisSelectors() {
 }
 
 void GrinderView::SetAxisIndicators(Axis selectedAxis, int32_t resolution) {
-	Serial.print("Selected Axis: ");
-	Serial.println(static_cast<int>(selectedAxis));
-	Serial.print("Resolution: ");
-	Serial.println(resolution); 
-    Serial.println();
-
     // reset the encoder, just to keep it in a reasonable range
     EncoderIn.Position(0);
     m_previousEncoderCount = 0;
@@ -174,16 +163,5 @@ void GrinderView::HandleHmiEvent(genieFrame& Event)
         return;
     }
 
-    Serial.println("Unknown HMI event: ");
-
-    Serial.print("cmd=");
-    Serial.println(Event.reportObject.cmd);
-    Serial.print("object=");
-    Serial.println(Event.reportObject.object);
-    Serial.print("index=");
-    Serial.println(Event.reportObject.index);
-    Serial.print("lsb=");
-    Serial.println(Event.reportObject.data_lsb);
-    Serial.print("msb=");
-    Serial.println(Event.reportObject.data_msb);
+    Serial.println("Unknown HMI Event!");
 }

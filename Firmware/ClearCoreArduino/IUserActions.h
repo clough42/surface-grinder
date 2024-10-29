@@ -1,6 +1,8 @@
 #ifndef I_USER_ACTIONS_H
 #define I_USER_ACTIONS_H
 
+#include "CommonEnums.h"
+
 // Controller Interface for the View
 //
 // This interface defines the methods that the view can call on the controller.

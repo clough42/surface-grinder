@@ -90,7 +90,6 @@
     <ClInclude Include="GrinderView.h" />
     <ClInclude Include="GrinderController.h" />
     <ClInclude Include="GrinderModel.h" />
-    <ClInclude Include="IViewData.h" />
     <ClInclude Include="HMIConstants.h" />
     <ClInclude Include="MachineAxis.h" />
     <ClInclude Include="__vm\.ClearCoreArduino.vsarduino.h" />

@@ -5,9 +5,9 @@
 #include <ClearCore.h> // Include the ClearCore library
 #include <SerialUsb.h>
 #include <genieArduinoDEV.h>
-#include "IViewData.h"
 #include "AnalogSwitch.h"
 #include "IUserActions.h"
+#include "CommonEnums.h"
 
 class GrinderView {
 public:

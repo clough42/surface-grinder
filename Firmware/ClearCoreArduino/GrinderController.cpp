@@ -19,11 +19,15 @@ void GrinderController::Update() {
 }
 
 void GrinderController::SelectUnits(Units units) {
+	Serial.println("SelectUnits");
+
     m_units = units;
 	UpdateResolutionAndAxisIndicators();
 }
 
 void GrinderController::SelectAxis(Axis selectedAxis, int resolutionSwitchPosition) {
+	Serial.println("SelectAxis");
+
     m_selectedAxis = selectedAxis;
 	m_resolutionSwitchPosition = resolutionSwitchPosition;
 	UpdateResolutionAndAxisIndicators();
@@ -52,6 +56,8 @@ void GrinderController::UpdateResolutionAndAxisIndicators() {
 }
 
 void GrinderController::Jog(int32_t clicks) {
+	Serial.println("Jog");
+
 	if (m_selectedAxis != Axis::NONE) {
 		int32_t nanometers = ConvertToNm(clicks * m_selectedResolution);
 		m_model.JogAxisNm(m_selectedAxis, nanometers);
@@ -59,20 +65,21 @@ void GrinderController::Jog(int32_t clicks) {
 }
 
 void GrinderController::EnterEstop() {
-	Serial.println("Entering estop");
+	Serial.println("EnterEstop");
 }
 
 void GrinderController::ClearEstop() {
-	Serial.println("Clearing estop");
+	Serial.println("ClearEstop");
+
 	m_model.ResetAndEnable();
 }
 
 void GrinderController::CycleStart() {
-	Serial.println("Cycle start");
+	Serial.println("CycleStart");
 }
 
 void GrinderController::CycleStop() {
-	Serial.println("Cycle stop");
+	Serial.println("CycleStop");
 }
 
 int32_t GrinderController::ConvertToNm(int32_t units) {
@@ -96,6 +103,7 @@ int32_t GrinderController::ConvertToUnits(int32_t nanometers) {
 }
 
 void GrinderController::SetWorkOffset(Axis selectedAxis) {
+	Serial.println("SetWorkOffset");
 	m_droWorkOffsets[static_cast<int>(selectedAxis)] = m_model.GetCurrentPositionNm(selectedAxis);
 }
 
@@ -108,10 +116,6 @@ void GrinderController::UpdateDROs() {
 
 void GrinderController::UpdateDRO(Axis axis) {
 	int32_t nanometers = m_model.GetCurrentPositionNm(axis);
-	Serial.print("UpdateDRO Axis: ");
-	Serial.print(static_cast<int>(axis));
-	Serial.print(" Position (nm): ");
-	Serial.println(nanometers);
 
 	int32_t units = ConvertToUnits(nanometers - m_droWorkOffsets[static_cast<int>(axis)]);
 	m_view.SetDroValue(axis, units);

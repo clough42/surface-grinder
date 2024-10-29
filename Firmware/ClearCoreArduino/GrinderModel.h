@@ -3,7 +3,6 @@
 #define GRINDER_MODEL_H
 
 #include "MachineAxis.h"
-#include "IViewData.h"
 
 class GrinderModel {
 public:
