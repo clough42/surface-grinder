@@ -40,7 +40,6 @@ namespace Injected {
 		Serial1,		// HMI Serial Port
 		ConnectorCOM1,	// HMI Serial Connector
 		EncoderIn,		// Encoder Input
-		Model,			// Model
 		droDirections	// DRO Directions
 	);
 

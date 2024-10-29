@@ -11,7 +11,7 @@ void MachineAxis::Init() {
 
 void MachineAxis::MoveToPositionNm(int32_t positionInNanometers) {
     int64_t motorSteps = (static_cast<int64_t>(positionInNanometers) * m_stepsPerNmNumerator) / m_stepsPerNmDenominator;
-    m_motor.Move(static_cast<int32_t>(motorSteps) * m_motorDirection, StepGenerator::MOVE_TARGET_ABSOLUTE);
+    m_motor.Move(static_cast<int32_t>(motorSteps) * static_cast<int>(m_motorDirection), StepGenerator::MOVE_TARGET_ABSOLUTE);
     m_lastCommandedPosition = positionInNanometers;
 }
 
@@ -21,7 +21,7 @@ void MachineAxis::JogNm(int32_t distanceInNanometers)
 }
 
 int32_t MachineAxis::GetCurrentPositionNm() const {
-    int32_t motorSteps = m_motor.PositionRefCommanded() * m_motorDirection;
+    int32_t motorSteps = m_motor.PositionRefCommanded() * static_cast<int>(m_motorDirection);
     int64_t currentPositionNm = (static_cast<int64_t>(motorSteps) * m_stepsPerNmDenominator) / m_stepsPerNmNumerator;
 	return static_cast<int32_t>(currentPositionNm);
 }

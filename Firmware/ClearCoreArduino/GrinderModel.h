@@ -3,9 +3,9 @@
 #define GRINDER_MODEL_H
 
 #include "MachineAxis.h"
-#include "IViewModel.h"
+#include "IViewData.h"
 
-class GrinderModel : public IViewModel {
+class GrinderModel {
 public:
     // Constructor that takes an array of three MachineAxis objects
     GrinderModel(MachineAxis* axes[3], DigitalInOut& leftLimit,	DigitalInOut& rightLimit);
@@ -16,12 +16,12 @@ public:
     // Method to update all axes
     void Update();
 
-    int32_t GetCurrentPositionNm(Axis axis) const override {
-		return m_axes[axis]->GetCurrentPositionNm();
+    int32_t GetCurrentPositionNm(Axis axis) const {
+		return m_axes[static_cast<int>(axis)]->GetCurrentPositionNm();
 	};
 
 	void JogAxisNm(Axis axis, int32_t distanceInNanometers) {
-		m_axes[axis]->JogNm(distanceInNanometers);
+		m_axes[static_cast<int>(axis)]->JogNm(distanceInNanometers);
 	}
 
 	void ResetAndEnable() {

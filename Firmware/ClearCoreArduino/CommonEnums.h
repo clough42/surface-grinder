@@ -2,21 +2,24 @@
 #define COMMON_ENUMS_H
 
 // Direction of an axis or a DRO
-enum Direction {
+enum class Direction {
 	NORMAL = 1,		// up/default
 	REVERSE = -1	// down/reverse
 };
 
-enum Units {
+enum class Units {
 	MILLIMETERS,
 	INCHES
 };
 
-enum Axis {
-	X,
-	Y,
-	Z
+enum class Axis {
+	X = 0,
+	Y = 1,
+	Z = 2,
+	NONE = -1
 };
+
+
 
 
 #endif // COMMON_ENUMS_H

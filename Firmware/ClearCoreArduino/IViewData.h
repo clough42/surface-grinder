@@ -1,5 +1,5 @@
-#ifndef IVIEWMODEL_H
-#define IVIEWMODEL_H
+#ifndef I_VIEW_DATA_H
+#define I_VIEW_DATA_H
 
 #include <cstdint>
 #include "CommonEnums.h"
@@ -9,11 +9,11 @@
 // This interface defines the methods that the view can call on the model.
 // These are separated out into a separate interface to make it harder for
 // the view to accidentally call methods that it shouldn't.
-class IViewModel {
+class IViewData {
 
 public:
-    virtual ~IViewModel() = default;
+    virtual ~IViewData() = default;
     virtual int32_t GetCurrentPositionNm(Axis axis) const = 0;
 };
 
-#endif // IVIEWMODEL_H
+#endif // I_VIEW_DATA_H

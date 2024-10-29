@@ -5,9 +5,9 @@
 #include <ClearCore.h> // Include the ClearCore library
 #include <SerialUsb.h>
 #include <genieArduinoDEV.h>
-#include "IViewModel.h"
+#include "IViewData.h"
 #include "AnalogSwitch.h"
-#include "IViewController.h"
+#include "IUserActions.h"
 
 class GrinderView {
 public:
@@ -21,7 +21,6 @@ public:
         Uart& hmiSerial,
         Connector& hmiConnector,
         EncoderInput& encoderIn,
-        IViewModel& model,
         Direction droDirections[3]
     ) : m_eStop(eStop),
         m_cycleRun(cycleRun),
@@ -30,9 +29,7 @@ public:
         m_hmiConnector(hmiConnector),
         m_encoderIn(encoderIn),
         m_jogAxis(jogAxisInput),
-        m_jogResolution(jogResolutionInput),
-        m_model(model),
-		m_currentUnits(INCHES)
+        m_jogResolution(jogResolutionInput)
     {
 		s_instance = this;
 		for (int i = 0; i < 3; i++) {
@@ -40,45 +37,47 @@ public:
 		}
     }
 
-    void Init(IViewController* controller);
+    void Init(IUserActions* controller);
     void Update();
+    void SetAxisIndicators(Axis selectedAxis, int32_t selectedResolution);
+    void SetDroValue(Axis axis, int32_t unitsValue);
     void HandleHmiEvent(genieFrame& Event);
 
 private:
-    void UpdateDros();
-    void UpdateJogControls();
-    void UpdateDro(Axis axis, int hmiDigitsId);
+    void UpdateAxisSelectors();
+    void UpdateEncoder();
 	void UpdateEstop();
-    int32_t ConvertToUnits(int32_t nanometers); // convert to (units * 2^5)
-	int32_t ConvertToNm(int32_t units); // convert from (units * 2^5)
+    void UpdateCycleButtons();
 
+    // Hardware I/O
     DigitalInOut& m_eStop;
     DigitalInOut& m_cycleRun;
     DigitalInOut& m_cycleStop;
-    Uart& m_hmiSerial;
     Connector& m_hmiConnector;
     EncoderInput& m_encoderIn;
-
-    IViewModel& m_model;
-    IViewController* m_controller = nullptr;
-
-    Genie m_genie;
-	Units m_currentUnits;
-
     AnalogSwitch m_jogAxis;
     AnalogSwitch m_jogResolution;
+
+    // HMI
+    Uart& m_hmiSerial;
+    Genie m_genie;
 
     static void HmiEventHandler();
     static GrinderView *s_instance;
 
-    int32_t m_droDirections[3];
+    Direction m_droDirections[3];
 
-	int32_t m_droWorkOffsets[3] = { 0, 0, 0 };
-	int32_t m_previousDroValues[3] = { 0, 0, 0 };
+    // previous control positions
 	int32_t m_previousEncoderCount = 0;
     int32_t m_previousAxisSwitchPosition = 0;
 	int32_t m_previousResolutionSwitchPosition = 0;
-    bool m_forceHmiUpdate = true;
+
+    // previous HMI element values
+    int32_t m_previousDroValues[3] = { 0, 0, 0 };
+
+    // other software components
+    IUserActions* m_controller = nullptr;
+
 };
 
 #endif // GRINDER_VIEW_H
