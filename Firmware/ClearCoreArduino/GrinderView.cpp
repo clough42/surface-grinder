@@ -1,10 +1,10 @@
-#include "ControlPanel.h"
+#include "GrinderView.h"
 #include "HMIConstants.h"
-#include "Controller.h"
+#include "GrinderViewController.h"
 
-GrinderControlPanel* GrinderControlPanel::s_instance = nullptr;
+GrinderView* GrinderView::s_instance = nullptr;
 
-void GrinderControlPanel::Init(Controller* controller) {
+void GrinderView::Init(GrinderViewController* controller) {
     m_controller = controller;
 
     m_jogAxis.Init();
@@ -26,13 +26,13 @@ void GrinderControlPanel::Init(Controller* controller) {
     while(!m_genie.Begin(m_hmiSerial));
     while (!m_genie.IsOnline()) delay(100);
 
-    m_genie.AttachEventHandler(GrinderControlPanel::HmiEventHandler);
+    m_genie.AttachEventHandler(GrinderView::HmiEventHandler);
 
     m_genie.SetForm(HMI::FORM_DRO);
     m_genie.WriteContrast(15);
 }
 
-void GrinderControlPanel::Update() {
+void GrinderView::Update() {
     m_genie.DoEvents();
 
     UpdateDros();
@@ -42,13 +42,13 @@ void GrinderControlPanel::Update() {
 	m_forceHmiUpdate = false; // reset the force update flag
 }
 
-void GrinderControlPanel::UpdateDros() {
+void GrinderView::UpdateDros() {
     UpdateDro(Axis::X, HMI::DRO_DIGITS_X);
     UpdateDro(Axis::Y, HMI::DRO_DIGITS_Y);
     UpdateDro(Axis::Z, HMI::DRO_DIGITS_Z);
 }
 
-void GrinderControlPanel::UpdateDro(Axis axis, int hmiDigitsId) {
+void GrinderView::UpdateDro(Axis axis, int hmiDigitsId) {
     int32_t currentPosition = m_model.GetCurrentPositionNm(axis);
 	if (m_forceHmiUpdate || currentPosition != m_previousDroValues[axis]) {
         Serial.print("DRO Current position (nm): ");
@@ -60,7 +60,7 @@ void GrinderControlPanel::UpdateDro(Axis axis, int hmiDigitsId) {
 	}
 }
 
-int32_t GrinderControlPanel::ConvertToUnits(int32_t nanometers) {
+int32_t GrinderView::ConvertToUnits(int32_t nanometers) {
     switch (m_currentUnits) {
     case Units::MILLIMETERS:
 		return nanometers / 10;
@@ -70,7 +70,7 @@ int32_t GrinderControlPanel::ConvertToUnits(int32_t nanometers) {
 	return 0;
 }
 
-int32_t GrinderControlPanel::ConvertToNm(int32_t units) {
+int32_t GrinderView::ConvertToNm(int32_t units) {
     switch (m_currentUnits) {
     case Units::MILLIMETERS:
         return units * 10;
@@ -80,7 +80,7 @@ int32_t GrinderControlPanel::ConvertToNm(int32_t units) {
     return 0;
 }
 
-void GrinderControlPanel::UpdateJogControls() {
+void GrinderView::UpdateJogControls() {
 	// Check the rsolution and axis selectors
 	int axisSwitchPosition = m_jogAxis.GetSwitchPosition();
     int resolutionSwitchPosition = m_jogResolution.GetSwitchPosition();
@@ -165,7 +165,7 @@ void GrinderControlPanel::UpdateJogControls() {
     }
 }
 
-void GrinderControlPanel::UpdateEstop() {
+void GrinderView::UpdateEstop() {
 	if (m_eStop.InputFallen()) {
 		if (m_controller) {
 			m_controller->EnterEstop();
@@ -178,7 +178,7 @@ void GrinderControlPanel::UpdateEstop() {
     }
 }
 
-void GrinderControlPanel::HmiEventHandler() {
+void GrinderView::HmiEventHandler() {
     if (s_instance) {
         genieFrame Event;
 		s_instance->m_genie.DequeueEvent(&Event);
@@ -186,7 +186,7 @@ void GrinderControlPanel::HmiEventHandler() {
     }
 }
 
-void GrinderControlPanel::HandleHmiEvent(genieFrame& Event)
+void GrinderView::HandleHmiEvent(genieFrame& Event)
 {
     // DRO Zero Buttons
     if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_ZERO_BUTTON_X)) {

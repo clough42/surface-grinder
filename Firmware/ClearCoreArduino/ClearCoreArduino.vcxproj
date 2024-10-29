@@ -78,7 +78,7 @@
       <FileType>CppCode</FileType>
       <DeploymentContent>true</DeploymentContent>
     </ClCompile>
-    <ClCompile Include="ControlPanel.cpp" />
+    <ClCompile Include="GrinderView.cpp" />
     <ClCompile Include="GrinderController.cpp" />
     <ClCompile Include="GrinderModel.cpp" />
     <ClCompile Include="MachineAxis.cpp" />
@@ -86,8 +86,8 @@
   <ItemGroup>
     <ClInclude Include="AnalogSwitch.h" />
     <ClInclude Include="CommonEnums.h" />
-    <ClInclude Include="Controller.h" />
-    <ClInclude Include="ControlPanel.h" />
+    <ClInclude Include="GrinderViewController.h" />
+    <ClInclude Include="GrinderView.h" />
     <ClInclude Include="GrinderController.h" />
     <ClInclude Include="GrinderModel.h" />
     <ClInclude Include="GrinderViewModel.h" />

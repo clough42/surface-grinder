@@ -1,6 +1,5 @@
-// ControlPanel.h
-#ifndef CONTROL_PANEL_H
-#define CONTROL_PANEL_H
+#ifndef GRINDER_VIEW_H
+#define GRINDER_VIEW_H
 
 #include <cstdint>
 #include <ClearCore.h> // Include the ClearCore library
@@ -8,12 +7,12 @@
 #include <genieArduinoDEV.h>
 #include "GrinderViewModel.h"
 #include "AnalogSwitch.h"
-#include "Controller.h"
+#include "GrinderViewController.h"
 
-class GrinderControlPanel {
+class GrinderView {
 public:
 
-    GrinderControlPanel(
+    GrinderView(
         DigitalInOut& eStop,
         DigitalInOut& leftLimit,
         DigitalInOut& rightLimit,
@@ -45,7 +44,7 @@ public:
 		}
     }
 
-    void Init(Controller* controller);
+    void Init(GrinderViewController* controller);
     void Update();
     void HandleHmiEvent(genieFrame& Event);
 
@@ -67,7 +66,7 @@ private:
     EncoderInput& m_encoderIn;
 
     GrinderViewModel& m_model;
-    Controller* m_controller = nullptr;
+    GrinderViewController* m_controller = nullptr;
 
     Genie m_genie;
 	Units m_currentUnits;
@@ -76,7 +75,7 @@ private:
     AnalogSwitch m_jogResolution;
 
     static void HmiEventHandler();
-    static GrinderControlPanel *s_instance;
+    static GrinderView *s_instance;
 
     int32_t m_droDirections[3];
 
@@ -88,5 +87,5 @@ private:
     bool m_forceHmiUpdate = true;
 };
 
-#endif // CONTROL_PANEL_H
+#endif // GRINDER_VIEW_H
 

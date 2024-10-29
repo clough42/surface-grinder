@@ -4,12 +4,12 @@
 #define GRINDERCONTROLLER_H
 
 #include "GrinderModel.h"
-#include "ControlPanel.h"
-#include "Controller.h"
+#include "GrinderView.h"
+#include "GrinderViewController.h"
 
-class GrinderController : public Controller {
+class GrinderController : public GrinderViewController {
 public:
-    GrinderController(GrinderModel& model, GrinderControlPanel& view)
+    GrinderController(GrinderModel& model, GrinderView& view)
         : m_model(model), m_view(view)
     {}
 
@@ -22,7 +22,7 @@ public:
 
 private:
     GrinderModel& m_model;
-    GrinderControlPanel& m_view;
+    GrinderView& m_view;
 };
 
 #endif // GRINDERCONTROLLER_H

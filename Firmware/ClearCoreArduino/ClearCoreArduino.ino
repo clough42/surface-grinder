@@ -8,7 +8,8 @@
 #include <genieArduinoDEV.h>
 
 #include "MachineAxis.h"
-#include "ControlPanel.h"
+#include "GrinderModel.h"
+#include "GrinderView.h"
 #include "GrinderController.h"
 #include "CommonEnums.h"
 
@@ -26,7 +27,7 @@ namespace Injected {
 
 	// View
 	Direction droDirections[3] = { Direction::REVERSE, Direction::NORMAL, Direction::NORMAL };
-	GrinderControlPanel View(
+	GrinderView View(
 		ConnectorIO0,	// ESTOP
 		ConnectorIO1,	// Left Limit
 		ConnectorIO2,	// Right Limit Switch
