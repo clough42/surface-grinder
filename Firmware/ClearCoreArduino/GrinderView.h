@@ -14,8 +14,6 @@ public:
 
     GrinderView(
         DigitalInOut& eStop,
-        DigitalInOut& leftLimit,
-        DigitalInOut& rightLimit,
         DigitalInOut& cycleRun,
         DigitalInOut& cycleStop,
         DigitalInAnalogIn& jogAxisInput,
@@ -26,8 +24,6 @@ public:
         IViewModel& model,
         Direction droDirections[3]
     ) : m_eStop(eStop),
-        m_leftLimit(leftLimit),
-        m_rightLimit(rightLimit),
         m_cycleRun(cycleRun),
         m_cycleStop(cycleStop),
         m_hmiSerial(hmiSerial),
@@ -57,8 +53,6 @@ private:
 	int32_t ConvertToNm(int32_t units); // convert from (units * 2^5)
 
     DigitalInOut& m_eStop;
-    DigitalInOut& m_leftLimit;
-    DigitalInOut& m_rightLimit;
     DigitalInOut& m_cycleRun;
     DigitalInOut& m_cycleStop;
     Uart& m_hmiSerial;

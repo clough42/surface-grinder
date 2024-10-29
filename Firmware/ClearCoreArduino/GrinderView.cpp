@@ -11,8 +11,7 @@ void GrinderView::Init(IViewController* controller) {
 	m_jogResolution.Init();
 
     m_eStop.Mode(Connector::INPUT_DIGITAL);
-    m_leftLimit.Mode(Connector::INPUT_DIGITAL);
-    m_rightLimit.Mode(Connector::INPUT_DIGITAL);
+
     
     EncoderIn.Enable(true);
         

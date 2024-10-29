@@ -8,7 +8,7 @@
 class GrinderModel : public IViewModel {
 public:
     // Constructor that takes an array of three MachineAxis objects
-    GrinderModel(MachineAxis* axes[3]);
+    GrinderModel(MachineAxis* axes[3], DigitalInOut& leftLimit,	DigitalInOut& rightLimit);
 
     // Method to initialize all axes
     void Init();
@@ -32,6 +32,8 @@ public:
 
 private:
     MachineAxis* m_axes[3];
+	DigitalInOut& m_leftLimit;
+	DigitalInOut& m_rightLimit;
 };
 
 #endif // GRINDER_MODEL_H
