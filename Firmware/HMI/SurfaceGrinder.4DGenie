@@ -56,12 +56,12 @@ iLedDigits
     DPisComma                    No
     Format                       Int32
     LeadingZero                  No
-    Left                         261
+    Left                         356
     ShowDP                       Yes
     Signed                       Yes
     Size                         3
     Spacing                      0
-    Top                          50
+    Top                          26
     OnChanged                    ''
 end
 iLedDigits
@@ -74,12 +74,12 @@ iLedDigits
     DPisComma                    No
     Format                       Int32
     LeadingZero                  No
-    Left                         261
+    Left                         356
     ShowDP                       Yes
     Signed                       Yes
     Size                         3
     Spacing                      0
-    Top                          120
+    Top                          96
     OnChanged                    ''
 end
 iLedDigits
@@ -92,12 +92,12 @@ iLedDigits
     DPisComma                    No
     Format                       Int32
     LeadingZero                  No
-    Left                         261
+    Left                         356
     ShowDP                       Yes
     Signed                       Yes
     Size                         3
     Spacing                      0
-    Top                          190
+    Top                          166
     OnChanged                    ''
 end
 WinButton
@@ -119,7 +119,7 @@ WinButton
     Font.Size                    18
     Font.Style                   []
     Height                       55
-    Left                         630
+    Left                         727
     Matrix                       -1
     Momentary                    Yes
     Picture                      (None)
@@ -141,7 +141,7 @@ WinButton
     StatusWhenOn.Size            8
     StatusWhenOn.Style           []
     StatusWhenOn.Visible         Yes
-    Top                          53
+    Top                          30
     Width                        57
     OnChanged                    'Report Message'
     OnTouchMoving                ''
@@ -167,7 +167,7 @@ WinButton
     Font.Size                    18
     Font.Style                   []
     Height                       55
-    Left                         630
+    Left                         727
     Matrix                       -1
     Momentary                    Yes
     Picture                      (None)
@@ -189,7 +189,7 @@ WinButton
     StatusWhenOn.Size            8
     StatusWhenOn.Style           []
     StatusWhenOn.Visible         Yes
-    Top                          123
+    Top                          100
     Width                        57
     OnChanged                    'Report Message'
     OnTouchMoving                ''
@@ -215,7 +215,7 @@ WinButton
     Font.Size                    18
     Font.Style                   []
     Height                       55
-    Left                         630
+    Left                         727
     Matrix                       -1
     Momentary                    Yes
     Picture                      (None)
@@ -237,7 +237,7 @@ WinButton
     StatusWhenOn.Size            8
     StatusWhenOn.Style           []
     StatusWhenOn.Visible         Yes
-    Top                          193
+    Top                          170
     Width                        57
     OnChanged                    'Report Message'
     OnTouchMoving                ''
@@ -255,11 +255,11 @@ iLed
     LEDcolorOff                  0x000058
     LEDcolorOn                   0x0000F8
     LEDLampRadius                5
-    Left                         612
+    Left                         709
     ShineColor                   0xD8DCD8
     ShineEffect                  No
     ShineRadius                  10
-    Top                          50
+    Top                          27
     Width                        15
     OnChanged                    ''
 end
@@ -274,11 +274,11 @@ iLed
     LEDcolorOff                  0x000058
     LEDcolorOn                   0x0000F8
     LEDLampRadius                5
-    Left                         612
+    Left                         709
     ShineColor                   0xD8DCD8
     ShineEffect                  No
     ShineRadius                  10
-    Top                          120
+    Top                          97
     Width                        15
     OnChanged                    ''
 end
@@ -293,11 +293,11 @@ iLed
     LEDcolorOff                  0x000058
     LEDcolorOn                   0x0000F8
     LEDLampRadius                5
-    Left                         612
+    Left                         709
     ShineColor                   0xD8DCD8
     ShineEffect                  No
     ShineRadius                  10
-    Top                          190
+    Top                          167
     Width                        15
     OnChanged                    ''
 end
@@ -311,11 +311,11 @@ StaticText
     Font.Color                   SILVER
     Font.Effects                 []
     Font.Name                    'Agency FB'
-    Font.Size                    50
+    Font.Size                    48
     Font.Style                   [Bold]
     Height                       80
-    Left                         203
-    Top                          43
+    Left                         290
+    Top                          18
     Transparent                  Yes
     Width                        50
     WordWrap                     Yes
@@ -332,9 +332,9 @@ StaticText
     Font.Name                    'Agency FB'
     Font.Size                    48
     Font.Style                   [Bold]
-    Height                       77
-    Left                         203
-    Top                          113
+    Height                       80
+    Left                         290
+    Top                          88
     Transparent                  Yes
     Width                        50
     WordWrap                     Yes
@@ -351,9 +351,9 @@ StaticText
     Font.Name                    'Agency FB'
     Font.Size                    48
     Font.Style                   [Bold]
-    Height                       77
-    Left                         203
-    Top                          183
+    Height                       80
+    Left                         290
+    Top                          158
     Transparent                  Yes
     Width                        50
     WordWrap                     Yes
@@ -383,20 +383,20 @@ WinButton
     Picture                      (None)
     StatusWhenOff.BGcolor        RED
     StatusWhenOff.Caption        INCH
-    StatusWhenOff.Glow           Yes
+    StatusWhenOff.Glow           No
     StatusWhenOff.Color          WHITE
     StatusWhenOff.Effects        []
     StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
+    StatusWhenOff.Size           10
     StatusWhenOff.Style          []
     StatusWhenOff.Visible        Yes
     StatusWhenOn.BGcolor         RED
     StatusWhenOn.Caption         MM
-    StatusWhenOn.Glow            Yes
+    StatusWhenOn.Glow            No
     StatusWhenOn.Color           WHITE
     StatusWhenOn.Effects         []
     StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
+    StatusWhenOn.Size            10
     StatusWhenOn.Style           []
     StatusWhenOn.Visible         Yes
     Top                          408
@@ -417,11 +417,11 @@ iLed
     LEDcolorOff                  0x000058
     LEDcolorOn                   0x0000F8
     LEDLampRadius                5
-    Left                         574
+    Left                         669
     ShineColor                   0xD8DCD8
     ShineEffect                  No
     ShineRadius                  10
-    Top                          30
+    Top                          6
     Width                        35
     OnChanged                    ''
 end
@@ -436,11 +436,11 @@ iLed
     LEDcolorOff                  0x000058
     LEDcolorOn                   0x0000F8
     LEDLampRadius                5
-    Left                         534
+    Left                         629
     ShineColor                   0xD8DCD8
     ShineEffect                  No
     ShineRadius                  10
-    Top                          30
+    Top                          6
     Width                        35
     OnChanged                    ''
 end
@@ -455,11 +455,11 @@ iLed
     LEDcolorOff                  0x000058
     LEDcolorOn                   0x0000F8
     LEDLampRadius                5
-    Left                         495
+    Left                         590
     ShineColor                   0xD8DCD8
     ShineEffect                  No
     ShineRadius                  10
-    Top                          30
+    Top                          6
     Width                        35
     OnChanged                    ''
 end
@@ -474,11 +474,11 @@ iLed
     LEDcolorOff                  0x000058
     LEDcolorOn                   0x0000F8
     LEDLampRadius                5
-    Left                         456
+    Left                         551
     ShineColor                   0xD8DCD8
     ShineEffect                  No
     ShineRadius                  10
-    Top                          30
+    Top                          6
     Width                        35
     OnChanged                    ''
 end
@@ -493,13 +493,537 @@ iLed
     LEDcolorOff                  0x000058
     LEDcolorOn                   0x0000F8
     LEDLampRadius                5
-    Left                         417
+    Left                         512
     ShineColor                   0xD8DCD8
     ShineEffect                  No
     ShineRadius                  10
-    Top                          30
+    Top                          6
     Width                        35
     OnChanged                    ''
+end
+WinButton
+    Name                         Winbutton4
+    Alias                        XStart
+    Appearance.Alignment         Center
+    Appearance.Layout            Left
+    Appearance.PictureAlignment  Right
+    Appearance.SimpleLayout      No
+    Appearance.Spacing           3
+    AutoSizeToPicture            No
+    Bevel                        Yes
+    BevelColor                   clWhite
+    Caption                      START
+    Color                        GRAY
+    Font.Color                   BLACK
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    16
+    Font.Style                   []
+    Height                       55
+    Left                         16
+    Matrix                       -1
+    Momentary                    Yes
+    Picture                      (None)
+    StatusWhenOff.BGcolor        RED
+    StatusWhenOff.Caption        ''
+    StatusWhenOff.Glow           Yes
+    StatusWhenOff.Color          WHITE
+    StatusWhenOff.Effects        []
+    StatusWhenOff.Name           Tahoma
+    StatusWhenOff.Size           8
+    StatusWhenOff.Style          []
+    StatusWhenOff.Visible        Yes
+    StatusWhenOn.BGcolor         RED
+    StatusWhenOn.Caption         ''
+    StatusWhenOn.Glow            Yes
+    StatusWhenOn.Color           WHITE
+    StatusWhenOn.Effects         []
+    StatusWhenOn.Name            Tahoma
+    StatusWhenOn.Size            8
+    StatusWhenOn.Style           []
+    StatusWhenOn.Visible         Yes
+    Top                          30
+    Width                        57
+    OnChanged                    'Report Message'
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+WinButton
+    Name                         Winbutton5
+    Alias                        XEnd
+    Appearance.Alignment         Center
+    Appearance.Layout            Left
+    Appearance.PictureAlignment  Right
+    Appearance.SimpleLayout      No
+    Appearance.Spacing           3
+    AutoSizeToPicture            No
+    Bevel                        Yes
+    BevelColor                   clWhite
+    Caption                      END
+    Color                        GRAY
+    Font.Color                   BLACK
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    16
+    Font.Style                   []
+    Height                       55
+    Left                         208
+    Matrix                       -1
+    Momentary                    Yes
+    Picture                      (None)
+    StatusWhenOff.BGcolor        RED
+    StatusWhenOff.Caption        ''
+    StatusWhenOff.Glow           Yes
+    StatusWhenOff.Color          WHITE
+    StatusWhenOff.Effects        []
+    StatusWhenOff.Name           Tahoma
+    StatusWhenOff.Size           8
+    StatusWhenOff.Style          []
+    StatusWhenOff.Visible        Yes
+    StatusWhenOn.BGcolor         RED
+    StatusWhenOn.Caption         ''
+    StatusWhenOn.Glow            Yes
+    StatusWhenOn.Color           WHITE
+    StatusWhenOn.Effects         []
+    StatusWhenOn.Name            Tahoma
+    StatusWhenOn.Size            8
+    StatusWhenOn.Style           []
+    StatusWhenOn.Visible         Yes
+    Top                          30
+    Width                        57
+    OnChanged                    'Report Message'
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+iLedDigits
+    Name                         ILedDigits3
+    Alias                        XStartDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         80
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          32
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits4
+    Alias                        XEndDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         80
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          62
+    OnChanged                    ''
+end
+WinButton
+    Name                         Winbutton6
+    Alias                        ZStart
+    Appearance.Alignment         Center
+    Appearance.Layout            Left
+    Appearance.PictureAlignment  Right
+    Appearance.SimpleLayout      No
+    Appearance.Spacing           3
+    AutoSizeToPicture            No
+    Bevel                        Yes
+    BevelColor                   clWhite
+    Caption                      START
+    Color                        GRAY
+    Font.Color                   BLACK
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    16
+    Font.Style                   []
+    Height                       55
+    Left                         16
+    Matrix                       -1
+    Momentary                    Yes
+    Picture                      (None)
+    StatusWhenOff.BGcolor        RED
+    StatusWhenOff.Caption        ''
+    StatusWhenOff.Glow           Yes
+    StatusWhenOff.Color          WHITE
+    StatusWhenOff.Effects        []
+    StatusWhenOff.Name           Tahoma
+    StatusWhenOff.Size           8
+    StatusWhenOff.Style          []
+    StatusWhenOff.Visible        Yes
+    StatusWhenOn.BGcolor         RED
+    StatusWhenOn.Caption         ''
+    StatusWhenOn.Glow            Yes
+    StatusWhenOn.Color           WHITE
+    StatusWhenOn.Effects         []
+    StatusWhenOn.Name            Tahoma
+    StatusWhenOn.Size            8
+    StatusWhenOn.Style           []
+    StatusWhenOn.Visible         Yes
+    Top                          170
+    Width                        57
+    OnChanged                    'Report Message'
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+WinButton
+    Name                         Winbutton7
+    Alias                        ZEnd
+    Appearance.Alignment         Center
+    Appearance.Layout            Left
+    Appearance.PictureAlignment  Right
+    Appearance.SimpleLayout      No
+    Appearance.Spacing           3
+    AutoSizeToPicture            No
+    Bevel                        Yes
+    BevelColor                   clWhite
+    Caption                      END
+    Color                        GRAY
+    Font.Color                   BLACK
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    16
+    Font.Style                   []
+    Height                       55
+    Left                         208
+    Matrix                       -1
+    Momentary                    Yes
+    Picture                      (None)
+    StatusWhenOff.BGcolor        RED
+    StatusWhenOff.Caption        ''
+    StatusWhenOff.Glow           Yes
+    StatusWhenOff.Color          WHITE
+    StatusWhenOff.Effects        []
+    StatusWhenOff.Name           Tahoma
+    StatusWhenOff.Size           8
+    StatusWhenOff.Style          []
+    StatusWhenOff.Visible        Yes
+    StatusWhenOn.BGcolor         RED
+    StatusWhenOn.Caption         ''
+    StatusWhenOn.Glow            Yes
+    StatusWhenOn.Color           WHITE
+    StatusWhenOn.Effects         []
+    StatusWhenOn.Name            Tahoma
+    StatusWhenOn.Size            8
+    StatusWhenOn.Style           []
+    StatusWhenOn.Visible         Yes
+    Top                          170
+    Width                        57
+    OnChanged                    'Report Message'
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+iLedDigits
+    Name                         ILedDigits5
+    Alias                        ZStartDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         80
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          172
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits6
+    Alias                        ZEndDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         80
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          202
+    OnChanged                    ''
+end
+WinButton
+    Name                         Winbutton8
+    Alias                        ModeButtonSetup
+    Appearance.Alignment         Center
+    Appearance.Layout            Left
+    Appearance.PictureAlignment  Right
+    Appearance.SimpleLayout      No
+    Appearance.Spacing           3
+    AutoSizeToPicture            No
+    Bevel                        Yes
+    BevelColor                   clWhite
+    Caption                      SETUP
+    Color                        clGray
+    Font.Color                   clWindowText
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    18
+    Font.Style                   []
+    Height                       65
+    Left                         112
+    Matrix                       -1
+    Momentary                    No
+    Picture                      (None)
+    StatusWhenOff.BGcolor        BLACK
+    StatusWhenOff.Caption        OFF
+    StatusWhenOff.Glow           No
+    StatusWhenOff.Color          WHITE
+    StatusWhenOff.Effects        []
+    StatusWhenOff.Name           Tahoma
+    StatusWhenOff.Size           10
+    StatusWhenOff.Style          []
+    StatusWhenOff.Visible        Yes
+    StatusWhenOn.BGcolor         RED
+    StatusWhenOn.Caption         ON
+    StatusWhenOn.Glow            Yes
+    StatusWhenOn.Color           WHITE
+    StatusWhenOn.Effects         []
+    StatusWhenOn.Name            Tahoma
+    StatusWhenOn.Size            10
+    StatusWhenOn.Style           []
+    StatusWhenOn.Visible         Yes
+    Top                          408
+    Width                        125
+    OnChanged                    'Report Message'
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+WinButton
+    Name                         Winbutton9
+    Alias                        ModeButtonFlat
+    Appearance.Alignment         Center
+    Appearance.Layout            Left
+    Appearance.PictureAlignment  Right
+    Appearance.SimpleLayout      No
+    Appearance.Spacing           3
+    AutoSizeToPicture            No
+    Bevel                        Yes
+    BevelColor                   clWhite
+    Caption                      FLAT
+    Color                        clGray
+    Font.Color                   clWindowText
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    18
+    Font.Style                   []
+    Height                       65
+    Left                         246
+    Matrix                       -1
+    Momentary                    No
+    Picture                      (None)
+    StatusWhenOff.BGcolor        BLACK
+    StatusWhenOff.Caption        OFF
+    StatusWhenOff.Glow           No
+    StatusWhenOff.Color          WHITE
+    StatusWhenOff.Effects        []
+    StatusWhenOff.Name           Tahoma
+    StatusWhenOff.Size           10
+    StatusWhenOff.Style          []
+    StatusWhenOff.Visible        Yes
+    StatusWhenOn.BGcolor         RED
+    StatusWhenOn.Caption         ON
+    StatusWhenOn.Glow            No
+    StatusWhenOn.Color           WHITE
+    StatusWhenOn.Effects         []
+    StatusWhenOn.Name            Tahoma
+    StatusWhenOn.Size            10
+    StatusWhenOn.Style           []
+    StatusWhenOn.Visible         Yes
+    Top                          408
+    Width                        125
+    OnChanged                    'Report Message'
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+WinButton
+    Name                         Winbutton10
+    Alias                        ModeButtonSide
+    Appearance.Alignment         Center
+    Appearance.Layout            Left
+    Appearance.PictureAlignment  Right
+    Appearance.SimpleLayout      No
+    Appearance.Spacing           3
+    AutoSizeToPicture            No
+    Bevel                        Yes
+    BevelColor                   clWhite
+    Caption                      SIDE
+    Color                        clGray
+    Font.Color                   clWindowText
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    18
+    Font.Style                   []
+    Height                       65
+    Left                         380
+    Matrix                       -1
+    Momentary                    No
+    Picture                      (None)
+    StatusWhenOff.BGcolor        BLACK
+    StatusWhenOff.Caption        OFF
+    StatusWhenOff.Glow           No
+    StatusWhenOff.Color          WHITE
+    StatusWhenOff.Effects        []
+    StatusWhenOff.Name           Tahoma
+    StatusWhenOff.Size           10
+    StatusWhenOff.Style          []
+    StatusWhenOff.Visible        Yes
+    StatusWhenOn.BGcolor         RED
+    StatusWhenOn.Caption         ON
+    StatusWhenOn.Glow            No
+    StatusWhenOn.Color           WHITE
+    StatusWhenOn.Effects         []
+    StatusWhenOn.Name            Tahoma
+    StatusWhenOn.Size            10
+    StatusWhenOn.Style           []
+    StatusWhenOn.Visible         Yes
+    Top                          408
+    Width                        125
+    OnChanged                    'Report Message'
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+WinButton
+    Name                         Winbutton11
+    Alias                        ModeButtonCylinder
+    Appearance.Alignment         Center
+    Appearance.Layout            Left
+    Appearance.PictureAlignment  Right
+    Appearance.SimpleLayout      No
+    Appearance.Spacing           3
+    AutoSizeToPicture            No
+    Bevel                        Yes
+    BevelColor                   clWhite
+    Caption                      CYLINDER
+    Color                        clGray
+    Font.Color                   clWindowText
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    18
+    Font.Style                   []
+    Height                       65
+    Left                         514
+    Matrix                       -1
+    Momentary                    No
+    Picture                      (None)
+    StatusWhenOff.BGcolor        BLACK
+    StatusWhenOff.Caption        OFF
+    StatusWhenOff.Glow           No
+    StatusWhenOff.Color          WHITE
+    StatusWhenOff.Effects        []
+    StatusWhenOff.Name           Tahoma
+    StatusWhenOff.Size           10
+    StatusWhenOff.Style          []
+    StatusWhenOff.Visible        Yes
+    StatusWhenOn.BGcolor         RED
+    StatusWhenOn.Caption         ON
+    StatusWhenOn.Glow            No
+    StatusWhenOn.Color           WHITE
+    StatusWhenOn.Effects         []
+    StatusWhenOn.Name            Tahoma
+    StatusWhenOn.Size            10
+    StatusWhenOn.Style           []
+    StatusWhenOn.Visible         Yes
+    Top                          408
+    Width                        125
+    OnChanged                    'Report Message'
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+WinButton
+    Name                         Winbutton12
+    Alias                        ModeButtonDress
+    Appearance.Alignment         Center
+    Appearance.Layout            Left
+    Appearance.PictureAlignment  Right
+    Appearance.SimpleLayout      No
+    Appearance.Spacing           3
+    AutoSizeToPicture            No
+    Bevel                        Yes
+    BevelColor                   clWhite
+    Caption                      DRESS
+    Color                        clGray
+    Font.Color                   clWindowText
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    18
+    Font.Style                   []
+    Height                       65
+    Left                         648
+    Matrix                       -1
+    Momentary                    No
+    Picture                      (None)
+    StatusWhenOff.BGcolor        BLACK
+    StatusWhenOff.Caption        OFF
+    StatusWhenOff.Glow           No
+    StatusWhenOff.Color          WHITE
+    StatusWhenOff.Effects        []
+    StatusWhenOff.Name           Tahoma
+    StatusWhenOff.Size           10
+    StatusWhenOff.Style          []
+    StatusWhenOff.Visible        Yes
+    StatusWhenOn.BGcolor         RED
+    StatusWhenOn.Caption         ON
+    StatusWhenOn.Glow            No
+    StatusWhenOn.Color           WHITE
+    StatusWhenOn.Effects         []
+    StatusWhenOn.Name            Tahoma
+    StatusWhenOn.Size            10
+    StatusWhenOn.Style           []
+    StatusWhenOn.Visible         Yes
+    Top                          408
+    Width                        125
+    OnChanged                    'Report Message'
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Line
+    Name                         Line0
+    Alias                        Line0
+    Color                        GRAY
+    Pattern                      Solid
+    X1                           8
+    X2                           792
+    Y1                           236
+    Y2                           236
+end
+Line
+    Name                         Line1
+    Alias                        Line1
+    Color                        GRAY
+    Pattern                      Solid
+    X1                           8
+    X2                           792
+    Y1                           400
+    Y2                           400
 end
 Form
     Name                         Form1
