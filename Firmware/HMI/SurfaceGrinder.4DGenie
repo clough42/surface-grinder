@@ -699,7 +699,6 @@ WinButton
     Font.Name                    'Agency FB'
     Font.Size                    16
     Font.Style                   []
-    Height                       55
     Height                       57
     Left                         208
     Matrix                       -1
