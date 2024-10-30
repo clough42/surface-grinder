@@ -54,6 +54,22 @@ namespace HMI {
     constexpr int UNITS_BUTTON_VAL_INCH = 0;
     constexpr int UNITS_BUTTON_VAL_MM = 1;
 
+    constexpr int DRO_START_BUTTON_X = 4;
+	constexpr int DRO_END_BUTTON_X = 5;
+	constexpr int DRO_START_BUTTON_Z = 6;
+    constexpr int DRO_END_BUTTON_Z = 7;
+
+    constexpr int DRO_DIGITS_START_X = 3;
+	constexpr int DRO_DIGITS_END_X = 4;
+	constexpr int DRO_DIGITS_START_Z = 5;
+	constexpr int DRO_DIGITS_END_Z = 6;
+
+	constexpr int MODE_BUTTON_SETUP = 8;
+	constexpr int MODE_BUTTON_FLAT = 9;
+	constexpr int MODE_BUTTON_SIDE = 10;
+	constexpr int MODE_BUTTON_CYLINDER = 11;
+    constexpr int MODE_BUTTON_DRESS = 12;
+
     // Form 1 - Splash
     constexpr int FORM_SPLASH = 1;
 }

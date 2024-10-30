@@ -46,4 +46,17 @@ enum class Axis {
 	NONE = -1
 };
 
+enum class LimitType {
+	START,
+	END
+};
+
+enum class Mode {
+	SETUP,
+	FLAT,
+	SIDE,
+	CYLINDER,
+	DRESS
+};
+
 #endif // COMMON_ENUMS_H

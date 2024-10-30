@@ -87,6 +87,28 @@ void GrinderView::SetDroValue(Axis axis, int32_t unitsValue) {
 	}
 }
 
+void GrinderView::SetStartDroValue(Axis axis, int32_t unitsValue) {
+	switch (axis) {
+	case Axis::X:
+        m_genie.WriteIntLedDigits(HMI::DRO_DIGITS_START_X, unitsValue * static_cast<int>(m_droDirections[static_cast<int>(axis)]));
+		break;
+	case Axis::Z:
+        m_genie.WriteIntLedDigits(HMI::DRO_DIGITS_START_Z, unitsValue * static_cast<int>(m_droDirections[static_cast<int>(axis)]));
+		break;
+	}
+}
+
+void GrinderView::SetEndDroValue(Axis axis, int32_t unitsValue) {
+    switch (axis) {
+    case Axis::X:
+        m_genie.WriteIntLedDigits(HMI::DRO_DIGITS_END_X, unitsValue * static_cast<int>(m_droDirections[static_cast<int>(axis)]));
+        break;
+    case Axis::Z:
+        m_genie.WriteIntLedDigits(HMI::DRO_DIGITS_END_Z, unitsValue * static_cast<int>(m_droDirections[static_cast<int>(axis)]));
+        break;
+    }
+}
+
 void GrinderView::UpdateAxisSelectors() {
     // Check the rsolution and axis selectors
     int axisSwitchPosition = m_jogAxis.GetSwitchPosition();
@@ -115,6 +137,14 @@ void GrinderView::SetAxisIndicators(Axis selectedAxis, int32_t resolution) {
     m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_100S, selectedAxis != Axis::NONE && resolution == 100 ? 1 : 0);
     m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_1000S, selectedAxis != Axis::NONE && resolution == 1000 ? 1 : 0);
     m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_10000S, selectedAxis != Axis::NONE && resolution == 10000 ? 1 : 0);
+}
+
+void GrinderView::SetOperatingMode(Mode mode) {
+	m_genie.WriteObject(GENIE_OBJ_WINBUTTON, HMI::MODE_BUTTON_SETUP, mode == Mode::SETUP ? 1 : 0);
+	m_genie.WriteObject(GENIE_OBJ_WINBUTTON, HMI::MODE_BUTTON_FLAT, mode == Mode::FLAT ? 1 : 0);
+	m_genie.WriteObject(GENIE_OBJ_WINBUTTON, HMI::MODE_BUTTON_SIDE, mode == Mode::SIDE ? 1 : 0);
+	m_genie.WriteObject(GENIE_OBJ_WINBUTTON, HMI::MODE_BUTTON_CYLINDER, mode == Mode::CYLINDER ? 1 : 0);
+	m_genie.WriteObject(GENIE_OBJ_WINBUTTON, HMI::MODE_BUTTON_DRESS, mode == Mode::DRESS ? 1 : 0);
 }
 
 void GrinderView::UpdateEncoder() {
@@ -176,6 +206,24 @@ void GrinderView::HandleHmiEvent(genieFrame& Event)
         return;
     }
 
+	// Limit Set Buttons
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_START_BUTTON_X)) {
+		if (m_controller) m_controller->SetStartLimit(Axis::X);
+		return;
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_END_BUTTON_X)) {
+		if (m_controller) m_controller->SetEndLimit(Axis::X);
+		return;
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_START_BUTTON_Z)) {
+		if (m_controller) m_controller->SetStartLimit(Axis::Z);
+		return;
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_END_BUTTON_Z)) {
+		if (m_controller) m_controller->SetEndLimit(Axis::Z);
+		return;
+	}
+
     // Unit Selection
     if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::UNITS_BUTTON)) {
         switch (Event.reportObject.data_lsb) {
@@ -190,5 +238,38 @@ void GrinderView::HandleHmiEvent(genieFrame& Event)
         return;
     }
 
+    // Mode Selection
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::MODE_BUTTON_SETUP)) {
+		if (m_controller) m_controller->SetOperatingMode(Mode::SETUP);
+		return;
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::MODE_BUTTON_FLAT)) {
+		if (m_controller) m_controller->SetOperatingMode(Mode::FLAT);
+		return;
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::MODE_BUTTON_SIDE)) {
+		if (m_controller) m_controller->SetOperatingMode(Mode::SIDE);
+		return;
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::MODE_BUTTON_CYLINDER)) {
+		if (m_controller) m_controller->SetOperatingMode(Mode::CYLINDER);
+		return;
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::MODE_BUTTON_DRESS)) {
+		if (m_controller) m_controller->SetOperatingMode(Mode::DRESS);
+		return;
+	}
+
     Serial.println("Unknown HMI Event!");
+    Serial.print("cmd: ");
+    Serial.println(Event.reportObject.cmd);
+	Serial.print("object: ");
+	Serial.println(Event.reportObject.object);
+	Serial.print("index: ");
+	Serial.println(Event.reportObject.index);
+	Serial.print("data lsb: ");
+	Serial.println(Event.reportObject.data_lsb);
+    Serial.print("data msb: ");
+	Serial.println(Event.reportObject.data_msb);
+
 }

@@ -46,6 +46,9 @@ public:
 	virtual void SelectAxis(Axis selectedAxis, int resolutionSwitchPosition) = 0;
     virtual void Jog(int32_t clicks) = 0;
 	virtual void SetWorkOffset(Axis selectedAxis) = 0;
+	virtual void SetStartLimit(Axis axis) = 0;
+	virtual void SetEndLimit(Axis axis) = 0;
+	virtual void SetOperatingMode(Mode mode) = 0;
 };
 
 #endif // I_USER_ACTIONS_H

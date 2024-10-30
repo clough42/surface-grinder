@@ -49,11 +49,15 @@ public:
 	void SelectAxis(Axis axisSwitchPosition, int resolutionSwitchPosition) override;
 	void Jog(int32_t clicks) override;
 	void SetWorkOffset(Axis selectedAxis) override;
+	void SetStartLimit(Axis axis) override;
+	void SetEndLimit(Axis axis) override;
+	void SetOperatingMode(Mode mode) override;
 
 private:
     void UpdateDROs();
 	void UpdateDRO(Axis axis);
     void UpdateResolutionAndAxisIndicators();
+    void UpdateLimitDros();
 
     int32_t ConvertToNm(int32_t units); // convert from (units * 2^5)
 	int32_t ConvertToUnits(int32_t nanometers); // convert to (units * 2^5)
@@ -62,10 +66,13 @@ private:
     GrinderView& m_view;
 
     Units m_units = Units::INCHES;
+	Mode m_mode = Mode::SETUP;
 	Axis m_selectedAxis;
     int m_resolutionSwitchPosition = 0;
     int32_t m_selectedResolution;
     int32_t m_droWorkOffsets[3] = { 0, 0, 0 };
+    int32_t m_startLimits[3] = { 0, 0, 0 };
+    int32_t m_endLimits[3] = { 0, 0, 0 };
     
 };
 

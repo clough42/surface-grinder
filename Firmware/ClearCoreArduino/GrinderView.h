@@ -68,6 +68,10 @@ public:
     void Update();
     void SetAxisIndicators(Axis selectedAxis, int32_t selectedResolution);
     void SetDroValue(Axis axis, int32_t unitsValue);
+	void SetStartDroValue(Axis axis, int32_t unitsValue);
+	void SetEndDroValue(Axis axis, int32_t unitsValue);
+	void SetOperatingMode(Mode mode);
+
     void HandleHmiEvent(genieFrame& Event);
 
 private:
