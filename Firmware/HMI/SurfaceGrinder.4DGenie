@@ -351,7 +351,7 @@ StaticText
     Font.Name                    'Agency FB'
     Font.Size                    48
     Font.Style                   [Bold]
-    Height                       80
+    Height                       75
     Left                         290
     Top                          158
     Transparent                  Yes
