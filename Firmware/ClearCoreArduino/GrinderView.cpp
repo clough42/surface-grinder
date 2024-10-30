@@ -1,10 +1,37 @@
+// Copyright (c) 2024 James Clough (Clough42, LLC)
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//
+// 1. Redistributions of source code must retain the above copyright notice,
+//    this list of conditions and the following disclaimer.
+// 2. Redistributions in binary form must reproduce the above copyright notice,
+//    this list of conditions and the following disclaimer in the documentation
+//    and/or other materials provided with the distribution.
+// 3. Neither the name of the Clough42, LLC nor the names of its
+//    contributors may be used to endorse or promote products derived from
+//    this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
+
 #include "GrinderView.h"
 #include "HMIConstants.h"
-#include "IViewController.h"
+#include "IUserActions.h"
 
 GrinderView* GrinderView::s_instance = nullptr;
 
-void GrinderView::Init(IViewController* controller) {
+void GrinderView::Init(IUserActions* controller) {
     m_controller = controller;
 
     m_jogAxis.Init();
@@ -34,121 +61,68 @@ void GrinderView::Init(IViewController* controller) {
 void GrinderView::Update() {
     m_genie.DoEvents();
 
-    UpdateDros();
-    UpdateJogControls();
+    UpdateAxisSelectors();
+    UpdateEncoder();
     UpdateEstop();
-
-	m_forceHmiUpdate = false; // reset the force update flag
+    UpdateCycleButtons();
 }
 
-void GrinderView::UpdateDros() {
-    UpdateDro(Axis::X, HMI::DRO_DIGITS_X);
-    UpdateDro(Axis::Y, HMI::DRO_DIGITS_Y);
-    UpdateDro(Axis::Z, HMI::DRO_DIGITS_Z);
-}
+void GrinderView::SetDroValue(Axis axis, int32_t unitsValue) {
+    if (unitsValue != m_previousDroValues[static_cast<int>(axis)]) {
+	    uint16_t hmiDigitsId = 0;
+	    switch (axis) {
+	    case Axis::X:
+		    hmiDigitsId = HMI::DRO_DIGITS_X;
+		    break;
+	    case Axis::Y:
+		    hmiDigitsId = HMI::DRO_DIGITS_Y;
+		    break;
+	    case Axis::Z:
+		    hmiDigitsId = HMI::DRO_DIGITS_Z;
+		    break;
+	    }
 
-void GrinderView::UpdateDro(Axis axis, int hmiDigitsId) {
-    int32_t currentPosition = m_model.GetCurrentPositionNm(axis);
-	if (m_forceHmiUpdate || currentPosition != m_previousDroValues[axis]) {
-        int32_t currentUnits = ConvertToUnits(currentPosition - m_droWorkOffsets[axis]);
-		m_genie.WriteIntLedDigits(hmiDigitsId, currentUnits * m_droDirections[axis]);
-		m_previousDroValues[axis] = currentPosition;
+		m_genie.WriteIntLedDigits(hmiDigitsId, unitsValue * static_cast<int>(m_droDirections[static_cast<int>(axis)]));
+		m_previousDroValues[static_cast<int>(axis)] = unitsValue;
 	}
 }
 
-int32_t GrinderView::ConvertToUnits(int32_t nanometers) {
-    switch (m_currentUnits) {
-    case Units::MILLIMETERS:
-		return nanometers / 10;
-    case INCHES:
-		return nanometers / 254;   
-    }
-	return 0;
-}
-
-int32_t GrinderView::ConvertToNm(int32_t units) {
-    switch (m_currentUnits) {
-    case Units::MILLIMETERS:
-        return units * 10;
-    case INCHES:
-        return units * 254;
-    }
-    return 0;
-}
-
-void GrinderView::UpdateJogControls() {
-	// Check the rsolution and axis selectors
-	int axisSwitchPosition = m_jogAxis.GetSwitchPosition();
+void GrinderView::UpdateAxisSelectors() {
+    // Check the rsolution and axis selectors
+    int axisSwitchPosition = m_jogAxis.GetSwitchPosition();
     int resolutionSwitchPosition = m_jogResolution.GetSwitchPosition();
 
-    // Only update if a switch has moved, or if we are forcing an HMI update due to some other change
-    if (m_forceHmiUpdate || axisSwitchPosition != m_previousAxisSwitchPosition || resolutionSwitchPosition != m_previousResolutionSwitchPosition ) {
-        // reset the encoder, just to keep it in a reasonable range
-        EncoderIn.Position(0);
-        m_previousEncoderCount = 0;
-
-		// update the axis LEDs
-		m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_X, axisSwitchPosition == 1 ? 1 : 0);
-		m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_Y, axisSwitchPosition == 2 ? 1 : 0);
-		m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_Z, axisSwitchPosition == 3 ? 1 : 0);
-
-		// update the resolution LEDs
-        switch (m_currentUnits) {
-        case INCHES:
-            m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_1S, axisSwitchPosition != 0 && resolutionSwitchPosition == 3 ? 1 : 0);
-            m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_10S, axisSwitchPosition != 0 && resolutionSwitchPosition == 2 ? 1 : 0);
-            m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_100S, axisSwitchPosition != 0 && resolutionSwitchPosition == 1 ? 1 : 0);
-            m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_1000S, axisSwitchPosition != 0 && resolutionSwitchPosition == 0 ? 1 : 0);
-            m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_10000S, 0);
-            break;
-        case Units::MILLIMETERS:
-            m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_1S, 0);
-            m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_10S, axisSwitchPosition != 0 && resolutionSwitchPosition == 3 ? 1 : 0);
-            m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_100S, axisSwitchPosition != 0 && resolutionSwitchPosition == 2 ? 1 : 0);
-            m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_1000S, axisSwitchPosition != 0 && resolutionSwitchPosition == 1 ? 1 : 0);
-            m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_10000S, axisSwitchPosition != 0 && resolutionSwitchPosition == 0 ? 1 : 0);
-            break;
-        }
-
-        // remember the switch positions for next time
+    if (axisSwitchPosition != m_previousAxisSwitchPosition || resolutionSwitchPosition != m_previousResolutionSwitchPosition) {
+        m_controller->SelectAxis(static_cast<Axis>(axisSwitchPosition - 1), resolutionSwitchPosition);
         m_previousAxisSwitchPosition = axisSwitchPosition;
         m_previousResolutionSwitchPosition = resolutionSwitchPosition;
     }
+}
 
-    // only bother messing with the encoder if an axis is selected
-    if (axisSwitchPosition > 0) {
-		Axis selectedAxis = static_cast<Axis>(axisSwitchPosition - 1);
+void GrinderView::SetAxisIndicators(Axis selectedAxis, int32_t resolution) {
+    // reset the encoder, just to keep it in a reasonable range
+    EncoderIn.Position(0);
+    m_previousEncoderCount = 0;
 
-        // read the encoder and figure out the desired jog amount
-        int32_t rawEncoderCount = EncoderIn.Position();
-        int32_t encoderCount = (rawEncoderCount >= 0 ? rawEncoderCount + 2 : rawEncoderCount - 2) / 4; // divide by four, rounding
-        if (encoderCount != m_previousEncoderCount) {
-            int32_t increment = encoderCount - m_previousEncoderCount;
+	// update the axis LEDs
+	m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_X, selectedAxis == Axis::X ? 1 : 0);
+	m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_Y, selectedAxis == Axis::Y ? 1 : 0);
+	m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_Z, selectedAxis == Axis::Z ? 1 : 0);
 
-            switch (resolutionSwitchPosition) {
-            case 0:
-                increment *= 1000;
-                break;
-            case 1:
-                increment *= 100;
-                break;
-            case 2:
-                increment *= 10;
-                break;
-            }
+	// update the resolution LEDs
+    m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_1S, selectedAxis != Axis::NONE && resolution == 1 ? 1 : 0);
+    m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_10S, selectedAxis != Axis::NONE && resolution == 10 ? 1 : 0);
+    m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_100S, selectedAxis != Axis::NONE && resolution == 100 ? 1 : 0);
+    m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_1000S, selectedAxis != Axis::NONE && resolution == 1000 ? 1 : 0);
+    m_genie.WriteObject(GENIE_OBJ_ILED, HMI::DRO_LED_10000S, selectedAxis != Axis::NONE && resolution == 10000 ? 1 : 0);
+}
 
-            if (m_currentUnits == Units::MILLIMETERS) {
-                increment *= 10; // Metric resolutions are 10X larger on a pure decimal basis
-            }
-
-            int32_t jogAmountNm = ConvertToNm(increment);
-
-            if (m_controller) {
-                m_controller->JogAxisNm(selectedAxis, jogAmountNm);
-            }
-
-            m_previousEncoderCount = encoderCount;
-        }
+void GrinderView::UpdateEncoder() {
+    int32_t rawEncoderCount = EncoderIn.Position();
+    int32_t encoderCount = (rawEncoderCount >= 0 ? rawEncoderCount + 2 : rawEncoderCount - 2) / 4; // divide by four, rounding
+    if (encoderCount != m_previousEncoderCount) {
+        m_controller->Jog(encoderCount - m_previousEncoderCount);
+        m_previousEncoderCount = encoderCount;
     }
 }
 
@@ -165,6 +139,19 @@ void GrinderView::UpdateEstop() {
     }
 }
 
+void GrinderView::UpdateCycleButtons() {
+	if (m_cycleRun.InputRisen()) {
+		if (m_controller) {
+			m_controller->CycleStart();
+		}
+	}
+	if (m_cycleStop.InputFallen()) {
+		if (m_controller) {
+			m_controller->CycleStop();
+		}
+	}
+}
+
 void GrinderView::HmiEventHandler() {
     if (s_instance) {
         genieFrame Event;
@@ -177,18 +164,15 @@ void GrinderView::HandleHmiEvent(genieFrame& Event)
 {
     // DRO Zero Buttons
     if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_ZERO_BUTTON_X)) {
-		m_droWorkOffsets[Axis::X] = m_model.GetCurrentPositionNm(Axis::X);
-		m_forceHmiUpdate = true;
+		if (m_controller) m_controller->SetWorkOffset(Axis::X);
         return;
     }
     if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_ZERO_BUTTON_Y)) {
-        m_droWorkOffsets[Axis::Y] = m_model.GetCurrentPositionNm(Axis::Y);
-        m_forceHmiUpdate = true;
+        if (m_controller) m_controller->SetWorkOffset(Axis::Y);
         return;
     }
     if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::DRO_ZERO_BUTTON_Z)) {
-        m_droWorkOffsets[Axis::Z] = m_model.GetCurrentPositionNm(Axis::Z);
-        m_forceHmiUpdate = true;
+        if (m_controller) m_controller->SetWorkOffset(Axis::Z);
         return;
     }
 
@@ -196,27 +180,15 @@ void GrinderView::HandleHmiEvent(genieFrame& Event)
     if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GENIE_OBJ_WINBUTTON, HMI::UNITS_BUTTON)) {
         switch (Event.reportObject.data_lsb) {
         case HMI::UNITS_BUTTON_VAL_INCH:
-			m_currentUnits = INCHES;
+			if (m_controller) m_controller->SelectUnits(Units::INCHES);
             break;
         case HMI::UNITS_BUTTON_VAL_MM:
-			m_currentUnits = Units::MILLIMETERS;
+			if (m_controller) m_controller->SelectUnits(Units::MILLIMETERS);
             break;
         }
 		
-        m_forceHmiUpdate = true;
         return;
     }
 
-    Serial.println("Unknown HMI event: ");
-
-    Serial.print("cmd=");
-    Serial.println(Event.reportObject.cmd);
-    Serial.print("object=");
-    Serial.println(Event.reportObject.object);
-    Serial.print("index=");
-    Serial.println(Event.reportObject.index);
-    Serial.print("lsb=");
-    Serial.println(Event.reportObject.data_lsb);
-    Serial.print("msb=");
-    Serial.println(Event.reportObject.data_msb);
+    Serial.println("Unknown HMI Event!");
 }

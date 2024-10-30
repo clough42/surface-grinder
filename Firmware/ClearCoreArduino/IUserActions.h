@@ -25,36 +25,28 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef ANALOG_SWITCH_H
-#define ANALOG_SWITCH_H
+#ifndef I_USER_ACTIONS_H
+#define I_USER_ACTIONS_H
 
-#include "ClearCore.h"
+#include "CommonEnums.h"
 
-class AnalogSwitch {
+// Controller Interface for the View
+//
+// This interface defines the methods that the view can call on the controller.
+// These are separated out into a separate interface to make it harder for
+// the view to accidentally call methods that it shouldn't.
+class IUserActions {
 public:
-    // Constructor that takes a reference to an analog input
-    AnalogSwitch(DigitalInAnalogIn& analogInput) : m_analogInput(analogInput) {}
-
-    void Init() {
-        m_analogInput.Mode(Connector::INPUT_ANALOG);
-    }
-
-    // Method to get the current switch position
-    int GetSwitchPosition() {
-        float voltage = m_analogInput.AnalogVoltage();
-        if (voltage < 1.65) {
-            return 0;
-        } else if (voltage < 4.95) {
-            return 1;
-        } else if (voltage < 8.25) {
-            return 2;
-        } else {
-            return 3;
-        }
-    }
-
-private:
-    DigitalInAnalogIn& m_analogInput;
+    virtual ~IUserActions() = default;
+    virtual void EnterEstop() = 0; 
+    virtual void ClearEstop() = 0;
+	virtual void CycleStart() = 0;
+	virtual void CycleStop() = 0;
+	virtual void SelectUnits(Units units) = 0;
+	virtual void SelectAxis(Axis selectedAxis, int resolutionSwitchPosition) = 0;
+    virtual void Jog(int32_t clicks) = 0;
+	virtual void SetWorkOffset(Axis selectedAxis) = 0;
 };
 
-#endif // ANALOG_SWITCH_H
+#endif // I_USER_ACTIONS_H
+
