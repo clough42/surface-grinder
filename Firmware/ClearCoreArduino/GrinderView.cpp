@@ -1,6 +1,6 @@
 #include "GrinderView.h"
 #include "HMIConstants.h"
-#include "GrinderViewController.h"
+#include "IViewController.h"
 
 GrinderView* GrinderView::s_instance = nullptr;
 
