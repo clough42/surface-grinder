@@ -18,6 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#include <cstdint>
 #include "GrinderView.h"
 #include "HMIConstants.h"
 #include "IUserActions.h"
