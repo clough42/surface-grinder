@@ -1205,7 +1205,7 @@ UserButton
     Alias                        ModeSetupButton
     Height                       65
     Images                       ModeSetup.png\nModeSetupSelected.png
-    Left                         275
+    Left                         285
     Matrix                       1
     Momentary                    On
     Stretch                      No
@@ -1218,7 +1218,7 @@ UserButton
     Alias                        ModeFlatButton
     Height                       65
     Images                       ModeFlat.png\nModeFlatSelected.png
-    Left                         360
+    Left                         365
     Matrix                       1
     Momentary                    No
     Stretch                      No
@@ -1244,7 +1244,7 @@ UserButton
     Alias                        ModeCylBytton
     Height                       65
     Images                       ModeCylinder.png\nModeCylinderSelected.png
-    Left                         530
+    Left                         525
     Matrix                       1
     Momentary                    No
     Stretch                      No
@@ -1257,7 +1257,7 @@ UserButton
     Alias                        ModeDressButton
     Height                       65
     Images                       ModeDress.png\nModeDressSelected.png
-    Left                         615
+    Left                         605
     Matrix                       1
     Momentary                    No
     Stretch                      No
