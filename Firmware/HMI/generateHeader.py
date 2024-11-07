@@ -42,15 +42,16 @@ def generate_cpp_header(controls, output_path):
         file.write('#define HMI_CONSTANTS_H\n\n')
         file.write('namespace HMI {\n\n')
         for form_name, form_data in controls.items():
-            file.write(f'\tnamespace {form_name.upper()} {{\n\n')
+            file.write(f'\tnamespace {form_name} {{\n\n')
             for control_type, control_data in form_data.items():
                 control_type = control_data.get('Type')
                 control_name = control_data.get('Name')
                 control_alias = control_data.get('Alias')
                 control_number = control_data.get('Number')
                 if control_name and control_alias:
-                    file.write(f'\t\t// {control_type}\n')
-                    file.write(f'\t\tconstexpr int {control_alias.upper()} = {control_number};\n')
+                    file.write(f'\t\t// {control_type} {control_number}: {control_alias}\n')
+                    file.write(f'\t\tconstexpr int {control_alias}_TYPE = GENIE_OBJ_{control_type.upper()};\n')
+                    file.write(f'\t\tconstexpr int {control_alias}_ID = {control_number};\n\n')
             file.write('\t}\n\n')
         file.write('}\n')
         file.write('#endif // HMI_CONSTANTS_H\n')
