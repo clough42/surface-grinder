@@ -17,18 +17,6 @@ namespace HMI {
 		constexpr int ZDro_TYPE = GENIE_OBJ_ILEDDIGITS;
 		constexpr int ZDro_ID = 2;
 
-		// WinButton 0: XZero
-		constexpr int XZero_TYPE = GENIE_OBJ_WINBUTTON;
-		constexpr int XZero_ID = 0;
-
-		// WinButton 1: YZero
-		constexpr int YZero_TYPE = GENIE_OBJ_WINBUTTON;
-		constexpr int YZero_ID = 1;
-
-		// WinButton 2: ZZero
-		constexpr int ZZero_TYPE = GENIE_OBJ_WINBUTTON;
-		constexpr int ZZero_ID = 2;
-
 		// iLed 0: XJog
 		constexpr int XJog_TYPE = GENIE_OBJ_ILED;
 		constexpr int XJog_ID = 0;
@@ -73,14 +61,6 @@ namespace HMI {
 		constexpr int Resolution10000_TYPE = GENIE_OBJ_ILED;
 		constexpr int Resolution10000_ID = 7;
 
-		// WinButton 4: XStart
-		constexpr int XStart_TYPE = GENIE_OBJ_WINBUTTON;
-		constexpr int XStart_ID = 4;
-
-		// WinButton 5: XEnd
-		constexpr int XEnd_TYPE = GENIE_OBJ_WINBUTTON;
-		constexpr int XEnd_ID = 5;
-
 		// iLedDigits 3: XStartDRO
 		constexpr int XStartDRO_TYPE = GENIE_OBJ_ILEDDIGITS;
 		constexpr int XStartDRO_ID = 3;
@@ -88,14 +68,6 @@ namespace HMI {
 		// iLedDigits 4: XEndDRO
 		constexpr int XEndDRO_TYPE = GENIE_OBJ_ILEDDIGITS;
 		constexpr int XEndDRO_ID = 4;
-
-		// WinButton 6: ZStart
-		constexpr int ZStart_TYPE = GENIE_OBJ_WINBUTTON;
-		constexpr int ZStart_ID = 6;
-
-		// WinButton 7: ZEnd
-		constexpr int ZEnd_TYPE = GENIE_OBJ_WINBUTTON;
-		constexpr int ZEnd_ID = 7;
 
 		// iLedDigits 5: ZStartDRO
 		constexpr int ZStartDRO_TYPE = GENIE_OBJ_ILEDDIGITS;
@@ -113,22 +85,6 @@ namespace HMI {
 		constexpr int Line1_TYPE = GENIE_OBJ_LINE;
 		constexpr int Line1_ID = 1;
 
-		// WinButton 13: TraverseLeftButton
-		constexpr int TraverseLeftButton_TYPE = GENIE_OBJ_WINBUTTON;
-		constexpr int TraverseLeftButton_ID = 13;
-
-		// WinButton 14: TraverseRightButton
-		constexpr int TraverseRightButton_TYPE = GENIE_OBJ_WINBUTTON;
-		constexpr int TraverseRightButton_ID = 14;
-
-		// WinButton 15: TraverseUpButton
-		constexpr int TraverseUpButton_TYPE = GENIE_OBJ_WINBUTTON;
-		constexpr int TraverseUpButton_ID = 15;
-
-		// WinButton 16: TraverseDownButton
-		constexpr int TraverseDownButton_TYPE = GENIE_OBJ_WINBUTTON;
-		constexpr int TraverseDownButton_ID = 16;
-
 		// StaticText 6: Statictext6
 		constexpr int Statictext6_TYPE = GENIE_OBJ_STATICTEXT;
 		constexpr int Statictext6_ID = 6;
@@ -137,21 +93,13 @@ namespace HMI {
 		constexpr int UnitButton_TYPE = GENIE_OBJ_USERBUTTON;
 		constexpr int UnitButton_ID = 0;
 
-		// WinButton 17: YSafe
-		constexpr int YSafe_TYPE = GENIE_OBJ_WINBUTTON;
-		constexpr int YSafe_ID = 17;
-
 		// iLedDigits 7: YWorkDro
 		constexpr int YWorkDro_TYPE = GENIE_OBJ_ILEDDIGITS;
 		constexpr int YWorkDro_ID = 7;
 
-		// UserImages 0: Userimages0
-		constexpr int Userimages0_TYPE = GENIE_OBJ_USERIMAGES;
-		constexpr int Userimages0_ID = 0;
-
-		// WinButton 18: YWork
-		constexpr int YWork_TYPE = GENIE_OBJ_WINBUTTON;
-		constexpr int YWork_ID = 18;
+		// UserImages 0: StatusImage
+		constexpr int StatusImage_TYPE = GENIE_OBJ_USERIMAGES;
+		constexpr int StatusImage_ID = 0;
 
 		// iLedDigits 8: YSafeDro
 		constexpr int YSafeDro_TYPE = GENIE_OBJ_ILEDDIGITS;
@@ -204,6 +152,58 @@ namespace HMI {
 		// UserButton 6: SettingsButton
 		constexpr int SettingsButton_TYPE = GENIE_OBJ_USERBUTTON;
 		constexpr int SettingsButton_ID = 6;
+
+		// UserButton 7: XZeroButton
+		constexpr int XZeroButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int XZeroButton_ID = 7;
+
+		// UserButton 8: YZeroButton
+		constexpr int YZeroButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int YZeroButton_ID = 8;
+
+		// UserButton 9: ZZeroButton
+		constexpr int ZZeroButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int ZZeroButton_ID = 9;
+
+		// UserButton 10: XSetStartButton
+		constexpr int XSetStartButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int XSetStartButton_ID = 10;
+
+		// UserButton 11: ZSetStartButton
+		constexpr int ZSetStartButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int ZSetStartButton_ID = 11;
+
+		// UserButton 12: YSetWorkButton
+		constexpr int YSetWorkButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int YSetWorkButton_ID = 12;
+
+		// UserButton 13: XSetEndButton
+		constexpr int XSetEndButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int XSetEndButton_ID = 13;
+
+		// UserButton 14: ZSetEndButton
+		constexpr int ZSetEndButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int ZSetEndButton_ID = 14;
+
+		// UserButton 15: YSetSafeButton
+		constexpr int YSetSafeButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int YSetSafeButton_ID = 15;
+
+		// UserButton 16: GoUpButton
+		constexpr int GoUpButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int GoUpButton_ID = 16;
+
+		// UserButton 17: GoLeftButton
+		constexpr int GoLeftButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int GoLeftButton_ID = 17;
+
+		// UserButton 18: GoRightButton
+		constexpr int GoRightButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int GoRightButton_ID = 18;
+
+		// UserButton 19: GoDownButton
+		constexpr int GoDownButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int GoDownButton_ID = 19;
 
 	}
 

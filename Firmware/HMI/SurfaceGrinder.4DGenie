@@ -100,150 +100,6 @@ iLedDigits
     Top                          166
     OnChanged                    ''
 end
-WinButton
-    Name                         Winbutton0
-    Alias                        XZero
-    Appearance.Alignment         Center
-    Appearance.Layout            None
-    Appearance.PictureAlignment  Center
-    Appearance.SimpleLayout      Yes
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   clWhite
-    Caption                      ''
-    Color                        GRAY
-    Font.Color                   BLACK
-    Font.Effects                 []
-    Font.Name                    'Agency FB'
-    Font.Size                    18
-    Font.Style                   []
-    Height                       55
-    Left                         727
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      ZeroButton.png
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          30
-    Width                        55
-    OnChanged                    'Report Message'
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
-WinButton
-    Name                         Winbutton1
-    Alias                        YZero
-    Appearance.Alignment         Center
-    Appearance.Layout            None
-    Appearance.PictureAlignment  Center
-    Appearance.SimpleLayout      Yes
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   clWhite
-    Caption                      ''
-    Color                        clGray
-    Font.Color                   clWindowText
-    Font.Effects                 []
-    Font.Name                    'Agency FB'
-    Font.Size                    18
-    Font.Style                   []
-    Height                       55
-    Left                         727
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      ZeroButton.png
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          100
-    Width                        55
-    OnChanged                    'Report Message'
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
-WinButton
-    Name                         Winbutton2
-    Alias                        ZZero
-    Appearance.Alignment         Center
-    Appearance.Layout            None
-    Appearance.PictureAlignment  Center
-    Appearance.SimpleLayout      Yes
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   clWhite
-    Caption                      ''
-    Color                        clGray
-    Font.Color                   clWindowText
-    Font.Effects                 []
-    Font.Name                    'Agency FB'
-    Font.Size                    18
-    Font.Style                   []
-    Height                       55
-    Left                         727
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      ZeroButton.png
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          170
-    Width                        55
-    OnChanged                    'Report Message'
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
 iLed
     Name                         ILed0
     Alias                        XJog
@@ -453,102 +309,6 @@ iLed
     Width                        35
     OnChanged                    ''
 end
-WinButton
-    Name                         Winbutton4
-    Alias                        XStart
-    Appearance.Alignment         Center
-    Appearance.Layout            None
-    Appearance.PictureAlignment  Center
-    Appearance.SimpleLayout      Yes
-    Appearance.Spacing           3
-    AutoSizeToPicture            Yes
-    Bevel                        No
-    BevelColor                   clWhite
-    Caption                      ''
-    Color                        GRAY
-    Font.Color                   BLACK
-    Font.Effects                 []
-    Font.Name                    'Agency FB'
-    Font.Size                    16
-    Font.Style                   []
-    Height                       55
-    Left                         16
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      StartButton.png
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          30
-    Width                        55
-    OnChanged                    'Report Message'
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
-WinButton
-    Name                         Winbutton5
-    Alias                        XEnd
-    Appearance.Alignment         Center
-    Appearance.Layout            None
-    Appearance.PictureAlignment  Center
-    Appearance.SimpleLayout      Yes
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   clWhite
-    Caption                      ''
-    Color                        GRAY
-    Font.Color                   BLACK
-    Font.Effects                 []
-    Font.Name                    'Agency FB'
-    Font.Size                    16
-    Font.Style                   []
-    Height                       55
-    Left                         233
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      EndButton.png
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          30
-    Width                        55
-    OnChanged                    'Report Message'
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
 iLedDigits
     Name                         ILedDigits3
     Alias                        XStartDRO
@@ -584,102 +344,6 @@ iLedDigits
     Spacing                      0
     Top                          62
     OnChanged                    ''
-end
-WinButton
-    Name                         Winbutton6
-    Alias                        ZStart
-    Appearance.Alignment         Center
-    Appearance.Layout            None
-    Appearance.PictureAlignment  Center
-    Appearance.SimpleLayout      Yes
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   clWhite
-    Caption                      ''
-    Color                        GRAY
-    Font.Color                   BLACK
-    Font.Effects                 []
-    Font.Name                    'Agency FB'
-    Font.Size                    16
-    Font.Style                   []
-    Height                       55
-    Left                         16
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      StartButton.png
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          170
-    Width                        55
-    OnChanged                    'Report Message'
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
-WinButton
-    Name                         Winbutton7
-    Alias                        ZEnd
-    Appearance.Alignment         Center
-    Appearance.Layout            None
-    Appearance.PictureAlignment  Center
-    Appearance.SimpleLayout      Yes
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   clWhite
-    Caption                      ''
-    Color                        GRAY
-    Font.Color                   BLACK
-    Font.Effects                 []
-    Font.Name                    'Agency FB'
-    Font.Size                    16
-    Font.Style                   []
-    Height                       55
-    Left                         233
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      EndButton.png
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          170
-    Width                        55
-    OnChanged                    'Report Message'
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
 end
 iLedDigits
     Name                         ILedDigits5
@@ -737,198 +401,6 @@ Line
     Y1                           400
     Y2                           400
 end
-WinButton
-    Name                         Winbutton13
-    Alias                        TraverseLeftButton
-    Appearance.Alignment         Center
-    Appearance.Layout            None
-    Appearance.PictureAlignment  Center
-    Appearance.SimpleLayout      Yes
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   clWhite
-    Caption                      ''
-    Color                        GRAY
-    Font.Color                   clWindowText
-    Font.Effects                 []
-    Font.Name                    'Wingdings 3'
-    Font.Size                    30
-    Font.Style                   []
-    Height                       50
-    Left                         17
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      TriangleLeft.png
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          293
-    Width                        50
-    OnChanged                    ''
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
-WinButton
-    Name                         Winbutton14
-    Alias                        TraverseRightButton
-    Appearance.Alignment         Center
-    Appearance.Layout            None
-    Appearance.PictureAlignment  Center
-    Appearance.SimpleLayout      Yes
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   clWhite
-    Caption                      u
-    Color                        GRAY
-    Font.Color                   clWindowText
-    Font.Effects                 []
-    Font.Name                    'Wingdings 3'
-    Font.Size                    30
-    Font.Style                   []
-    Height                       50
-    Left                         117
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      TriangleRight.png
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          293
-    Width                        50
-    OnChanged                    ''
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
-WinButton
-    Name                         Winbutton15
-    Alias                        TraverseUpButton
-    Appearance.Alignment         Center
-    Appearance.Layout            None
-    Appearance.PictureAlignment  Center
-    Appearance.SimpleLayout      Yes
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        No
-    BevelColor                   clWhite
-    Caption                      ''
-    Color                        GRAY
-    Font.Color                   BLACK
-    Font.Effects                 []
-    Font.Name                    'Wingdings 3'
-    Font.Size                    29
-    Font.Style                   []
-    Height                       50
-    Left                         67
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      TriangleUp.png
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          243
-    Width                        50
-    OnChanged                    ''
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
-WinButton
-    Name                         Winbutton16
-    Alias                        TraverseDownButton
-    Appearance.Alignment         Center
-    Appearance.Layout            None
-    Appearance.PictureAlignment  Center
-    Appearance.SimpleLayout      Yes
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   clWhite
-    Caption                      q
-    Color                        GRAY
-    Font.Color                   clWindowText
-    Font.Effects                 []
-    Font.Name                    'Wingdings 3'
-    Font.Size                    29
-    Font.Style                   []
-    Height                       50
-    Left                         67
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      TriangleDown.png
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          343
-    Width                        50
-    OnChanged                    ''
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
 StaticText
     Name                         Statictext6
     Alias                        Statictext6
@@ -961,54 +433,6 @@ UserButton
     Width                        65
     OnChanged                    ''
 end
-WinButton
-    Name                         Winbutton17
-    Alias                        YSafe
-    Appearance.Alignment         Center
-    Appearance.Layout            None
-    Appearance.PictureAlignment  Center
-    Appearance.SimpleLayout      Yes
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   clWhite
-    Caption                      ''
-    Color                        GRAY
-    Font.Color                   BLACK
-    Font.Effects                 []
-    Font.Name                    'Agency FB'
-    Font.Size                    16
-    Font.Style                   []
-    Height                       55
-    Left                         233
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      SafeButton.png
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          100
-    Width                        55
-    OnChanged                    'Report Message'
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
 iLedDigits
     Name                         ILedDigits7
     Alias                        YWorkDro
@@ -1029,7 +453,7 @@ iLedDigits
 end
 UserImages
     Name                         Userimages0
-    Alias                        Userimages0
+    Alias                        StatusImage
     Height                       65
     Images                       EstopStatus.png\nHoldStatus.png\nIdleStatus.png\nRunStatus.png
     Left                         20
@@ -1037,54 +461,6 @@ UserImages
     Top                          409
     Width                        150
     OnChanged                    ''
-end
-WinButton
-    Name                         Winbutton18
-    Alias                        YWork
-    Appearance.Alignment         Center
-    Appearance.Layout            None
-    Appearance.PictureAlignment  Center
-    Appearance.SimpleLayout      Yes
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        No
-    BevelColor                   clWhite
-    Caption                      ''
-    Color                        GRAY
-    Font.Color                   BLACK
-    Font.Effects                 []
-    Font.Name                    'Agency FB'
-    Font.Size                    16
-    Font.Style                   []
-    Height                       55
-    Left                         16
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      WorkButton.png
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          100
-    Width                        55
-    OnChanged                    'Report Message'
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
 end
 iLedDigits
     Name                         ILedDigits8
@@ -1276,6 +652,175 @@ UserButton
     Stretch                      No
     Top                          408
     Width                        65
+    OnChanged                    ''
+end
+UserButton
+    Name                         Userbutton7
+    Alias                        XZeroButton
+    Height                       55
+    Images                       ZeroButton.png\nZeroButtonTouch.png
+    Left                         727
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          30
+    Width                        55
+    OnChanged                    ''
+end
+UserButton
+    Name                         Userbutton8
+    Alias                        YZeroButton
+    Height                       55
+    Images                       ZeroButton.png\nZeroButtonTouch.png
+    Left                         727
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          100
+    Width                        55
+    OnChanged                    ''
+end
+UserButton
+    Name                         Userbutton9
+    Alias                        ZZeroButton
+    Height                       55
+    Images                       ZeroButton.png\nZeroButtonTouch.png
+    Left                         727
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          170
+    Width                        55
+    OnChanged                    ''
+end
+UserButton
+    Name                         Userbutton10
+    Alias                        XSetStartButton
+    Height                       55
+    Images                       StartButton.png\nStartButtonTouch.png
+    Left                         16
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          30
+    Width                        55
+    OnChanged                    ''
+end
+UserButton
+    Name                         Userbutton11
+    Alias                        ZSetStartButton
+    Height                       55
+    Images                       StartButton.png\nStartButtonTouch.png
+    Left                         16
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          170
+    Width                        55
+    OnChanged                    ''
+end
+UserButton
+    Name                         Userbutton12
+    Alias                        YSetWorkButton
+    Height                       55
+    Images                       WorkButton.png\nWorkButtonOff.png
+    Left                         16
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          100
+    Width                        55
+    OnChanged                    ''
+end
+UserButton
+    Name                         Userbutton13
+    Alias                        XSetEndButton
+    Height                       55
+    Images                       EndButton.png\nEndButtonTouch.png
+    Left                         233
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          30
+    Width                        55
+    OnChanged                    ''
+end
+UserButton
+    Name                         Userbutton14
+    Alias                        ZSetEndButton
+    Height                       55
+    Images                       EndButton.png\nEndButtonTouch.png
+    Left                         233
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          170
+    Width                        55
+    OnChanged                    ''
+end
+UserButton
+    Name                         Userbutton15
+    Alias                        YSetSafeButton
+    Height                       55
+    Images                       SafeButton.png\nSafeButtonTouch.png
+    Left                         233
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          100
+    Width                        55
+    OnChanged                    ''
+end
+UserButton
+    Name                         Userbutton16
+    Alias                        GoUpButton
+    Height                       50
+    Images                       TriangleUp.png\nTriangleUpTouch.png
+    Left                         67
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          243
+    Width                        50
+    OnChanged                    ''
+end
+UserButton
+    Name                         Userbutton17
+    Alias                        GoLeftButton
+    Height                       50
+    Images                       TriangleLeft.png\nTriangleLeftTouch.png
+    Left                         17
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          293
+    Width                        50
+    OnChanged                    ''
+end
+UserButton
+    Name                         Userbutton18
+    Alias                        GoRightButton
+    Height                       50
+    Images                       TriangleRight.png\nTriangleRightTouch.png
+    Left                         117
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          293
+    Width                        50
+    OnChanged                    ''
+end
+UserButton
+    Name                         Userbutton19
+    Alias                        GoDownButton
+    Height                       50
+    Images                       TriangleDown.png\nTriangleDownTouch.png
+    Left                         67
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          343
+    Width                        50
     OnChanged                    ''
 end
 Form
