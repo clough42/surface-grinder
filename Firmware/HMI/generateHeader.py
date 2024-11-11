@@ -25,12 +25,11 @@ def parse_4dgenie_file(file_path):
                     controls[current_form] = {}
                     current_control = None
                 
-                else:
-                    current_control = name                              
-                    controls[current_form][current_control] = {}
-                    controls[current_form][current_control]['Type'] = control_type
-                    controls[current_form][current_control]['Name'] = current_control
-                    controls[current_form][current_control]['Number'] = extract_number_from_name(current_control)
+                current_control = name                              
+                controls[current_form][current_control] = {}
+                controls[current_form][current_control]['Type'] = control_type
+                controls[current_form][current_control]['Name'] = current_control
+                controls[current_form][current_control]['Number'] = extract_number_from_name(current_control)
                 
             elif alias_match and current_form and current_control:
                 controls[current_form][current_control]['Alias'] = alias_match.group(1)
@@ -38,23 +37,55 @@ def parse_4dgenie_file(file_path):
 
 def generate_cpp_header(controls, output_path):
     with open(output_path, 'w') as file:
-        file.write('#ifndef HMI_CONSTANTS_H\n')
-        file.write('#define HMI_CONSTANTS_H\n\n')
-        file.write('namespace HMI {\n\n')
+        file.write(
+"""// Copyright (c) 2004 James Clough (Clough42, LLC)
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+#ifndef HMI_CONSTANTS_H
+#define HMI_CONSTANTS_H
+
+namespace HMI {
+
+""")
         for form_name, form_data in controls.items():
-            file.write(f'\tnamespace {form_name} {{\n\n')
             for control_type, control_data in form_data.items():
                 control_type = control_data.get('Type')
                 control_name = control_data.get('Name')
                 control_alias = control_data.get('Alias')
                 control_number = control_data.get('Number')
+                
                 if control_name and control_alias:
-                    file.write(f'\t\t// {control_type} {control_number}: {control_alias}\n')
-                    file.write(f'\t\tconstexpr int {control_alias}_TYPE = GENIE_OBJ_{control_type.upper()};\n')
-                    file.write(f'\t\tconstexpr int {control_alias}_ID = {control_number};\n\n')
+                    if control_type == 'Form':
+                        file.write(f'\t// {control_type} {control_number}: {control_alias}\n')
+                        file.write(f'\tnamespace {control_alias.upper()} {{\n\n')
+                        file.write(f'\t\tconstexpr int FORM_ID = {control_number};\n\n')
+                    else:
+                        file.write(f'\t\t// {control_type} {control_number}: {control_alias}\n')
+                        file.write(f'\t\tconstexpr int {control_alias}_TYPE = GENIE_OBJ_{control_type.upper()};\n')
+                        file.write(f'\t\tconstexpr int {control_alias}_ID = {control_number};\n\n')
             file.write('\t}\n\n')
-        file.write('}\n')
-        file.write('#endif // HMI_CONSTANTS_H\n')
+        file.write(
+"""}
+
+#endif // HMI_CONSTANTS_H
+""")
 
 def main():
     input_file = 'SurfaceGrinder.4DGenie'  # Path to your .4DGenie file

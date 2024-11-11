@@ -31,7 +31,7 @@ Options
 end
 Form
     Name                         Form0
-    Alias                        SurfaceGrinder
+    Alias                        SetupMode
     Bgtype                       Color
     Color                        BLACK
     Image                        (None)
