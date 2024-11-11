@@ -35,6 +35,14 @@ def parse_4dgenie_file(file_path):
                 controls[current_form][current_control]['Alias'] = alias_match.group(1)
     return controls
 
+def generate_control_type(control_type):
+    string_map = {
+        "iLedDigits": "GENIE_OBJ_ILED_DIGITS",
+        "StaticText": "GENIE_OBJ_STATIC_TEXT",
+        "Line": "-1" # Not supported
+    }
+    return string_map.get(control_type, f"GENIE_OBJ_{control_type.upper()}")
+
 def generate_cpp_header(controls, output_path):
     with open(output_path, 'w') as file:
         file.write(
@@ -65,6 +73,9 @@ def generate_cpp_header(controls, output_path):
 
 namespace HMI {
 
+    constexpr int UNITS_BUTTON_VAL_INCH = 0;
+    constexpr int UNITS_BUTTON_VAL_MM = 1;
+
 """)
         for form_name, form_data in controls.items():
             for control_type, control_data in form_data.items():
@@ -80,7 +91,7 @@ namespace HMI {
                         file.write(f'\t\tconstexpr int FORM_ID = {control_number};\n\n')
                     else:
                         file.write(f'\t\t// {control_type} {control_number}: {control_alias}\n')
-                        file.write(f'\t\tconstexpr int {control_alias}_TYPE = GENIE_OBJ_{control_type.upper()};\n')
+                        file.write(f'\t\tconstexpr int {control_alias}_TYPE = {generate_control_type(control_type)};\n')
                         file.write(f'\t\tconstexpr int {control_alias}_ID = {control_number};\n\n')
             file.write('\t}\n\n')
         file.write(
@@ -91,7 +102,7 @@ namespace HMI {
 
 def main():
     input_file = 'SurfaceGrinder.4DGenie'  # Path to your .4DGenie file
-    output_file = 'HMIConstants.h'  # Path to the output C++ header file
+    output_file = '../ClearCoreArduino/HMIConstants.h'  # Path to the output C++ header file
     controls = parse_4dgenie_file(input_file)
     generate_cpp_header(controls, output_file)
     print(f'Header file {output_file} generated successfully.')

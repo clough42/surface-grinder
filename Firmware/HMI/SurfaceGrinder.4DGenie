@@ -617,7 +617,7 @@ UserButton
 end
 UserButton
     Name                         Userbutton4
-    Alias                        ModeCylBytton
+    Alias                        ModeCylButton
     Height                       65
     Images                       ModeCylinder.png\nModeCylinderSelected.png
     Left                         525
