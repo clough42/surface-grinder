@@ -21,6 +21,8 @@
 #ifndef HMI_CONSTANTS_H
 #define HMI_CONSTANTS_H
 
+#include <genieArduinoDEV.h>
+
 namespace HMI {
 
 	// Form 0: SetupMode
