@@ -52,14 +52,14 @@ public:
         m_jogResolution(jogResolutionInput)
     {
 		s_instance = this;
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < AXIS_COUNT; i++) {
 			m_droDirections[i] = droDirections[i];
 		}
     }
 
     void Init(IUserActions* controller);
     void Update();
-    void SetAxisIndicators(Axis selectedAxis, int32_t selectedResolution);
+    void SetAxisIndicators(Optional<Axis> selectedAxis, int32_t selectedResolution);
     void SetDroValue(Axis axis, int32_t unitsValue);
 	void SetStartDroValue(Axis axis, int32_t unitsValue);
 	void SetEndDroValue(Axis axis, int32_t unitsValue);

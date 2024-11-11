@@ -18,32 +18,58 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef I_USER_ACTIONS_H
-#define I_USER_ACTIONS_H
+#ifndef OPTIONAL_H
+#define OPTIONAL_H
 
-#include "CommonEnums.h"
-#include "Optional.h"
+#include <utility>
 
-// Controller Interface for the View
-//
-// This interface defines the methods that the view can call on the controller.
-// These are separated out into a separate interface to make it harder for
-// the view to accidentally call methods that it shouldn't.
-class IUserActions {
+template <typename T>
+class Optional {
 public:
-    virtual ~IUserActions() = default;
-    virtual void EnterEstop() = 0; 
-    virtual void ClearEstop() = 0;
-	virtual void CycleStart() = 0;
-	virtual void CycleStop() = 0;
-	virtual void SelectUnits(Units units) = 0;
-	virtual void SelectAxis(Optional<Axis> selectedAxis, int resolutionSwitchPosition) = 0;
-    virtual void Jog(int32_t clicks) = 0;
-	virtual void SetWorkOffset(Axis selectedAxis) = 0;
-	virtual void SetStartLimit(Axis axis) = 0;
-	virtual void SetEndLimit(Axis axis) = 0;
-	virtual void SetOperatingMode(Mode mode) = 0;
+    Optional() : m_hasValue(false) {}
+    Optional(const T& value) : m_value(value), m_hasValue(true) {}
+    Optional(T&& value) : m_value(std::move(value)), m_hasValue(true) {}
+
+    // Auto cast to the template type
+    operator T() const {
+        return m_value;
+    }
+
+    // Auto cast from the template type
+    Optional& operator=(const T& value) {
+        m_value = value;
+        m_hasValue = true;
+        return *this;
+    }
+
+    Optional& operator=(T&& value) {
+        m_value = std::move(value);
+        m_hasValue = true;
+        return *this;
+    }
+
+    // Implicit cast to bool to check if a value is present
+    operator bool() const {
+        return m_hasValue;
+    }
+
+    // Implicit conversion to the stored value
+    operator T&() {
+        return m_value;
+    }
+
+    // Implicit conversion to the stored value (const version)
+    operator const T&() const {
+        return m_value;
+    }
+
+    void reset() {
+        m_hasValue = false;
+    }
+
+private:
+    T m_value;
+    bool m_hasValue;
 };
 
-#endif // I_USER_ACTIONS_H
-
+#endif // OPTIONAL_H
