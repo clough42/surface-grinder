@@ -424,10 +424,10 @@ UserButton
     Name                         Userbutton0
     Alias                        UnitButton
     Height                       65
-    Images                       UnitInchButton.png\nUnitMMButton.png
+    Images                       UnitInchButton.png\nUnitInchButtonTouch.png\nUnitMMButton.png\nUnitMMButtonTouch.png
     Left                         190
     Matrix                       -1
-    Momentary                    Yes
+    Momentary                    No
     Stretch                      No
     Top                          408
     Width                        65
@@ -645,7 +645,7 @@ UserButton
     Name                         Userbutton6
     Alias                        SettingsButton
     Height                       65
-    Images                       GearButton.png
+    Images                       GearButton.png\nGearButtonTouch.png
     Left                         715
     Matrix                       -1
     Momentary                    Yes
@@ -723,7 +723,7 @@ UserButton
     Name                         Userbutton12
     Alias                        YSetWorkButton
     Height                       55
-    Images                       WorkButton.png\nWorkButtonOff.png
+    Images                       WorkButton.png\nWorkButtonTouch.png
     Left                         16
     Matrix                       -1
     Momentary                    Yes
