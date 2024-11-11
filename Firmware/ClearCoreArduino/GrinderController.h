@@ -64,9 +64,9 @@ private:
 	Optional<Axis> m_selectedAxis;
     int m_resolutionSwitchPosition = 0;
     int32_t m_selectedResolution;
-    int32_t m_droWorkOffsets[3] = { 0, 0, 0 };
-    int32_t m_startLimits[3] = { 0, 0, 0 };
-    int32_t m_endLimits[3] = { 0, 0, 0 };
+    int32_t m_droWorkOffsets[AXIS_COUNT] = { 0, 0, 0 };
+    int32_t m_startLimits[AXIS_COUNT] = { 0, 0, 0 };
+    int32_t m_endLimits[AXIS_COUNT] = { 0, 0, 0 };
     
 };
 

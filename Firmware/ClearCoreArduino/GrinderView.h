@@ -41,7 +41,7 @@ public:
         Uart& hmiSerial,
         Connector& hmiConnector,
         EncoderInput& encoderIn,
-        Direction droDirections[3]
+        Direction droDirections[AXIS_COUNT]
     ) : m_eStop(eStop),
         m_cycleRun(cycleRun),
         m_cycleStop(cycleStop),
@@ -89,7 +89,7 @@ private:
     static void HmiEventHandler();
     static GrinderView *s_instance;
 
-    Direction m_droDirections[3];
+    Direction m_droDirections[AXIS_COUNT];
 
     // previous control positions
 	int32_t m_previousEncoderCount = 0;
@@ -97,7 +97,7 @@ private:
 	int32_t m_previousResolutionSwitchPosition = 0;
 
     // previous HMI element values
-    int32_t m_previousDroValues[3] = { 0, 0, 0 };
+    int32_t m_previousDroValues[AXIS_COUNT] = { 0, 0, 0 };
 
     // other software components
     IUserActions* m_controller = nullptr;

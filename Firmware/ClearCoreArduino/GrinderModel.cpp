@@ -21,7 +21,7 @@
 #include "GrinderModel.h"
 
 // Constructor implementation
-GrinderModel::GrinderModel(MachineAxis* axes[3], DigitalInOut& leftLimit, DigitalInOut& rightLimit)
+GrinderModel::GrinderModel(MachineAxis* axes[AXIS_COUNT], DigitalInOut& leftLimit, DigitalInOut& rightLimit)
 	: m_leftLimit(leftLimit), m_rightLimit(rightLimit)
 {
     for (int i = 0; i < AXIS_COUNT; ++i) {
