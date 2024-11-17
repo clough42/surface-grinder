@@ -131,11 +131,11 @@ void GrinderView::SetAxisIndicators(Optional<Axis> selectedAxis, int32_t resolut
 	m_genie.WriteObject(ZJog_TYPE, ZJog_ID, selectedAxis == Axis::Z ? 1 : 0);
 
 	// update the resolution LEDs
-    m_genie.WriteObject(Resolution1_TYPE, Resolution1_ID, selectedAxis && resolution == 1 ? 1 : 0);
-    m_genie.WriteObject(Resolution10_TYPE, Resolution10_ID, selectedAxis && resolution == 10 ? 1 : 0);
-    m_genie.WriteObject(Resolution100_TYPE, Resolution100_ID, selectedAxis && resolution == 100 ? 1 : 0);
-    m_genie.WriteObject(Resolution1000_TYPE, Resolution1000_ID, selectedAxis && resolution == 1000 ? 1 : 0);
-    m_genie.WriteObject(Resolution10000_TYPE, Resolution10000_ID, selectedAxis && resolution == 10000 ? 1 : 0);
+    m_genie.WriteObject(Resolution1_TYPE, Resolution1_ID, selectedAxis.HasValue() && resolution == 1 ? 1 : 0);
+    m_genie.WriteObject(Resolution10_TYPE, Resolution10_ID, selectedAxis.HasValue() && resolution == 10 ? 1 : 0);
+    m_genie.WriteObject(Resolution100_TYPE, Resolution100_ID, selectedAxis.HasValue() && resolution == 100 ? 1 : 0);
+    m_genie.WriteObject(Resolution1000_TYPE, Resolution1000_ID, selectedAxis.HasValue() && resolution == 1000 ? 1 : 0);
+    m_genie.WriteObject(Resolution10000_TYPE, Resolution10000_ID, selectedAxis.HasValue() && resolution == 10000 ? 1 : 0);
 }
 
 void GrinderView::SetOperatingMode(Mode mode) {

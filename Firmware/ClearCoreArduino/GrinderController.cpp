@@ -86,7 +86,7 @@ void GrinderController::UpdateResolutionAndAxisIndicators() {
 void GrinderController::Jog(int32_t clicks) {
 	Serial.println("Jog");
 
-	if (m_selectedAxis) {
+	if (m_selectedAxis.HasValue()) {
 		int32_t nanometers = ConvertToNm(clicks * m_selectedResolution);
 		m_model.JogAxisNm(m_selectedAxis, nanometers);
 	}

@@ -26,50 +26,70 @@
 template <typename T>
 class Optional {
 public:
+    // Default constructor
     Optional() : m_hasValue(false) {}
-    Optional(const T& value) : m_value(value), m_hasValue(true) {}
-    Optional(T&& value) : m_value(std::move(value)), m_hasValue(true) {}
 
-    // Auto cast to the template type
+    // Constructor with m_value
+    Optional(const T& value) : m_hasValue(true), m_value(value) {}
+
+    // Move constructor
+    Optional(Optional&& other) noexcept : m_hasValue(other.m_hasValue), m_value(std::move(other.m_value)) {
+        other.m_hasValue = false; // Set the source object to have no m_value
+    }
+
+    // Copy constructor
+    Optional(const Optional& other) : m_hasValue(other.m_hasValue), m_value(other.m_value) {}
+
+    // Assignment operator
+    Optional& operator=(const T& value) {
+        this->m_value = value;
+        this->m_hasValue = true;
+        return *this;
+    }
+
+    // Copy assignment operator
+    Optional& operator=(const Optional& other) {
+        if (this != &other) {
+            m_hasValue = other.m_hasValue;
+            m_value = other.m_value;
+        }
+        return *this;
+    }
+
+    // Move assignment operator
+    Optional& operator=(Optional&& other) noexcept {
+        if (this != &other) {
+            m_hasValue = other.m_hasValue;
+            m_value = std::move(other.m_value);
+            other.m_hasValue = false; // Set the source object to have no m_value
+        }
+        return *this;
+    }
+
+    // Reset method
+    void Reset() {
+        m_hasValue = false;
+    }
+
+    // Check if the Optional has a m_value
+    bool HasValue() const {
+        return m_hasValue;
+    }
+
+    // Get the m_value
+    T Value() const {
+        return m_value;
+    }
+
+    // Conversion operator to automatically cast to the template type
     operator T() const {
         return m_value;
     }
 
-    // Auto cast from the template type
-    Optional& operator=(const T& value) {
-        m_value = value;
-        m_hasValue = true;
-        return *this;
-    }
-
-    Optional& operator=(T&& value) {
-        m_value = std::move(value);
-        m_hasValue = true;
-        return *this;
-    }
-
-    // Implicit cast to bool to check if a value is present
-    operator bool() const {
-        return m_hasValue;
-    }
-
-    // Implicit conversion to the stored value
-    operator T&() {
-        return m_value;
-    }
-
-    // Implicit conversion to the stored value (const version)
-    operator const T&() const {
-        return m_value;
-    }
-
-    void reset() {
-        m_hasValue = false;
-    }
-
 private:
-    T m_value;
     bool m_hasValue;
+    T m_value;
 };
+
 
 #endif // OPTIONAL_H
