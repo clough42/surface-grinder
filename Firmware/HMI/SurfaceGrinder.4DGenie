@@ -431,7 +431,7 @@ UserButton
     Stretch                      No
     Top                          408
     Width                        65
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 iLedDigits
     Name                         ILedDigits7
@@ -580,66 +580,66 @@ UserButton
     Name                         Userbutton1
     Alias                        ModeSetupButton
     Height                       65
-    Images                       ModeSetup.png\nModeSetupSelected.png
+    Images                       ModeSetup.png\nModeSetupTouch.png\nModeSetupSelected.png\nModeSetupTouch.png
     Left                         285
     Matrix                       1
     Momentary                    On
     Stretch                      No
     Top                          409
     Width                        80
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 UserButton
     Name                         Userbutton2
     Alias                        ModeFlatButton
     Height                       65
-    Images                       ModeFlat.png\nModeFlatSelected.png
+    Images                       ModeFlat.png\nModeFlatTouch.png\nModeFlatSelected.png\nModeFlatTouch.png
     Left                         365
     Matrix                       1
     Momentary                    No
     Stretch                      No
     Top                          409
     Width                        80
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 UserButton
     Name                         Userbutton3
     Alias                        ModeSideButton
     Height                       65
-    Images                       ModeSide.png\nModeSideSelected.png
+    Images                       ModeSide.png\nModeSideTouch.png\nModeSideSelected.png\nModeSideTouch.png
     Left                         445
     Matrix                       1
     Momentary                    No
     Stretch                      No
     Top                          409
     Width                        80
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 UserButton
     Name                         Userbutton4
     Alias                        ModeCylButton
     Height                       65
-    Images                       ModeCylinder.png\nModeCylinderSelected.png
+    Images                       ModeCylinder.png\nModeCylinderTouch.png\nModeCylinderSelected.png\nModeCylinderTouch.png
     Left                         525
     Matrix                       1
     Momentary                    No
     Stretch                      No
     Top                          409
     Width                        80
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 UserButton
     Name                         Userbutton5
     Alias                        ModeDressButton
     Height                       65
-    Images                       ModeDress.png\nModeDressSelected.png
+    Images                       ModeDress.png\nModeDressTouch.png\nModeDressSelected.png\nModeDressTouch.png
     Left                         605
     Matrix                       1
     Momentary                    No
     Stretch                      No
     Top                          409
     Width                        80
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 UserButton
     Name                         Userbutton6
@@ -652,7 +652,7 @@ UserButton
     Stretch                      No
     Top                          408
     Width                        65
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 UserButton
     Name                         Userbutton7
@@ -665,7 +665,7 @@ UserButton
     Stretch                      No
     Top                          30
     Width                        55
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 UserButton
     Name                         Userbutton8
@@ -678,7 +678,7 @@ UserButton
     Stretch                      No
     Top                          100
     Width                        55
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 UserButton
     Name                         Userbutton9
@@ -691,7 +691,7 @@ UserButton
     Stretch                      No
     Top                          170
     Width                        55
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 UserButton
     Name                         Userbutton10
@@ -704,7 +704,7 @@ UserButton
     Stretch                      No
     Top                          30
     Width                        55
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 UserButton
     Name                         Userbutton11
@@ -717,7 +717,7 @@ UserButton
     Stretch                      No
     Top                          170
     Width                        55
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 UserButton
     Name                         Userbutton12
@@ -730,7 +730,7 @@ UserButton
     Stretch                      No
     Top                          100
     Width                        55
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 UserButton
     Name                         Userbutton13
@@ -743,7 +743,7 @@ UserButton
     Stretch                      No
     Top                          30
     Width                        55
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 UserButton
     Name                         Userbutton14
@@ -756,7 +756,7 @@ UserButton
     Stretch                      No
     Top                          170
     Width                        55
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 UserButton
     Name                         Userbutton15
@@ -769,7 +769,7 @@ UserButton
     Stretch                      No
     Top                          100
     Width                        55
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 UserButton
     Name                         Userbutton16
@@ -782,7 +782,7 @@ UserButton
     Stretch                      No
     Top                          243
     Width                        50
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 UserButton
     Name                         Userbutton17
@@ -795,7 +795,7 @@ UserButton
     Stretch                      No
     Top                          293
     Width                        50
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 UserButton
     Name                         Userbutton18
@@ -808,7 +808,7 @@ UserButton
     Stretch                      No
     Top                          293
     Width                        50
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 UserButton
     Name                         Userbutton19
@@ -821,7 +821,7 @@ UserButton
     Stretch                      No
     Top                          343
     Width                        50
-    OnChanged                    ''
+    OnChanged                    'Report Message'
 end
 Form
     Name                         Form1
