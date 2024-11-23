@@ -112,7 +112,8 @@ void GrinderView::UpdateAxisSelectors() {
     int resolutionSwitchPosition = m_jogResolution.GetSwitchPosition();
 
     if (axisSwitchPosition != m_previousAxisSwitchPosition || resolutionSwitchPosition != m_previousResolutionSwitchPosition) {
-        m_controller->SelectAxis(static_cast<Axis>(axisSwitchPosition - 1), resolutionSwitchPosition);
+		Optional<Axis> selectedAxis = axisSwitchPosition == 0 ? Optional<Axis>() : Optional<Axis>(static_cast<Axis>(axisSwitchPosition - 1));
+        m_controller->SelectAxis(selectedAxis, resolutionSwitchPosition);
         m_previousAxisSwitchPosition = axisSwitchPosition;
         m_previousResolutionSwitchPosition = resolutionSwitchPosition;
     }
