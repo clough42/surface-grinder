@@ -108,15 +108,18 @@ void GrinderView::SetEndDroValue(Axis axis, int32_t unitsValue) {
 
 void GrinderView::UpdateAxisSelectors() {
     // Check the rsolution and axis selectors
-    int axisSwitchPosition = m_jogAxis.GetSwitchPosition();
-    int resolutionSwitchPosition = m_jogResolution.GetSwitchPosition();
+    Optional<int> axisSwitchPosition = m_jogAxis.GetSwitchPosition();
+    Optional<int> resolutionSwitchPosition = m_jogResolution.GetSwitchPosition();
 
-    if (axisSwitchPosition != m_previousAxisSwitchPosition || resolutionSwitchPosition != m_previousResolutionSwitchPosition) {
-		Optional<Axis> selectedAxis = axisSwitchPosition == 0 ? Optional<Axis>() : Optional<Axis>(static_cast<Axis>(axisSwitchPosition - 1));
-        m_controller->SelectAxis(selectedAxis, resolutionSwitchPosition);
-        m_previousAxisSwitchPosition = axisSwitchPosition;
-        m_previousResolutionSwitchPosition = resolutionSwitchPosition;
-    }
+	// only process them if they have values
+	if (axisSwitchPosition.HasValue() && resolutionSwitchPosition.HasValue()) {
+		if (axisSwitchPosition != m_previousAxisSwitchPosition || resolutionSwitchPosition != m_previousResolutionSwitchPosition) {
+			Optional<Axis> selectedAxis = axisSwitchPosition == 0 ? Optional<Axis>() : Optional<Axis>(static_cast<Axis>(axisSwitchPosition - 1));
+			m_controller->SelectAxis(selectedAxis, resolutionSwitchPosition);
+			m_previousAxisSwitchPosition = axisSwitchPosition;
+			m_previousResolutionSwitchPosition = resolutionSwitchPosition;
+		}
+	}
 }
 
 void GrinderView::SetAxisIndicators(Optional<Axis> selectedAxis, int32_t resolution) {
@@ -127,9 +130,9 @@ void GrinderView::SetAxisIndicators(Optional<Axis> selectedAxis, int32_t resolut
     m_previousEncoderCount = 0;
 
 	// update the axis LEDs
-	m_genie.WriteObject(XJog_TYPE, XJog_ID, selectedAxis == Axis::X ? 1 : 0);
-	m_genie.WriteObject(YJog_TYPE, YJog_ID, selectedAxis == Axis::Y ? 1 : 0);
-	m_genie.WriteObject(ZJog_TYPE, ZJog_ID, selectedAxis == Axis::Z ? 1 : 0);
+	m_genie.WriteObject(XJog_TYPE, XJog_ID, selectedAxis.HasValue() && selectedAxis == Axis::X ? 1 : 0);
+	m_genie.WriteObject(YJog_TYPE, YJog_ID, selectedAxis.HasValue() && selectedAxis == Axis::Y ? 1 : 0);
+	m_genie.WriteObject(ZJog_TYPE, ZJog_ID, selectedAxis.HasValue() && selectedAxis == Axis::Z ? 1 : 0);
 
 	// update the resolution LEDs
     m_genie.WriteObject(Resolution1_TYPE, Resolution1_ID, selectedAxis.HasValue() && resolution == 1 ? 1 : 0);
@@ -142,11 +145,23 @@ void GrinderView::SetAxisIndicators(Optional<Axis> selectedAxis, int32_t resolut
 void GrinderView::SetOperatingMode(Mode mode) {
 	using namespace HMI::SETUPMODE;
 
-	m_genie.WriteObject(ModeSetupButton_TYPE, ModeSetupButton_ID, mode == Mode::SETUP ? 1 : 0);
-	m_genie.WriteObject(ModeFlatButton_TYPE, ModeFlatButton_ID, mode == Mode::FLAT ? 1 : 0);
-	m_genie.WriteObject(ModeSideButton_TYPE, ModeSideButton_ID, mode == Mode::SIDE ? 1 : 0);
-	m_genie.WriteObject(ModeCylButton_TYPE, ModeCylButton_ID, mode == Mode::CYLINDER ? 1 : 0);
-	m_genie.WriteObject(ModeDressButton_TYPE, ModeDressButton_ID, mode == Mode::DRESS ? 1 : 0);
+	switch (mode) {
+	case Mode::SETUP:
+		m_genie.WriteObject(ModeSetupButton_TYPE, ModeSetupButton_ID, 1);
+		break;
+	case Mode::FLAT:
+		m_genie.WriteObject(ModeFlatButton_TYPE, ModeFlatButton_ID, 1);
+		break;
+	case Mode::SIDE:
+		m_genie.WriteObject(ModeSideButton_TYPE, ModeSideButton_ID, 1);
+		break;
+	case Mode::CYLINDER:
+		m_genie.WriteObject(ModeCylButton_TYPE, ModeCylButton_ID, 1);
+		break;
+	case Mode::DRESS:
+		m_genie.WriteObject(ModeDressButton_TYPE, ModeDressButton_ID, 1);
+		break;
+	}
 }
 
 void GrinderView::UpdateEncoder() {
