@@ -42,7 +42,7 @@ namespace Injected {
 	MachineAxis XAxis(ConnectorM0, 3, 130175, CLEARCORE_PIN_IO0, Direction::REVERSE);
 	MachineAxis YAxis(ConnectorM1, 6, 3175, CLEARCORE_PIN_IO0, Direction::REVERSE);
 	MachineAxis ZAxis(ConnectorM2, 3, 6350, CLEARCORE_PIN_IO0, Direction::REVERSE);
-	MachineAxis* axes[3] = { &XAxis, &YAxis, &ZAxis };
+	MachineAxis* axes[AXIS_COUNT] = { &XAxis, &YAxis, &ZAxis };
 	GrinderModel Model(
 		axes,			// X, Y, and Z Axes
 		ConnectorIO1,	// Left Limit
@@ -50,7 +50,7 @@ namespace Injected {
 	);
 
 	// View
-	Direction droDirections[3] = { Direction::REVERSE, Direction::NORMAL, Direction::NORMAL };
+	Direction droDirections[AXIS_COUNT] = { Direction::REVERSE, Direction::NORMAL, Direction::NORMAL };
 	GrinderView View(
 		ConnectorIO0,	// ESTOP
 		ConnectorIO3,	// Cycle Run

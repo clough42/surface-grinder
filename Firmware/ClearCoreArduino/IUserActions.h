@@ -22,6 +22,7 @@
 #define I_USER_ACTIONS_H
 
 #include "CommonEnums.h"
+#include "Optional.h"
 
 // Controller Interface for the View
 //
@@ -36,7 +37,7 @@ public:
 	virtual void CycleStart() = 0;
 	virtual void CycleStop() = 0;
 	virtual void SelectUnits(Units units) = 0;
-	virtual void SelectAxis(Axis selectedAxis, int resolutionSwitchPosition) = 0;
+	virtual void SelectAxis(Optional<Axis> selectedAxis, int resolutionSwitchPosition) = 0;
     virtual void Jog(int32_t clicks) = 0;
 	virtual void SetWorkOffset(Axis selectedAxis) = 0;
 	virtual void SetStartLimit(Axis axis) = 0;

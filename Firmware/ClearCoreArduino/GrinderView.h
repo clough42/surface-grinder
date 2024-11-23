@@ -41,7 +41,7 @@ public:
         Uart& hmiSerial,
         Connector& hmiConnector,
         EncoderInput& encoderIn,
-        Direction droDirections[3]
+        Direction droDirections[AXIS_COUNT]
     ) : m_eStop(eStop),
         m_cycleRun(cycleRun),
         m_cycleStop(cycleStop),
@@ -52,14 +52,14 @@ public:
         m_jogResolution(jogResolutionInput)
     {
 		s_instance = this;
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < AXIS_COUNT; i++) {
 			m_droDirections[i] = droDirections[i];
 		}
     }
 
     void Init(IUserActions* controller);
     void Update();
-    void SetAxisIndicators(Axis selectedAxis, int32_t selectedResolution);
+    void SetAxisIndicators(Optional<Axis> selectedAxis, int32_t selectedResolution);
     void SetDroValue(Axis axis, int32_t unitsValue);
 	void SetStartDroValue(Axis axis, int32_t unitsValue);
 	void SetEndDroValue(Axis axis, int32_t unitsValue);
@@ -89,7 +89,7 @@ private:
     static void HmiEventHandler();
     static GrinderView *s_instance;
 
-    Direction m_droDirections[3];
+    Direction m_droDirections[AXIS_COUNT];
 
     // previous control positions
 	int32_t m_previousEncoderCount = 0;
@@ -97,7 +97,7 @@ private:
 	int32_t m_previousResolutionSwitchPosition = 0;
 
     // previous HMI element values
-    int32_t m_previousDroValues[3] = { 0, 0, 0 };
+    int32_t m_previousDroValues[AXIS_COUNT] = { 0, 0, 0 };
 
     // other software components
     IUserActions* m_controller = nullptr;

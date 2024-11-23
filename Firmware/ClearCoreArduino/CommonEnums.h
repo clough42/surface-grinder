@@ -33,11 +33,12 @@ enum class Units {
 };
 
 enum class Axis {
-	X = 0,
-	Y = 1,
-	Z = 2,
-	NONE = -1
+	X, // 0
+	Y, // 1
+	Z, // 2
+	COUNT
 };
+#define AXIS_COUNT static_cast<int>(Axis::COUNT)
 
 enum class LimitType {
 	START,

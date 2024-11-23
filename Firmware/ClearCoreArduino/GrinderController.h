@@ -24,6 +24,7 @@
 #include "GrinderModel.h"
 #include "GrinderView.h"
 #include "IUserActions.h"
+#include "Optional.h"
 
 class GrinderController : public IUserActions {
 public:
@@ -39,7 +40,7 @@ public:
 	void CycleStart() override;
 	void CycleStop() override;
 	void SelectUnits(Units units) override;
-	void SelectAxis(Axis axisSwitchPosition, int resolutionSwitchPosition) override;
+	void SelectAxis(Optional<Axis> axisSwitchPosition, int resolutionSwitchPosition) override;
 	void Jog(int32_t clicks) override;
 	void SetWorkOffset(Axis selectedAxis) override;
 	void SetStartLimit(Axis axis) override;
@@ -60,12 +61,12 @@ private:
 
     Units m_units = Units::INCHES;
 	Mode m_mode = Mode::SETUP;
-	Axis m_selectedAxis;
+	Optional<Axis> m_selectedAxis;
     int m_resolutionSwitchPosition = 0;
     int32_t m_selectedResolution;
-    int32_t m_droWorkOffsets[3] = { 0, 0, 0 };
-    int32_t m_startLimits[3] = { 0, 0, 0 };
-    int32_t m_endLimits[3] = { 0, 0, 0 };
+    int32_t m_droWorkOffsets[AXIS_COUNT] = { 0, 0, 0 };
+    int32_t m_startLimits[AXIS_COUNT] = { 0, 0, 0 };
+    int32_t m_endLimits[AXIS_COUNT] = { 0, 0, 0 };
     
 };
 

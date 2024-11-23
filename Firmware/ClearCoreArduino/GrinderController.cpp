@@ -53,7 +53,7 @@ void GrinderController::SetOperatingMode(Mode mode) {
 	m_view.SetOperatingMode(m_mode);
 }
 
-void GrinderController::SelectAxis(Axis selectedAxis, int resolutionSwitchPosition) {
+void GrinderController::SelectAxis(Optional<Axis> selectedAxis, int resolutionSwitchPosition) {
 	Serial.println("SelectAxis");
 
     m_selectedAxis = selectedAxis;
@@ -86,7 +86,7 @@ void GrinderController::UpdateResolutionAndAxisIndicators() {
 void GrinderController::Jog(int32_t clicks) {
 	Serial.println("Jog");
 
-	if (m_selectedAxis != Axis::NONE) {
+	if (m_selectedAxis.HasValue()) {
 		int32_t nanometers = ConvertToNm(clicks * m_selectedResolution);
 		m_model.JogAxisNm(m_selectedAxis, nanometers);
 	}
@@ -107,7 +107,7 @@ void GrinderController::SetEndLimit(Axis axis) {
 }
 
 void GrinderController::UpdateLimitDros() {
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < AXIS_COUNT; i++) {
 		Axis axis = static_cast<Axis>(i);
 		m_view.SetStartDroValue(axis, ConvertToUnits(m_startLimits[i] - m_droWorkOffsets[static_cast<int>(axis)]));
 		m_view.SetEndDroValue(axis, ConvertToUnits(m_endLimits[i] - m_droWorkOffsets[static_cast<int>(axis)]));
@@ -159,7 +159,7 @@ void GrinderController::SetWorkOffset(Axis selectedAxis) {
 }
 
 void GrinderController::UpdateDROs() {
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < AXIS_COUNT; i++) {
 		Axis axis = static_cast<Axis>(i);
 		UpdateDRO(axis);
 	}

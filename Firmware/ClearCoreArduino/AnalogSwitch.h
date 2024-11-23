@@ -23,6 +23,7 @@
 #define ANALOG_SWITCH_H
 
 #include "ClearCore.h"
+#include "Optional.h"
 
 class AnalogSwitch {
 public:
@@ -34,16 +35,21 @@ public:
     }
 
     // Method to get the current switch position
-    int GetSwitchPosition() {
+    Optional<int> GetSwitchPosition() {
         float voltage = m_analogInput.AnalogVoltage();
-        if (voltage < 1.65) {
+        if (voltage < 1) {
+            return Optional<int>(); // no value
+        } else if (voltage < 3) {
             return 0;
-        } else if (voltage < 4.95) {
+        } else if (voltage < 5) {
             return 1;
-        } else if (voltage < 8.25) {
+        } else if (voltage < 7) {
             return 2;
-        } else {
+        } else if (voltage < 9) {
             return 3;
+        }
+        else {
+            return Optional<int>(); // no value
         }
     }
 

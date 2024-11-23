@@ -26,7 +26,7 @@
 class GrinderModel {
 public:
     // Constructor that takes an array of three MachineAxis objects
-    GrinderModel(MachineAxis* axes[3], DigitalInOut& leftLimit,	DigitalInOut& rightLimit);
+    GrinderModel(MachineAxis* axes[AXIS_COUNT], DigitalInOut& leftLimit,	DigitalInOut& rightLimit);
 
     // Method to initialize all axes
     void Init();
@@ -43,13 +43,13 @@ public:
 	}
 
 	void ResetAndEnable() {
-		for (int i = 0; i < 3; ++i) {
+		for (int i = 0; i < AXIS_COUNT; ++i) {
 			m_axes[i]->ResetAndEnable();
 		}
 	}
 
 private:
-    MachineAxis* m_axes[3];
+    MachineAxis* m_axes[AXIS_COUNT];
 	DigitalInOut& m_leftLimit;
 	DigitalInOut& m_rightLimit;
 };
