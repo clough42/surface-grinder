@@ -107,7 +107,7 @@ void GrinderView::SetEndDroValue(Axis axis, int32_t unitsValue) {
 }
 
 void GrinderView::UpdateAxisSelectors() {
-    // Check the rsolution and axis selectors
+    // Check the resolution and axis selectors
     Optional<int> axisSwitchPosition = m_jogAxis.GetSwitchPosition();
     Optional<int> resolutionSwitchPosition = m_jogResolution.GetSwitchPosition();
 
