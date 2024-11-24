@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnalogSwitch.h" />
+    <ClInclude Include="Assert.h" />
     <ClInclude Include="CommonEnums.h" />
     <ClInclude Include="IUserActions.h" />
     <ClInclude Include="GrinderView.h" />

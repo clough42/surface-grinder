@@ -22,6 +22,7 @@
 #define OPTIONAL_H
 
 #include <utility>
+#include "Assert.h"
 
 template <typename T>
 class Optional {
@@ -94,11 +95,13 @@ public:
 
     // Get the m_value
     T Value() const {
+		ASSERT(m_hasValue);
         return m_value;
     }
 
     // Conversion operator to automatically cast to the template type
     operator T() const {
+		ASSERT(m_hasValue);
         return m_value;
     }
 
