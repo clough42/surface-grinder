@@ -93,8 +93,8 @@ private:
 
     // previous control positions
 	int32_t m_previousEncoderCount = 0;
-    int32_t m_previousAxisSwitchPosition = 0;
-	int32_t m_previousResolutionSwitchPosition = 0;
+    Optional<int> m_previousAxisSwitchPosition = 0;
+	Optional<int> m_previousResolutionSwitchPosition = 0;
 
     // previous HMI element values
     int32_t m_previousDroValues[AXIS_COUNT] = { 0, 0, 0 };

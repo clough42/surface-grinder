@@ -66,6 +66,22 @@ public:
         return *this;
     }
 
+    // Equality operator
+    bool operator==(const Optional& other) const {
+        if (m_hasValue != other.m_hasValue) {
+            return false;
+        }
+        if (!m_hasValue) {
+            return true;
+        }
+        return m_value == other.m_value;
+    }
+
+    // Inequality operator
+    bool operator!=(const Optional& other) const {
+        return !(*this == other);
+    }
+
     // Reset method
     void Reset() {
         m_hasValue = false;

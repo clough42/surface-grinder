@@ -111,14 +111,11 @@ void GrinderView::UpdateAxisSelectors() {
     Optional<int> axisSwitchPosition = m_jogAxis.GetSwitchPosition();
     Optional<int> resolutionSwitchPosition = m_jogResolution.GetSwitchPosition();
 
-	// only process them if they have values
-	if (axisSwitchPosition.HasValue() && resolutionSwitchPosition.HasValue()) {
-		if (axisSwitchPosition != m_previousAxisSwitchPosition || resolutionSwitchPosition != m_previousResolutionSwitchPosition) {
-			Optional<Axis> selectedAxis = axisSwitchPosition == 0 ? Optional<Axis>() : Optional<Axis>(static_cast<Axis>(axisSwitchPosition - 1));
-			m_controller->SelectAxis(selectedAxis, resolutionSwitchPosition);
-			m_previousAxisSwitchPosition = axisSwitchPosition;
-			m_previousResolutionSwitchPosition = resolutionSwitchPosition;
-		}
+	if (axisSwitchPosition != m_previousAxisSwitchPosition || resolutionSwitchPosition != m_previousResolutionSwitchPosition) {
+		Optional<Axis> selectedAxis = axisSwitchPosition.HasValue() && axisSwitchPosition.Value() != 0 ? Optional<Axis>(static_cast<Axis>(axisSwitchPosition - 1)) : Optional<Axis>();
+		m_controller->SelectAxis(selectedAxis, resolutionSwitchPosition);
+		m_previousAxisSwitchPosition = axisSwitchPosition;
+		m_previousResolutionSwitchPosition = resolutionSwitchPosition;
 	}
 }
 
@@ -130,9 +127,9 @@ void GrinderView::SetAxisIndicators(Optional<Axis> selectedAxis, int32_t resolut
     m_previousEncoderCount = 0;
 
 	// update the axis LEDs
-	m_genie.WriteObject(XJog_TYPE, XJog_ID, selectedAxis.HasValue() && selectedAxis == Axis::X ? 1 : 0);
-	m_genie.WriteObject(YJog_TYPE, YJog_ID, selectedAxis.HasValue() && selectedAxis == Axis::Y ? 1 : 0);
-	m_genie.WriteObject(ZJog_TYPE, ZJog_ID, selectedAxis.HasValue() && selectedAxis == Axis::Z ? 1 : 0);
+	m_genie.WriteObject(XJog_TYPE, XJog_ID, selectedAxis.HasValue() && selectedAxis.Value() == Axis::X ? 1 : 0);
+	m_genie.WriteObject(YJog_TYPE, YJog_ID, selectedAxis.HasValue() && selectedAxis.Value() == Axis::Y ? 1 : 0);
+	m_genie.WriteObject(ZJog_TYPE, ZJog_ID, selectedAxis.HasValue() && selectedAxis.Value() == Axis::Z ? 1 : 0);
 
 	// update the resolution LEDs
     m_genie.WriteObject(Resolution1_TYPE, Resolution1_ID, selectedAxis.HasValue() && resolution == 1 ? 1 : 0);

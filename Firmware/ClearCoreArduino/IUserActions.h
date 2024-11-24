@@ -37,7 +37,7 @@ public:
 	virtual void CycleStart() = 0;
 	virtual void CycleStop() = 0;
 	virtual void SelectUnits(Units units) = 0;
-	virtual void SelectAxis(Optional<Axis> selectedAxis, int resolutionSwitchPosition) = 0;
+	virtual void SelectAxis(Optional<Axis> selectedAxis, Optional<int> resolutionSwitchPosition) = 0;
     virtual void Jog(int32_t clicks) = 0;
 	virtual void SetWorkOffset(Axis selectedAxis) = 0;
 	virtual void SetStartLimit(Axis axis) = 0;

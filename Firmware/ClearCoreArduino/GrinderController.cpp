@@ -53,7 +53,7 @@ void GrinderController::SetOperatingMode(Mode mode) {
 	m_view.SetOperatingMode(m_mode);
 }
 
-void GrinderController::SelectAxis(Optional<Axis> selectedAxis, int resolutionSwitchPosition) {
+void GrinderController::SelectAxis(Optional<Axis> selectedAxis, Optional<int> resolutionSwitchPosition) {
 	Serial.println("SelectAxis");
 
     m_selectedAxis = selectedAxis;
@@ -62,20 +62,24 @@ void GrinderController::SelectAxis(Optional<Axis> selectedAxis, int resolutionSw
 }
 
 void GrinderController::UpdateResolutionAndAxisIndicators() {
-	int32_t resolution = 1;
-	switch (m_resolutionSwitchPosition) {
-	case 0:
-		resolution = 1000;
-		break;
-	case 1:
-		resolution = 100;
-		break;
-	case 2:
-		resolution = 10;
-		break;
-	}
-	if (m_units == Units::MILLIMETERS) {
-		resolution *= 10;
+	int32_t resolution = 0;
+	if (m_resolutionSwitchPosition.HasValue()) {
+		resolution = 1;
+
+		switch (m_resolutionSwitchPosition) {
+		case 0:
+			resolution = 1000;
+			break;
+		case 1:
+			resolution = 100;
+			break;
+		case 2:
+			resolution = 10;
+			break;
+		}
+		if (m_units == Units::MILLIMETERS) {
+			resolution *= 10;
+		}
 	}
 
 	m_selectedResolution = resolution;
@@ -85,8 +89,11 @@ void GrinderController::UpdateResolutionAndAxisIndicators() {
 
 void GrinderController::Jog(int32_t clicks) {
 	Serial.println("Jog");
+	Serial.println(m_selectedAxis.HasValue() ? "Selected axis has value" : "Selected axis NO VALUE");
+	Serial.print("Resolution: ");
+	Serial.println(m_selectedResolution);
 
-	if (m_selectedAxis.HasValue()) {
+	if (m_selectedAxis.HasValue() ) {
 		int32_t nanometers = ConvertToNm(clicks * m_selectedResolution);
 		m_model.JogAxisNm(m_selectedAxis, nanometers);
 	}
