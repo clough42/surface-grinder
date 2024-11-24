@@ -127,9 +127,9 @@ void GrinderView::SetAxisIndicators(Optional<Axis> selectedAxis, int32_t resolut
     m_previousEncoderCount = 0;
 
 	// update the axis LEDs
-	m_genie.WriteObject(XJog_TYPE, XJog_ID, selectedAxis.HasValue() && selectedAxis.Value() == Axis::X ? 1 : 0);
-	m_genie.WriteObject(YJog_TYPE, YJog_ID, selectedAxis.HasValue() && selectedAxis.Value() == Axis::Y ? 1 : 0);
-	m_genie.WriteObject(ZJog_TYPE, ZJog_ID, selectedAxis.HasValue() && selectedAxis.Value() == Axis::Z ? 1 : 0);
+	m_genie.WriteObject(XJog_TYPE, XJog_ID, resolution > 0 && selectedAxis.HasValue() && selectedAxis.Value() == Axis::X ? 1 : 0);
+	m_genie.WriteObject(YJog_TYPE, YJog_ID, resolution > 0 && selectedAxis.HasValue() && selectedAxis.Value() == Axis::Y ? 1 : 0);
+	m_genie.WriteObject(ZJog_TYPE, ZJog_ID, resolution > 0 && selectedAxis.HasValue() && selectedAxis.Value() == Axis::Z ? 1 : 0);
 
 	// update the resolution LEDs
     m_genie.WriteObject(Resolution1_TYPE, Resolution1_ID, selectedAxis.HasValue() && resolution == 1 ? 1 : 0);
