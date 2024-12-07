@@ -88,5 +88,27 @@ namespace UnitTests
 			Assert::AreEqual(42, opt.Value(), L"Optional value should be 42.");
         }
 
+        TEST_METHOD(TestNarrowingCoercion)
+        {
+            Optional<int32_t> opt(42);
+            Optional<int> opt2 = opt;
+            Assert::IsTrue(opt2.HasValue(), L"Optional should have a value after coercion.");
+            Assert::AreEqual(42, opt2.Value(), L"Optional value should be 42 after coercion.");
+        }
+
+        TEST_METHOD(TestNarrowingCoercionR)
+        {
+            Optional<int> opt2 = Optional<int32_t>(42);
+            Assert::IsTrue(opt2.HasValue(), L"Optional should have a value after coercion.");
+            Assert::AreEqual(42, opt2.Value(), L"Optional value should be 42 after coercion.");
+        }
+
+        TEST_METHOD(TestWideningCoercionR)
+        {
+            Optional<int> opt2 = Optional<int>(42);
+            Assert::IsTrue(opt2.HasValue(), L"Optional should have a value after coercion.");
+            Assert::AreEqual(42, opt2.Value(), L"Optional value should be 42 after coercion.");
+        }
+
     };
 }

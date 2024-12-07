@@ -1,6 +1,7 @@
 #ifndef ASSERT_H
 #define ASSERT_H
 
+#ifndef _UNIT_TEST
 #include <Arduino.h>
 
 class Assert {
@@ -22,5 +23,11 @@ public:
 
 // Macro to simplify the usage of the assert class
 #define ASSERT(condition) Assert::Check((condition), #condition, __FILE__, __LINE__)
+#else // _UNIT_TEST
+
+#define ASSERT(condition) ;
+
+#endif // _UNIT_TEST
+
 
 #endif // ASSERT_H
