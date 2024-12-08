@@ -110,5 +110,33 @@ namespace UnitTests
             Assert::AreEqual(42, opt2.Value(), L"Optional value should be 42 after coercion.");
         }
 
+        TEST_METHOD(TestConvertAssign1)
+        {
+            Optional<int32_t> opt((int32_t)42);
+            int16_t value = opt;
+            Assert::AreEqual((int16_t)42, value, L"Optional value should be 42.");
+        }
+
+        TEST_METHOD(TestConvertAssign2)
+        {
+            Optional<int16_t> opt((int16_t)42);
+            int32_t value = opt;
+            Assert::AreEqual(42, value, L"Optional value should be 42.");
+        }
+
+        TEST_METHOD(TestConvertAssign3)
+        {
+            Optional<int32_t> opt((int32_t)42);
+			opt = (int16_t)43;
+            Assert::AreEqual(opt.Value(), 43, L"Optional value should be 42.");
+        }
+
+        TEST_METHOD(TestConvertAssign4)
+        {
+            Optional<int16_t> opt((int16_t)42);
+            opt = (int32_t)43;
+            Assert::AreEqual(opt.Value(), (int16_t)43, L"Optional value should be 42.");
+        }
+
     };
 }
