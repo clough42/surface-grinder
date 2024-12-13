@@ -42,10 +42,17 @@ public:
 	void JogNm(int32_t distanceInNanometers);
     int32_t GetCurrentPositionNm() const;
     int32_t GetLastCommandedPositionNm() const;
-    bool IsMoveComplete() const;
+    bool IsReady() const;
+    bool IsDisabled() const;
+
+    void Disable();
     void ResetAndEnable();
+    void SeekHome();
+    void StopAndReference();
 
 private:
+	void PrintReadyState(ClearCore::MotorDriver::MotorReadyStates readyState) const;
+
     // Ratio of nanometers to motor steps
     int32_t m_stepsPerNmNumerator;
     int32_t m_stepsPerNmDenominator;

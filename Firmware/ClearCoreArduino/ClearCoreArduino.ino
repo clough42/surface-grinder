@@ -32,6 +32,7 @@
 #include "GrinderView.h"
 #include "GrinderController.h"
 #include "CommonEnums.h"
+#include "CycleHoming.h"
 
 // Dependency Injection
 namespace Injected {
@@ -48,6 +49,8 @@ namespace Injected {
 		ConnectorIO1,	// Left Limit
 		ConnectorIO2	// Right Limit Switch
 	);
+
+	CycleHoming Homing(axes);
 
 	// View
 	Direction droDirections[AXIS_COUNT] = { Direction::REVERSE, Direction::NORMAL, Direction::NORMAL };
@@ -83,6 +86,11 @@ void setup() {
 
 	// Red LED off at the end
 	Injected::RedLED.State(false);
+
+	Injected::Homing.Reset();
+	while (Injected::Homing.Update() && !Injected::Homing.IsInError()) {
+		delay(20);
+	}
 }
 
 void loop() {

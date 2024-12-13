@@ -22,8 +22,10 @@
 #include <Arduino.h>
 
 void MachineAxis::Init() {
-    m_motor.EStopConnector(m_eStopPin);
-    m_motor.EnableRequest(true);
+	m_motor.HlfbMode(ClearCore::MotorDriver::HlfbModes::HLFB_MODE_HAS_BIPOLAR_PWM);
+	m_motor.HlfbCarrier(MotorDriver::HLFB_CARRIER_482_HZ); 
+	m_motor.EStopConnector(m_eStopPin);
+    m_motor.EnableRequest(false); // make sure we don't home prematurely
     m_motor.VelMax(MAX_VELOCITY);
     m_motor.AccelMax(MAX_ACCELERATION);
     m_motor.MoveStopDecel(0);
@@ -51,12 +53,57 @@ int32_t MachineAxis::GetLastCommandedPositionNm() const
 	return m_lastCommandedPosition;
 }
 
-bool MachineAxis::IsMoveComplete() const {
-    return m_motor.StepsComplete();
+bool MachineAxis::IsReady() const {
+    //ClearCore::MotorDriver::MotorReadyStates readyState = m_motor.StatusReg().bit.ReadyState;
+	//PrintReadyState(readyState);
+	//return readyState == ClearCore::MotorDriver::MotorReadyStates::MOTOR_READY;
+	return m_motor.HlfbState() == MotorDriver::HLFB_ASSERTED;
+}
+
+bool MachineAxis::IsDisabled() const {
+    ClearCore::MotorDriver::MotorReadyStates readyState = m_motor.StatusReg().bit.ReadyState;
+	PrintReadyState(readyState);
+    return readyState == ClearCore::MotorDriver::MotorReadyStates::MOTOR_DISABLED;
+}
+
+void MachineAxis::Disable() {
+	m_motor.EnableRequest(false);
 }
 
 void MachineAxis::ResetAndEnable() {
     m_lastCommandedPosition = GetCurrentPositionNm();
     m_motor.ClearAlerts();
 	m_motor.EnableRequest(true);
+}
+
+void MachineAxis::PrintReadyState(ClearCore::MotorDriver::MotorReadyStates readyState) const {
+	switch (readyState) {
+	case ClearCore::MotorDriver::MotorReadyStates::MOTOR_DISABLED:
+		Serial.println("Motor Disabled");
+		break;
+	case ClearCore::MotorDriver::MotorReadyStates::MOTOR_ENABLING:
+		Serial.println("Motor Enabling");
+		break;
+	case ClearCore::MotorDriver::MotorReadyStates::MOTOR_FAULTED:
+		Serial.println("Motor Faulted");
+		break;
+	case ClearCore::MotorDriver::MotorReadyStates::MOTOR_READY:
+		Serial.println("Motor Ready");
+		break;
+	case ClearCore::MotorDriver::MotorReadyStates::MOTOR_MOVING:
+		Serial.println("Motor Moving");
+		break;
+	default:
+		Serial.println("Motor Ready State Unknown");
+		break;
+	}
+}
+
+void MachineAxis::SeekHome() {
+	m_motor.MoveVelocity(1000);
+}
+
+void MachineAxis::StopAndReference() {
+	m_motor.MoveStopAbrupt();
+	m_motor.PositionRefSet(0);
 }

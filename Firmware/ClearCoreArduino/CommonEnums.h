@@ -38,6 +38,9 @@ enum class Axis {
 	Z, // 2
 	COUNT
 };
+#define AXIS_X static_cast<int>(Axis::X)
+#define AXIS_Y static_cast<int>(Axis::Y)
+#define AXIS_Z static_cast<int>(Axis::Z)
 #define AXIS_COUNT static_cast<int>(Axis::COUNT)
 
 enum class LimitType {
