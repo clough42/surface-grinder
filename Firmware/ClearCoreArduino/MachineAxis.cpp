@@ -22,13 +22,22 @@
 #include <Arduino.h>
 
 void MachineAxis::Init() {
+	// initialize motor
 	m_motor.HlfbMode(ClearCore::MotorDriver::HlfbModes::HLFB_MODE_HAS_BIPOLAR_PWM);
 	m_motor.HlfbCarrier(MotorDriver::HLFB_CARRIER_482_HZ); 
 	m_motor.EStopConnector(m_eStopPin);
-    m_motor.EnableRequest(false); // make sure we don't home prematurely
-    m_motor.VelMax(MAX_VELOCITY);
-    m_motor.AccelMax(MAX_ACCELERATION);
-    m_motor.MoveStopDecel(0);
+	m_motor.VelMax(MAX_VELOCITY);
+	m_motor.AccelMax(MAX_ACCELERATION);
+	m_motor.MoveStopAbrupt();
+
+	// Enable the motor and jog back and forth one step to cancel auto-home
+    m_motor.EnableRequest(true);
+	delay(20);
+	m_motor.Move(1, StepGenerator::MOVE_TARGET_REL_END_POSN);
+	delay(20);
+	m_motor.Move(-1, StepGenerator::MOVE_TARGET_REL_END_POSN);
+	delay(20);
+	m_motor.PositionRefSet(0);
 }
 
 void MachineAxis::MoveToPositionNm(int32_t positionInNanometers) {
@@ -66,9 +75,23 @@ bool MachineAxis::IsDisabled() const {
     return readyState == ClearCore::MotorDriver::MotorReadyStates::MOTOR_DISABLED;
 }
 
+void MachineAxis::StartHomingCycle() {
+	m_motor.EnableRequest(false);
+	delay(20);
+	m_motor.EnableRequest(true);
+	delay(20);
+	m_motor.MoveVelocity(1000);
+	delay(20);
+}
+
+bool MachineAxis::IsHomingCycleComplete() {
+	return m_motor.HlfbState() == MotorDriver::HLFB_ASSERTED;
+}
+
 void MachineAxis::Disable() {
 	m_motor.EnableRequest(false);
 }
+
 
 void MachineAxis::ResetAndEnable() {
     m_lastCommandedPosition = GetCurrentPositionNm();

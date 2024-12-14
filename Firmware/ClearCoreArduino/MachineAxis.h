@@ -45,6 +45,9 @@ public:
     bool IsReady() const;
     bool IsDisabled() const;
 
+    void StartHomingCycle();
+    bool IsHomingCycleComplete();
+
     void Disable();
     void ResetAndEnable();
     void SeekHome();

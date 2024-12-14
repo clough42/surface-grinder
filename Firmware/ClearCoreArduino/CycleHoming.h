@@ -10,16 +10,16 @@ class CycleHoming : public Cycle {
 public:
     // Define the states of the state machine
     enum HomingState {
-        UNKNOWN,
+        INITIAL,
         DISABLING,
         HOME_Y,
         HOME_Z,
         HOME_X,
-        HOMED
+        FINAL
     };
 
     // Constructor
-	CycleHoming(MachineAxis* axes[AXIS_COUNT]) : currentState(UNKNOWN) {
+	CycleHoming(MachineAxis* axes[AXIS_COUNT]) : currentState(INITIAL) {
         for (int i = 0; i < AXIS_COUNT; ++i) {
             m_axes[i] = axes[i];
         }
@@ -34,15 +34,14 @@ private:
 	MachineAxis* m_axes[AXIS_COUNT];
 
     // Transition methods for each state
-    void TransitionToUnknown();
     void TransitionToDisabling();
     void TransitionToHomeY();
     void TransitionToHomeZ();
     void TransitionToHomeX();
-    void TransitionToHomed();
+    void TransitionToFinal();
 
     // Update methods for each state
-    void UpdateUnknown();
+    void UpdateInitial();
     void UpdateDisabling();
     void UpdateHomeY();
     void UpdateHomeZ();

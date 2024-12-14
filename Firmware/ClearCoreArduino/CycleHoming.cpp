@@ -5,20 +5,23 @@
 
 void CycleHoming::Reset() {
     m_isInError = false;
-    TransitionToUnknown();
+    currentState = INITIAL;
 }
 
 bool CycleHoming::IsInError() {
     return m_isInError;
 }
 
-// Method to be called from the main control loop
+/////////////////////////////////////////////////////////////////////////
+// STATE MACHINE
+/////////////////////////////////////////////////////////////////////////
+
 bool CycleHoming::Update() {
 
 	//Serial.println("CycleHoming::Update()");
     switch (currentState) {
-    case UNKNOWN:
-        UpdateUnknown();
+    case INITIAL:
+        UpdateInitial();
         break;
     case DISABLING:
         UpdateDisabling();
@@ -32,16 +35,23 @@ bool CycleHoming::Update() {
     case HOME_X:
         UpdateHomeX();
         break;
-    case HOMED:
+    case FINAL:
         return false;
     }
 
     return true; // still more work to do
 }
 
-// Update methods for each state
-void CycleHoming::UpdateUnknown() {
+void CycleHoming::UpdateInitial() {
     TransitionToDisabling();
+}
+
+void CycleHoming::TransitionToDisabling() {
+    Serial.println("Disabling motors");
+    for (int i = 0; i < AXIS_COUNT; ++i) {
+        m_axes[i]->Disable();
+    }
+    currentState = DISABLING;
 }
 
 void CycleHoming::UpdateDisabling() {
@@ -53,12 +63,24 @@ void CycleHoming::UpdateDisabling() {
     }
 }
 
+void CycleHoming::TransitionToHomeY() {
+    Serial.println("Homing Y");
+    StartHomingAxis(AXIS_Y);
+    currentState = HOME_Y;
+}
+
 void CycleHoming::UpdateHomeY() {
     // if Y home is complete
     if (m_axes[AXIS_Y]->IsReady()) {
         m_axes[AXIS_Y]->StopAndReference();
         TransitionToHomeZ();
     }
+}
+
+void CycleHoming::TransitionToHomeZ() {
+    Serial.println("Homing Z");
+    StartHomingAxis(AXIS_Z);
+    currentState = HOME_Z;
 }
 
 void CycleHoming::UpdateHomeZ() {
@@ -69,49 +91,27 @@ void CycleHoming::UpdateHomeZ() {
     }
 }
 
-void CycleHoming::UpdateHomeX() {
-    // if X home is complete
-    if (m_axes[AXIS_X]->IsReady()) {
-        m_axes[AXIS_X]->StopAndReference();
-        TransitionToHomed();
-    }
-}
-
-// Transition methods for each state
-void CycleHoming::TransitionToUnknown() {
-    currentState = UNKNOWN;
-}
-
-void CycleHoming::TransitionToDisabling() {
-	Serial.println("Disabling motors");
-    for (int i = 0; i < AXIS_COUNT; ++i) {
-        m_axes[i]->Disable();
-    }
-    currentState = DISABLING;
-}
-
-void CycleHoming::TransitionToHomeY() {
-	Serial.println("Homing Y");
-    StartHomingAxis(AXIS_Y);
-    currentState = HOME_Y;
-}
-
-void CycleHoming::TransitionToHomeZ() {
-    Serial.println("Homing Z");
-    StartHomingAxis(AXIS_Z);
-    currentState = HOME_Z;
-}
-
 void CycleHoming::TransitionToHomeX() {
-	Serial.println("Homing X");
+    Serial.println("Homing X");
     StartHomingAxis(AXIS_X);
     currentState = HOME_X;
 }
 
-void CycleHoming::TransitionToHomed() {
-	Serial.println("Homing complete");
-    currentState = HOMED;
+void CycleHoming::UpdateHomeX() {
+    // if X home is complete
+    if (m_axes[AXIS_X]->IsReady()) {
+        m_axes[AXIS_X]->StopAndReference();
+        TransitionToFinal();
+    }
 }
+
+void CycleHoming::TransitionToFinal() {
+    Serial.println("Homing complete");
+    currentState = FINAL;
+}
+
+
+// utility methods
 
 void CycleHoming::StartHomingAxis(int axis) {
     Serial.println("Start Homing Axis");
