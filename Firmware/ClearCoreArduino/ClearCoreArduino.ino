@@ -18,6 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#include <sd-examples.h>
 #include <cstdint>
 
 #include <ClearCore.h>
@@ -27,6 +28,7 @@
 
 #include <genieArduinoDEV.h>
 
+#include "Configuration.h"
 #include "MachineAxis.h"
 #include "GrinderModel.h"
 #include "GrinderView.h"
@@ -40,11 +42,14 @@ namespace Injected {
 
 	auto& RedLED = ConnectorLed;
 
+	// Configuration
+	Configuration config("configuration.txt");
+
 	// Axes
 	MachineAxis axes[AXIS_COUNT] = {
-		MachineAxis(ConnectorM0, 3, 130175, CLEARCORE_PIN_IO0, Direction::REVERSE),
-		MachineAxis(ConnectorM1, 6, 3175, CLEARCORE_PIN_IO0, Direction::REVERSE),
-		MachineAxis(ConnectorM2, 3, 6350, CLEARCORE_PIN_IO0, Direction::REVERSE)
+		MachineAxis(ConnectorM0, 3, 130175, CLEARCORE_PIN_IO0, Direction::NEGATIVE, Direction::NEGATIVE),	// X
+		MachineAxis(ConnectorM1, 6, 3175, CLEARCORE_PIN_IO0, Direction::NEGATIVE, Direction::POSITIVE),		// Y
+		MachineAxis(ConnectorM2, 3, 6350, CLEARCORE_PIN_IO0, Direction::NEGATIVE, Direction::POSITIVE)		// Z
 	};
 
 	// Cycles
@@ -64,7 +69,7 @@ namespace Injected {
 	);
 
 	// View
-	Direction droDirections[AXIS_COUNT] = { Direction::REVERSE, Direction::NORMAL, Direction::NORMAL };
+	Direction droDirections[AXIS_COUNT] = { Direction::NEGATIVE, Direction::POSITIVE, Direction::POSITIVE };
 	GrinderView View(
 		ConnectorIO0,	// ESTOP
 		ConnectorIO3,	// Cycle Run

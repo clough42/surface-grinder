@@ -34,7 +34,7 @@
 class MachineAxis {
 public:
 
-    MachineAxis(MotorDriver& motor, int32_t stepsPerNmNumerator, int32_t stepsPerNmDenominator, ClearCorePins eStopPin, Direction motorDirection = Direction::NORMAL)
+    MachineAxis(MotorDriver& motor, int32_t stepsPerNmNumerator, int32_t stepsPerNmDenominator, ClearCorePins eStopPin, Direction motorDirection = Direction::POSITIVE, Direction homingDirection = Direction::POSITIVE)
         : m_stepsPerNmNumerator(stepsPerNmNumerator), m_stepsPerNmDenominator(stepsPerNmDenominator), m_motor(motor), m_eStopPin(eStopPin), m_motorDirection(motorDirection) {}
 
     void Init();
@@ -65,6 +65,9 @@ private:
 
     // Direction config
     Direction m_motorDirection;
+
+    // Homing direction config
+    Direction m_homingDirection;
 
     // EStop pin
     ClearCorePins m_eStopPin;

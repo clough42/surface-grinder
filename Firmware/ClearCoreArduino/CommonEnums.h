@@ -23,8 +23,8 @@
 
 // Direction of an axis or a DRO
 enum class Direction {
-	NORMAL = 1,		// up/default
-	REVERSE = -1	// down/reverse
+	POSITIVE = 1,	// up/default
+	NEGATIVE = -1	// down/reverse
 };
 
 enum class Units {
