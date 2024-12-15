@@ -53,6 +53,7 @@ public:
     void StopAndReference();
 
 private:
+	int32_t CalculateMotorSteps(int64_t positionInNanometers) const;
 	void PrintReadyState(ClearCore::MotorDriver::MotorReadyStates readyState) const;
 
     // Ratio of nanometers to motor steps

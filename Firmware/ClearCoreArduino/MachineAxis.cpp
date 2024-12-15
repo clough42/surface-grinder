@@ -38,19 +38,24 @@ void MachineAxis::Init() {
 	delay(20);
 	m_motor.Move(-1, StepGenerator::MOVE_TARGET_REL_END_POSN);
 	delay(20);
-	m_motor.PositionRefSet(0);
-	m_lastCommandedPosition = 0;
+	m_motor.PositionRefSet(CalculateMotorSteps(m_lastCommandedPosition));
 }
 
 void MachineAxis::MoveToPositionNm(int32_t positionInNanometers) {
-    int64_t motorSteps = (static_cast<int64_t>(positionInNanometers) * m_stepsPerNmNumerator) / m_stepsPerNmDenominator;
-    m_motor.Move(static_cast<int32_t>(motorSteps) * static_cast<int>(m_motorDirection), StepGenerator::MOVE_TARGET_ABSOLUTE);
+    m_motor.Move(CalculateMotorSteps(positionInNanometers), StepGenerator::MOVE_TARGET_ABSOLUTE);
     m_lastCommandedPosition = positionInNanometers;
+}
+
+int32_t MachineAxis::CalculateMotorSteps(int64_t positionInNanometers) const {
+	int64_t motorSteps = (static_cast<int64_t>(positionInNanometers) * m_stepsPerNmNumerator) / m_stepsPerNmDenominator;
+	return static_cast<int32_t>(motorSteps) * static_cast<int>(m_motorDirection);
 }
 
 void MachineAxis::JogNm(int32_t distanceInNanometers)
 {
-	MoveToPositionNm(m_lastCommandedPosition + distanceInNanometers);
+	if (!IsDisabled()) {
+		MoveToPositionNm(m_lastCommandedPosition + distanceInNanometers);
+	}
 }
 
 int32_t MachineAxis::GetCurrentPositionNm() const {

@@ -44,6 +44,12 @@ public:
 		m_axes[static_cast<int>(axis)].JogNm(distanceInNanometers);
 	}
 
+	void EStop() {
+		for (int i = 0; i < AXIS_COUNT; ++i) {
+			m_axes[i].Disable();
+		}
+	}
+
 	void ResetAndEnable() {
 		for (int i = 0; i < AXIS_COUNT; ++i) {
 			m_axes[i].Init(); // reinitialize the axis

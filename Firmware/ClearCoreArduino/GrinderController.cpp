@@ -123,6 +123,7 @@ void GrinderController::UpdateLimitDros() {
 
 void GrinderController::EnterEstop() {
 	Serial.println("EnterEstop");
+	m_model.EStop();
 }
 
 void GrinderController::ClearEstop() {
