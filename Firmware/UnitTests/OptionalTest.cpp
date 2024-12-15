@@ -24,7 +24,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace UnitTests
+namespace Utility
 {
     TEST_CLASS(OptionalTests)
     {

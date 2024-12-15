@@ -46,7 +46,6 @@
     <wiringPiIncludePath>c:\visualmicro\pi-ignore</wiringPiIncludePath>
     <TargetOSAndVersion>Arduino</TargetOSAndVersion>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <ImportGroup Label="ExtensionTargets" />
   <ImportGroup Label="Shared">
   </ImportGroup>

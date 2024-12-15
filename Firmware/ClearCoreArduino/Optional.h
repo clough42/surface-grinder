@@ -28,7 +28,7 @@ template <typename T>
 class Optional {
 public:
     // Default constructor
-    Optional() : m_hasValue(false) {}
+    Optional() : m_hasValue(false), m_value(T()) {}
 
     // Constructor with m_value
     Optional(const T& value) : m_hasValue(true), m_value(value) {}

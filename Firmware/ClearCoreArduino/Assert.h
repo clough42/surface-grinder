@@ -29,14 +29,16 @@ public:
     // Method to check a condition and print an error message if the condition is false
     static void Check(bool condition, const char* message, const char* file, int line) {
         if (!condition) {
-            Serial.print("Assertion failed: ");
-            Serial.print(message);
-            Serial.print(" in file ");
-            Serial.print(file);
-            Serial.print(" at line ");
-            Serial.println(line);
-            // Optionally, you can halt the program execution
-            while (true) {}
+            while (true) {
+                Serial.print("Assertion failed: ");
+                Serial.print(message);
+                Serial.print(" in file ");
+                Serial.print(file);
+                Serial.print(" at line ");
+                Serial.println(line);
+                delay(1000); // stick here, outputting to serial so the operator can connect to USB to see the message
+            }
+
         }
     }
 };

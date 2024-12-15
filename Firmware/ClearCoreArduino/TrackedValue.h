@@ -25,7 +25,7 @@
 template <typename T>
 class TrackedValue {
 public:
-    TrackedValue() = default;
+    TrackedValue() : m_value(T()) {}
     TrackedValue(const T& value) : m_value(value) {}
 
     const T& Get() const {
