@@ -2,8 +2,15 @@
 #ifndef CYCLE_H
 #define CYCLE_H
 
+#include "CommonEnums.h"
+
 class Cycle {
 public:
+	Cycle(Mode forMode) : m_forMode(forMode) {}
+
+	bool IsForMode(Mode mode) {
+		return m_forMode == mode;
+	}
 
     /// <summary>
     /// Reset the cycle and get it ready to start again
@@ -20,6 +27,9 @@ public:
 	/// Returns true if the cycle is in an error state
 	/// </summary>
 	virtual bool IsInError() = 0;
+
+private:
+    Mode m_forMode;
 
 };
 

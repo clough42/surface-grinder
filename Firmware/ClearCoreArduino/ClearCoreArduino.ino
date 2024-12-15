@@ -33,24 +33,35 @@
 #include "GrinderController.h"
 #include "CommonEnums.h"
 #include "CycleHoming.h"
+#include "Assert.h"
 
 // Dependency Injection
 namespace Injected {
 
 	auto& RedLED = ConnectorLed;
 
+	// Axes
+	MachineAxis axes[AXIS_COUNT] = {
+		MachineAxis(ConnectorM0, 3, 130175, CLEARCORE_PIN_IO0, Direction::REVERSE),
+		MachineAxis(ConnectorM1, 6, 3175, CLEARCORE_PIN_IO0, Direction::REVERSE),
+		MachineAxis(ConnectorM2, 3, 6350, CLEARCORE_PIN_IO0, Direction::REVERSE)
+	};
+
+	// Cycles
+	CycleHoming homingCycle = CycleHoming(axes);
+	Cycle *cycles[] = {
+		&homingCycle
+	};
+	int cycleCount = sizeof(cycles) / sizeof(cycles[0]);
+
 	// Model
-	MachineAxis XAxis(ConnectorM0, 3, 130175, CLEARCORE_PIN_IO0, Direction::REVERSE);
-	MachineAxis YAxis(ConnectorM1, 6, 3175, CLEARCORE_PIN_IO0, Direction::REVERSE);
-	MachineAxis ZAxis(ConnectorM2, 3, 6350, CLEARCORE_PIN_IO0, Direction::REVERSE);
-	MachineAxis* axes[AXIS_COUNT] = { &XAxis, &YAxis, &ZAxis };
 	GrinderModel Model(
 		axes,			// X, Y, and Z Axes
+		cycles,
+		cycleCount,
 		ConnectorIO1,	// Left Limit
 		ConnectorIO2	// Right Limit Switch
 	);
-
-	CycleHoming Homing(axes);
 
 	// View
 	Direction droDirections[AXIS_COUNT] = { Direction::REVERSE, Direction::NORMAL, Direction::NORMAL };
@@ -86,11 +97,6 @@ void setup() {
 
 	// Red LED off at the end
 	Injected::RedLED.State(false);
-
-	Injected::Homing.Reset();
-	while (Injected::Homing.Update() && !Injected::Homing.IsInError()) {
-		delay(20);
-	}
 }
 
 void loop() {

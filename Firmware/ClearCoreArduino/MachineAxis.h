@@ -49,7 +49,6 @@ public:
     bool IsHomingCycleComplete();
 
     void Disable();
-    void ResetAndEnable();
     void SeekHome();
     void StopAndReference();
 

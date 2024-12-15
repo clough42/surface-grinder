@@ -27,7 +27,7 @@ void GrinderController::Init() {
 	// Initialize the view
 	m_view.Init(this);
 
-	m_view.SetOperatingMode(m_mode);
+	m_view.SetOperatingMode(m_mode.Get());
 }
 
 void GrinderController::Update() {
@@ -47,10 +47,10 @@ void GrinderController::SelectUnits(Units units) {
 }
 
 void GrinderController::SetOperatingMode(Mode mode) {
-	Serial.println("SetOperatingMode");
-
-	m_mode = mode;
-	m_view.SetOperatingMode(m_mode);
+	if (m_mode.Set(mode)) {
+		Serial.println("ChangeOperatingMode");
+		m_view.SetOperatingMode(m_mode.Get());
+	}
 }
 
 void GrinderController::SelectAxis(Optional<Axis> selectedAxis, Optional<int> resolutionSwitchPosition) {

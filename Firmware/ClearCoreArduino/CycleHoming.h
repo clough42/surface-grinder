@@ -19,11 +19,8 @@ public:
     };
 
     // Constructor
-	CycleHoming(MachineAxis* axes[AXIS_COUNT]) : currentState(INITIAL) {
-        for (int i = 0; i < AXIS_COUNT; ++i) {
-            m_axes[i] = axes[i];
-        }
-    }
+	CycleHoming(MachineAxis* axes) 
+        : m_axes(axes), Cycle(Mode::SETUP), currentState(INITIAL) { }
 
 	void Reset() override;
     bool IsInError() override;
@@ -31,7 +28,7 @@ public:
 
 private:
     HomingState currentState;
-	MachineAxis* m_axes[AXIS_COUNT];
+	MachineAxis* m_axes;
 
     // Transition methods for each state
     void TransitionToDisabling();

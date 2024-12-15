@@ -49,16 +49,16 @@ void CycleHoming::UpdateInitial() {
 void CycleHoming::TransitionToDisabling() {
     Serial.println("Disabling motors");
     for (int i = 0; i < AXIS_COUNT; ++i) {
-        m_axes[i]->Disable();
+        m_axes[i].Disable();
     }
     currentState = DISABLING;
 }
 
 void CycleHoming::UpdateDisabling() {
     // if all motors are disabled
-    if (m_axes[AXIS_X]->IsDisabled() &&
-        m_axes[AXIS_Y]->IsDisabled() &&
-        m_axes[AXIS_Z]->IsDisabled()) {
+    if (m_axes[AXIS_X].IsDisabled() &&
+        m_axes[AXIS_Y].IsDisabled() &&
+        m_axes[AXIS_Z].IsDisabled()) {
         TransitionToHomeY();
     }
 }
@@ -71,8 +71,8 @@ void CycleHoming::TransitionToHomeY() {
 
 void CycleHoming::UpdateHomeY() {
     // if Y home is complete
-    if (m_axes[AXIS_Y]->IsReady()) {
-        m_axes[AXIS_Y]->StopAndReference();
+    if (m_axes[AXIS_Y].IsReady()) {
+        m_axes[AXIS_Y].StopAndReference();
         TransitionToHomeZ();
     }
 }
@@ -85,8 +85,8 @@ void CycleHoming::TransitionToHomeZ() {
 
 void CycleHoming::UpdateHomeZ() {
     // if Z home is complete
-    if (m_axes[AXIS_Z]->IsReady()) {
-        m_axes[AXIS_Z]->StopAndReference();
+    if (m_axes[AXIS_Z].IsReady()) {
+        m_axes[AXIS_Z].StopAndReference();
         TransitionToHomeX();
     }
 }
@@ -99,8 +99,8 @@ void CycleHoming::TransitionToHomeX() {
 
 void CycleHoming::UpdateHomeX() {
     // if X home is complete
-    if (m_axes[AXIS_X]->IsReady()) {
-        m_axes[AXIS_X]->StopAndReference();
+    if (m_axes[AXIS_X].IsReady()) {
+        m_axes[AXIS_X].StopAndReference();
         TransitionToFinal();
     }
 }
@@ -115,6 +115,6 @@ void CycleHoming::TransitionToFinal() {
 
 void CycleHoming::StartHomingAxis(int axis) {
     Serial.println("Start Homing Axis");
-    m_axes[axis]->ResetAndEnable();
-    m_axes[axis]->SeekHome();
+    //m_axes[axis].ResetAndEnable();
+    m_axes[axis].SeekHome();
 }

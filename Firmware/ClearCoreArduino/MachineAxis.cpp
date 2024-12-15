@@ -31,6 +31,7 @@ void MachineAxis::Init() {
 	m_motor.MoveStopAbrupt();
 
 	// Enable the motor and jog back and forth one step to cancel auto-home
+	m_motor.ClearAlerts();
     m_motor.EnableRequest(true);
 	delay(20);
 	m_motor.Move(1, StepGenerator::MOVE_TARGET_REL_END_POSN);
@@ -38,6 +39,7 @@ void MachineAxis::Init() {
 	m_motor.Move(-1, StepGenerator::MOVE_TARGET_REL_END_POSN);
 	delay(20);
 	m_motor.PositionRefSet(0);
+	m_lastCommandedPosition = 0;
 }
 
 void MachineAxis::MoveToPositionNm(int32_t positionInNanometers) {
@@ -90,13 +92,6 @@ bool MachineAxis::IsHomingCycleComplete() {
 
 void MachineAxis::Disable() {
 	m_motor.EnableRequest(false);
-}
-
-
-void MachineAxis::ResetAndEnable() {
-    m_lastCommandedPosition = GetCurrentPositionNm();
-    m_motor.ClearAlerts();
-	m_motor.EnableRequest(true);
 }
 
 void MachineAxis::PrintReadyState(ClearCore::MotorDriver::MotorReadyStates readyState) const {
