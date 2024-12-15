@@ -24,6 +24,7 @@
 #include <cstdint>
 #include "ClearCore.h" // Include the ClearCore library
 #include "CommonEnums.h"
+#include "Configuration.h"
 
 #define STEPS_PER_REV 1000
 #define SECONDS_PER_MINUTE 60
@@ -34,8 +35,12 @@
 class MachineAxis {
 public:
 
-    MachineAxis(MotorDriver& motor, int32_t stepsPerNmNumerator, int32_t stepsPerNmDenominator, ClearCorePins eStopPin, Direction motorDirection = Direction::POSITIVE, Direction homingDirection = Direction::POSITIVE)
-        : m_stepsPerNmNumerator(stepsPerNmNumerator), m_stepsPerNmDenominator(stepsPerNmDenominator), m_motor(motor), m_eStopPin(eStopPin), m_motorDirection(motorDirection) {}
+    MachineAxis(MotorDriver& motor, ClearCorePins eStopPin, Configuration::AxisConfig *config) :
+        m_stepsPerNmNumerator(config->stepsPerNmNumerator), 
+        m_stepsPerNmDenominator(config->stepsPerNmDenominator), 
+        m_motor(motor), m_eStopPin(eStopPin), 
+        m_motorDirection(config->motorDirection),
+        m_homingDirection(config->homingDirection) {}
 
     void Init();
     void MoveToPositionNm(int32_t positionInNanometers);

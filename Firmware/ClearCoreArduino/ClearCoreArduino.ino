@@ -18,7 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <sd-examples.h>
 #include <cstdint>
 
 #include <ClearCore.h>
@@ -47,9 +46,9 @@ namespace Injected {
 
 	// Axes
 	MachineAxis axes[AXIS_COUNT] = {
-		MachineAxis(ConnectorM0, 3, 130175, CLEARCORE_PIN_IO0, Direction::NEGATIVE, Direction::NEGATIVE),	// X
-		MachineAxis(ConnectorM1, 6, 3175, CLEARCORE_PIN_IO0, Direction::NEGATIVE, Direction::POSITIVE),		// Y
-		MachineAxis(ConnectorM2, 3, 6350, CLEARCORE_PIN_IO0, Direction::NEGATIVE, Direction::POSITIVE)		// Z
+		MachineAxis(ConnectorM0, CLEARCORE_PIN_IO0, config.GetAxisConfig(Axis::X)),	// X
+		MachineAxis(ConnectorM1, CLEARCORE_PIN_IO0, config.GetAxisConfig(Axis::Y)),	// Y
+		MachineAxis(ConnectorM2, CLEARCORE_PIN_IO0, config.GetAxisConfig(Axis::Z))	// Z
 	};
 
 	// Cycles

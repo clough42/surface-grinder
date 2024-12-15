@@ -1,50 +1,54 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
+#include <SPI.h>
+
 #include "ClearCore.h"
 #include "CommonEnums.h"
 
 class Configuration {
 public:
+    struct AxisConfig {
+        int32_t stepsPerNmNumerator;
+        int32_t stepsPerNmDenominator;
+        Direction motorDirection;
+        Direction homingDirection;
+    };
+
     Configuration(const char* filename) : m_filename(filename) {};
 
-    bool Load();
-    bool Save();
+    AxisConfig* GetAxisConfig(Axis axis) { return &axisConfigs[static_cast<int>(axis)]; }
 
-    // Property accessors
-    int GetSomeIntValue() const;
-    void SetSomeIntValue(int value);
+    //bool Load();
+    //bool Save();
+
+    //// Property accessors
+    //int GetSomeIntValue() const;
+    //void SetSomeIntValue(int value);
 
 private:
     const char* m_filename;
 
-	struct AxisConfig {
-		int32_t stepsPerNmNumerator;
-		int32_t stepsPerNmDenominator;
-		Direction motorDirection;
-		Direction homingDirection;
-	};
-
     // Machine configuration values
-    AxisConfig xAxisConfig = {
+    AxisConfig axisConfigs[AXIS_COUNT] = {
+        {
             .stepsPerNmNumerator = 3,
             .stepsPerNmDenominator = 130175,
             .motorDirection = Direction::NEGATIVE,
             .homingDirection = Direction::NEGATIVE
-    };
-
-    AxisConfig yAxisConfig = {
-        .stepsPerNmNumerator = 6,
-        .stepsPerNmDenominator = 3175,
-        .motorDirection = Direction::NEGATIVE,
-        .homingDirection = Direction::POSITIVE
-    };
-
-    AxisConfig zAxisConfig = {
-        .stepsPerNmNumerator = 3,
-        .stepsPerNmDenominator = 6350,
-        .motorDirection = Direction::NEGATIVE,
-        .homingDirection = Direction::POSITIVE
+        },
+        {
+            .stepsPerNmNumerator = 6,
+            .stepsPerNmDenominator = 3175,
+            .motorDirection = Direction::NEGATIVE,
+            .homingDirection = Direction::POSITIVE
+        },
+        {
+            .stepsPerNmNumerator = 3,
+            .stepsPerNmDenominator = 6350,
+            .motorDirection = Direction::NEGATIVE,
+            .homingDirection = Direction::POSITIVE
+        }
     };
 
     // Stored values
