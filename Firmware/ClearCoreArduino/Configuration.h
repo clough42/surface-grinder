@@ -11,6 +11,9 @@ public:
     struct AxisConfig {
         int32_t stepsPerNmNumerator;
         int32_t stepsPerNmDenominator;
+        int32_t homingSpeedMmM;
+        int64_t homingBackoffNm;
+        int64_t totalTravelNm;
         Direction motorDirection;
         Direction homingDirection;
     };
@@ -34,18 +37,27 @@ private:
         {
             .stepsPerNmNumerator = 3,
             .stepsPerNmDenominator = 130175,
+            .homingSpeedMmM = 1000,
+            .homingBackoffNm = 5 * 1000 * 1000,
+            .totalTravelNm = 482 * 1000 * 1000,
             .motorDirection = Direction::NEGATIVE,
             .homingDirection = Direction::NEGATIVE
         },
         {
             .stepsPerNmNumerator = 6,
             .stepsPerNmDenominator = 3175,
+            .homingSpeedMmM = 300,
+            .homingBackoffNm = 1 * 1000 * 1000,
+            .totalTravelNm = 310 * 1000 * 1000,
             .motorDirection = Direction::NEGATIVE,
             .homingDirection = Direction::POSITIVE
         },
         {
             .stepsPerNmNumerator = 3,
             .stepsPerNmDenominator = 6350,
+            .homingSpeedMmM = 1000,
+            .homingBackoffNm = 1 * 1000 * 1000,
+            .totalTravelNm = 180 * 1000 * 1000,
             .motorDirection = Direction::NEGATIVE,
             .homingDirection = Direction::POSITIVE
         }

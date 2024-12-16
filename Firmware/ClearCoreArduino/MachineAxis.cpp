@@ -52,7 +52,7 @@ void MachineAxis::MoveToPositionNm(int32_t positionInNanometers) {
 
 int32_t MachineAxis::CalculateMotorSteps(int64_t positionInNanometers) const {
 	int64_t motorSteps = (static_cast<int64_t>(positionInNanometers) * m_stepsPerNmNumerator) / m_stepsPerNmDenominator;
-	return static_cast<int32_t>(motorSteps) * static_cast<int>(m_motorDirection);
+	return static_cast<int32_t>(motorSteps) * static_cast<int>(m_axisConfig->motorDirection);
 }
 
 void MachineAxis::JogNm(int32_t distanceInNanometers)
@@ -64,7 +64,7 @@ void MachineAxis::JogNm(int32_t distanceInNanometers)
 }
 
 int32_t MachineAxis::GetCurrentPositionNm() const {
-    int32_t motorSteps = m_motor.PositionRefCommanded() * static_cast<int>(m_motorDirection);
+    int32_t motorSteps = m_motor.PositionRefCommanded() * static_cast<int>(m_axisConfig->motorDirection);
     int64_t currentPositionNm = (static_cast<int64_t>(motorSteps) * m_stepsPerNmDenominator) / m_stepsPerNmNumerator;
 	return static_cast<int32_t>(currentPositionNm);
 }
@@ -92,15 +92,20 @@ void MachineAxis::StartHomingCycle() {
 	delay(20);
 	m_motor.EnableRequest(true);
 	delay(20);
-	m_motor.MoveVelocity(1000 * static_cast<int>(m_motorDirection) * static_cast<int>(m_homingDirection));
+	m_motor.MoveVelocity(CalculateHomingSpeed() * static_cast<int>(m_axisConfig->motorDirection) * static_cast<int>(m_axisConfig->homingDirection));
 	delay(20);
+}
+
+long MachineAxis::CalculateHomingSpeed()
+{
+	return CalculateMotorSteps(static_cast<int64_t>(m_axisConfig->homingSpeedMmM) * 1000 * 1000) / 60;
 }
 
 bool MachineAxis::IsHomingCycleComplete() {
 	if (m_motor.HlfbState() == MotorDriver::HLFB_ASSERTED) {
 		m_motor.MoveStopAbrupt();
 		delay(20);
-		m_motor.Move(-1 * static_cast<int>(m_motorDirection) * static_cast<int>(m_homingDirection), StepGenerator::MOVE_TARGET_REL_END_POSN);
+		m_motor.Move(-1 * static_cast<int>(m_axisConfig->motorDirection) * static_cast<int>(m_axisConfig->homingDirection), StepGenerator::MOVE_TARGET_REL_END_POSN);
 		delay(20);
 		m_motor.PositionRefSet(0);
 		m_lastCommandedPosition = 0;

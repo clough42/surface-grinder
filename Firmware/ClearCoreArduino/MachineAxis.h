@@ -38,9 +38,8 @@ public:
     MachineAxis(MotorDriver& motor, ClearCorePins eStopPin, Configuration::AxisConfig *config) :
         m_stepsPerNmNumerator(config->stepsPerNmNumerator), 
         m_stepsPerNmDenominator(config->stepsPerNmDenominator), 
-        m_motor(motor), m_eStopPin(eStopPin), 
-        m_motorDirection(config->motorDirection),
-        m_homingDirection(config->homingDirection) {}
+        m_motor(motor), m_eStopPin(eStopPin),
+		m_axisConfig(config) {}
 
     void Init();
     void MoveToPositionNm(int32_t positionInNanometers);
@@ -51,6 +50,7 @@ public:
     bool IsDisabled() const;
     
     void StartHomingCycle();
+    long CalculateHomingSpeed();
     bool IsHomingCycleComplete();
 
     void Disable();
@@ -66,11 +66,8 @@ private:
     // The motor driver to use for this axis
     MotorDriver &m_motor;
 
-    // Direction config
-    Direction m_motorDirection;
-
-    // Homing direction config
-    Direction m_homingDirection;
+    // Configuration
+    Configuration::AxisConfig* m_axisConfig;
 
     // EStop pin
     ClearCorePins m_eStopPin;
