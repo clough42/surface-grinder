@@ -68,7 +68,6 @@ namespace Injected {
 	);
 
 	// View
-	Direction droDirections[AXIS_COUNT] = { Direction::NEGATIVE, Direction::POSITIVE, Direction::POSITIVE };
 	GrinderView View(
 		ConnectorIO0,	// ESTOP
 		ConnectorIO3,	// Cycle Run
@@ -78,7 +77,7 @@ namespace Injected {
 		Serial1,		// HMI Serial Port
 		ConnectorCOM1,	// HMI Serial Connector
 		EncoderIn,		// Encoder Input
-		droDirections	// DRO Directions
+		config			// DRO Directions
 	);
 
 	// Controller

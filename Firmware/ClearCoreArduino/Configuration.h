@@ -14,8 +14,9 @@ public:
         int32_t homingSpeedMmM;
         int64_t homingBackoffNm;
         int64_t totalTravelNm;
-        Direction motorDirection;
-        Direction homingDirection;
+        Direction motorDirection;   // Direction of motor vs handwheel
+		Direction droDirection;     // Direction of DRO vs handwheel
+		Direction homingDirection;  // Direction of handwheel for homing
     };
 
     Configuration(const char* filename) : m_filename(filename) {};
@@ -41,7 +42,8 @@ private:
             .homingBackoffNm = 5 * 1000 * 1000,
             .totalTravelNm = 482 * 1000 * 1000,
             .motorDirection = Direction::NEGATIVE,
-            .homingDirection = Direction::NEGATIVE
+            .droDirection = Direction::NEGATIVE,
+            .homingDirection = Direction::POSITIVE
         },
         {
             .stepsPerNmNumerator = 6,
@@ -50,6 +52,7 @@ private:
             .homingBackoffNm = 1 * 1000 * 1000,
             .totalTravelNm = 310 * 1000 * 1000,
             .motorDirection = Direction::NEGATIVE,
+            .droDirection = Direction::POSITIVE,
             .homingDirection = Direction::POSITIVE
         },
         {
@@ -59,7 +62,8 @@ private:
             .homingBackoffNm = 1 * 1000 * 1000,
             .totalTravelNm = 180 * 1000 * 1000,
             .motorDirection = Direction::NEGATIVE,
-            .homingDirection = Direction::POSITIVE
+            .droDirection = Direction::NEGATIVE,
+            .homingDirection = Direction::NEGATIVE
         }
     };
 

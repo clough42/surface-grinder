@@ -49,8 +49,8 @@ public:
     bool IsReady() const;
     bool IsDisabled() const;
     
+    // homing
     void StartHomingCycle();
-    long CalculateHomingSpeed();
     bool IsHomingCycleComplete();
 
     void Disable();
@@ -58,6 +58,7 @@ public:
 private:
 	int32_t CalculateMotorSteps(int64_t positionInNanometers) const;
 	void PrintReadyState(ClearCore::MotorDriver::MotorReadyStates readyState) const;
+    int32_t CalculateHomingSpeed();
 
     // Ratio of nanometers to motor steps
     int32_t m_stepsPerNmNumerator;

@@ -77,7 +77,7 @@ void GrinderView::SetDroValue(Axis axis, int32_t unitsValue) {
 		    break;
 	    }
 
-		m_genie.WriteIntLedDigits(hmiDigitsId, unitsValue * static_cast<int>(m_droDirections[static_cast<int>(axis)]));
+		m_genie.WriteIntLedDigits(hmiDigitsId, unitsValue * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
 		m_previousDroValues[static_cast<int>(axis)] = unitsValue;
 	}
 }
@@ -86,10 +86,10 @@ void GrinderView::SetStartDroValue(Axis axis, int32_t unitsValue) {
 	using namespace HMI::SETUPMODE;
 	switch (axis) {
 	case Axis::X:
-        m_genie.WriteIntLedDigits(XStartDRO_ID, unitsValue * static_cast<int>(m_droDirections[static_cast<int>(axis)]));
+        m_genie.WriteIntLedDigits(XStartDRO_ID, unitsValue * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
 		break;
 	case Axis::Z:
-        m_genie.WriteIntLedDigits(ZStartDRO_ID, unitsValue * static_cast<int>(m_droDirections[static_cast<int>(axis)]));
+        m_genie.WriteIntLedDigits(ZStartDRO_ID, unitsValue * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
 		break;
 	}
 }
@@ -98,10 +98,10 @@ void GrinderView::SetEndDroValue(Axis axis, int32_t unitsValue) {
 	using namespace HMI::SETUPMODE;
     switch (axis) {
     case Axis::X:
-        m_genie.WriteIntLedDigits(XEndDRO_ID, unitsValue * static_cast<int>(m_droDirections[static_cast<int>(axis)]));
+        m_genie.WriteIntLedDigits(XEndDRO_ID, unitsValue * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
         break;
     case Axis::Z:
-        m_genie.WriteIntLedDigits(ZEndDRO_ID, unitsValue * static_cast<int>(m_droDirections[static_cast<int>(axis)]));
+        m_genie.WriteIntLedDigits(ZEndDRO_ID, unitsValue * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
         break;
     }
 }

@@ -28,6 +28,7 @@
 #include "AnalogSwitch.h"
 #include "IUserActions.h"
 #include "CommonEnums.h"
+#include "Configuration.h"
 
 class GrinderView {
 public:
@@ -41,7 +42,7 @@ public:
         Uart& hmiSerial,
         Connector& hmiConnector,
         EncoderInput& encoderIn,
-        Direction droDirections[AXIS_COUNT]
+        Configuration& config
     ) : m_eStop(eStop),
         m_cycleRun(cycleRun),
         m_cycleStop(cycleStop),
@@ -49,12 +50,10 @@ public:
         m_hmiConnector(hmiConnector),
         m_encoderIn(encoderIn),
         m_jogAxis(jogAxisInput),
-        m_jogResolution(jogResolutionInput)
+        m_jogResolution(jogResolutionInput),
+        m_config(config)
     {
 		s_instance = this;
-		for (int i = 0; i < AXIS_COUNT; i++) {
-			m_droDirections[i] = droDirections[i];
-		}
     }
 
     void Init(IUserActions* controller);
@@ -90,7 +89,7 @@ private:
     static void HmiEventHandler();
     static GrinderView *s_instance;
 
-    Direction m_droDirections[AXIS_COUNT];
+    Configuration& m_config;
 
     // previous control positions
 	int32_t m_previousEncoderCount = 0;
