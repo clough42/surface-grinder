@@ -96,7 +96,7 @@ void GrinderController::Jog(int32_t clicks) {
 	Serial.print("Resolution: ");
 	Serial.println(m_selectedResolution);
 
-	if (m_selectedAxis.HasValue() ) {
+	if (m_selectedAxis.HasValue()) {
 		int32_t nanometers = ConvertToNm(clicks * m_selectedResolution);
 		m_model.JogAxisNm(m_selectedAxis, nanometers);
 	}
@@ -131,7 +131,7 @@ void GrinderController::EnterEstop() {
 
 void GrinderController::ClearEstop() {
 	Serial.println("ClearEstop");
-	m_model.ResetAndEnable();
+	m_model.Init();
 }
 
 void GrinderController::CycleStart() {

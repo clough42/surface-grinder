@@ -28,6 +28,9 @@ void GrinderModel::Init() {
     for (int i = 0; i < AXIS_COUNT; ++i) {
         m_axes[i].Init();
     }
+
+	m_currentCycle = nullptr;
+	m_status = Status::IDLE;
 }
 
 
@@ -86,7 +89,9 @@ int32_t GrinderModel::GetCurrentPositionNm(Axis axis) const {
 }
 
 void GrinderModel::JogAxisNm(Axis axis, int32_t distanceInNanometers) {
-	m_axes[static_cast<int>(axis)].JogNm(distanceInNanometers);
+	if (m_status == Status::IDLE) {
+		m_axes[static_cast<int>(axis)].JogNm(distanceInNanometers);
+	}
 }
 
 void GrinderModel::EStop() {
@@ -101,11 +106,4 @@ void GrinderModel::EStop() {
 	}
 }
 
-void GrinderModel::ResetAndEnable() {
-	for (int i = 0; i < AXIS_COUNT; ++i) {
-		m_axes[i].Init(); // reinitialize the axis
-	}
-
-	m_status = Status::IDLE;
-}
 
