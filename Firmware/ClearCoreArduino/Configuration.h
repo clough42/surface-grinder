@@ -2,6 +2,7 @@
 #define CONFIGURATION_H
 
 #include <SPI.h>
+#include <SD.h>
 
 #include "ClearCore.h"
 #include "CommonEnums.h"
@@ -25,10 +26,6 @@ public:
 
     //bool Load();
     //bool Save();
-
-    //// Property accessors
-    //int GetSomeIntValue() const;
-    //void SetSomeIntValue(int value);
 
 private:
     const char* m_filename;
