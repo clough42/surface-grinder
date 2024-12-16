@@ -46,6 +46,8 @@ public:
 	void SetWorkOffset(Axis selectedAxis) override;
 	void SetStartLimit(Axis axis) override;
 	void SetEndLimit(Axis axis) override;
+    void SetSafePosition(Axis axis) override;
+    void SetWorkPosition(Axis axis) override;
 	void SetOperatingMode(Mode mode) override;
 
 private:
@@ -69,6 +71,8 @@ private:
     int32_t m_droWorkOffsets[AXIS_COUNT] = { 0, 0, 0 };
     int32_t m_startLimits[AXIS_COUNT] = { 0, 0, 0 };
     int32_t m_endLimits[AXIS_COUNT] = { 0, 0, 0 };
+	int32_t m_safePositions[AXIS_COUNT] = { 0, 0, 0 };
+	int32_t m_workPositions[AXIS_COUNT] = { 0, 0, 0 };
     
 };
 

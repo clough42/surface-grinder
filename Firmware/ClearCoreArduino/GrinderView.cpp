@@ -106,6 +106,24 @@ void GrinderView::SetEndDroValue(Axis axis, int32_t unitsValue) {
     }
 }
 
+void GrinderView::SetSafeDroValue(Axis axis, int32_t unitsValue) {
+	using namespace HMI::SETUPMODE;
+	switch (axis) {
+	case Axis::Y:
+		m_genie.WriteIntLedDigits(YSafeDRO_ID, unitsValue * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
+		break;
+	}
+}
+
+void GrinderView::SetWorkDroValue(Axis axis, int32_t unitsValue) {
+	using namespace HMI::SETUPMODE;
+	switch (axis) {
+	case Axis::Y:
+		m_genie.WriteIntLedDigits(YWorkDRO_ID, unitsValue * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
+		break;
+	}
+}
+
 void GrinderView::UpdateAxisSelectors() {
     // Check the resolution and axis selectors
     Optional<int> axisSwitchPosition = m_jogAxis.GetSwitchPosition();
@@ -243,6 +261,16 @@ void GrinderView::HandleHmiEvent(genieFrame& Event)
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, ZSetEndButton_TYPE, ZSetEndButton_ID)) {
 		if (m_controller) m_controller->SetEndLimit(Axis::Z);
+		return;
+	}
+
+	// Safe and Work Set Buttons
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, YSetSafeButton_TYPE, YSetSafeButton_ID)) {
+		if (m_controller) m_controller->SetSafePosition(Axis::Y);
+		return;
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, YSetWorkButton_TYPE, YSetWorkButton_ID)) {
+		if (m_controller) m_controller->SetWorkPosition(Axis::Y);
 		return;
 	}
 

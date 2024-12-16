@@ -42,6 +42,8 @@ public:
 	virtual void SetWorkOffset(Axis selectedAxis) = 0;
 	virtual void SetStartLimit(Axis axis) = 0;
 	virtual void SetEndLimit(Axis axis) = 0;
+	virtual void SetSafePosition(Axis axis) = 0;
+	virtual void SetWorkPosition(Axis axis) = 0;
 	virtual void SetOperatingMode(Mode mode) = 0;
 };
 

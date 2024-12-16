@@ -435,7 +435,7 @@ UserButton
 end
 iLedDigits
     Name                         ILedDigits7
-    Alias                        YWorkDro
+    Alias                        YWorkDRO
     ColorActive                  WHEAT
     ColorInactive                0x181818
     DecimalPlace                 5
@@ -464,7 +464,7 @@ UserImages
 end
 iLedDigits
     Name                         ILedDigits8
-    Alias                        YSafeDro
+    Alias                        YSafeDRO
     ColorActive                  WHEAT
     ColorInactive                0x181818
     DecimalPlace                 5

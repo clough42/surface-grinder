@@ -36,8 +36,6 @@ bool CycleHoming::IsInError() {
 /////////////////////////////////////////////////////////////////////////
 
 bool CycleHoming::Update() {
-
-	//Serial.println("CycleHoming::Update()");
     switch (currentState) {
     case INITIAL:
         UpdateInitial();

@@ -47,11 +47,9 @@ void MachineAxis::Init() {
 }
 
 void MachineAxis::MoveToPositionNm(int32_t positionInNanometers) {
-	Serial.println("MachineAxis::MoveToPosition");
 	if (m_isHomed) {
 		positionInNanometers = m_positionLimiter.Clamp(positionInNanometers);	
 	}
-	Serial.println(positionInNanometers);
     m_motor.Move(CalculateMotorSteps(positionInNanometers), StepGenerator::MOVE_TARGET_ABSOLUTE);
     m_lastCommandedPosition = positionInNanometers;
 }
@@ -63,7 +61,6 @@ int32_t MachineAxis::CalculateMotorSteps(int64_t positionInNanometers) const {
 
 void MachineAxis::JogNm(int32_t distanceInNanometers)
 {
-	Serial.println("MachineAxis::JogNm");
 	if (!IsDisabled()) {
 		MoveToPositionNm(m_lastCommandedPosition + distanceInNanometers);
 	}

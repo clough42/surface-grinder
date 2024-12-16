@@ -121,17 +121,17 @@ namespace HMI {
 		constexpr int UnitButton_TYPE = GENIE_OBJ_USERBUTTON;
 		constexpr int UnitButton_ID = 0;
 
-		// iLedDigits 7: YWorkDro
-		constexpr int YWorkDro_TYPE = GENIE_OBJ_ILED_DIGITS;
-		constexpr int YWorkDro_ID = 7;
+		// iLedDigits 7: YWorkDRO
+		constexpr int YWorkDRO_TYPE = GENIE_OBJ_ILED_DIGITS;
+		constexpr int YWorkDRO_ID = 7;
 
 		// UserImages 0: StatusImage
 		constexpr int StatusImage_TYPE = GENIE_OBJ_USERIMAGES;
 		constexpr int StatusImage_ID = 0;
 
-		// iLedDigits 8: YSafeDro
-		constexpr int YSafeDro_TYPE = GENIE_OBJ_ILED_DIGITS;
-		constexpr int YSafeDro_ID = 8;
+		// iLedDigits 8: YSafeDRO
+		constexpr int YSafeDRO_TYPE = GENIE_OBJ_ILED_DIGITS;
+		constexpr int YSafeDRO_ID = 8;
 
 		// Image 1: Image1
 		constexpr int Image1_TYPE = GENIE_OBJ_IMAGE;

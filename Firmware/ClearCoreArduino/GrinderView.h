@@ -62,6 +62,8 @@ public:
     void SetDroValue(Axis axis, int32_t unitsValue);
 	void SetStartDroValue(Axis axis, int32_t unitsValue);
 	void SetEndDroValue(Axis axis, int32_t unitsValue);
+    void SetSafeDroValue(Axis axis, int32_t unitsValue);
+	void SetWorkDroValue(Axis axis, int32_t unitsValue);
 	void SetOperatingMode(Mode mode);
     void SetStatus(Status status);
 

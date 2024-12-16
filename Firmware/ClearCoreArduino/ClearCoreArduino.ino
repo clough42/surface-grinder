@@ -103,7 +103,15 @@ void setup() {
 }
 
 void loop() {
+	unsigned long startMillis = millis();
+
 	Injected::Controller.Update();
+
+	unsigned long elapsedTime = millis() - startMillis;
+	if (elapsedTime > 10) {
+		Serial.print("Loop time (ms): ");
+		Serial.println(elapsedTime);
+	}
 }
 
 
