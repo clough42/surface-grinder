@@ -23,6 +23,7 @@
 
 #include "MachineAxis.h"
 #include "Cycle.h"
+#include "CommonEnums.h"
 
 class GrinderModel {
 public:
@@ -34,32 +35,30 @@ public:
     void Init();
 
     // Method to update all axes
-    void Update();
+	void Update();
 
-    int32_t GetCurrentPositionNm(Axis axis) const {
-		return m_axes[static_cast<int>(axis)].GetCurrentPositionNm();
-	};
-
-	void JogAxisNm(Axis axis, int32_t distanceInNanometers) {
-		m_axes[static_cast<int>(axis)].JogNm(distanceInNanometers);
+	Status GetStatus() const {
+		return m_status;
 	}
 
-	void EStop() {
-		for (int i = 0; i < AXIS_COUNT; ++i) {
-			m_axes[i].Disable();
-		}
-	}
+	bool CycleStart(Mode mode);
 
-	void ResetAndEnable() {
-		for (int i = 0; i < AXIS_COUNT; ++i) {
-			m_axes[i].Init(); // reinitialize the axis
-		}
-	}
+	bool CycleStop();
+
+	int32_t GetCurrentPositionNm(Axis axis) const;
+
+	void JogAxisNm(Axis axis, int32_t distanceInNanometers);
+
+	void EStop();
+
+	void ResetAndEnable();
 
 private:
+	Status m_status = Status::IDLE;
     MachineAxis *m_axes;
 	Cycle** m_cycles;
 	int m_cycleCount;
+	Cycle* m_currentCycle = nullptr;
 	DigitalInOut& m_leftLimit;
 	DigitalInOut& m_rightLimit;
 };

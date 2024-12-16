@@ -31,7 +31,7 @@
 
 class GrinderView {
 public:
-
+    
     GrinderView(
         DigitalInOut& eStop,
         DigitalInOut& cycleRun,
@@ -64,6 +64,7 @@ public:
 	void SetStartDroValue(Axis axis, int32_t unitsValue);
 	void SetEndDroValue(Axis axis, int32_t unitsValue);
 	void SetOperatingMode(Mode mode);
+    void SetStatus(Status status);
 
     void HandleHmiEvent(genieFrame& Event);
 

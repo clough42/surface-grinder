@@ -30,7 +30,6 @@ public:
     // Define the states of the state machine
     enum HomingState {
         INITIAL,
-        DISABLING,
         HOME_Y,
         HOME_Z,
         HOME_X,
@@ -50,7 +49,6 @@ private:
 	MachineAxis* m_axes;
 
     // Transition methods for each state
-    void TransitionToDisabling();
     void TransitionToHomeY();
     void TransitionToHomeZ();
     void TransitionToHomeX();
@@ -58,13 +56,9 @@ private:
 
     // Update methods for each state
     void UpdateInitial();
-    void UpdateDisabling();
     void UpdateHomeY();
     void UpdateHomeZ();
     void UpdateHomeX();
-
-    // utility methods
-    void StartHomingAxis(int axis);
 
     bool m_isInError = false;
 };

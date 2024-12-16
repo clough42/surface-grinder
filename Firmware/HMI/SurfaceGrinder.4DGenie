@@ -455,7 +455,7 @@ UserImages
     Name                         Userimages0
     Alias                        StatusImage
     Height                       65
-    Images                       EstopStatus.png\nHoldStatus.png\nIdleStatus.png\nRunStatus.png
+    Images                       IdleStatus.png\nRunStatus.png\nHoldStatus.png\nEstopStatus.png
     Left                         20
     Stretch                      No
     Top                          409

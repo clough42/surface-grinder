@@ -49,13 +49,11 @@ public:
     int32_t GetLastCommandedPositionNm() const;
     bool IsReady() const;
     bool IsDisabled() const;
-
+    
     void StartHomingCycle();
     bool IsHomingCycleComplete();
 
     void Disable();
-    void SeekHome();
-    void StopAndReference();
 
 private:
 	int32_t CalculateMotorSteps(int64_t positionInNanometers) const;

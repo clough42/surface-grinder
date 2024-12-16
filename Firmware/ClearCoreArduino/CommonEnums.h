@@ -43,11 +43,6 @@ enum class Axis {
 #define AXIS_Z static_cast<int>(Axis::Z)
 #define AXIS_COUNT static_cast<int>(Axis::COUNT)
 
-enum class LimitType {
-	START,
-	END
-};
-
 enum class Mode {
 	SETUP,		// 0
 	FLAT,		// 1
@@ -58,5 +53,14 @@ enum class Mode {
 	COUNT
 };
 #define MODE_COUNT static_cast<int>(Mode::COUNT)
+
+enum class Status {
+	IDLE,		// 0
+	RUN,		// 1
+	HOLD,		// 2
+	ESTOP,		// 3
+	COUNT
+};
+#define STATUS_COUNT static_cast<int>(Status::COUNT)
 
 #endif // COMMON_ENUMS_H

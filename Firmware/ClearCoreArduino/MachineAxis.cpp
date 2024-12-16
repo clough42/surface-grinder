@@ -39,9 +39,13 @@ void MachineAxis::Init() {
 	m_motor.Move(-1, StepGenerator::MOVE_TARGET_REL_END_POSN);
 	delay(20);
 	m_motor.PositionRefSet(CalculateMotorSteps(m_lastCommandedPosition));
+
+	Serial.println("Finish MachineAxis::Init");
 }
 
 void MachineAxis::MoveToPositionNm(int32_t positionInNanometers) {
+	Serial.println("MachineAxis::MoveToPosition");
+	Serial.println(positionInNanometers);
     m_motor.Move(CalculateMotorSteps(positionInNanometers), StepGenerator::MOVE_TARGET_ABSOLUTE);
     m_lastCommandedPosition = positionInNanometers;
 }
@@ -53,6 +57,7 @@ int32_t MachineAxis::CalculateMotorSteps(int64_t positionInNanometers) const {
 
 void MachineAxis::JogNm(int32_t distanceInNanometers)
 {
+	Serial.println("MachineAxis::JogNm");
 	if (!IsDisabled()) {
 		MoveToPositionNm(m_lastCommandedPosition + distanceInNanometers);
 	}
@@ -87,12 +92,21 @@ void MachineAxis::StartHomingCycle() {
 	delay(20);
 	m_motor.EnableRequest(true);
 	delay(20);
-	m_motor.MoveVelocity(1000);
+	m_motor.MoveVelocity(1000 * static_cast<int>(m_motorDirection) * static_cast<int>(m_homingDirection));
 	delay(20);
 }
 
 bool MachineAxis::IsHomingCycleComplete() {
-	return m_motor.HlfbState() == MotorDriver::HLFB_ASSERTED;
+	if (m_motor.HlfbState() == MotorDriver::HLFB_ASSERTED) {
+		m_motor.MoveStopAbrupt();
+		delay(20);
+		m_motor.Move(-1 * static_cast<int>(m_motorDirection) * static_cast<int>(m_homingDirection), StepGenerator::MOVE_TARGET_REL_END_POSN);
+		delay(20);
+		m_motor.PositionRefSet(0);
+		m_lastCommandedPosition = 0;
+		return true;
+	}
+	return false;
 }
 
 void MachineAxis::Disable() {
@@ -120,13 +134,4 @@ void MachineAxis::PrintReadyState(ClearCore::MotorDriver::MotorReadyStates ready
 		Serial.println("Motor Ready State Unknown");
 		break;
 	}
-}
-
-void MachineAxis::SeekHome() {
-	m_motor.MoveVelocity(1000);
-}
-
-void MachineAxis::StopAndReference() {
-	m_motor.MoveStopAbrupt();
-	m_motor.PositionRefSet(0);
 }

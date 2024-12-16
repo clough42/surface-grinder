@@ -32,6 +32,9 @@ void GrinderController::Init() {
 
 void GrinderController::Update() {
 	m_model.Update();
+	if (m_status.Set(m_model.GetStatus())) {
+		m_view.SetStatus(m_status.Get());
+	}
 
 	UpdateDROs();
 
@@ -128,16 +131,17 @@ void GrinderController::EnterEstop() {
 
 void GrinderController::ClearEstop() {
 	Serial.println("ClearEstop");
-
 	m_model.ResetAndEnable();
 }
 
 void GrinderController::CycleStart() {
 	Serial.println("CycleStart");
+	m_model.CycleStart(m_mode.Get());
 }
 
 void GrinderController::CycleStop() {
 	Serial.println("CycleStop");
+	m_model.CycleStop();
 }
 
 int32_t GrinderController::ConvertToNm(int32_t units) {

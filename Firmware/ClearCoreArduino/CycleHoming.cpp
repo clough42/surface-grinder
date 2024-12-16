@@ -42,9 +42,6 @@ bool CycleHoming::Update() {
     case INITIAL:
         UpdateInitial();
         break;
-    case DISABLING:
-        UpdateDisabling();
-        break;
     case HOME_Y:
         UpdateHomeY();
         break;
@@ -62,64 +59,44 @@ bool CycleHoming::Update() {
 }
 
 void CycleHoming::UpdateInitial() {
-    TransitionToDisabling();
-}
-
-void CycleHoming::TransitionToDisabling() {
-    Serial.println("Disabling motors");
-    for (int i = 0; i < AXIS_COUNT; ++i) {
-        m_axes[i].Disable();
-    }
-    currentState = DISABLING;
-}
-
-void CycleHoming::UpdateDisabling() {
-    // if all motors are disabled
-    if (m_axes[AXIS_X].IsDisabled() &&
-        m_axes[AXIS_Y].IsDisabled() &&
-        m_axes[AXIS_Z].IsDisabled()) {
-        TransitionToHomeY();
-    }
+    TransitionToHomeY();
 }
 
 void CycleHoming::TransitionToHomeY() {
     Serial.println("Homing Y");
-    StartHomingAxis(AXIS_Y);
+	m_axes[AXIS_Y].StartHomingCycle();
     currentState = HOME_Y;
 }
 
 void CycleHoming::UpdateHomeY() {
     // if Y home is complete
-    if (m_axes[AXIS_Y].IsReady()) {
-        m_axes[AXIS_Y].StopAndReference();
+    if (m_axes[AXIS_Y].IsHomingCycleComplete()) {
         TransitionToHomeZ();
     }
 }
 
 void CycleHoming::TransitionToHomeZ() {
     Serial.println("Homing Z");
-    StartHomingAxis(AXIS_Z);
+    m_axes[AXIS_Z].StartHomingCycle();
     currentState = HOME_Z;
 }
 
 void CycleHoming::UpdateHomeZ() {
     // if Z home is complete
-    if (m_axes[AXIS_Z].IsReady()) {
-        m_axes[AXIS_Z].StopAndReference();
+    if (m_axes[AXIS_Z].IsHomingCycleComplete()) {
         TransitionToHomeX();
     }
 }
 
 void CycleHoming::TransitionToHomeX() {
     Serial.println("Homing X");
-    StartHomingAxis(AXIS_X);
+    m_axes[AXIS_X].StartHomingCycle();
     currentState = HOME_X;
 }
 
 void CycleHoming::UpdateHomeX() {
     // if X home is complete
-    if (m_axes[AXIS_X].IsReady()) {
-        m_axes[AXIS_X].StopAndReference();
+    if (m_axes[AXIS_X].IsHomingCycleComplete()) {
         TransitionToFinal();
     }
 }
@@ -129,11 +106,3 @@ void CycleHoming::TransitionToFinal() {
     currentState = FINAL;
 }
 
-
-// utility methods
-
-void CycleHoming::StartHomingAxis(int axis) {
-    Serial.println("Start Homing Axis");
-    //m_axes[axis].ResetAndEnable();
-    m_axes[axis].SeekHome();
-}
