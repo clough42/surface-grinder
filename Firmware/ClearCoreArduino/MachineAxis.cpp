@@ -22,22 +22,45 @@
 #include <Arduino.h>
 
 void MachineAxis::Init() {
-    m_motor.EStopConnector(m_eStopPin);
+	// initialize motor
+	m_motor.HlfbMode(ClearCore::MotorDriver::HlfbModes::HLFB_MODE_HAS_BIPOLAR_PWM);
+	m_motor.HlfbCarrier(MotorDriver::HLFB_CARRIER_482_HZ); 
+	m_motor.EStopConnector(m_eStopPin);
+	m_motor.VelMax(MAX_VELOCITY);
+	m_motor.AccelMax(MAX_ACCELERATION);
+	m_motor.MoveStopAbrupt();
+
+	// Enable the motor and jog back and forth one step to cancel auto-home
+	m_motor.ClearAlerts();
     m_motor.EnableRequest(true);
-    m_motor.VelMax(MAX_VELOCITY);
-    m_motor.AccelMax(MAX_ACCELERATION);
-    m_motor.MoveStopDecel(0);
+	delay(20);
+	m_motor.Move(1, StepGenerator::MOVE_TARGET_REL_END_POSN);
+	delay(20);
+	m_motor.Move(-1, StepGenerator::MOVE_TARGET_REL_END_POSN);
+	delay(20);
+	m_motor.PositionRefSet(CalculateMotorSteps(m_lastCommandedPosition));
+
+	Serial.println("Finish MachineAxis::Init");
 }
 
 void MachineAxis::MoveToPositionNm(int32_t positionInNanometers) {
-    int64_t motorSteps = (static_cast<int64_t>(positionInNanometers) * m_stepsPerNmNumerator) / m_stepsPerNmDenominator;
-    m_motor.Move(static_cast<int32_t>(motorSteps) * static_cast<int>(m_motorDirection), StepGenerator::MOVE_TARGET_ABSOLUTE);
+	Serial.println("MachineAxis::MoveToPosition");
+	Serial.println(positionInNanometers);
+    m_motor.Move(CalculateMotorSteps(positionInNanometers), StepGenerator::MOVE_TARGET_ABSOLUTE);
     m_lastCommandedPosition = positionInNanometers;
+}
+
+int32_t MachineAxis::CalculateMotorSteps(int64_t positionInNanometers) const {
+	int64_t motorSteps = (static_cast<int64_t>(positionInNanometers) * m_stepsPerNmNumerator) / m_stepsPerNmDenominator;
+	return static_cast<int32_t>(motorSteps) * static_cast<int>(m_motorDirection);
 }
 
 void MachineAxis::JogNm(int32_t distanceInNanometers)
 {
-	MoveToPositionNm(m_lastCommandedPosition + distanceInNanometers);
+	Serial.println("MachineAxis::JogNm");
+	if (!IsDisabled()) {
+		MoveToPositionNm(m_lastCommandedPosition + distanceInNanometers);
+	}
 }
 
 int32_t MachineAxis::GetCurrentPositionNm() const {
@@ -51,12 +74,64 @@ int32_t MachineAxis::GetLastCommandedPositionNm() const
 	return m_lastCommandedPosition;
 }
 
-bool MachineAxis::IsMoveComplete() const {
-    return m_motor.StepsComplete();
+bool MachineAxis::IsReady() const {
+    //ClearCore::MotorDriver::MotorReadyStates readyState = m_motor.StatusReg().bit.ReadyState;
+	//PrintReadyState(readyState);
+	//return readyState == ClearCore::MotorDriver::MotorReadyStates::MOTOR_READY;
+	return m_motor.HlfbState() == MotorDriver::HLFB_ASSERTED;
 }
 
-void MachineAxis::ResetAndEnable() {
-    m_lastCommandedPosition = GetCurrentPositionNm();
-    m_motor.ClearAlerts();
+bool MachineAxis::IsDisabled() const {
+    ClearCore::MotorDriver::MotorReadyStates readyState = m_motor.StatusReg().bit.ReadyState;
+	PrintReadyState(readyState);
+    return readyState == ClearCore::MotorDriver::MotorReadyStates::MOTOR_DISABLED;
+}
+
+void MachineAxis::StartHomingCycle() {
+	m_motor.EnableRequest(false);
+	delay(20);
 	m_motor.EnableRequest(true);
+	delay(20);
+	m_motor.MoveVelocity(1000 * static_cast<int>(m_motorDirection) * static_cast<int>(m_homingDirection));
+	delay(20);
+}
+
+bool MachineAxis::IsHomingCycleComplete() {
+	if (m_motor.HlfbState() == MotorDriver::HLFB_ASSERTED) {
+		m_motor.MoveStopAbrupt();
+		delay(20);
+		m_motor.Move(-1 * static_cast<int>(m_motorDirection) * static_cast<int>(m_homingDirection), StepGenerator::MOVE_TARGET_REL_END_POSN);
+		delay(20);
+		m_motor.PositionRefSet(0);
+		m_lastCommandedPosition = 0;
+		return true;
+	}
+	return false;
+}
+
+void MachineAxis::Disable() {
+	m_motor.EnableRequest(false);
+}
+
+void MachineAxis::PrintReadyState(ClearCore::MotorDriver::MotorReadyStates readyState) const {
+	switch (readyState) {
+	case ClearCore::MotorDriver::MotorReadyStates::MOTOR_DISABLED:
+		Serial.println("Motor Disabled");
+		break;
+	case ClearCore::MotorDriver::MotorReadyStates::MOTOR_ENABLING:
+		Serial.println("Motor Enabling");
+		break;
+	case ClearCore::MotorDriver::MotorReadyStates::MOTOR_FAULTED:
+		Serial.println("Motor Faulted");
+		break;
+	case ClearCore::MotorDriver::MotorReadyStates::MOTOR_READY:
+		Serial.println("Motor Ready");
+		break;
+	case ClearCore::MotorDriver::MotorReadyStates::MOTOR_MOVING:
+		Serial.println("Motor Moving");
+		break;
+	default:
+		Serial.println("Motor Ready State Unknown");
+		break;
+	}
 }

@@ -27,11 +27,14 @@ void GrinderController::Init() {
 	// Initialize the view
 	m_view.Init(this);
 
-	m_view.SetOperatingMode(m_mode);
+	m_view.SetOperatingMode(m_mode.Get());
 }
 
 void GrinderController::Update() {
 	m_model.Update();
+	if (m_status.Set(m_model.GetStatus())) {
+		m_view.SetStatus(m_status.Get());
+	}
 
 	UpdateDROs();
 
@@ -47,10 +50,10 @@ void GrinderController::SelectUnits(Units units) {
 }
 
 void GrinderController::SetOperatingMode(Mode mode) {
-	Serial.println("SetOperatingMode");
-
-	m_mode = mode;
-	m_view.SetOperatingMode(m_mode);
+	if (m_mode.Set(mode)) {
+		Serial.println("ChangeOperatingMode");
+		m_view.SetOperatingMode(m_mode.Get());
+	}
 }
 
 void GrinderController::SelectAxis(Optional<Axis> selectedAxis, Optional<int> resolutionSwitchPosition) {
@@ -123,20 +126,22 @@ void GrinderController::UpdateLimitDros() {
 
 void GrinderController::EnterEstop() {
 	Serial.println("EnterEstop");
+	m_model.EStop();
 }
 
 void GrinderController::ClearEstop() {
 	Serial.println("ClearEstop");
-
 	m_model.ResetAndEnable();
 }
 
 void GrinderController::CycleStart() {
 	Serial.println("CycleStart");
+	m_model.CycleStart(m_mode.Get());
 }
 
 void GrinderController::CycleStop() {
 	Serial.println("CycleStop");
+	m_model.CycleStop();
 }
 
 int32_t GrinderController::ConvertToNm(int32_t units) {

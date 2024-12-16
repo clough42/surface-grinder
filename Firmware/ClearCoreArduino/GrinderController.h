@@ -25,11 +25,12 @@
 #include "GrinderView.h"
 #include "IUserActions.h"
 #include "Optional.h"
+#include "TrackedValue.h"
 
 class GrinderController : public IUserActions {
 public:
     GrinderController(GrinderModel& model, GrinderView& view)
-        : m_model(model), m_view(view)
+		: m_model(model), m_view(view), m_mode(Mode::SETUP), m_status(Status::IDLE)
     {}
 
     void Init();
@@ -60,7 +61,8 @@ private:
     GrinderView& m_view;
 
     Units m_units = Units::INCHES;
-	Mode m_mode = Mode::SETUP;
+    TrackedValue<Mode> m_mode;
+	TrackedValue<Status> m_status;
 	Optional<Axis> m_selectedAxis;
     Optional<int> m_resolutionSwitchPosition = 0;
     int32_t m_selectedResolution;

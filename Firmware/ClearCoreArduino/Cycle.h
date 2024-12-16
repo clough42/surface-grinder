@@ -18,49 +18,38 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef COMMON_ENUMS_H
-#define COMMON_ENUMS_H
+#ifndef CYCLE_H
+#define CYCLE_H
 
-// Direction of an axis or a DRO
-enum class Direction {
-	POSITIVE = 1,	// up/default
-	NEGATIVE = -1	// down/reverse
+#include "CommonEnums.h"
+
+class Cycle {
+public:
+	Cycle(Mode forMode) : m_forMode(forMode) {}
+
+	bool IsForMode(Mode mode) {
+		return m_forMode == mode;
+	}
+
+    /// <summary>
+    /// Reset the cycle and get it ready to start again
+    /// </summary>
+    virtual void Reset() = 0;
+
+    /// <summary>
+	/// Call repeatedly to perform the cycle's operation
+    /// </summary>
+    /// <returns>true if more steps remain (cycle is not done)</returns>
+    virtual bool Update() = 0;
+
+	/// <summary>
+	/// Returns true if the cycle is in an error state
+	/// </summary>
+	virtual bool IsInError() = 0;
+
+private:
+    Mode m_forMode;
+
 };
 
-enum class Units {
-	MILLIMETERS,
-	INCHES
-};
-
-enum class Axis {
-	X, // 0
-	Y, // 1
-	Z, // 2
-	COUNT
-};
-#define AXIS_X static_cast<int>(Axis::X)
-#define AXIS_Y static_cast<int>(Axis::Y)
-#define AXIS_Z static_cast<int>(Axis::Z)
-#define AXIS_COUNT static_cast<int>(Axis::COUNT)
-
-enum class Mode {
-	SETUP,		// 0
-	FLAT,		// 1
-	SIDE,		// 2
-	END,		// 3
-	CYLINDER,	// 4	
-	DRESS,		// 5		
-	COUNT
-};
-#define MODE_COUNT static_cast<int>(Mode::COUNT)
-
-enum class Status {
-	IDLE,		// 0
-	RUN,		// 1
-	HOLD,		// 2
-	ESTOP,		// 3
-	COUNT
-};
-#define STATUS_COUNT static_cast<int>(Status::COUNT)
-
-#endif // COMMON_ENUMS_H
+#endif // CYCLE_H

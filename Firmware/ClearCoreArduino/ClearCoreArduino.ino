@@ -27,30 +27,48 @@
 
 #include <genieArduinoDEV.h>
 
+#include "Configuration.h"
 #include "MachineAxis.h"
 #include "GrinderModel.h"
 #include "GrinderView.h"
 #include "GrinderController.h"
 #include "CommonEnums.h"
+#include "CycleHoming.h"
+#include "Assert.h"
 
 // Dependency Injection
 namespace Injected {
 
 	auto& RedLED = ConnectorLed;
 
+	// Configuration
+	Configuration config("configuration.txt");
+
+	// Axes
+	MachineAxis axes[AXIS_COUNT] = {
+		MachineAxis(ConnectorM0, CLEARCORE_PIN_IO0, config.GetAxisConfig(Axis::X)),	// X
+		MachineAxis(ConnectorM1, CLEARCORE_PIN_IO0, config.GetAxisConfig(Axis::Y)),	// Y
+		MachineAxis(ConnectorM2, CLEARCORE_PIN_IO0, config.GetAxisConfig(Axis::Z))	// Z
+	};
+
+	// Cycles
+	CycleHoming homingCycle = CycleHoming(axes);
+	Cycle *cycles[] = {
+		&homingCycle
+	};
+	int cycleCount = sizeof(cycles) / sizeof(cycles[0]);
+
 	// Model
-	MachineAxis XAxis(ConnectorM0, 3, 130175, CLEARCORE_PIN_IO0, Direction::REVERSE);
-	MachineAxis YAxis(ConnectorM1, 6, 3175, CLEARCORE_PIN_IO0, Direction::REVERSE);
-	MachineAxis ZAxis(ConnectorM2, 3, 6350, CLEARCORE_PIN_IO0, Direction::REVERSE);
-	MachineAxis* axes[AXIS_COUNT] = { &XAxis, &YAxis, &ZAxis };
 	GrinderModel Model(
 		axes,			// X, Y, and Z Axes
+		cycles,
+		cycleCount,
 		ConnectorIO1,	// Left Limit
 		ConnectorIO2	// Right Limit Switch
 	);
 
 	// View
-	Direction droDirections[AXIS_COUNT] = { Direction::REVERSE, Direction::NORMAL, Direction::NORMAL };
+	Direction droDirections[AXIS_COUNT] = { Direction::NEGATIVE, Direction::POSITIVE, Direction::POSITIVE };
 	GrinderView View(
 		ConnectorIO0,	// ESTOP
 		ConnectorIO3,	// Cycle Run

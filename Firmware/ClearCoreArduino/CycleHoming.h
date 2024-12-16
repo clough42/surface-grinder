@@ -18,49 +18,49 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef COMMON_ENUMS_H
-#define COMMON_ENUMS_H
+#ifndef CYCLEHOMING_H
+#define CYCLEHOMING_H
 
-// Direction of an axis or a DRO
-enum class Direction {
-	POSITIVE = 1,	// up/default
-	NEGATIVE = -1	// down/reverse
+#include <Arduino.h>
+#include "Cycle.h"
+#include "MachineAxis.h"
+
+class CycleHoming : public Cycle {
+public:
+    // Define the states of the state machine
+    enum HomingState {
+        INITIAL,
+        HOME_Y,
+        HOME_Z,
+        HOME_X,
+        FINAL
+    };
+
+    // Constructor
+	CycleHoming(MachineAxis* axes) 
+        : m_axes(axes), Cycle(Mode::SETUP), currentState(INITIAL) { }
+
+	void Reset() override;
+    bool IsInError() override;
+    bool Update() override;
+
+private:
+    HomingState currentState;
+	MachineAxis* m_axes;
+
+    // Transition methods for each state
+    void TransitionToHomeY();
+    void TransitionToHomeZ();
+    void TransitionToHomeX();
+    void TransitionToFinal();
+
+    // Update methods for each state
+    void UpdateInitial();
+    void UpdateHomeY();
+    void UpdateHomeZ();
+    void UpdateHomeX();
+
+    bool m_isInError = false;
 };
 
-enum class Units {
-	MILLIMETERS,
-	INCHES
-};
-
-enum class Axis {
-	X, // 0
-	Y, // 1
-	Z, // 2
-	COUNT
-};
-#define AXIS_X static_cast<int>(Axis::X)
-#define AXIS_Y static_cast<int>(Axis::Y)
-#define AXIS_Z static_cast<int>(Axis::Z)
-#define AXIS_COUNT static_cast<int>(Axis::COUNT)
-
-enum class Mode {
-	SETUP,		// 0
-	FLAT,		// 1
-	SIDE,		// 2
-	END,		// 3
-	CYLINDER,	// 4	
-	DRESS,		// 5		
-	COUNT
-};
-#define MODE_COUNT static_cast<int>(Mode::COUNT)
-
-enum class Status {
-	IDLE,		// 0
-	RUN,		// 1
-	HOLD,		// 2
-	ESTOP,		// 3
-	COUNT
-};
-#define STATUS_COUNT static_cast<int>(Status::COUNT)
-
-#endif // COMMON_ENUMS_H
+#endif // CYCLEHOMING_H

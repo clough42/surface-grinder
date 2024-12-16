@@ -25,7 +25,7 @@ public:
 
 #include "AnalogSwitch.h"
 
-namespace AnalogSwitchTests
+namespace Firmware
 {
     TEST_CLASS(AnalogSwitchTests)
     {

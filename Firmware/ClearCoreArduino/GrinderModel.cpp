@@ -20,29 +20,92 @@
 
 #include "GrinderModel.h"
 
-// Constructor implementation
-GrinderModel::GrinderModel(MachineAxis* axes[AXIS_COUNT], DigitalInOut& leftLimit, DigitalInOut& rightLimit)
-	: m_leftLimit(leftLimit), m_rightLimit(rightLimit)
-{
-    for (int i = 0; i < AXIS_COUNT; ++i) {
-        m_axes[i] = axes[i];
-    }
-}
-
 // Method to initialize all axes
 void GrinderModel::Init() {
     m_leftLimit.Mode(Connector::INPUT_DIGITAL);
 	m_rightLimit.Mode(Connector::INPUT_DIGITAL);
 
     for (int i = 0; i < AXIS_COUNT; ++i) {
-        m_axes[i]->Init();
+        m_axes[i].Init();
     }
 }
 
-// Method to update all axes
+
 void GrinderModel::Update() {
-    for (int i = 0; i < AXIS_COUNT; ++i) {
-        // Add any update logic if needed
-    }
+	if (m_status == Status::RUN && m_currentCycle != nullptr) {
+		bool moreToDo = m_currentCycle->Update();
+		if (!moreToDo) {
+			m_status = Status::IDLE;
+			m_currentCycle = nullptr;
+		}
+	}
+}
+
+bool GrinderModel::CycleStart(Mode mode) {
+	//// if a cycle is currently in hold, we should just return to the run state
+	if (m_status == Status::HOLD && m_currentCycle != nullptr && m_currentCycle->IsForMode(mode)) {
+		m_status = Status::RUN;
+		return true;
+	}
+
+	// if we're idle, we need to start a new cycle
+	if (m_status == Status::IDLE && m_currentCycle == nullptr) {
+		for (int i = 0; i < m_cycleCount; ++i) {
+			if (m_cycles[i]->IsForMode(mode)) {
+				m_currentCycle = m_cycles[i];
+				m_currentCycle->Reset();
+				m_status = Status::RUN;
+				return true;
+			}
+		}
+	}
+
+	// otherwise, there's nothing to do
+	return false;
+}
+
+bool GrinderModel::CycleStop() {
+	//// if a cycle is currently running, we should hold it
+	if (m_status == Status::RUN && m_currentCycle != nullptr) {
+		m_status = Status::HOLD;
+		return true;
+	}
+
+	// if a cycle is currently in hold, we should terminate it
+	if (m_status == Status::HOLD && m_currentCycle != nullptr) {
+		m_status = Status::IDLE;
+		m_currentCycle->Reset();
+		m_currentCycle = nullptr;
+	}
+
+	return false;
+}
+
+int32_t GrinderModel::GetCurrentPositionNm(Axis axis) const {
+	return m_axes[static_cast<int>(axis)].GetCurrentPositionNm();
+}
+
+void GrinderModel::JogAxisNm(Axis axis, int32_t distanceInNanometers) {
+	m_axes[static_cast<int>(axis)].JogNm(distanceInNanometers);
+}
+
+void GrinderModel::EStop() {
+	m_status = Status::ESTOP;
+	if (m_currentCycle != nullptr) {
+		m_currentCycle->Reset();
+		m_currentCycle = nullptr;
+	}
+
+	for (int i = 0; i < AXIS_COUNT; ++i) {
+		m_axes[i].Disable();
+	}
+}
+
+void GrinderModel::ResetAndEnable() {
+	for (int i = 0; i < AXIS_COUNT; ++i) {
+		m_axes[i].Init(); // reinitialize the axis
+	}
+
+	m_status = Status::IDLE;
 }
 

@@ -161,6 +161,12 @@ void GrinderView::SetOperatingMode(Mode mode) {
 	}
 }
 
+void GrinderView::SetStatus(Status status) {
+	using namespace HMI::SETUPMODE;
+
+	m_genie.WriteObject(StatusImage_TYPE, StatusImage_ID, static_cast<int>(status));
+}
+
 void GrinderView::UpdateEncoder() {
     int32_t rawEncoderCount = EncoderIn.Position();
     int32_t encoderCount = (rawEncoderCount >= 0 ? rawEncoderCount + 2 : rawEncoderCount - 2) / 4; // divide by four, rounding

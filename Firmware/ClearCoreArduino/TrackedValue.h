@@ -18,49 +18,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef COMMON_ENUMS_H
-#define COMMON_ENUMS_H
+#ifndef TRACKED_VALUE_H
+#define TRACKED_VALUE_H
 
-// Direction of an axis or a DRO
-enum class Direction {
-	POSITIVE = 1,	// up/default
-	NEGATIVE = -1	// down/reverse
+// A class that tracks a value and allows for change detection
+template <typename T>
+class TrackedValue {
+public:
+    TrackedValue() : m_value(T()) {}
+    TrackedValue(const T& value) : m_value(value) {}
+
+    const T& Get() const {
+        return m_value;
+    }
+
+    bool Set(const T& value) {
+        if (m_value != value) {
+            m_value = value;
+            return true;
+        }
+        return false;
+    }
+
+private:
+    T m_value;
 };
 
-enum class Units {
-	MILLIMETERS,
-	INCHES
-};
-
-enum class Axis {
-	X, // 0
-	Y, // 1
-	Z, // 2
-	COUNT
-};
-#define AXIS_X static_cast<int>(Axis::X)
-#define AXIS_Y static_cast<int>(Axis::Y)
-#define AXIS_Z static_cast<int>(Axis::Z)
-#define AXIS_COUNT static_cast<int>(Axis::COUNT)
-
-enum class Mode {
-	SETUP,		// 0
-	FLAT,		// 1
-	SIDE,		// 2
-	END,		// 3
-	CYLINDER,	// 4	
-	DRESS,		// 5		
-	COUNT
-};
-#define MODE_COUNT static_cast<int>(Mode::COUNT)
-
-enum class Status {
-	IDLE,		// 0
-	RUN,		// 1
-	HOLD,		// 2
-	ESTOP,		// 3
-	COUNT
-};
-#define STATUS_COUNT static_cast<int>(Status::COUNT)
-
-#endif // COMMON_ENUMS_H
+#endif // TRACKED_VALUE_H

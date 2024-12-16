@@ -22,34 +22,43 @@
 #define GRINDER_MODEL_H
 
 #include "MachineAxis.h"
+#include "Cycle.h"
+#include "CommonEnums.h"
 
 class GrinderModel {
 public:
     // Constructor that takes an array of three MachineAxis objects
-    GrinderModel(MachineAxis* axes[AXIS_COUNT], DigitalInOut& leftLimit,	DigitalInOut& rightLimit);
+	GrinderModel(MachineAxis* axes, Cycle *cycles[], int cycleCount, DigitalInOut& leftLimit, DigitalInOut& rightLimit)
+		: m_axes(axes), m_cycles(cycles), m_cycleCount(cycleCount), m_leftLimit(leftLimit), m_rightLimit(rightLimit) {}
 
     // Method to initialize all axes
     void Init();
 
     // Method to update all axes
-    void Update();
+	void Update();
 
-    int32_t GetCurrentPositionNm(Axis axis) const {
-		return m_axes[static_cast<int>(axis)]->GetCurrentPositionNm();
-	};
-
-	void JogAxisNm(Axis axis, int32_t distanceInNanometers) {
-		m_axes[static_cast<int>(axis)]->JogNm(distanceInNanometers);
+	Status GetStatus() const {
+		return m_status;
 	}
 
-	void ResetAndEnable() {
-		for (int i = 0; i < AXIS_COUNT; ++i) {
-			m_axes[i]->ResetAndEnable();
-		}
-	}
+	bool CycleStart(Mode mode);
+
+	bool CycleStop();
+
+	int32_t GetCurrentPositionNm(Axis axis) const;
+
+	void JogAxisNm(Axis axis, int32_t distanceInNanometers);
+
+	void EStop();
+
+	void ResetAndEnable();
 
 private:
-    MachineAxis* m_axes[AXIS_COUNT];
+	Status m_status = Status::IDLE;
+    MachineAxis *m_axes;
+	Cycle** m_cycles;
+	int m_cycleCount;
+	Cycle* m_currentCycle = nullptr;
 	DigitalInOut& m_leftLimit;
 	DigitalInOut& m_rightLimit;
 };

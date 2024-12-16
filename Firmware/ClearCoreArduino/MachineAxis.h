@@ -24,6 +24,7 @@
 #include <cstdint>
 #include "ClearCore.h" // Include the ClearCore library
 #include "CommonEnums.h"
+#include "Configuration.h"
 
 #define STEPS_PER_REV 1000
 #define SECONDS_PER_MINUTE 60
@@ -34,18 +35,30 @@
 class MachineAxis {
 public:
 
-    MachineAxis(MotorDriver& motor, int32_t stepsPerNmNumerator, int32_t stepsPerNmDenominator, ClearCorePins eStopPin, Direction motorDirection = Direction::NORMAL)
-        : m_stepsPerNmNumerator(stepsPerNmNumerator), m_stepsPerNmDenominator(stepsPerNmDenominator), m_motor(motor), m_eStopPin(eStopPin), m_motorDirection(motorDirection) {}
+    MachineAxis(MotorDriver& motor, ClearCorePins eStopPin, Configuration::AxisConfig *config) :
+        m_stepsPerNmNumerator(config->stepsPerNmNumerator), 
+        m_stepsPerNmDenominator(config->stepsPerNmDenominator), 
+        m_motor(motor), m_eStopPin(eStopPin), 
+        m_motorDirection(config->motorDirection),
+        m_homingDirection(config->homingDirection) {}
 
     void Init();
     void MoveToPositionNm(int32_t positionInNanometers);
 	void JogNm(int32_t distanceInNanometers);
     int32_t GetCurrentPositionNm() const;
     int32_t GetLastCommandedPositionNm() const;
-    bool IsMoveComplete() const;
-    void ResetAndEnable();
+    bool IsReady() const;
+    bool IsDisabled() const;
+    
+    void StartHomingCycle();
+    bool IsHomingCycleComplete();
+
+    void Disable();
 
 private:
+	int32_t CalculateMotorSteps(int64_t positionInNanometers) const;
+	void PrintReadyState(ClearCore::MotorDriver::MotorReadyStates readyState) const;
+
     // Ratio of nanometers to motor steps
     int32_t m_stepsPerNmNumerator;
     int32_t m_stepsPerNmDenominator;
@@ -55,6 +68,9 @@ private:
 
     // Direction config
     Direction m_motorDirection;
+
+    // Homing direction config
+    Direction m_homingDirection;
 
     // EStop pin
     ClearCorePins m_eStopPin;
