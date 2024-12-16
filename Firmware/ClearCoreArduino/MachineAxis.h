@@ -25,6 +25,7 @@
 #include "ClearCore.h" // Include the ClearCore library
 #include "CommonEnums.h"
 #include "Configuration.h"
+#include "Limiter.h"
 
 #define STEPS_PER_REV 1000
 #define SECONDS_PER_MINUTE 60
@@ -39,19 +40,21 @@ public:
         m_stepsPerNmNumerator(config->stepsPerNmNumerator), 
         m_stepsPerNmDenominator(config->stepsPerNmDenominator), 
         m_motor(motor), m_eStopPin(eStopPin),
-		m_axisConfig(config) {}
+		m_axisConfig(config),
+		m_isHomed(false),
+        m_positionLimiter(0,0) {}
 
     void Init();
     void MoveToPositionNm(int32_t positionInNanometers);
 	void JogNm(int32_t distanceInNanometers);
     int32_t GetCurrentPositionNm() const;
     int32_t GetLastCommandedPositionNm() const;
-    bool IsReady() const;
     bool IsDisabled() const;
     
     // homing
     void StartHomingCycle();
     bool IsHomingCycleComplete();
+	bool IsHomed() const { return m_isHomed; }
 
     void Disable();
 
@@ -75,6 +78,11 @@ private:
 
     // Last commanded position in nanometers
     int32_t m_lastCommandedPosition;
+
+    // flag to track whether this axis is homed
+    bool m_isHomed;
+
+    Limiter<int32_t> m_positionLimiter;
 };
 
 #endif // MACHINE_AXIS_H

@@ -95,6 +95,7 @@
     <ClInclude Include="GrinderController.h" />
     <ClInclude Include="GrinderModel.h" />
     <ClInclude Include="HMIConstants.h" />
+    <ClInclude Include="Limiter.h" />
     <ClInclude Include="MachineAxis.h" />
     <ClInclude Include="Optional.h" />
     <ClInclude Include="TrackedValue.h" />

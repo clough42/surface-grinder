@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 
 #include "MachineAxis.h"
+#include "Limiter.h"
 #include <Arduino.h>
 
 void MachineAxis::Init() {
@@ -40,11 +41,16 @@ void MachineAxis::Init() {
 	delay(20);
 	m_motor.PositionRefSet(CalculateMotorSteps(m_lastCommandedPosition));
 
+	m_isHomed = false;
+
 	Serial.println("Finish MachineAxis::Init");
 }
 
 void MachineAxis::MoveToPositionNm(int32_t positionInNanometers) {
 	Serial.println("MachineAxis::MoveToPosition");
+	if (m_isHomed) {
+		positionInNanometers = m_positionLimiter.Clamp(positionInNanometers);	
+	}
 	Serial.println(positionInNanometers);
     m_motor.Move(CalculateMotorSteps(positionInNanometers), StepGenerator::MOVE_TARGET_ABSOLUTE);
     m_lastCommandedPosition = positionInNanometers;
@@ -74,13 +80,6 @@ int32_t MachineAxis::GetLastCommandedPositionNm() const
 	return m_lastCommandedPosition;
 }
 
-bool MachineAxis::IsReady() const {
-    //ClearCore::MotorDriver::MotorReadyStates readyState = m_motor.StatusReg().bit.ReadyState;
-	//PrintReadyState(readyState);
-	//return readyState == ClearCore::MotorDriver::MotorReadyStates::MOTOR_READY;
-	return m_motor.HlfbState() == MotorDriver::HLFB_ASSERTED;
-}
-
 bool MachineAxis::IsDisabled() const {
     ClearCore::MotorDriver::MotorReadyStates readyState = m_motor.StatusReg().bit.ReadyState;
 	PrintReadyState(readyState);
@@ -88,6 +87,7 @@ bool MachineAxis::IsDisabled() const {
 }
 
 void MachineAxis::StartHomingCycle() {
+	m_isHomed = false;
 	m_motor.EnableRequest(false);
 	delay(20);
 	m_motor.EnableRequest(true);
@@ -107,6 +107,8 @@ bool MachineAxis::IsHomingCycleComplete() {
 		m_motor.Move(0, StepGenerator::MOVE_TARGET_ABSOLUTE);
 		m_lastCommandedPosition = 0;
 
+		m_positionLimiter = Limiter<int32_t>(0, m_axisConfig->totalTravelNm * static_cast<int>(m_axisConfig->homingDirection) * -1);
+		m_isHomed = true;
 		return true;
 	}
 	return false;
@@ -119,6 +121,7 @@ int32_t MachineAxis::CalculateHomingSpeed()
 
 void MachineAxis::Disable() {
 	m_motor.EnableRequest(false);
+	m_isHomed = false;
 }
 
 void MachineAxis::PrintReadyState(ClearCore::MotorDriver::MotorReadyStates readyState) const {
