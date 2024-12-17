@@ -84,8 +84,10 @@ private:
         }
     };
 
-    // Stored values
+    // UI Configuration
     Units units;
+
+    // Process Settings
     int32_t droWorkOffsets[AXIS_COUNT] = { 0, 0, 0 };
     int32_t startLimits[AXIS_COUNT] = { 0, 0, 0 };
     int32_t endLimits[AXIS_COUNT] = { 0, 0, 0 };

@@ -114,6 +114,7 @@ bool MachineAxis::IsHomingCycleComplete() {
 
 		// set the motor position past zero by the backoff amount and move back to zero
 		m_motor.PositionRefSet(CalculateMotorSteps(m_axisConfig->homingBackoffNm) * static_cast<int>(m_axisConfig->homingDirection));
+		m_motor.VelMax(CalculateHomingSpeed() * static_cast<int>(m_axisConfig->motorDirection)); // cancel out any negatives
 		m_motor.Move(0, StepGenerator::MOVE_TARGET_ABSOLUTE);
 		m_lastCommandedPosition = 0;
 

@@ -261,29 +261,47 @@ void GrinderView::HandleHmiEvent(genieFrame& Event)
 
 	// Limit Set Buttons
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, XSetStartButton_TYPE, XSetStartButton_ID)) {
-		if (m_controller) m_controller->SetStartLimit(Axis::X);
+		if (m_controller) {
+			m_controller->SetStartLimit(Axis::X);
+			m_genie.WriteObject(XSetStartButton_TYPE, XSetStartButton_ID, 1);
+		}
 		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, XSetEndButton_TYPE, XSetEndButton_ID)) {
-		if (m_controller) m_controller->SetEndLimit(Axis::X);
+		if (m_controller) {
+			m_controller->SetEndLimit(Axis::X);
+			m_genie.WriteObject(XSetEndButton_TYPE, XSetEndButton_ID, 1);
+		}
 		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, ZSetStartButton_TYPE, ZSetStartButton_ID)) {
-		if (m_controller) m_controller->SetStartLimit(Axis::Z);
+		if (m_controller) {
+			m_controller->SetStartLimit(Axis::Z);
+			m_genie.WriteObject(ZSetStartButton_TYPE, ZSetStartButton_ID, 1);
+		}
 		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, ZSetEndButton_TYPE, ZSetEndButton_ID)) {
-		if (m_controller) m_controller->SetEndLimit(Axis::Z);
+		if (m_controller) {
+			m_controller->SetEndLimit(Axis::Z);
+			m_genie.WriteObject(ZSetEndButton_TYPE, ZSetEndButton_ID, 1);
+		}
 		return;
 	}
 
 	// Safe and Work Set Buttons
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, YSetSafeButton_TYPE, YSetSafeButton_ID)) {
-		if (m_controller) m_controller->SetSafePosition(Axis::Y);
+		if (m_controller) {
+			m_controller->SetSafePosition(Axis::Y);
+			m_genie.WriteObject(YSetSafeButton_TYPE, YSetSafeButton_ID, 1);
+		}
 		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, YSetWorkButton_TYPE, YSetWorkButton_ID)) {
-		if (m_controller) m_controller->SetWorkPosition(Axis::Y);
+		if (m_controller) {
+			m_controller->SetWorkPosition(Axis::Y);
+			m_genie.WriteObject(YSetWorkButton_TYPE, YSetWorkButton_ID, 1);
+		}
 		return;
 	}
 
