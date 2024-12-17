@@ -93,9 +93,6 @@ void setup() {
 	// serial port for debugging
 	Serial.begin(9600);
 		
-	MotorMgr.MotorInputClocking(MotorManager::CLOCK_RATE_NORMAL);
-	MotorMgr.MotorModeSet(MotorManager::MOTOR_ALL, Connector::CPM_MODE_STEP_AND_DIR);
-
 	Injected::Controller.Init(); // also initializes model and view
 
 	// Red LED off at the end

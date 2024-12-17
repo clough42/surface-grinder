@@ -27,19 +27,26 @@ void GrinderModel::Init() {
 	m_currentCycle = nullptr;
 	m_status = Status::IDLE;
 
+	MotorMgr.MotorInputClocking(MotorManager::CLOCK_RATE_NORMAL);
+	MotorMgr.MotorModeSet(MotorManager::MOTOR_ALL, Connector::CPM_MODE_STEP_AND_DIR);
+
     for (int i = 0; i < AXIS_COUNT; ++i) {
         m_axes[i].Init();
-
-		// if any axis fails to come up, we should EStop
-		if (m_axes[i].IsDisabled()) {
-			EStop();
-			return;
-		}
     }
 }
 
 
 void GrinderModel::Update() {
+	// check for motor errors
+	for (int i = 0; i < AXIS_COUNT; ++i) {
+		if (m_axes[i].IsInError()) {
+			// enter ESTOP if something has gone wrong
+			EStop();
+			break;
+		}
+	}
+
+	// run the cycle, if one is in progress
 	if (m_status == Status::RUN && m_currentCycle != nullptr) {
 		bool moreToDo = m_currentCycle->Update();
 		if (!moreToDo) {

@@ -78,9 +78,7 @@ int32_t MachineAxis::CalculateMotorSteps(int64_t positionInNanometers) const {
 
 void MachineAxis::JogNm(int32_t distanceInNanometers)
 {
-	if (!IsDisabled()) {
-		MoveToPositionNm(m_lastCommandedPosition + distanceInNanometers);
-	}
+	MoveToPositionNm(m_lastCommandedPosition + distanceInNanometers);
 }
 
 int32_t MachineAxis::GetCurrentPositionNm() const {
@@ -94,10 +92,8 @@ int32_t MachineAxis::GetLastCommandedPositionNm() const
 	return m_lastCommandedPosition;
 }
 
-bool MachineAxis::IsDisabled() const {
-    ClearCore::MotorDriver::MotorReadyStates readyState = m_motor.StatusReg().bit.ReadyState;
-	PrintReadyState(readyState);
-    return readyState == ClearCore::MotorDriver::MotorReadyStates::MOTOR_DISABLED;
+bool MachineAxis::IsInError() const {
+	return m_motor.StatusReg().bit.AlertsPresent;
 }
 
 void MachineAxis::StartHomingCycle() {

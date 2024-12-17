@@ -49,7 +49,7 @@ public:
 	void JogNm(int32_t distanceInNanometers);
     int32_t GetCurrentPositionNm() const;
     int32_t GetLastCommandedPositionNm() const;
-    bool IsDisabled() const;
+    bool IsInError() const;
     
     // homing
     void StartHomingCycle();
