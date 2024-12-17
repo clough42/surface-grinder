@@ -50,7 +50,7 @@ void MachineAxis::Init() {
 		delay(20);
 		m_motor.Move(-1, StepGenerator::MOVE_TARGET_REL_END_POSN);
 		delay(20);
-		m_motor.PositionRefSet(CalculateMotorSteps(m_lastCommandedPosition));
+		m_motor.PositionRefSet(CalculateMotorStepsDirectional(m_lastCommandedPosition));
 	}
 	else {
 		// motor is still offline, just disable it
@@ -67,13 +67,17 @@ void MachineAxis::MoveToPositionNm(int32_t positionInNanometers) {
 	if (m_isHomed) {
 		positionInNanometers = m_positionLimiter.Clamp(positionInNanometers);	
 	}
-    m_motor.Move(CalculateMotorSteps(positionInNanometers), StepGenerator::MOVE_TARGET_ABSOLUTE);
+    m_motor.Move(CalculateMotorStepsDirectional(positionInNanometers), StepGenerator::MOVE_TARGET_ABSOLUTE);
     m_lastCommandedPosition = positionInNanometers;
 }
 
-int32_t MachineAxis::CalculateMotorSteps(int64_t positionInNanometers) const {
+int32_t MachineAxis::CalculateMotorStepsDirectional(int64_t positionInNanometers) const {
+	return CalculateMotorStepsAbsolute(positionInNanometers) * static_cast<int>(m_axisConfig->motorDirection);
+}
+
+int32_t MachineAxis::CalculateMotorStepsAbsolute(int64_t positionInNanometers) const {
 	int64_t motorSteps = (static_cast<int64_t>(positionInNanometers) * m_stepsPerNmNumerator) / m_stepsPerNmDenominator;
-	return static_cast<int32_t>(motorSteps) * static_cast<int>(m_axisConfig->motorDirection);
+	return static_cast<int32_t>(motorSteps);
 }
 
 void MachineAxis::JogNm(int32_t distanceInNanometers)
@@ -102,7 +106,7 @@ void MachineAxis::StartHomingCycle() {
 	delay(20);
 	m_motor.EnableRequest(true);
 	delay(20);
-	m_motor.MoveVelocity(CalculateHomingSpeed() * static_cast<int>(m_axisConfig->homingDirection));
+	m_motor.MoveVelocity(CalculateHomingSpeed() * static_cast<int>(m_axisConfig->motorDirection) * static_cast<int>(m_axisConfig->homingDirection));
 	delay(20);
 }
 
@@ -113,8 +117,8 @@ bool MachineAxis::IsHomingCycleComplete() {
 		delay(20);
 
 		// set the motor position past zero by the backoff amount and move back to zero
-		m_motor.PositionRefSet(CalculateMotorSteps(m_axisConfig->homingBackoffNm) * static_cast<int>(m_axisConfig->homingDirection));
-		m_motor.VelMax(CalculateHomingSpeed() * static_cast<int>(m_axisConfig->motorDirection)); // cancel out any negative motor direction
+		m_motor.PositionRefSet(CalculateMotorStepsDirectional(m_axisConfig->homingBackoffNm) * static_cast<int>(m_axisConfig->homingDirection));
+		m_motor.VelMax(CalculateHomingSpeed());
 		m_motor.Move(0, StepGenerator::MOVE_TARGET_ABSOLUTE);
 		m_lastCommandedPosition = 0;
 
@@ -127,7 +131,7 @@ bool MachineAxis::IsHomingCycleComplete() {
 
 int32_t MachineAxis::CalculateHomingSpeed() const
 {
-	return CalculateMotorSteps(static_cast<int64_t>(m_axisConfig->homingSpeedMmM) * 1000 * 1000) / 60;
+	return CalculateMotorStepsAbsolute(static_cast<int64_t>(m_axisConfig->homingSpeedMmM) * 1000 * 1000) / 60;
 }
 
 bool MachineAxis::HlfbAsserted() const {

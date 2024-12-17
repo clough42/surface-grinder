@@ -59,7 +59,8 @@ public:
     void Disable();
 
 private:
-	int32_t CalculateMotorSteps(int64_t positionInNanometers) const;
+    int32_t CalculateMotorStepsDirectional(int64_t positionInNanometers) const;
+	int32_t CalculateMotorStepsAbsolute(int64_t positionInNanometers) const;
 	void PrintReadyState(ClearCore::MotorDriver::MotorReadyStates readyState) const;
     int32_t CalculateHomingSpeed() const;
     bool HlfbAsserted() const;
