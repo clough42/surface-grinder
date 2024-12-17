@@ -37,6 +37,7 @@ void GrinderController::Update() {
 	}
 
 	UpdateDROs();
+	UpdateHomed();
 
 	m_view.Update();
 }
@@ -189,6 +190,10 @@ void GrinderController::UpdateDROs() {
 		Axis axis = static_cast<Axis>(i);
 		UpdateDRO(axis);
 	}
+}
+
+void GrinderController::UpdateHomed() {
+	m_view.SetIsHomed(m_model.IsHomed());
 }
 
 void GrinderController::UpdateDRO(Axis axis) {

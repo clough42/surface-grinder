@@ -100,6 +100,15 @@ int32_t GrinderModel::GetCurrentPositionNm(Axis axis) const {
 	return m_axes[static_cast<int>(axis)].GetCurrentPositionNm();
 }
 
+bool GrinderModel::IsHomed() const {
+	for (int i = 0; i < AXIS_COUNT; ++i) {
+		if (!m_axes[i].IsHomed()) {
+			return false;
+		}
+	}
+	return true;
+}
+
 void GrinderModel::JogAxisNm(Axis axis, int32_t distanceInNanometers) {
 	if (m_status == Status::IDLE) {
 		m_axes[static_cast<int>(axis)].JogNm(distanceInNanometers);

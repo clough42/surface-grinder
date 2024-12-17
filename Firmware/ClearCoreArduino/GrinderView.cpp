@@ -126,6 +126,12 @@ void GrinderView::SetWorkDroValue(Axis axis, int32_t unitsValue) {
 	}
 }
 
+void GrinderView::SetIsHomed(bool isHomed) {
+	if (m_isHomed.Set(isHomed)) {
+		m_genie.WriteObject(HMI::SETUPMODE::HomeIndicator_TYPE, HMI::SETUPMODE::HomeIndicator_ID, isHomed ? 1 : 0);
+	}
+}
+
 void GrinderView::UpdateAxisSelectors() {
     // Check the resolution and axis selectors
     Optional<int> axisSwitchPosition = m_jogAxis.GetSwitchPosition();

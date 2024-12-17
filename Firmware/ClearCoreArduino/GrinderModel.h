@@ -41,6 +41,8 @@ public:
 		return m_status;
 	}
 
+	bool IsHomed() const;
+
 	bool CycleStart(Mode mode);
 
 	bool CycleStop();
@@ -50,8 +52,6 @@ public:
 	void JogAxisNm(Axis axis, int32_t distanceInNanometers);
 
 	void EStop();
-
-	void ResetAndEnable();
 
 private:
 	Status m_status = Status::IDLE;

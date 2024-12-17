@@ -53,6 +53,7 @@ public:
 private:
     void UpdateDROs();
 	void UpdateDRO(Axis axis);
+    void UpdateHomed();
     void UpdateResolutionAndAxisIndicators();
     void UpdateLimitDros();
 

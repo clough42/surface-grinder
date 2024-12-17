@@ -53,7 +53,8 @@ public:
         m_jogAxis(jogAxisInput),
         m_jogResolution(jogResolutionInput),
         m_config(config),
-        m_operatingMode(Mode::INIT)
+        m_operatingMode(Mode::INIT),
+		m_isHomed(false)
     {
 		s_instance = this;
     }
@@ -68,6 +69,7 @@ public:
 	void SetWorkDroValue(Axis axis, int32_t unitsValue);
 	void SetOperatingMode(Mode mode);
     void SetStatus(Status status);
+    void SetIsHomed(bool);
 
     void HandleHmiEvent(genieFrame& Event);
 
@@ -104,6 +106,7 @@ private:
 
     // previous HMI element values
     int32_t m_previousDroValues[AXIS_COUNT] = { 0, 0, 0 };
+    TrackedValue<bool> m_isHomed;
 
     // other software components
     IUserActions* m_controller = nullptr;
