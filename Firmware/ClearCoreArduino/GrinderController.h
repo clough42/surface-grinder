@@ -30,7 +30,7 @@
 class GrinderController : public IUserActions {
 public:
     GrinderController(GrinderModel& model, GrinderView& view)
-		: m_model(model), m_view(view), m_mode(Mode::SETUP), m_status(Status::IDLE)
+		: m_model(model), m_view(view), m_mode(Mode::INIT), m_status(Status::IDLE)
     {}
 
     void Init();

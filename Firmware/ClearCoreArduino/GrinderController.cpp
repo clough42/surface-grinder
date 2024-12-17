@@ -21,13 +21,13 @@
 #include "GrinderController.h"
 
 void GrinderController::Init() {
-	// Initialize the model
-	m_model.Init();
-
 	// Initialize the view
 	m_view.Init(this);
 
-	m_view.SetOperatingMode(m_mode.Get());
+	// Initialize the model
+	m_model.Init();
+
+	SetOperatingMode(Mode::SETUP);
 }
 
 void GrinderController::Update() {
@@ -51,7 +51,8 @@ void GrinderController::SelectUnits(Units units) {
 
 void GrinderController::SetOperatingMode(Mode mode) {
 	if (m_mode.Set(mode)) {
-		Serial.println("ChangeOperatingMode");
+		Serial.print("ChangeOperatingMode to ");
+		Serial.println(static_cast<int>(m_mode.Get()));
 		m_view.SetOperatingMode(m_mode.Get());
 	}
 }

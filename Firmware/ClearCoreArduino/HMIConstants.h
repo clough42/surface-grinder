@@ -233,6 +233,14 @@ namespace HMI {
 		constexpr int GoDownButton_TYPE = GENIE_OBJ_USERBUTTON;
 		constexpr int GoDownButton_ID = 19;
 
+		// UserImages 1: HomeIndicator
+		constexpr int HomeIndicator_TYPE = GENIE_OBJ_USERIMAGES;
+		constexpr int HomeIndicator_ID = 1;
+
+		// StaticText 4: Statictext4
+		constexpr int Statictext4_TYPE = GENIE_OBJ_STATIC_TEXT;
+		constexpr int Statictext4_ID = 4;
+
 	}
 
 	// Form 1: Splash
@@ -247,6 +255,21 @@ namespace HMI {
 		// StaticText 3: LoadingMessage
 		constexpr int LoadingMessage_TYPE = GENIE_OBJ_STATIC_TEXT;
 		constexpr int LoadingMessage_ID = 3;
+
+	}
+
+	// Form 2: InitMechanics
+	namespace INITMECHANICS {
+
+		constexpr int FORM_ID = 2;
+
+		// Image 7: Image7
+		constexpr int Image7_TYPE = GENIE_OBJ_IMAGE;
+		constexpr int Image7_ID = 7;
+
+		// StaticText 5: Statictext5
+		constexpr int Statictext5_TYPE = GENIE_OBJ_STATIC_TEXT;
+		constexpr int Statictext5_ID = 5;
 
 	}
 

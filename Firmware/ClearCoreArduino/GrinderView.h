@@ -29,6 +29,7 @@
 #include "IUserActions.h"
 #include "CommonEnums.h"
 #include "Configuration.h"
+#include "TrackedValue.h"
 
 class GrinderView {
 public:
@@ -51,7 +52,8 @@ public:
         m_encoderIn(encoderIn),
         m_jogAxis(jogAxisInput),
         m_jogResolution(jogResolutionInput),
-        m_config(config)
+        m_config(config),
+        m_operatingMode(Mode::INIT)
     {
 		s_instance = this;
     }
@@ -92,6 +94,8 @@ private:
     static GrinderView *s_instance;
 
     Configuration& m_config;
+
+    TrackedValue<Mode> m_operatingMode;
 
     // previous control positions
 	int32_t m_previousEncoderCount = 0;

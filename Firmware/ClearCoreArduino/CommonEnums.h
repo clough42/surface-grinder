@@ -44,12 +44,13 @@ enum class Axis {
 #define AXIS_COUNT static_cast<int>(Axis::COUNT)
 
 enum class Mode {
-	SETUP,		// 0
-	FLAT,		// 1
-	SIDE,		// 2
-	END,		// 3
-	CYLINDER,	// 4	
-	DRESS,		// 5		
+	INIT,		// 0
+	SETUP,		// 1
+	FLAT,		// 2
+	SIDE,		// 3
+	END,		// 4
+	CYLINDER,	// 5	
+	DRESS,		// 6		
 	COUNT
 };
 #define MODE_COUNT static_cast<int>(Mode::COUNT)

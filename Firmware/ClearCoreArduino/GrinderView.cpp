@@ -32,8 +32,7 @@ void GrinderView::Init(IUserActions* controller) {
 	m_jogResolution.Init();
 
     m_eStop.Mode(Connector::INPUT_DIGITAL);
-
-    
+	    
     EncoderIn.Enable(true);
         
     m_hmiSerial.begin(115200);
@@ -48,17 +47,20 @@ void GrinderView::Init(IUserActions* controller) {
 
     m_genie.AttachEventHandler(GrinderView::HmiEventHandler);
 
-    m_genie.SetForm(HMI::SETUPMODE::FORM_ID);
+	// put up the mechanics initialization form
+    m_genie.SetForm(HMI::INITMECHANICS::FORM_ID);
     m_genie.WriteContrast(15);
 }
 
 void GrinderView::Update() {
     m_genie.DoEvents();
 
-    UpdateAxisSelectors();
-    UpdateEncoder();
-    UpdateEstop();
-    UpdateCycleButtons();
+	if (m_operatingMode.Get() != Mode::INIT) {
+		UpdateAxisSelectors();
+		UpdateEncoder();
+		UpdateEstop();
+		UpdateCycleButtons();
+	}
 }
 
 void GrinderView::SetDroValue(Axis axis, int32_t unitsValue) {
@@ -160,22 +162,27 @@ void GrinderView::SetAxisIndicators(Optional<Axis> selectedAxis, int32_t resolut
 void GrinderView::SetOperatingMode(Mode mode) {
 	using namespace HMI::SETUPMODE;
 
-	switch (mode) {
-	case Mode::SETUP:
-		m_genie.WriteObject(ModeSetupButton_TYPE, ModeSetupButton_ID, 1);
-		break;
-	case Mode::FLAT:
-		m_genie.WriteObject(ModeFlatButton_TYPE, ModeFlatButton_ID, 1);
-		break;
-	case Mode::SIDE:
-		m_genie.WriteObject(ModeSideButton_TYPE, ModeSideButton_ID, 1);
-		break;
-	case Mode::CYLINDER:
-		m_genie.WriteObject(ModeCylButton_TYPE, ModeCylButton_ID, 1);
-		break;
-	case Mode::DRESS:
-		m_genie.WriteObject(ModeDressButton_TYPE, ModeDressButton_ID, 1);
-		break;
+	if (m_operatingMode.Set(mode)) {
+
+		switch (mode) {
+		case Mode::SETUP:
+			m_genie.SetForm(HMI::SETUPMODE::FORM_ID);
+			m_genie.WriteObject(ModeSetupButton_TYPE, ModeSetupButton_ID, 1);
+			break;
+		case Mode::FLAT:
+			m_genie.WriteObject(ModeFlatButton_TYPE, ModeFlatButton_ID, 1);
+			break;
+		case Mode::SIDE:
+			m_genie.WriteObject(ModeSideButton_TYPE, ModeSideButton_ID, 1);
+			break;
+		case Mode::CYLINDER:
+			m_genie.WriteObject(ModeCylButton_TYPE, ModeCylButton_ID, 1);
+			break;
+		case Mode::DRESS:
+			m_genie.WriteObject(ModeDressButton_TYPE, ModeDressButton_ID, 1);
+			break;
+		}
+
 	}
 }
 

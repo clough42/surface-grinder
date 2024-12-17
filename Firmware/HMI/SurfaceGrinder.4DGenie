@@ -697,10 +697,10 @@ UserButton
     Name                         Userbutton10
     Alias                        XSetStartButton
     Height                       55
-    Images                       StartButton.png\nStartButtonTouch.png
+    Images                       StartButton.png\nStartButtonTouch.png\nStartButtonOn.png\nStartButtonTouch.png
     Left                         16
     Matrix                       -1
-    Momentary                    Yes
+    Momentary                    No
     Stretch                      No
     Top                          30
     Width                        55
@@ -710,10 +710,10 @@ UserButton
     Name                         Userbutton11
     Alias                        ZSetStartButton
     Height                       55
-    Images                       StartButton.png\nStartButtonTouch.png
+    Images                       StartButton.png\nStartButtonTouch.png\nStartButtonOn.png\nStartButtonTouch.png
     Left                         16
     Matrix                       -1
-    Momentary                    Yes
+    Momentary                    No
     Stretch                      No
     Top                          170
     Width                        55
@@ -723,10 +723,10 @@ UserButton
     Name                         Userbutton12
     Alias                        YSetWorkButton
     Height                       55
-    Images                       WorkButton.png\nWorkButtonTouch.png
+    Images                       WorkButton.png\nWorkButtonTouch.png\nWorkButtonOn.png\nWorkButtonTouch.png
     Left                         16
     Matrix                       -1
-    Momentary                    Yes
+    Momentary                    No
     Stretch                      No
     Top                          100
     Width                        55
@@ -736,10 +736,10 @@ UserButton
     Name                         Userbutton13
     Alias                        XSetEndButton
     Height                       55
-    Images                       EndButton.png\nEndButtonTouch.png
+    Images                       EndButton.png\nEndButtonTouch.png\nEndButtonOn.png\nEndButtonTouch.png
     Left                         233
     Matrix                       -1
-    Momentary                    Yes
+    Momentary                    No
     Stretch                      No
     Top                          30
     Width                        55
@@ -749,10 +749,10 @@ UserButton
     Name                         Userbutton14
     Alias                        ZSetEndButton
     Height                       55
-    Images                       EndButton.png\nEndButtonTouch.png
+    Images                       EndButton.png\nEndButtonTouch.png\nEndButtonOn.png\nEndButtonTouch.png
     Left                         233
     Matrix                       -1
-    Momentary                    Yes
+    Momentary                    No
     Stretch                      No
     Top                          170
     Width                        55
@@ -762,10 +762,10 @@ UserButton
     Name                         Userbutton15
     Alias                        YSetSafeButton
     Height                       55
-    Images                       SafeButton.png\nSafeButtonTouch.png
+    Images                       SafeButton.png\nSafeButtonTouch.png\nSafeButtonOn.png\nSafeButtonTouch.png
     Left                         233
     Matrix                       -1
-    Momentary                    Yes
+    Momentary                    No
     Stretch                      No
     Top                          100
     Width                        55
@@ -823,6 +823,36 @@ UserButton
     Width                        50
     OnChanged                    'Report Message'
 end
+UserImages
+    Name                         Userimages1
+    Alias                        HomeIndicator
+    Height                       22
+    Images                       Images---75x25_UNHOMED.png\nImages---75x25_HOMED.png
+    Left                         707
+    Stretch                      No
+    Top                          2
+    Width                        75
+    OnChanged                    ''
+end
+StaticText
+    Name                         Statictext4
+    Alias                        Statictext4
+    Alignment                    Center
+    AutoSize                     Yes
+    Caption                      'Press RUN to HOME'
+    Color                        BLACK
+    Font.Color                   WHITE
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    20
+    Font.Style                   [Bold]
+    Height                       34
+    Left                         128
+    Top                          356
+    Transparent                  Yes
+    Width                        200
+    WordWrap                     Yes
+end
 Form
     Name                         Form1
     Alias                        Splash
@@ -862,6 +892,58 @@ StaticText
     Alignment                    Left
     AutoSize                     Yes
     Caption                      'Establishing communication, please wait...'
+    Color                        BLACK
+    Font.Color                   BLACK
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    24
+    Font.Style                   []
+    Height                       40
+    Left                         192
+    Top                          400
+    Transparent                  Yes
+    Width                        416
+    WordWrap                     No
+end
+Form
+    Name                         Form2
+    Alias                        InitMechanics
+    Bgtype                       Color
+    Color                        WHITE
+    Image                        (None)
+    Source.Height                0
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 0
+    OnActivate                   ''
+    OnCreate                     ''
+    OnRepeat                     ''
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image7
+    Alias                        Image7
+    Height                       165
+    Image                        'CLOUGH42-only-01 -600.png'
+    Left                         100
+    Source.Height                165
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 600
+    Top                          132
+    Width                        600
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+StaticText
+    Name                         Statictext5
+    Alias                        Statictext5
+    Alignment                    Left
+    AutoSize                     Yes
+    Caption                      'Initializing motors, please wait...'
     Color                        BLACK
     Font.Color                   BLACK
     Font.Effects                 []
