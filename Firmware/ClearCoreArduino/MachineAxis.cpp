@@ -25,21 +25,38 @@
 void MachineAxis::Init() {
 	// initialize motor
 	m_motor.HlfbMode(ClearCore::MotorDriver::HlfbModes::HLFB_MODE_HAS_BIPOLAR_PWM);
-	m_motor.HlfbCarrier(MotorDriver::HLFB_CARRIER_482_HZ); 
+	m_motor.HlfbCarrier(MotorDriver::HLFB_CARRIER_482_HZ);
 	m_motor.EStopConnector(m_eStopPin);
 	m_motor.VelMax(MAX_VELOCITY);
 	m_motor.AccelMax(MAX_ACCELERATION);
 	m_motor.MoveStopAbrupt();
 
-	// Enable the motor and jog back and forth one step to cancel auto-home
+	// Enable the motor
 	m_motor.ClearAlerts();
-    m_motor.EnableRequest(true);
+	m_motor.EnableRequest(true);
 	delay(20);
-	m_motor.Move(1, StepGenerator::MOVE_TARGET_REL_END_POSN);
-	delay(20);
-	m_motor.Move(-1, StepGenerator::MOVE_TARGET_REL_END_POSN);
-	delay(20);
-	m_motor.PositionRefSet(CalculateMotorSteps(m_lastCommandedPosition));
+
+	// wait for HLFB to assert, which could take a bit if power is cut by ESTOP
+	unsigned long timeout = millis() + 3000;  // 3 second timeout
+	while (!HlfbAsserted() && millis() < timeout) {
+		Serial.println("Waiting for HLFB to assert");
+		delay(100);
+	}
+
+	// if the motor came on-line
+	if (HlfbAsserted()) {
+		// jog back and forth to cancel auto-home
+		m_motor.Move(1, StepGenerator::MOVE_TARGET_REL_END_POSN);
+		delay(20);
+		m_motor.Move(-1, StepGenerator::MOVE_TARGET_REL_END_POSN);
+		delay(20);
+		m_motor.PositionRefSet(CalculateMotorSteps(m_lastCommandedPosition));
+	}
+	else {
+		// motor is still offline, just disable it
+		Serial.println("HLFB dis not assert, disabling motor");
+		Disable();
+	}
 
 	m_isHomed = false;
 
@@ -94,7 +111,7 @@ void MachineAxis::StartHomingCycle() {
 }
 
 bool MachineAxis::IsHomingCycleComplete() {
-	if (m_motor.HlfbState() == MotorDriver::HLFB_ASSERTED) {
+	if (HlfbAsserted()) {
 		// stop outputting steps
 		m_motor.MoveStopAbrupt();
 		delay(20);
@@ -111,9 +128,13 @@ bool MachineAxis::IsHomingCycleComplete() {
 	return false;
 }
 
-int32_t MachineAxis::CalculateHomingSpeed()
+int32_t MachineAxis::CalculateHomingSpeed() const
 {
 	return CalculateMotorSteps(static_cast<int64_t>(m_axisConfig->homingSpeedMmM) * 1000 * 1000) / 60;
+}
+
+bool MachineAxis::HlfbAsserted() const {
+	return m_motor.HlfbState() == MotorDriver::HLFB_ASSERTED;
 }
 
 void MachineAxis::Disable() {

@@ -61,7 +61,8 @@ public:
 private:
 	int32_t CalculateMotorSteps(int64_t positionInNanometers) const;
 	void PrintReadyState(ClearCore::MotorDriver::MotorReadyStates readyState) const;
-    int32_t CalculateHomingSpeed();
+    int32_t CalculateHomingSpeed() const;
+    bool HlfbAsserted() const;
 
     // Ratio of nanometers to motor steps
     int32_t m_stepsPerNmNumerator;

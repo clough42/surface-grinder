@@ -24,13 +24,18 @@
 void GrinderModel::Init() {
     m_leftLimit.Mode(Connector::INPUT_DIGITAL);
 	m_rightLimit.Mode(Connector::INPUT_DIGITAL);
+	m_currentCycle = nullptr;
+	m_status = Status::IDLE;
 
     for (int i = 0; i < AXIS_COUNT; ++i) {
         m_axes[i].Init();
-    }
 
-	m_currentCycle = nullptr;
-	m_status = Status::IDLE;
+		// if any axis fails to come up, we should EStop
+		if (m_axes[i].IsDisabled()) {
+			EStop();
+			return;
+		}
+    }
 }
 
 
