@@ -105,7 +105,7 @@ private:
 	Optional<int> m_previousResolutionSwitchPosition = 0;
 
     // previous HMI element values
-    int32_t m_previousDroValues[AXIS_COUNT] = { 0, 0, 0 };
+    TrackedValue<int32_t> m_droValues[AXIS_COUNT] = { 0, 0, 0 };
     TrackedValue<bool> m_isHomed;
 
     // other software components

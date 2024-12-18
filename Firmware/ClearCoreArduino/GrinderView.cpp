@@ -65,7 +65,7 @@ void GrinderView::Update() {
 
 void GrinderView::SetDroValue(Axis axis, int32_t unitsValue) {
 	using namespace HMI::SETUPMODE;
-    if (unitsValue != m_previousDroValues[static_cast<int>(axis)]) {
+    if (m_droValues[static_cast<int>(axis)].Set(unitsValue)) {
 	    uint16_t hmiDigitsId = 0;
 	    switch (axis) {
 	    case Axis::X:
@@ -80,7 +80,6 @@ void GrinderView::SetDroValue(Axis axis, int32_t unitsValue) {
 	    }
 
 		m_genie.WriteIntLedDigits(hmiDigitsId, unitsValue * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
-		m_previousDroValues[static_cast<int>(axis)] = unitsValue;
 	}
 }
 
