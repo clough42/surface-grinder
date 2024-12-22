@@ -27,12 +27,6 @@
 #include "Configuration.h"
 #include "Limiter.h"
 
-#define STEPS_PER_REV 1000
-#define SECONDS_PER_MINUTE 60
-#define RPM * STEPS_PER_REV / SECONDS_PER_MINUTE
-#define MAX_VELOCITY 1000 RPM
-#define MAX_ACCELERATION 50000
-
 class MachineAxis {
 public:
 
@@ -62,7 +56,7 @@ private:
     int32_t CalculateMotorStepsDirectional(int64_t positionInNanometers) const;
 	int32_t CalculateMotorStepsAbsolute(int64_t positionInNanometers) const;
 	void PrintReadyState(ClearCore::MotorDriver::MotorReadyStates readyState) const;
-    int32_t CalculateHomingSpeed() const;
+    int32_t CalculateVelocity(int32_t speedMmM) const;
     bool HlfbAsserted() const;
 
     // Ratio of nanometers to motor steps

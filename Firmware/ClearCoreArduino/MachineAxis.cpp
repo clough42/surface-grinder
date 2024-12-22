@@ -27,8 +27,8 @@ void MachineAxis::Init() {
 	m_motor.HlfbMode(ClearCore::MotorDriver::HlfbModes::HLFB_MODE_HAS_BIPOLAR_PWM);
 	m_motor.HlfbCarrier(MotorDriver::HLFB_CARRIER_482_HZ);
 	m_motor.EStopConnector(m_eStopPin);
-	m_motor.VelMax(MAX_VELOCITY);
-	m_motor.AccelMax(MAX_ACCELERATION);
+	m_motor.VelMax(CalculateVelocity(m_axisConfig->jogSpeedMmM));
+	m_motor.AccelMax(m_axisConfig->acceleration);
 	m_motor.MoveStopAbrupt();
 
 	// Enable the motor
@@ -71,17 +71,29 @@ void MachineAxis::MoveToPositionNm(int32_t positionInNanometers) {
     m_lastCommandedPosition = positionInNanometers;
 }
 
-int32_t MachineAxis::CalculateMotorStepsDirectional(int64_t positionInNanometers) const {
-	return CalculateMotorStepsAbsolute(positionInNanometers) * static_cast<int>(m_axisConfig->motorDirection);
-}
-
+/// <summary>
+/// Calculate the number of motor steps to move a distance in nanometers
+/// </summary>
+/// <param name="positionInNanometers">Relative or absolute distance or position in nanometers</param>
+/// <returns>Relative or absolute distance or position in motor steps</returns>
 int32_t MachineAxis::CalculateMotorStepsAbsolute(int64_t positionInNanometers) const {
 	int64_t motorSteps = (static_cast<int64_t>(positionInNanometers) * m_stepsPerNmNumerator) / m_stepsPerNmDenominator;
 	return static_cast<int32_t>(motorSteps);
 }
 
+/// <summary>
+/// Calculate the number of motor steps to move a distance in nanometers, taking into account
+/// the motor direction.
+/// </summary>
+/// <param name="positionInNanometers">Relative or absolute distance or position in nanometers</param>
+/// <returns>Relative or absolute distance or position in motor steps, taking into account motor direction</returns>
+int32_t MachineAxis::CalculateMotorStepsDirectional(int64_t positionInNanometers) const {
+	return CalculateMotorStepsAbsolute(positionInNanometers) * static_cast<int>(m_axisConfig->motorDirection);
+}
+
 void MachineAxis::JogNm(int32_t distanceInNanometers)
 {
+	m_motor.VelMax(CalculateVelocity(m_axisConfig->jogSpeedMmM));
 	MoveToPositionNm(m_lastCommandedPosition + distanceInNanometers);
 }
 
@@ -106,7 +118,7 @@ void MachineAxis::StartHomingCycle() {
 	delay(20);
 	m_motor.EnableRequest(true);
 	delay(20);
-	m_motor.MoveVelocity(CalculateHomingSpeed() * static_cast<int>(m_axisConfig->motorDirection) * static_cast<int>(m_axisConfig->homingDirection));
+	m_motor.MoveVelocity(CalculateVelocity(m_axisConfig->homingSpeedMmM) * static_cast<int>(m_axisConfig->motorDirection) * static_cast<int>(m_axisConfig->homingDirection));
 	delay(20);
 }
 
@@ -118,7 +130,7 @@ bool MachineAxis::IsHomingCycleComplete() {
 
 		// set the motor position past zero by the backoff amount and move back to zero
 		m_motor.PositionRefSet(CalculateMotorStepsDirectional(m_axisConfig->homingBackoffNm) * static_cast<int>(m_axisConfig->homingDirection));
-		m_motor.VelMax(CalculateHomingSpeed());
+		m_motor.VelMax(CalculateVelocity(m_axisConfig->homingSpeedMmM));
 		m_motor.Move(0, StepGenerator::MOVE_TARGET_ABSOLUTE);
 		m_lastCommandedPosition = 0;
 
@@ -129,9 +141,14 @@ bool MachineAxis::IsHomingCycleComplete() {
 	return false;
 }
 
-int32_t MachineAxis::CalculateHomingSpeed() const
+/// <summary>
+/// Calculate motor velocity from speed in mm/min
+/// </summary>
+/// <param name="speedMmM">Desired speed in millimeters per minute</param>
+/// <returns>Motor velocity in pulses per second</returns>
+int32_t MachineAxis::CalculateVelocity(int32_t speedMmM) const
 {
-	return CalculateMotorStepsAbsolute(static_cast<int64_t>(m_axisConfig->homingSpeedMmM) * 1000 * 1000) / 60;
+	return CalculateMotorStepsAbsolute(static_cast<int64_t>(speedMmM) * 1000 * 1000) / 60;
 }
 
 bool MachineAxis::HlfbAsserted() const {

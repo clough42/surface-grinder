@@ -26,6 +26,8 @@
 
 #include "ClearCore.h"
 #include "CommonEnums.h"
+#include "TrackedValue.h"
+#include "Optional.h"
 
 class Configuration {
 public:
@@ -33,6 +35,8 @@ public:
         int32_t stepsPerNmNumerator;
         int32_t stepsPerNmDenominator;
         int32_t homingSpeedMmM;
+        int32_t jogSpeedMmM;
+        int32_t acceleration;
         int64_t homingBackoffNm;
         int64_t totalTravelNm;
         Direction motorDirection;   // Direction of motor vs handwheel
@@ -40,9 +44,18 @@ public:
 		Direction homingDirection;  // Direction of handwheel for homing
     };
 
+    struct ProcessValues {
+        int32_t droWorkOffset;
+        TrackedValue<Optional<int32_t>> startLimit;
+        TrackedValue<Optional<int32_t>> endLimit;
+        TrackedValue<Optional<int32_t>> safePosition;
+        TrackedValue<Optional<int32_t>> workPosition;
+    };
+
     Configuration(const char* filename) : m_filename(filename) {};
 
     AxisConfig* GetAxisConfig(Axis axis) { return &axisConfigs[static_cast<int>(axis)]; }
+	//ProcessValues* GetProcessValues(Axis axis) { return &processValues[static_cast<int>(axis)]; }
 
     //bool Load();
     //bool Save();
@@ -56,6 +69,8 @@ private:
             .stepsPerNmNumerator = 3,
             .stepsPerNmDenominator = 130175,
             .homingSpeedMmM = 1000,
+            .jogSpeedMmM = 30000,
+            .acceleration = 50000,
             .homingBackoffNm = 5 * 1000 * 1000,
             .totalTravelNm = 482 * 1000 * 1000,
             .motorDirection = Direction::NEGATIVE,
@@ -66,6 +81,8 @@ private:
             .stepsPerNmNumerator = 6,
             .stepsPerNmDenominator = 3175,
             .homingSpeedMmM = 300,
+            .jogSpeedMmM = 425,
+            .acceleration = 50000,
             .homingBackoffNm = 1 * 1000 * 1000,
             .totalTravelNm = 310 * 1000 * 1000,
             .motorDirection = Direction::NEGATIVE,
@@ -76,6 +93,8 @@ private:
             .stepsPerNmNumerator = 3,
             .stepsPerNmDenominator = 6350,
             .homingSpeedMmM = 1000,
+            .jogSpeedMmM = 1800,
+            .acceleration = 50000,
             .homingBackoffNm = 1 * 1000 * 1000,
             .totalTravelNm = 180 * 1000 * 1000,
             .motorDirection = Direction::NEGATIVE,
@@ -84,13 +103,21 @@ private:
         }
     };
 
+    // Optional values are initialized using default constructors
+    ProcessValues processValues[AXIS_COUNT] = {
+        {
+            .droWorkOffset = 0
+        },
+        {
+            .droWorkOffset = 0
+        },
+        {
+            .droWorkOffset = 0
+        }
+    };
+
     // UI Configuration
     Units units;
-
-    // Process Settings
-    int32_t droWorkOffsets[AXIS_COUNT] = { 0, 0, 0 };
-    int32_t startLimits[AXIS_COUNT] = { 0, 0, 0 };
-    int32_t endLimits[AXIS_COUNT] = { 0, 0, 0 };
 
 };
 
