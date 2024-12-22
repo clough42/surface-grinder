@@ -21,6 +21,7 @@
 #ifndef GRINDERCONTROLLER_H
 #define GRINDERCONTROLLER_H
 
+#include "Configuration.h"
 #include "GrinderModel.h"
 #include "GrinderView.h"
 #include "IUserActions.h"
@@ -29,8 +30,8 @@
 
 class GrinderController : public IUserActions {
 public:
-    GrinderController(GrinderModel& model, GrinderView& view)
-		: m_model(model), m_view(view), m_mode(Mode::INIT), m_status(Status::IDLE)
+    GrinderController(GrinderModel& model, GrinderView& view, Configuration& config)
+		: m_model(model), m_view(view), m_config(config), m_mode(Mode::INIT), m_status(Status::IDLE)
     {}
 
     void Init();
@@ -69,11 +70,11 @@ private:
 	Optional<Axis> m_selectedAxis;
     Optional<int> m_resolutionSwitchPosition = 0;
     int32_t m_selectedResolution;
-    int32_t m_droWorkOffsets[AXIS_COUNT] = { 0, 0, 0 };
     int32_t m_startLimits[AXIS_COUNT] = { 0, 0, 0 };
     int32_t m_endLimits[AXIS_COUNT] = { 0, 0, 0 };
 	int32_t m_safePositions[AXIS_COUNT] = { 0, 0, 0 };
 	int32_t m_workPositions[AXIS_COUNT] = { 0, 0, 0 };
+    Configuration& m_config;
     
 };
 

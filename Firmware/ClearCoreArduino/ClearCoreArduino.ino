@@ -42,13 +42,13 @@ namespace Injected {
 	auto& RedLED = ConnectorLed;
 
 	// Configuration
-	Configuration config("configuration.txt");
+	Configuration Config("configuration.txt");
 
 	// Axes
 	MachineAxis axes[AXIS_COUNT] = {
-		MachineAxis(ConnectorM0, CLEARCORE_PIN_IO0, config.GetAxisConfig(Axis::X)),	// X
-		MachineAxis(ConnectorM1, CLEARCORE_PIN_IO0, config.GetAxisConfig(Axis::Y)),	// Y
-		MachineAxis(ConnectorM2, CLEARCORE_PIN_IO0, config.GetAxisConfig(Axis::Z))	// Z
+		MachineAxis(ConnectorM0, CLEARCORE_PIN_IO0, Config.GetAxisConfig(Axis::X)),	// X
+		MachineAxis(ConnectorM1, CLEARCORE_PIN_IO0, Config.GetAxisConfig(Axis::Y)),	// Y
+		MachineAxis(ConnectorM2, CLEARCORE_PIN_IO0, Config.GetAxisConfig(Axis::Z))	// Z
 	};
 
 	// Cycles
@@ -77,11 +77,11 @@ namespace Injected {
 		Serial1,		// HMI Serial Port
 		ConnectorCOM1,	// HMI Serial Connector
 		EncoderIn,		// Encoder Input
-		config			// DRO Directions
+		Config			// DRO Directions
 	);
 
 	// Controller
-	GrinderController Controller(Model, View);
+	GrinderController Controller(Model, View, Config);
 
 }
 

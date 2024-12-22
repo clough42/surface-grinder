@@ -55,7 +55,7 @@ public:
     Configuration(const char* filename) : m_filename(filename) {};
 
     AxisConfig* GetAxisConfig(Axis axis) { return &axisConfigs[static_cast<int>(axis)]; }
-	//ProcessValues* GetProcessValues(Axis axis) { return &processValues[static_cast<int>(axis)]; }
+	ProcessValues* GetProcessValues(Axis axis) { return &processValues[static_cast<int>(axis)]; }
 
     //bool Load();
     //bool Save();

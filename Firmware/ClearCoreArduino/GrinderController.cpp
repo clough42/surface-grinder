@@ -132,10 +132,10 @@ void GrinderController::SetWorkPosition(Axis axis) {
 void GrinderController::UpdateLimitDros() {
 	for (int i = 0; i < AXIS_COUNT; i++) {
 		Axis axis = static_cast<Axis>(i);
-		m_view.SetStartDroValue(axis, ConvertToUnits(m_startLimits[i] - m_droWorkOffsets[static_cast<int>(axis)]));
-		m_view.SetEndDroValue(axis, ConvertToUnits(m_endLimits[i] - m_droWorkOffsets[static_cast<int>(axis)]));
-		m_view.SetSafeDroValue(axis, ConvertToUnits(m_safePositions[i] - m_droWorkOffsets[static_cast<int>(axis)]));
-		m_view.SetWorkDroValue(axis, ConvertToUnits(m_workPositions[i] - m_droWorkOffsets[static_cast<int>(axis)]));
+		m_view.SetStartDroValue(axis, ConvertToUnits(m_startLimits[i] - m_config.GetProcessValues(axis)->droWorkOffset));
+		m_view.SetEndDroValue(axis, ConvertToUnits(m_endLimits[i] - m_config.GetProcessValues(axis)->droWorkOffset));
+		m_view.SetSafeDroValue(axis, ConvertToUnits(m_safePositions[i] - m_config.GetProcessValues(axis)->droWorkOffset));
+		m_view.SetWorkDroValue(axis, ConvertToUnits(m_workPositions[i] - m_config.GetProcessValues(axis)->droWorkOffset));
 	}
 }
 
@@ -181,7 +181,7 @@ int32_t GrinderController::ConvertToUnits(int32_t nanometers) {
 
 void GrinderController::SetWorkOffset(Axis selectedAxis) {
 	Serial.println("SetWorkOffset");
-	m_droWorkOffsets[static_cast<int>(selectedAxis)] = m_model.GetCurrentPositionNm(selectedAxis);
+	m_config.GetProcessValues(selectedAxis)->droWorkOffset = m_model.GetCurrentPositionNm(selectedAxis);
 	UpdateLimitDros();
 }
 
@@ -199,6 +199,6 @@ void GrinderController::UpdateHomed() {
 void GrinderController::UpdateDRO(Axis axis) {
 	int32_t nanometers = m_model.GetCurrentPositionNm(axis);
 
-	int32_t units = ConvertToUnits(nanometers - m_droWorkOffsets[static_cast<int>(axis)]);
+	int32_t units = ConvertToUnits(nanometers - m_config.GetProcessValues(axis)->droWorkOffset);
 	m_view.SetDroValue(axis, units);
 }
