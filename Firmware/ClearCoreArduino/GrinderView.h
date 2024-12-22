@@ -54,7 +54,9 @@ public:
         m_jogResolution(jogResolutionInput),
         m_config(config),
         m_operatingMode(Mode::INIT),
-		m_isHomed(false)
+		m_isHomed(false),
+		m_axisSwitchPosition(Optional<int>()),
+		m_resolutionSwitchPosition(Optional<int>())
     {
 		s_instance = this;
     }
@@ -97,14 +99,13 @@ private:
 
     Configuration& m_config;
 
-    TrackedValue<Mode> m_operatingMode;
-
     // previous control positions
 	int32_t m_previousEncoderCount = 0;
-    Optional<int> m_previousAxisSwitchPosition = 0;
-	Optional<int> m_previousResolutionSwitchPosition = 0;
+    TrackedValue<Optional<int>> m_axisSwitchPosition;
+	TrackedValue<Optional<int>> m_resolutionSwitchPosition;
 
     // previous HMI element values
+    TrackedValue<Mode> m_operatingMode;
     TrackedValue<int32_t> m_droValues[AXIS_COUNT] = { 0, 0, 0 };
     TrackedValue<bool> m_isHomed;
 
