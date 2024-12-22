@@ -158,5 +158,19 @@ namespace Utility
             Assert::AreEqual(opt.Value(), (int16_t)43, L"Optional value should be 42.");
         }
 
+        TEST_METHOD(TestOrValueNotSet)
+		{
+			Optional<int> opt;
+			int value = opt.ValueOr(43);
+			Assert::AreEqual(43, value, L"Should return default value when not set");
+		}
+
+        TEST_METHOD(TestOrValueSet)
+        {
+            Optional<int> opt(42);
+            int value = opt.ValueOr(43);
+            Assert::AreEqual(42, value, L"Should return value when set");
+        }
+
     };
 }

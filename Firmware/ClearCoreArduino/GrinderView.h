@@ -63,10 +63,10 @@ public:
     void Update();
     void SetAxisIndicators(Optional<Axis> selectedAxis, int32_t selectedResolution);
     void SetDroValue(Axis axis, int32_t unitsValue);
-	void SetStartDroValue(Axis axis, int32_t unitsValue);
-	void SetEndDroValue(Axis axis, int32_t unitsValue);
-    void SetSafeDroValue(Axis axis, int32_t unitsValue);
-	void SetWorkDroValue(Axis axis, int32_t unitsValue);
+	void SetStartDroValue(Axis axis, int32_t unitsValue, bool isSet);
+	void SetEndDroValue(Axis axis, int32_t unitsValue, bool isSet);
+    void SetSafeDroValue(Axis axis, int32_t unitsValue, bool isSet);
+	void SetWorkDroValue(Axis axis, int32_t unitsValue, bool isSet);
 	void SetOperatingMode(Mode mode);
     void SetStatus(Status status);
     void SetIsHomed(bool);

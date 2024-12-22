@@ -99,6 +99,11 @@ public:
         return m_value;
     }
 
+    // Get the m_value or a default
+	T ValueOr(const T& defaultValue) const {
+		return m_hasValue ? m_value : defaultValue;
+	}
+
     // Conversion operator to automatically cast to the template type
     operator T() const {
 		ASSERT(m_hasValue);

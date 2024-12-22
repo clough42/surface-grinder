@@ -70,10 +70,6 @@ private:
 	Optional<Axis> m_selectedAxis;
     Optional<int> m_resolutionSwitchPosition = 0;
     int32_t m_selectedResolution;
-    int32_t m_startLimits[AXIS_COUNT] = { 0, 0, 0 };
-    int32_t m_endLimits[AXIS_COUNT] = { 0, 0, 0 };
-	int32_t m_safePositions[AXIS_COUNT] = { 0, 0, 0 };
-	int32_t m_workPositions[AXIS_COUNT] = { 0, 0, 0 };
     Configuration& m_config;
     
 };

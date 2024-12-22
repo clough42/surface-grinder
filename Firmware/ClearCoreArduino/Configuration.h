@@ -46,10 +46,10 @@ public:
 
     struct ProcessValues {
         int32_t droWorkOffset;
-        TrackedValue<Optional<int32_t>> startLimit;
-        TrackedValue<Optional<int32_t>> endLimit;
-        TrackedValue<Optional<int32_t>> safePosition;
-        TrackedValue<Optional<int32_t>> workPosition;
+        Optional<int32_t> startLimit;
+        Optional<int32_t> endLimit;
+        Optional<int32_t> safePosition;
+        Optional<int32_t> workPosition;
     };
 
     Configuration(const char* filename) : m_filename(filename) {};

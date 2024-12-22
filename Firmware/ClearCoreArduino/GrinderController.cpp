@@ -104,38 +104,38 @@ void GrinderController::Jog(int32_t clicks) {
 void GrinderController::SetStartLimit(Axis axis) {
 	Serial.println("SetStartLimit");
 
-	m_startLimits[static_cast<int>(axis)] = m_model.GetCurrentPositionNm(axis);
+	m_config.GetProcessValues(axis)->startLimit = m_model.GetCurrentPositionNm(axis);
 	UpdateLimitDros();
 }
 
 void GrinderController::SetEndLimit(Axis axis) {
 	Serial.println("SetEndLimit");
 
-	m_endLimits[static_cast<int>(axis)] = m_model.GetCurrentPositionNm(axis);
+	m_config.GetProcessValues(axis)->endLimit = m_model.GetCurrentPositionNm(axis);
 	UpdateLimitDros();
 }
 
 void GrinderController::SetSafePosition(Axis axis) {
 	Serial.println("SetSafePosition");
 
-	m_safePositions[static_cast<int>(axis)] = m_model.GetCurrentPositionNm(axis);
+	m_config.GetProcessValues(axis)->safePosition = m_model.GetCurrentPositionNm(axis);
 	UpdateLimitDros();
 }
 
 void GrinderController::SetWorkPosition(Axis axis) {
 	Serial.println("SetWorkPosition");
 
-	m_workPositions[static_cast<int>(axis)] = m_model.GetCurrentPositionNm(axis);
+	m_config.GetProcessValues(axis)->workPosition = m_model.GetCurrentPositionNm(axis);
 	UpdateLimitDros();
 }
 
 void GrinderController::UpdateLimitDros() {
 	for (int i = 0; i < AXIS_COUNT; i++) {
 		Axis axis = static_cast<Axis>(i);
-		m_view.SetStartDroValue(axis, ConvertToUnits(m_startLimits[i] - m_config.GetProcessValues(axis)->droWorkOffset));
-		m_view.SetEndDroValue(axis, ConvertToUnits(m_endLimits[i] - m_config.GetProcessValues(axis)->droWorkOffset));
-		m_view.SetSafeDroValue(axis, ConvertToUnits(m_safePositions[i] - m_config.GetProcessValues(axis)->droWorkOffset));
-		m_view.SetWorkDroValue(axis, ConvertToUnits(m_workPositions[i] - m_config.GetProcessValues(axis)->droWorkOffset));
+		m_view.SetStartDroValue(axis, ConvertToUnits(m_config.GetProcessValues(axis)->startLimit.ValueOr(0) - m_config.GetProcessValues(axis)->droWorkOffset), m_config.GetProcessValues(axis)->startLimit.HasValue());
+		m_view.SetEndDroValue(axis, ConvertToUnits(m_config.GetProcessValues(axis)->endLimit.ValueOr(0) - m_config.GetProcessValues(axis)->droWorkOffset), m_config.GetProcessValues(axis)->endLimit.HasValue());
+		m_view.SetSafeDroValue(axis, ConvertToUnits(m_config.GetProcessValues(axis)->safePosition.ValueOr(0) - m_config.GetProcessValues(axis)->droWorkOffset), m_config.GetProcessValues(axis)->safePosition.HasValue());
+		m_view.SetWorkDroValue(axis, ConvertToUnits(m_config.GetProcessValues(axis)->workPosition.ValueOr(0) - m_config.GetProcessValues(axis)->droWorkOffset), m_config.GetProcessValues(axis)->workPosition.HasValue());
 	}
 }
 
