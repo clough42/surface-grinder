@@ -60,11 +60,14 @@ public:
     AxisConfig* GetAxisConfig(Axis axis) { return &axisConfigs[static_cast<int>(axis)]; }
 	ProcessValues* GetProcessValues(Axis axis) { return &processValues[static_cast<int>(axis)]; }
 
+	uint8_t GetHmiContrast() { return m_hmiContrast; }
+
     //bool Load();
     //bool Save();
 
 private:
     const char* m_filename;
+    uint8_t m_hmiContrast = 15; // HMI brightnesss (1-15)
 
     // Machine configuration values
     AxisConfig axisConfigs[AXIS_COUNT] = {

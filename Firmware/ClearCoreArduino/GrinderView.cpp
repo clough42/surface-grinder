@@ -49,7 +49,7 @@ void GrinderView::Init(IUserActions* controller) {
 
 	// put up the mechanics initialization form
     m_genie.SetForm(HMI::INITMECHANICS::FORM_ID);
-    m_genie.WriteContrast(15);
+    m_genie.WriteContrast(m_config.GetHmiContrast());
 }
 
 void GrinderView::Update() {
