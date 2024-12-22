@@ -36,6 +36,7 @@ public:
         int32_t stepsPerNmDenominator;
         int32_t homingSpeedMmM;
         int32_t jogSpeedMmM;
+        int32_t traverseSpeedMmM;
         int32_t acceleration;
         int64_t homingBackoffNm;
         int64_t totalTravelNm;
@@ -46,10 +47,12 @@ public:
 
     struct ProcessValues {
         int32_t droWorkOffset;
+        int32_t grindSpeedMmM;
         Optional<int32_t> startLimit;
         Optional<int32_t> endLimit;
         Optional<int32_t> safePosition;
         Optional<int32_t> workPosition;
+
     };
 
     Configuration(const char* filename) : m_filename(filename) {};
@@ -70,6 +73,7 @@ private:
             .stepsPerNmDenominator = 130175,
             .homingSpeedMmM = 1000,
             .jogSpeedMmM = 30000,
+            .traverseSpeedMmM = 5000,
             .acceleration = 50000,
             .homingBackoffNm = 5 * 1000 * 1000,
             .totalTravelNm = 482 * 1000 * 1000,
@@ -82,6 +86,7 @@ private:
             .stepsPerNmDenominator = 3175,
             .homingSpeedMmM = 300,
             .jogSpeedMmM = 425,
+            .traverseSpeedMmM = 300,
             .acceleration = 50000,
             .homingBackoffNm = 1 * 1000 * 1000,
             .totalTravelNm = 310 * 1000 * 1000,
@@ -94,6 +99,7 @@ private:
             .stepsPerNmDenominator = 6350,
             .homingSpeedMmM = 1000,
             .jogSpeedMmM = 1800,
+            .traverseSpeedMmM = 1000,
             .acceleration = 50000,
             .homingBackoffNm = 1 * 1000 * 1000,
             .totalTravelNm = 180 * 1000 * 1000,
@@ -106,13 +112,16 @@ private:
     // Optional values are initialized using default constructors
     ProcessValues processValues[AXIS_COUNT] = {
         {
-            .droWorkOffset = 0
+            .droWorkOffset = 0,
+			.grindSpeedMmM = 15240 // 50fpm = 15240mm/min
         },
         {
-            .droWorkOffset = 0
+            .droWorkOffset = 0,
+			.grindSpeedMmM = 0 // do we ever even want to do this?
         },
         {
-            .droWorkOffset = 0
+            .droWorkOffset = 0,
+			.grindSpeedMmM = 100 // very slow; figure out reasonable values later
         }
     };
 
