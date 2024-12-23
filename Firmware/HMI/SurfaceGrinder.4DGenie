@@ -848,7 +848,7 @@ StaticText
     Font.Style                   [Bold]
     Height                       34
     Left                         343
-    Top                          301
+    Top                          300
     Transparent                  Yes
     Width                        120
     WordWrap                     Yes
@@ -920,27 +920,27 @@ end
 UserButton
     Name                         Userbutton22
     Alias                        CycleHomeButton
-    Height                       65
+    Height                       100
     Images                       CycleHome.png\nCycleHomeTouch.png\nCycleHomeSelected.png\nCycleHomeTouch.png
     Left                         479
     Matrix                       2
     Momentary                    On
     Stretch                      No
-    Top                          289
-    Width                        80
+    Top                          268
+    Width                        100
     OnChanged                    'Report Message'
 end
 UserButton
     Name                         Userbutton23
     Alias                        CycleTouchButton
-    Height                       65
+    Height                       100
     Images                       CycleTouch.png\nCycleTouchTouch.png\nCycleTouchSelected.png\nCycleTouchTouch.png
-    Left                         559
+    Left                         590
     Matrix                       2
     Momentary                    No
     Stretch                      No
-    Top                          289
-    Width                        80
+    Top                          268
+    Width                        100
     OnChanged                    'Report Message'
 end
 Rectangle
