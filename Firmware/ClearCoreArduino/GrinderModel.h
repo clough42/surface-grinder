@@ -43,7 +43,7 @@ public:
 
 	bool IsHomed() const;
 
-	bool CycleStart(Mode mode);
+	bool CycleStart(CycleType cycleType);
 
 	bool CycleStop();
 

@@ -56,9 +56,9 @@ void GrinderModel::Update() {
 	}
 }
 
-bool GrinderModel::CycleStart(Mode mode) {
+bool GrinderModel::CycleStart(CycleType cycleType) {
 	//// if a cycle is currently in hold, we should just return to the run state
-	if (m_status == Status::HOLD && m_currentCycle != nullptr && m_currentCycle->IsForMode(mode)) {
+	if (m_status == Status::HOLD && m_currentCycle != nullptr && m_currentCycle->IsType(cycleType)) {
 		m_status = Status::RUN;
 		return true;
 	}
@@ -66,7 +66,7 @@ bool GrinderModel::CycleStart(Mode mode) {
 	// if we're idle, we need to start a new cycle
 	if (m_status == Status::IDLE && m_currentCycle == nullptr) {
 		for (int i = 0; i < m_cycleCount; ++i) {
-			if (m_cycles[i]->IsForMode(mode)) {
+			if (m_cycles[i]->IsType(cycleType)) {
 				m_currentCycle = m_cycles[i];
 				m_currentCycle->Reset();
 				m_status = Status::RUN;
@@ -76,6 +76,7 @@ bool GrinderModel::CycleStart(Mode mode) {
 	}
 
 	// otherwise, there's nothing to do
+	// we might be running, in an error state, etc.
 	return false;
 }
 

@@ -139,6 +139,14 @@ void GrinderController::UpdateLimitDros() {
 	}
 }
 
+void GrinderController::SetCycleType(CycleType cycleType) {
+	if (m_cycleType.Set(cycleType)) {
+		Serial.print("SetCycleType to ");
+		Serial.println(static_cast<int>(m_cycleType.Get()));
+		m_view.SetCycleType(cycleType);
+	}
+}
+
 void GrinderController::EnterEstop() {
 	Serial.println("EnterEstop");
 	m_model.EStop();
@@ -151,7 +159,12 @@ void GrinderController::ClearEstop() {
 
 void GrinderController::CycleStart() {
 	Serial.println("CycleStart");
-	m_model.CycleStart(m_mode.Get());
+
+	switch (m_mode.Get()) {
+	case Mode::SETUP:
+		m_model.CycleStart(m_cycleType.Get());
+		break;
+	}
 }
 
 void GrinderController::CycleStop() {
@@ -226,7 +239,13 @@ void GrinderController::UpdateDROs() {
 }
 
 void GrinderController::UpdateHomed() {
-	m_view.SetIsHomed(m_model.IsHomed());
+	// if the homed state has changed, update the view
+	if (m_isHomed.Set(m_model.IsHomed())) {
+		m_view.SetIsHomed(m_model.IsHomed());
+
+		// if we're homed, move to touchoff, otherwise default to homing
+		SetCycleType(m_isHomed.Get() ? CycleType::TOUCHOFF : CycleType::HOME);
+	}
 }
 
 void GrinderController::UpdateDRO(Axis axis) {

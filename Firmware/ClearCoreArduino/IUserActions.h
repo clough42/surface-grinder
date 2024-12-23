@@ -49,6 +49,7 @@ public:
 	virtual void TraverseToEndPosition(Axis axis) = 0;
 	virtual void TraverseToSafePosition(Axis axis) = 0;
 	virtual void TraverseToWorkPosition(Axis axis) = 0;
+	virtual void SetCycleType(CycleType cycleType) = 0;
 };
 
 #endif // I_USER_ACTIONS_H

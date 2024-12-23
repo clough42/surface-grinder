@@ -52,9 +52,9 @@ namespace Injected {
 	};
 
 	// Cycles
-	CycleHoming homingCycle = CycleHoming(axes);
+	CycleHoming HomingCycle = CycleHoming(axes);
 	Cycle *cycles[] = {
-		&homingCycle
+		&HomingCycle
 	};
 	int cycleCount = sizeof(cycles) / sizeof(cycles[0]);
 

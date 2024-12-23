@@ -25,10 +25,10 @@
 
 class Cycle {
 public:
-	Cycle(Mode forMode) : m_forMode(forMode) {}
+	Cycle(CycleType cycleType) : m_cycleType(cycleType) {}
 
-	bool IsForMode(Mode mode) {
-		return m_forMode == mode;
+	bool IsType(CycleType type) {
+		return m_cycleType == type;
 	}
 
     /// <summary>
@@ -48,7 +48,7 @@ public:
 	virtual bool IsInError() = 0;
 
 private:
-    Mode m_forMode;
+    CycleType m_cycleType;
 
 };
 

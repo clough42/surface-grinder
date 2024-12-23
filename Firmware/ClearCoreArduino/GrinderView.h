@@ -54,6 +54,7 @@ public:
         m_jogResolution(jogResolutionInput),
         m_config(config),
         m_operatingMode(Mode::INIT),
+        m_cycleType(CycleType::HOME),
 		m_isHomed(false),
 		m_axisSwitchPosition(Optional<int>()),
 		m_resolutionSwitchPosition(Optional<int>())
@@ -72,6 +73,7 @@ public:
 	void SetOperatingMode(Mode mode);
     void SetStatus(Status status);
     void SetIsHomed(bool);
+	void SetCycleType(CycleType cycleType);
 
     void HandleHmiEvent(genieFrame& Event);
 
@@ -106,6 +108,7 @@ private:
 
     // previous HMI element values
     TrackedValue<Mode> m_operatingMode;
+    TrackedValue<CycleType> m_cycleType;
     TrackedValue<int32_t> m_droValues[AXIS_COUNT] = { 0, 0, 0 };
     TrackedValue<bool> m_isHomed;
 

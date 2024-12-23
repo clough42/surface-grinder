@@ -31,7 +31,7 @@
 class GrinderController : public IUserActions {
 public:
     GrinderController(GrinderModel& model, GrinderView& view, Configuration& config)
-		: m_model(model), m_view(view), m_config(config), m_mode(Mode::INIT), m_status(Status::IDLE)
+		: m_model(model), m_view(view), m_config(config), m_mode(Mode::INIT), m_status(Status::IDLE), m_cycleType(CycleType::HOME), m_isHomed(false)
     {}
 
     void Init();
@@ -50,6 +50,7 @@ public:
     void SetSafePosition(Axis axis) override;
     void SetWorkPosition(Axis axis) override;
 	void SetOperatingMode(Mode mode) override;
+    void SetCycleType(CycleType cycleType) override;
 	void TraverseToStartPosition(Axis axis) override;
 	void TraverseToEndPosition(Axis axis) override;
 	void TraverseToSafePosition(Axis axis) override;
@@ -71,6 +72,8 @@ private:
     Units m_units = Units::INCHES;
     TrackedValue<Mode> m_mode;
 	TrackedValue<Status> m_status;
+    TrackedValue<CycleType> m_cycleType;
+	TrackedValue<bool> m_isHomed;
 	Optional<Axis> m_selectedAxis;
     Optional<int> m_resolutionSwitchPosition = 0;
     int32_t m_selectedResolution;

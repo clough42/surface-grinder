@@ -64,4 +64,15 @@ enum class Status {
 };
 #define STATUS_COUNT static_cast<int>(Status::COUNT)
 
+enum class CycleType {
+	HOME,		// 0
+	TOUCHOFF,	// 1
+	FLATGRIND,	// 2
+	CYLGRIND,	// 3
+	SIDEGRIND,	// 4
+	DRESS,		// 5
+	COUNT
+};
+#define CYCLETYPE_COUNT static_cast<int>(CycleType::COUNT)
+
 #endif // COMMON_ENUMS_H

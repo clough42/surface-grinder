@@ -195,6 +195,22 @@ void GrinderView::SetOperatingMode(Mode mode) {
 	}
 }
 
+void GrinderView::SetCycleType(CycleType cycleType) {
+	using namespace HMI::SETUPMODE;
+
+	if (m_cycleType.Set(cycleType)) {
+		switch (cycleType) {
+		case CycleType::HOME:
+			m_genie.WriteObject(CycleHomeButton_TYPE, CycleHomeButton_ID, 1);
+			break;
+		case CycleType::TOUCHOFF:
+			m_genie.WriteObject(CycleTouchButton_TYPE, CycleTouchButton_ID, 1);
+			break;
+		}
+	}
+}
+
+
 void GrinderView::SetStatus(Status status) {
 	using namespace HMI::SETUPMODE;
 
@@ -367,6 +383,16 @@ void GrinderView::HandleHmiEvent(genieFrame& Event)
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, ModeDressButton_TYPE, ModeDressButton_ID)) {
 		if (m_controller) m_controller->SetOperatingMode(Mode::DRESS);
+		return;
+	}
+
+	// Cycle Type Selection
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, CycleHomeButton_TYPE, CycleHomeButton_ID)) {
+		if (m_controller) m_controller->SetCycleType(CycleType::HOME);
+		return;
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, CycleTouchButton_TYPE, CycleTouchButton_ID)) {
+		if (m_controller) m_controller->SetCycleType(CycleType::TOUCHOFF);
 		return;
 	}
 

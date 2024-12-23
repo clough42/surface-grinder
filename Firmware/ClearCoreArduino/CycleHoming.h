@@ -38,7 +38,7 @@ public:
 
     // Constructor
 	CycleHoming(MachineAxis* axes) 
-        : m_axes(axes), Cycle(Mode::SETUP), currentState(INITIAL) { }
+        : m_axes(axes), Cycle(CycleType::HOME), currentState(INITIAL) { }
 
 	void Reset() override;
     bool IsInError() override;
