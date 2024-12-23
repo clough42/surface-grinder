@@ -42,7 +42,6 @@ public:
 
 	void Reset() override;
 	bool CanRun() override;
-    bool IsInError() override;
     bool Update() override;
 
 private:
@@ -60,8 +59,6 @@ private:
     void UpdateHomeY();
     void UpdateHomeZ();
     void UpdateHomeX();
-
-    bool m_isInError = false;
 };
 
 #endif // CYCLEHOMING_H

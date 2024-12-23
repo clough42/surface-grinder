@@ -38,6 +38,7 @@ void GrinderController::Update() {
 
 	UpdateDROs();
 	UpdateHomed();
+	UpdateError();
 
 	m_view.Update();
 }
@@ -246,6 +247,10 @@ void GrinderController::UpdateHomed() {
 		// if we're homed, move to touchoff, otherwise default to homing
 		SetCycleType(m_isHomed.Get() ? CycleType::TOUCHOFF : CycleType::HOME);
 	}
+}
+
+void GrinderController::UpdateError() {
+	m_view.DisplayMessage(m_model.Error());
 }
 
 void GrinderController::UpdateDRO(Axis axis) {

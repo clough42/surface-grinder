@@ -23,18 +23,20 @@
 #include <ClearCore.h>
 
 void CycleTouchoff::Reset() {
-    m_isInError = false;
+	Cycle::ClearError();
     currentState = INITIAL;
 }
 
 bool CycleTouchoff::CanRun() {
-    return 
-        m_config.GetProcessValues(Axis::X)->startLimit.HasValue() &&
-        m_config.GetProcessValues(Axis::X)->endLimit.HasValue();
-}
-
-bool CycleTouchoff::IsInError() {
-    return m_isInError;
+	if (! m_axes[AXIS_X].IsHomed()) {
+		Cycle::SetError("HOME machine before running TOUCH-OFF");
+		return false;
+	}
+    if (!m_config.GetProcessValues(Axis::X)->startLimit.HasValue() ||
+        !m_config.GetProcessValues(Axis::X)->endLimit.HasValue()) {
+		Cycle::SetError("X START and END limits not set");
+        return false;
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////
@@ -43,7 +45,6 @@ bool CycleTouchoff::IsInError() {
 
 bool CycleTouchoff::Update() {
 	if (!CanRun()) {
-		m_isInError = true;
 		return false;
 	}
 

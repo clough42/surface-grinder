@@ -22,10 +22,11 @@
 #define CYCLE_H
 
 #include "CommonEnums.h"
+#include "Optional.h"
 
 class Cycle {
 public:
-	Cycle(CycleType cycleType) : m_cycleType(cycleType) {}
+	Cycle(CycleType cycleType) : m_cycleType(cycleType), m_error(Optional<const char*>()) {}
 
 	bool IsType(CycleType type) {
 		return m_cycleType == type;
@@ -45,12 +46,23 @@ public:
     virtual bool Update() = 0;
 
 	/// <summary>
-	/// Returns true if the cycle is in an error state
+	/// Returns an error message if the cycle is in an error state
 	/// </summary>
-	virtual bool IsInError() = 0;
+	virtual Optional<const char*> Error() {
+		return m_error;
+	}
+
+protected:
+	void SetError(const char* message) {
+		m_error = Optional<const char*>(message);
+	}
+	void ClearError() {
+		m_error = Optional<const char*>();
+	}
 
 private:
     CycleType m_cycleType;
+	Optional<const char*> m_error;
 
 };
 

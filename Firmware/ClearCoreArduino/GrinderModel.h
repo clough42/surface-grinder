@@ -29,7 +29,7 @@ class GrinderModel {
 public:
     // Constructor that takes an array of three MachineAxis objects
 	GrinderModel(MachineAxis* axes, Cycle *cycles[], int cycleCount, DigitalInOut& leftLimit, DigitalInOut& rightLimit)
-		: m_axes(axes), m_cycles(cycles), m_cycleCount(cycleCount), m_leftLimit(leftLimit), m_rightLimit(rightLimit) {}
+		: m_axes(axes), m_cycles(cycles), m_cycleCount(cycleCount), m_leftLimit(leftLimit), m_rightLimit(rightLimit), m_error(Optional<const char*>()) {}
 
     // Method to initialize all axes
     void Init();
@@ -55,6 +55,10 @@ public:
 
 	void EStop();
 
+	Optional<const char*> Error() {
+		return m_error;
+	}
+
 private:
 	Status m_status = Status::IDLE;
     MachineAxis *m_axes;
@@ -63,6 +67,8 @@ private:
 	Cycle* m_currentCycle = nullptr;
 	DigitalInOut& m_leftLimit;
 	DigitalInOut& m_rightLimit;
+
+	Optional<const char*> m_error;
 };
 
 #endif // GRINDER_MODEL_H

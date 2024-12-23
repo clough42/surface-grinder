@@ -269,6 +269,10 @@ namespace HMI {
 		constexpr int Rectangle0_TYPE = -1;
 		constexpr int Rectangle0_ID = 0;
 
+		// Strings 0: Message
+		constexpr int Message_TYPE = GENIE_OBJ_STRINGS;
+		constexpr int Message_ID = 0;
+
 	}
 
 	// Form 1: Splash

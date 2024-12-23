@@ -74,6 +74,7 @@ public:
     void SetStatus(Status status);
     void SetIsHomed(bool);
 	void SetCycleType(CycleType cycleType);
+	void DisplayMessage(Optional<const char*> message);
 
     void HandleHmiEvent(genieFrame& Event);
 
@@ -111,6 +112,7 @@ private:
     TrackedValue<CycleType> m_cycleType;
     TrackedValue<int32_t> m_droValues[AXIS_COUNT] = { 0, 0, 0 };
     TrackedValue<bool> m_isHomed;
+	TrackedValue<Optional<const char*>> m_message;
 
     // other software components
     IUserActions* m_controller = nullptr;

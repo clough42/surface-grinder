@@ -137,6 +137,12 @@ void GrinderView::SetIsHomed(bool isHomed) {
 	}
 }
 
+void GrinderView::DisplayMessage(Optional<const char*> message) {
+	if (m_message.Set(message)) {
+		m_genie.WriteStr(HMI::SETUPMODE::Message_ID, message.ValueOr(""));
+	}
+}
+
 void GrinderView::UpdateAxisSelectors() {
     // Check the resolution and axis selectors
     Optional<int> axisSwitchPosition = m_jogAxis.GetSwitchPosition();

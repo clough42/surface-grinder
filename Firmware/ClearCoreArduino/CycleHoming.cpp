@@ -23,12 +23,8 @@
 #include <ClearCore.h>
 
 void CycleHoming::Reset() {
-    m_isInError = false;
+	Cycle::ClearError();
     currentState = INITIAL;
-}
-
-bool CycleHoming::IsInError() {
-    return m_isInError;
 }
 
 bool CycleHoming::CanRun() {

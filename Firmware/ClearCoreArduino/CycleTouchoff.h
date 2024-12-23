@@ -40,7 +40,6 @@ public:
 
     void Reset() override;
 	bool CanRun() override;
-    bool IsInError() override;
     bool Update() override;
 
 private:
@@ -56,8 +55,6 @@ private:
     void UpdateInitial();
     void UpdateMoveToXStartLimit();
     void UpdateMoveToXEndLimit();
-
-    bool m_isInError = false;
 };
 
 #endif // CYCLETOUCHOFF_H

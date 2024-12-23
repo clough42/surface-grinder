@@ -26,6 +26,7 @@ void GrinderModel::Init() {
 	m_rightLimit.Mode(Connector::INPUT_DIGITAL);
 	m_currentCycle = nullptr;
 	m_status = Status::IDLE;
+	m_error = Optional<const char*>();
 
 	MotorMgr.MotorInputClocking(MotorManager::CLOCK_RATE_NORMAL);
 	MotorMgr.MotorModeSet(MotorManager::MOTOR_ALL, Connector::CPM_MODE_STEP_AND_DIR);
@@ -49,6 +50,7 @@ void GrinderModel::Update() {
 	// run the cycle, if one is in progress
 	if (m_status == Status::RUN && m_currentCycle != nullptr) {
 		bool moreToDo = m_currentCycle->Update();
+		m_error = m_currentCycle->Error(); // capture the error, if any
 		if (!moreToDo) {
 			m_status = Status::IDLE;
 			m_currentCycle = nullptr;

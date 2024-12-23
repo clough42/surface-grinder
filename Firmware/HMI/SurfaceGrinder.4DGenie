@@ -956,6 +956,28 @@ Rectangle
     Top                          318
     Width                        50
 end
+Strings
+    Name                         Strings0
+    Alias                        Message
+    Alignment                    Left
+    BGcolor                      BLACK
+    Height                       24
+    FGcolor                      WHITE
+    Font.Bold                    No
+    Font.CharSet                 ANSI
+    Font.Italic                  No
+    Font.Name                    '4D Font3 (8x12)'
+    Font.Opaque                  Yes
+    Font.Size                    -12
+    Font.Strikethrough           No
+    Font.Underline               No
+    Left                         2
+    Strings                      ''
+    StringsStyle                 Book
+    Top                          2
+    Width                        350
+    OnChanged                    ''
+end
 Form
     Name                         Form1
     Alias                        Splash
