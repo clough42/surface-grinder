@@ -52,7 +52,7 @@ public:
 		return m_error;
 	}
 
-	virtual bool AllowJog(Axis axis) const {
+	virtual bool AllowJog(Axis axis, int32_t nanometers) const {
 		return false; // Default is to not allow jogging while this cycle is running
 	}
 

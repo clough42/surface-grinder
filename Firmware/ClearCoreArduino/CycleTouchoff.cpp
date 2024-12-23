@@ -39,9 +39,14 @@ bool CycleTouchoff::CanRun() {
     }
 }
 
-bool CycleTouchoff::AllowJog(Axis axis) const {
-    // allow jogging in Y to touch off, and Z to work across the workpiece
-    return axis == Axis::Y || axis == Axis::Z;
+bool CycleTouchoff::AllowJog(Axis axis, int32_t nanometers) const {
+    // allow jogging in Z
+    if (axis == Axis::Z) return true;
+
+    // allow only fine jogging in Y
+	if (axis == Axis::Y && nanometers <= 2540) return true;
+
+    return false;
 }
 
 /////////////////////////////////////////////////////////////////////////

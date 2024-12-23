@@ -59,7 +59,7 @@ public:
 		return m_error;
 	}
 
-	bool AllowJog(Axis axis) const;
+	bool AllowJog(Axis axis, int32_t nanometers) const;
 
 private:
 	Status m_status = Status::IDLE;

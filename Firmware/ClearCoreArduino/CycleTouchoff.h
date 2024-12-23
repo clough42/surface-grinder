@@ -41,7 +41,7 @@ public:
     void Reset() override;
 	bool CanRun() override;
     bool Update() override;
-	bool AllowJog(Axis axis) const override;
+	bool AllowJog(Axis axis, int32_t nanometers) const override;
 
 private:
     TouchoffState currentState;

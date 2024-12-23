@@ -91,8 +91,10 @@ void GrinderController::UpdateResolutionAndAxisIndicators() {
 
 	m_selectedResolution = resolution;
 
+	// check to make sure jogging is allowed by the model/cycle
 	Optional<Axis> axis = m_selectedAxis;
-	if (axis.HasValue() && !m_model.AllowJog(axis.Value())) {
+	if (axis.HasValue() &&
+		!m_model.AllowJog(axis.Value(), ConvertToNm(m_selectedResolution)) ) {
 		axis = Optional<Axis>();
 	}
 
@@ -102,8 +104,9 @@ void GrinderController::UpdateResolutionAndAxisIndicators() {
 void GrinderController::Jog(int32_t clicks) {
 	Serial.println("Jog");
 
-	if (m_selectedAxis.HasValue()) {
-		int32_t nanometers = ConvertToNm(clicks * m_selectedResolution);
+	int32_t nmPerClick = ConvertToNm(m_selectedResolution);
+	if (m_selectedAxis.HasValue() && m_model.AllowJog(m_selectedAxis.Value(), nmPerClick)) {
+		int32_t nanometers = clicks * nmPerClick;
 		m_model.JogAxisNm(m_selectedAxis, nanometers);
 	}
 }
