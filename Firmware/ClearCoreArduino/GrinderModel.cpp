@@ -116,7 +116,7 @@ void GrinderModel::JogAxisNm(Axis axis, int32_t distanceInNanometers) {
 	}
 }
 
-void GrinderModel::MoveAxisToPosition(Axis axis, int32_t positionInNanometers) {
+void GrinderModel::MoveToPosition(Axis axis, int32_t positionInNanometers) {
 	if (m_status == Status::IDLE) {
 		m_axes[static_cast<int>(axis)].MoveToPositionNm(positionInNanometers);
 	}

@@ -176,7 +176,7 @@ void GrinderController::TraverseToStartPosition(Axis axis) {
 	Serial.println("TraverseToStartPosition");
 	Optional<int32_t> target = m_config.GetProcessValues(axis)->startLimit;
 	if (target.HasValue()) {
-		m_model.MoveAxisToPosition(axis, target.Value());
+		m_model.MoveToPosition(axis, target.Value());
 	}
 }
 
@@ -184,7 +184,7 @@ void GrinderController::TraverseToEndPosition(Axis axis) {
 	Serial.println("TraverseToEndPosition");
 	Optional<int32_t> target = m_config.GetProcessValues(axis)->endLimit;
 	if (target.HasValue()) {
-		m_model.MoveAxisToPosition(axis, target.Value());
+		m_model.MoveToPosition(axis, target.Value());
 	}
 }
 
@@ -192,7 +192,7 @@ void GrinderController::TraverseToSafePosition(Axis axis) {
 	Serial.println("TraverseToSafePosition");
 	Optional<int32_t> target = m_config.GetProcessValues(axis)->safePosition;
 	if (target.HasValue()) {
-		m_model.MoveAxisToPosition(axis, target.Value());
+		m_model.MoveToPosition(axis, target.Value());
 	}
 }
 
@@ -200,7 +200,7 @@ void GrinderController::TraverseToWorkPosition(Axis axis) {
 	Serial.println("TraverseToWorkPosition");
 	Optional<int32_t> target = m_config.GetProcessValues(axis)->workPosition;
 	if (target.HasValue()) {
-		m_model.MoveAxisToPosition(axis, target.Value());
+		m_model.MoveToPosition(axis, target.Value());
 	}
 }
 

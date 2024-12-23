@@ -34,6 +34,7 @@
 #include "GrinderController.h"
 #include "CommonEnums.h"
 #include "CycleHoming.h"
+#include "CycleTouchoff.h"
 #include "Assert.h"
 
 // Dependency Injection
@@ -53,8 +54,10 @@ namespace Injected {
 
 	// Cycles
 	CycleHoming HomingCycle = CycleHoming(axes);
+	CycleTouchoff TouchoffCycle = CycleTouchoff(axes, Config);
 	Cycle *cycles[] = {
-		&HomingCycle
+		&HomingCycle,
+		&TouchoffCycle
 	};
 	int cycleCount = sizeof(cycles) / sizeof(cycles[0]);
 

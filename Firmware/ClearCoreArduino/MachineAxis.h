@@ -39,10 +39,12 @@ public:
         m_positionLimiter(0,0) {}
 
     void Init();
-    void MoveToPositionNm(int32_t positionInNanometers);
+	void MoveToPositionNm(int32_t positionInNanometers);
+    void MoveToPositionNm(int32_t positionInNanometers, int32_t speedMmM);
 	void JogNm(int32_t distanceInNanometers);
     int32_t GetCurrentPositionNm() const;
     int32_t GetLastCommandedPositionNm() const;
+    bool MoveComplete();
     bool IsInError() const;
     
     // homing

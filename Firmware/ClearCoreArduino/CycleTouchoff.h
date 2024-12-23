@@ -18,40 +18,46 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef CYCLE_H
-#define CYCLE_H
+#ifndef CYCLETOUCHOFF_H
+#define CYCLETOUCHOFF_H
 
-#include "CommonEnums.h"
+#include <Arduino.h>
+#include "Cycle.h"
+#include "MachineAxis.h"
 
-class Cycle {
+class CycleTouchoff : public Cycle {
 public:
-	Cycle(CycleType cycleType) : m_cycleType(cycleType) {}
+    // Define the states of the state machine
+    enum TouchoffState {
+        INITIAL,
+        MOVE_TO_X_START_LIMIT,
+        MOVE_TO_X_END_LIMIT
+    };
 
-	bool IsType(CycleType type) {
-		return m_cycleType == type;
-	}
+    // Constructor
+    CycleTouchoff(MachineAxis* axes, Configuration& config)
+        : Cycle(CycleType::TOUCHOFF), m_axes(axes), m_config(config), currentState(INITIAL) { }
 
-	virtual bool CanRun() = 0;
-
-    /// <summary>
-    /// Reset the cycle and get it ready to start again
-    /// </summary>
-    virtual void Reset() = 0;
-
-    /// <summary>
-	/// Call repeatedly to perform the cycle's operation
-    /// </summary>
-    /// <returns>true if more steps remain (cycle is not done)</returns>
-    virtual bool Update() = 0;
-
-	/// <summary>
-	/// Returns true if the cycle is in an error state
-	/// </summary>
-	virtual bool IsInError() = 0;
+    void Reset() override;
+	bool CanRun() override;
+    bool IsInError() override;
+    bool Update() override;
 
 private:
-    CycleType m_cycleType;
+    TouchoffState currentState;
+    MachineAxis* m_axes;
+	Configuration& m_config;
 
+    // Transition methods for each state
+	void TransitionToMoveToXStartLimit();
+    void TransitionToMoveToXEndLimit();
+
+    // Update methods for each state
+    void UpdateInitial();
+    void UpdateMoveToXStartLimit();
+    void UpdateMoveToXEndLimit();
+
+    bool m_isInError = false;
 };
 
-#endif // CYCLE_H
+#endif // CYCLETOUCHOFF_H

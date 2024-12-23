@@ -51,7 +51,7 @@ public:
 
 	void JogAxisNm(Axis axis, int32_t distanceInNanometers);
 
-	void MoveAxisToPosition(Axis axis, int32_t positionInNanometers);
+	void MoveToPosition(Axis axis, int32_t positionInNanometers);
 
 	void EStop();
 

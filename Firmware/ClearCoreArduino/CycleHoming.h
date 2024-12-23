@@ -41,6 +41,7 @@ public:
         : m_axes(axes), Cycle(CycleType::HOME), currentState(INITIAL) { }
 
 	void Reset() override;
+	bool CanRun() override;
     bool IsInError() override;
     bool Update() override;
 

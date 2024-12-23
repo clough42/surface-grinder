@@ -64,11 +64,20 @@ void MachineAxis::Init() {
 }
 
 void MachineAxis::MoveToPositionNm(int32_t positionInNanometers) {
+	MoveToPositionNm(positionInNanometers, m_axisConfig->traverseSpeedMmM);
+}
+
+void MachineAxis::MoveToPositionNm(int32_t positionInNanometers, int32_t speedMmM) {
 	if (m_isHomed) {
 		positionInNanometers = m_positionLimiter.Clamp(positionInNanometers);	
 	}
+	m_motor.VelMax(CalculateVelocity(speedMmM));
     m_motor.Move(CalculateMotorStepsDirectional(positionInNanometers), StepGenerator::MOVE_TARGET_ABSOLUTE);
     m_lastCommandedPosition = positionInNanometers;
+}
+
+bool MachineAxis::MoveComplete() {
+	return m_motor.StepsComplete() && HlfbAsserted();
 }
 
 /// <summary>
@@ -93,8 +102,7 @@ int32_t MachineAxis::CalculateMotorStepsDirectional(int64_t positionInNanometers
 
 void MachineAxis::JogNm(int32_t distanceInNanometers)
 {
-	m_motor.VelMax(CalculateVelocity(m_axisConfig->jogSpeedMmM));
-	MoveToPositionNm(m_lastCommandedPosition + distanceInNanometers);
+	MoveToPositionNm(m_lastCommandedPosition + distanceInNanometers, m_axisConfig->jogSpeedMmM);
 }
 
 int32_t MachineAxis::GetCurrentPositionNm() const {
