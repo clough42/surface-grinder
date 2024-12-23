@@ -39,14 +39,15 @@ def generate_control_type(control_type):
     string_map = {
         "iLedDigits": "GENIE_OBJ_ILED_DIGITS",
         "StaticText": "GENIE_OBJ_STATIC_TEXT",
-        "Line": "-1" # Not supported
+        "Line": "-1", # Not supported
+        "Rectangle": "-1" # Not supported
     }
     return string_map.get(control_type, f"GENIE_OBJ_{control_type.upper()}")
 
 def generate_cpp_header(controls, output_path):
     with open(output_path, 'w') as file:
         file.write(
-"""// Copyright (c) 2004 James Clough (Clough42, LLC)
+"""// Copyright (c) 2024 James Clough (Clough42, LLC)
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal

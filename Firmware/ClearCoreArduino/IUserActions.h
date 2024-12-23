@@ -1,4 +1,4 @@
-// Copyright (c) 2004 James Clough (Clough42, LLC)
+// Copyright (c) 2024 James Clough (Clough42, LLC)
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,10 @@ public:
 	virtual void SetSafePosition(Axis axis) = 0;
 	virtual void SetWorkPosition(Axis axis) = 0;
 	virtual void SetOperatingMode(Mode mode) = 0;
+	virtual void TraverseToStartPosition(Axis axis) = 0;
+	virtual void TraverseToEndPosition(Axis axis) = 0;
+	virtual void TraverseToSafePosition(Axis axis) = 0;
+	virtual void TraverseToWorkPosition(Axis axis) = 0;
 };
 
 #endif // I_USER_ACTIONS_H

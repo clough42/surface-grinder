@@ -1,4 +1,4 @@
-// Copyright (c) 2004 James Clough (Clough42, LLC)
+// Copyright (c) 2024 James Clough (Clough42, LLC)
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -158,6 +158,39 @@ void GrinderController::CycleStop() {
 	Serial.println("CycleStop");
 	m_model.CycleStop();
 }
+
+void GrinderController::TraverseToStartPosition(Axis axis) {
+	Serial.println("TraverseToStartPosition");
+	Optional<int32_t> target = m_config.GetProcessValues(axis)->startLimit;
+	if (target.HasValue()) {
+		m_model.MoveAxisToPosition(axis, target.Value());
+	}
+}
+
+void GrinderController::TraverseToEndPosition(Axis axis) {
+	Serial.println("TraverseToEndPosition");
+	Optional<int32_t> target = m_config.GetProcessValues(axis)->endLimit;
+	if (target.HasValue()) {
+		m_model.MoveAxisToPosition(axis, target.Value());
+	}
+}
+
+void GrinderController::TraverseToSafePosition(Axis axis) {
+	Serial.println("TraverseToSafePosition");
+	Optional<int32_t> target = m_config.GetProcessValues(axis)->safePosition;
+	if (target.HasValue()) {
+		m_model.MoveAxisToPosition(axis, target.Value());
+	}
+}
+
+void GrinderController::TraverseToWorkPosition(Axis axis) {
+	Serial.println("TraverseToWorkPosition");
+	Optional<int32_t> target = m_config.GetProcessValues(axis)->workPosition;
+	if (target.HasValue()) {
+		m_model.MoveAxisToPosition(axis, target.Value());
+	}
+}
+
 
 int32_t GrinderController::ConvertToNm(int32_t units) {
 	switch (m_units) {

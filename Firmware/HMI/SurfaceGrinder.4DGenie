@@ -839,7 +839,7 @@ StaticText
     Alias                        Statictext4
     Alignment                    Center
     AutoSize                     Yes
-    Caption                      'Press RUN to HOME'
+    Caption                      'Press RUN to:'
     Color                        BLACK
     Font.Color                   WHITE
     Font.Effects                 []
@@ -847,11 +847,114 @@ StaticText
     Font.Size                    20
     Font.Style                   [Bold]
     Height                       34
-    Left                         128
-    Top                          356
+    Left                         343
+    Top                          301
     Transparent                  Yes
-    Width                        200
+    Width                        120
     WordWrap                     Yes
+end
+StaticText
+    Name                         Statictext7
+    Alias                        Statictext7
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      SAFE
+    Color                        BLACK
+    Font.Color                   SILVER
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    18
+    Font.Style                   [Bold]
+    Height                       30
+    Left                         182
+    Top                          287
+    Transparent                  Yes
+    Width                        50
+    WordWrap                     Yes
+end
+StaticText
+    Name                         Statictext8
+    Alias                        Statictext8
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      WORK
+    Color                        BLACK
+    Font.Color                   SILVER
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    17
+    Font.Style                   [Bold]
+    Height                       40
+    Left                         182
+    Top                          319
+    Transparent                  Yes
+    Width                        50
+    WordWrap                     Yes
+end
+UserButton
+    Name                         Userbutton20
+    Alias                        GoSafeButton
+    Height                       50
+    Images                       TriangleUp.png\nTriangleUpTouch.png
+    Left                         182
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          243
+    Width                        50
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton21
+    Alias                        GoWorkButton
+    Height                       50
+    Images                       TriangleDown.png\nTriangleDownTouch.png
+    Left                         182
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          343
+    Width                        50
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton22
+    Alias                        CycleHomeButton
+    Height                       65
+    Images                       CycleHome.png\nCycleHomeTouch.png\nCycleHomeSelected.png\nCycleHomeTouch.png
+    Left                         479
+    Matrix                       2
+    Momentary                    On
+    Stretch                      No
+    Top                          289
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton23
+    Alias                        CycleTouchButton
+    Height                       65
+    Images                       CycleTouch.png\nCycleTouchTouch.png\nCycleTouchSelected.png\nCycleTouchTouch.png
+    Left                         559
+    Matrix                       2
+    Momentary                    No
+    Stretch                      No
+    Top                          289
+    Width                        80
+    OnChanged                    'Report Message'
+end
+Rectangle
+    Name                         Rectangle0
+    Alias                        Rectangle0
+    Color                        SILVER
+    Filled                       Yes
+    Height                       1
+    Left                         182
+    Outlined                     No
+    OutlineColor                 WHITE
+    Pattern                      Fine
+    Top                          318
+    Width                        50
 end
 Form
     Name                         Form1

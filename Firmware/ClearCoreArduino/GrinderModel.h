@@ -1,4 +1,4 @@
-// Copyright (c) 2004 James Clough (Clough42, LLC)
+// Copyright (c) 2024 James Clough (Clough42, LLC)
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,8 @@ public:
 	int32_t GetCurrentPositionNm(Axis axis) const;
 
 	void JogAxisNm(Axis axis, int32_t distanceInNanometers);
+
+	void MoveAxisToPosition(Axis axis, int32_t positionInNanometers);
 
 	void EStop();
 

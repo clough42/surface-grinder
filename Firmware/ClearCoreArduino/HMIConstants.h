@@ -1,4 +1,4 @@
-// Copyright (c) 2004 James Clough (Clough42, LLC)
+// Copyright (c) 2024 James Clough (Clough42, LLC)
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -240,6 +240,34 @@ namespace HMI {
 		// StaticText 4: Statictext4
 		constexpr int Statictext4_TYPE = GENIE_OBJ_STATIC_TEXT;
 		constexpr int Statictext4_ID = 4;
+
+		// StaticText 7: Statictext7
+		constexpr int Statictext7_TYPE = GENIE_OBJ_STATIC_TEXT;
+		constexpr int Statictext7_ID = 7;
+
+		// StaticText 8: Statictext8
+		constexpr int Statictext8_TYPE = GENIE_OBJ_STATIC_TEXT;
+		constexpr int Statictext8_ID = 8;
+
+		// UserButton 20: GoSafeButton
+		constexpr int GoSafeButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int GoSafeButton_ID = 20;
+
+		// UserButton 21: GoWorkButton
+		constexpr int GoWorkButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int GoWorkButton_ID = 21;
+
+		// UserButton 22: CycleHomeButton
+		constexpr int CycleHomeButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int CycleHomeButton_ID = 22;
+
+		// UserButton 23: CycleTouchButton
+		constexpr int CycleTouchButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int CycleTouchButton_ID = 23;
+
+		// Rectangle 0: Rectangle0
+		constexpr int Rectangle0_TYPE = -1;
+		constexpr int Rectangle0_ID = 0;
 
 	}
 

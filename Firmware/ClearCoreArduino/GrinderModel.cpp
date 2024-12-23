@@ -1,4 +1,4 @@
-// Copyright (c) 2004 James Clough (Clough42, LLC)
+// Copyright (c) 2024 James Clough (Clough42, LLC)
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -112,6 +112,12 @@ bool GrinderModel::IsHomed() const {
 void GrinderModel::JogAxisNm(Axis axis, int32_t distanceInNanometers) {
 	if (m_status == Status::IDLE) {
 		m_axes[static_cast<int>(axis)].JogNm(distanceInNanometers);
+	}
+}
+
+void GrinderModel::MoveAxisToPosition(Axis axis, int32_t positionInNanometers) {
+	if (m_status == Status::IDLE) {
+		m_axes[static_cast<int>(axis)].MoveToPositionNm(positionInNanometers);
 	}
 }
 

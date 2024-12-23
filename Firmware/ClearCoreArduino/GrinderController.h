@@ -1,4 +1,4 @@
-// Copyright (c) 2004 James Clough (Clough42, LLC)
+// Copyright (c) 2024 James Clough (Clough42, LLC)
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,10 @@ public:
     void SetSafePosition(Axis axis) override;
     void SetWorkPosition(Axis axis) override;
 	void SetOperatingMode(Mode mode) override;
+	void TraverseToStartPosition(Axis axis) override;
+	void TraverseToEndPosition(Axis axis) override;
+	void TraverseToSafePosition(Axis axis) override;
+	void TraverseToWorkPosition(Axis axis) override;    
 
 private:
     void UpdateDROs();

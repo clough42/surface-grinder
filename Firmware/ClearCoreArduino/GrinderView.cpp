@@ -1,4 +1,4 @@
-// Copyright (c) 2004 James Clough (Clough42, LLC)
+// Copyright (c) 2024 James Clough (Clough42, LLC)
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -300,6 +300,38 @@ void GrinderView::HandleHmiEvent(genieFrame& Event)
 			m_controller->SetWorkPosition(Axis::Y);
 		}
 		return;
+	}
+
+	// Respond to Go Right/Left/Up/Down buttons
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoUpButton_TYPE, GoUpButton_ID)) {
+		if (m_controller) {
+			m_controller->TraverseToStartPosition(Axis::Z);
+		}
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoDownButton_TYPE, GoDownButton_ID)) {
+		if (m_controller) {
+			m_controller->TraverseToEndPosition(Axis::Z);
+		}
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoLeftButton_TYPE, GoLeftButton_ID)) {
+		if (m_controller) {
+			m_controller->TraverseToStartPosition(Axis::X);
+		}
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoRightButton_TYPE, GoRightButton_ID)) {
+		if (m_controller) {
+			m_controller->TraverseToEndPosition(Axis::X);
+		}
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoSafeButton_TYPE, GoSafeButton_ID)) {
+		if (m_controller) {
+			m_controller->TraverseToSafePosition(Axis::Y);
+		}
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoWorkButton_TYPE, GoWorkButton_ID)) {
+		if (m_controller) {
+			m_controller->TraverseToWorkPosition(Axis::Y);
+		}
 	}
 
     // Unit Selection
