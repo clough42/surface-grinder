@@ -27,6 +27,10 @@ void CycleTouchoff::Reset() {
     currentState = INITIAL;
 }
 
+void CycleTouchoff::Cancel() {
+    m_axes[AXIS_X].Stop();
+}
+
 bool CycleTouchoff::CanRun() {
 	if (! m_axes[AXIS_X].IsHomed()) {
 		Cycle::SetError("HOME machine before running TOUCH-OFF");

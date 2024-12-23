@@ -19,12 +19,19 @@
 // THE SOFTWARE.
 
 #include "CycleHoming.h"
+#include "CommonEnums.h"
 
 #include <ClearCore.h>
 
 void CycleHoming::Reset() {
-	Cycle::ClearError();
+    Cycle::ClearError();
     currentState = INITIAL;
+}
+
+void CycleHoming::Cancel() {
+	for (int i = 0; i < AXIS_COUNT; i++) {
+		m_axes[i].Stop();
+	}
 }
 
 bool CycleHoming::CanRun() {

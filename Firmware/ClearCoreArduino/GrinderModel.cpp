@@ -91,6 +91,7 @@ bool GrinderModel::CycleStop() {
 
 	// if a cycle is currently in hold, we should terminate it
 	if (m_status == Status::HOLD && m_currentCycle != nullptr) {
+		m_currentCycle->Cancel();
 		m_status = Status::IDLE;
 		m_currentCycle->Reset();
 		m_currentCycle = nullptr;

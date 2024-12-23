@@ -76,6 +76,10 @@ void MachineAxis::MoveToPositionNm(int32_t positionInNanometers, int32_t speedMm
     m_lastCommandedPosition = positionInNanometers;
 }
 
+void MachineAxis::Stop() {
+	m_motor.MoveStopDecel();
+}
+
 bool MachineAxis::MoveComplete() {
 	return m_motor.StepsComplete() && HlfbAsserted();
 }

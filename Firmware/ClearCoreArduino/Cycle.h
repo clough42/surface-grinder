@@ -46,6 +46,11 @@ public:
     virtual bool Update() = 0;
 
 	/// <summary>
+	/// Stop all motion and cancel the cycle
+	/// </summary>
+	virtual void Cancel() = 0;
+
+	/// <summary>
 	/// Returns an error message if the cycle is in an error state
 	/// </summary>
 	virtual Optional<const char*> Error() {

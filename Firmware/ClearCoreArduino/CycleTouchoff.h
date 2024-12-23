@@ -41,6 +41,7 @@ public:
     void Reset() override;
 	bool CanRun() override;
     bool Update() override;
+    void Cancel() override;
 	bool AllowJog(Axis axis, int32_t nanometers) const override;
 
 private:
