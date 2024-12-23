@@ -34,6 +34,7 @@ void GrinderController::Update() {
 	m_model.Update();
 	if (m_status.Set(m_model.GetStatus())) {
 		m_view.SetStatus(m_status.Get());
+		UpdateResolutionAndAxisIndicators(); // update if state changes
 	}
 
 	UpdateDROs();
@@ -62,7 +63,7 @@ void GrinderController::SetOperatingMode(Mode mode) {
 void GrinderController::SelectAxis(Optional<Axis> selectedAxis, Optional<int> resolutionSwitchPosition) {
 	Serial.println("SelectAxis");
 
-    m_selectedAxis = selectedAxis;
+	m_selectedAxis = selectedAxis;
 	m_resolutionSwitchPosition = resolutionSwitchPosition;
 	UpdateResolutionAndAxisIndicators();
 }
@@ -90,7 +91,12 @@ void GrinderController::UpdateResolutionAndAxisIndicators() {
 
 	m_selectedResolution = resolution;
 
-	m_view.SetAxisIndicators(m_selectedAxis, m_selectedResolution);
+	Optional<Axis> axis = m_selectedAxis;
+	if (axis.HasValue() && !m_model.AllowJog(axis.Value())) {
+		axis = Optional<Axis>();
+	}
+
+	m_view.SetAxisIndicators(axis, m_selectedResolution);
 }
 
 void GrinderController::Jog(int32_t clicks) {

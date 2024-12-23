@@ -39,6 +39,11 @@ bool CycleTouchoff::CanRun() {
     }
 }
 
+bool CycleTouchoff::AllowJog(Axis axis) const {
+    // allow jogging in Y to touch off, and Z to work across the workpiece
+    return axis == Axis::Y || axis == Axis::Z;
+}
+
 /////////////////////////////////////////////////////////////////////////
 // STATE MACHINE
 /////////////////////////////////////////////////////////////////////////

@@ -52,6 +52,10 @@ public:
 		return m_error;
 	}
 
+	virtual bool AllowJog(Axis axis) const {
+		return false; // Default is to not allow jogging while this cycle is running
+	}
+
 protected:
 	void SetError(const char* message) {
 		m_error = Optional<const char*>(message);

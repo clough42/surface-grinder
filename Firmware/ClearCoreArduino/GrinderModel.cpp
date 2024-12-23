@@ -112,8 +112,23 @@ bool GrinderModel::IsHomed() const {
 	return true;
 }
 
-void GrinderModel::JogAxisNm(Axis axis, int32_t distanceInNanometers) {
+bool GrinderModel::AllowJog(Axis axis) const {
+	// can jog if we're idle
 	if (m_status == Status::IDLE) {
+		return true;
+	}
+
+	// during a cycle, ask the cycle if it's okay to jog
+	if (m_currentCycle != nullptr) {
+		return m_currentCycle->AllowJog(axis);
+	}
+
+	// otherwise, no
+	return false;
+}
+
+void GrinderModel::JogAxisNm(Axis axis, int32_t distanceInNanometers) {
+	if (AllowJog(axis)) {
 		m_axes[static_cast<int>(axis)].JogNm(distanceInNanometers);
 	}
 }

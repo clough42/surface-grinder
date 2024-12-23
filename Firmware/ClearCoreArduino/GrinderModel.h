@@ -59,6 +59,8 @@ public:
 		return m_error;
 	}
 
+	bool AllowJog(Axis axis) const;
+
 private:
 	Status m_status = Status::IDLE;
     MachineAxis *m_axes;
