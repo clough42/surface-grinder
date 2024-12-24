@@ -42,6 +42,7 @@ void GrinderView::Init(IUserActions* controller) {
     ConnectorCOM1.RtsMode(SerialBase::LINE_OFF);
     delay(5000); // let the HMI boot after resetting and show the splash screen before trying to talk to it
 
+	//m_genie.AttachDebugStream(Serial);
     while(!m_genie.Begin(m_hmiSerial));
     while (!m_genie.IsOnline()) delay(100);
 
