@@ -59,8 +59,14 @@ void GrinderModel::Update() {
 }
 
 bool GrinderModel::CycleStart(CycleType cycleType) {
-	//// if a cycle is currently in hold, we should just return to the run state
-	if (m_status == Status::HOLD && m_currentCycle != nullptr && m_currentCycle->IsType(cycleType)) {
+	// if a cycle is currently running, we should hold it
+	if (m_status == Status::RUN && m_currentCycle != nullptr) {
+		m_status = Status::HOLD;
+		return true;
+	}
+
+	// if a cycle is currently in hold, we should just return to the run state
+	if (m_status == Status::HOLD && m_currentCycle != nullptr) {
 		m_status = Status::RUN;
 		return true;
 	}
@@ -83,14 +89,8 @@ bool GrinderModel::CycleStart(CycleType cycleType) {
 }
 
 bool GrinderModel::CycleStop() {
-	//// if a cycle is currently running, we should hold it
-	if (m_status == Status::RUN && m_currentCycle != nullptr) {
-		m_status = Status::HOLD;
-		return true;
-	}
-
 	// if a cycle is currently in hold, we should terminate it
-	if (m_status == Status::HOLD && m_currentCycle != nullptr) {
+	if ((m_status == Status::RUN || m_status == Status::HOLD) && m_currentCycle != nullptr) {
 		m_currentCycle->Cancel();
 		m_status = Status::IDLE;
 		m_currentCycle->Reset();
