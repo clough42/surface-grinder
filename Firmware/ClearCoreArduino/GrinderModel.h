@@ -48,6 +48,8 @@ public:
 	bool CycleStop();
 
 	int32_t GetCurrentPositionNm(Axis axis) const;
+	int32_t GetLastCommandedPositionNm(Axis axis) const;
+	int32_t QuantizePositionNm(Axis axis, int32_t positionInNanometers) const;
 
 	void JogAxisNm(Axis axis, int32_t distanceInNanometers);
 

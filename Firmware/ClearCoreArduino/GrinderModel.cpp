@@ -104,6 +104,14 @@ int32_t GrinderModel::GetCurrentPositionNm(Axis axis) const {
 	return m_axes[static_cast<int>(axis)].GetCurrentPositionNm();
 }
 
+int32_t GrinderModel::GetLastCommandedPositionNm(Axis axis) const {
+	return m_axes[static_cast<int>(axis)].GetLastCommandedPositionNm();
+}
+
+int32_t GrinderModel::QuantizePositionNm(Axis axis, int32_t positionInNanometers) const {
+	return m_axes[static_cast<int>(axis)].QuantizePositionNm(positionInNanometers);
+}
+
 bool GrinderModel::IsHomed() const {
 	for (int i = 0; i < AXIS_COUNT; ++i) {
 		if (!m_axes[i].IsHomed()) {

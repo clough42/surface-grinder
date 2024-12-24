@@ -100,6 +100,7 @@ private:
 	void WriteSafeDroValue(Axis axis);
 	void WriteWorkDroValue(Axis axis);
 
+    // Write all of the common values when switching forms
     void WriteCommonValues();
 
     void UpdateAxisSelectors();

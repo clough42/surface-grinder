@@ -45,6 +45,7 @@ public:
     void Stop();
     int32_t GetCurrentPositionNm() const;
     int32_t GetLastCommandedPositionNm() const;
+	int32_t QuantizePositionNm(int32_t positionInNanometers) const;
     bool MoveComplete();
     bool IsInError() const;
     

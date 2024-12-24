@@ -162,6 +162,8 @@ void GrinderView::WriteSafeDroValue(Axis axis) {
 }
 
 void GrinderView::SetWorkDroValue(Axis axis, Optional<int32_t> unitsValue) {
+	Serial.print("SetWorkDroValue: ");
+	Serial.println(static_cast<int>(axis));
 	if (m_workDroValues[static_cast<int>(axis)].Set(unitsValue)) {
 		WriteWorkDroValue(axis);
 	}

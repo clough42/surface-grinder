@@ -66,7 +66,7 @@ private:
 
     int32_t ConvertToNm(int32_t units); // convert from (units * 2^5)
 	int32_t ConvertToUnits(int32_t nanometers); // convert to (units * 2^5)
-    Optional<int32_t> ApplyOffsetAndConvertToUnits(Optional<int32_t> value, int32_t offset);
+    Optional<int32_t> ApplyOffsetAndConvertToUnits(Optional<int32_t> value, int32_t offset, Axis axis);
 
     GrinderModel& m_model;
     GrinderView& m_view;

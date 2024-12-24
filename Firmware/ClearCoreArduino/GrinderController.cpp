@@ -114,28 +114,28 @@ void GrinderController::Jog(int32_t clicks) {
 void GrinderController::SetStartLimit(Axis axis) {
 	Serial.println("SetStartLimit");
 
-	m_config.GetProcessValues(axis)->startLimit = m_model.GetCurrentPositionNm(axis);
+	m_config.GetProcessValues(axis)->startLimit = m_model.GetLastCommandedPositionNm(axis);
 	UpdateLimitDros();
 }
 
 void GrinderController::SetEndLimit(Axis axis) {
 	Serial.println("SetEndLimit");
 
-	m_config.GetProcessValues(axis)->endLimit = m_model.GetCurrentPositionNm(axis);
+	m_config.GetProcessValues(axis)->endLimit = m_model.GetLastCommandedPositionNm(axis);
 	UpdateLimitDros();
 }
 
 void GrinderController::SetSafePosition(Axis axis) {
 	Serial.println("SetSafePosition");
 
-	m_config.GetProcessValues(axis)->safePosition = m_model.GetCurrentPositionNm(axis);
+	m_config.GetProcessValues(axis)->safePosition = m_model.GetLastCommandedPositionNm(axis);
 	UpdateLimitDros();
 }
 
 void GrinderController::SetWorkPosition(Axis axis) {
 	Serial.println("SetWorkPosition");
 
-	m_config.GetProcessValues(axis)->workPosition = m_model.GetCurrentPositionNm(axis);
+	m_config.GetProcessValues(axis)->workPosition = m_model.GetLastCommandedPositionNm(axis);
 	UpdateLimitDros();
 }
 
@@ -143,16 +143,16 @@ void GrinderController::UpdateLimitDros() {
 	for (int i = 0; i < AXIS_COUNT; i++) {
 		Axis axis = static_cast<Axis>(i);
 		Configuration::ProcessValues *processValues = m_config.GetProcessValues(axis);
-		m_view.SetStartDroValue(axis, ApplyOffsetAndConvertToUnits(processValues->startLimit, processValues->droWorkOffset));
-		m_view.SetEndDroValue(axis, ApplyOffsetAndConvertToUnits(processValues->endLimit, processValues->droWorkOffset));
-		m_view.SetSafeDroValue(axis, ApplyOffsetAndConvertToUnits(processValues->safePosition, processValues->droWorkOffset));
-		m_view.SetWorkDroValue(axis, ApplyOffsetAndConvertToUnits(processValues->workPosition, processValues->droWorkOffset));
+		m_view.SetStartDroValue(axis, ApplyOffsetAndConvertToUnits(processValues->startLimit, processValues->droWorkOffset, axis));
+		m_view.SetEndDroValue(axis, ApplyOffsetAndConvertToUnits(processValues->endLimit, processValues->droWorkOffset, axis));
+		m_view.SetSafeDroValue(axis, ApplyOffsetAndConvertToUnits(processValues->safePosition, processValues->droWorkOffset, axis));
+		m_view.SetWorkDroValue(axis, ApplyOffsetAndConvertToUnits(processValues->workPosition, processValues->droWorkOffset, axis));
 	}
 }
 
-Optional<int32_t> GrinderController::ApplyOffsetAndConvertToUnits(Optional<int32_t> value, int32_t offset) {
+Optional<int32_t> GrinderController::ApplyOffsetAndConvertToUnits(Optional<int32_t> value, int32_t offset, Axis axis) {
 	if (value.HasValue()) {
-		return Optional<int32_t>(ConvertToUnits(value.Value() - offset));
+		return Optional<int32_t>(ConvertToUnits(m_model.QuantizePositionNm(axis,value.Value()) - offset));
 	}
 	return Optional<int32_t>();
 }

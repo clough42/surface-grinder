@@ -115,6 +115,12 @@ int32_t MachineAxis::GetCurrentPositionNm() const {
 	return static_cast<int32_t>(currentPositionNm);
 }
 
+int32_t MachineAxis::QuantizePositionNm(int32_t positionInNanometers) const {
+	int64_t motorSteps = (static_cast<int64_t>(positionInNanometers) * m_stepsPerNmNumerator) / m_stepsPerNmDenominator;
+	int64_t quantized = (motorSteps * m_stepsPerNmDenominator) / m_stepsPerNmNumerator;
+	return static_cast<int32_t>(quantized);
+}
+
 int32_t MachineAxis::GetLastCommandedPositionNm() const
 {
 	return m_lastCommandedPosition;
