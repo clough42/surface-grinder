@@ -259,7 +259,7 @@ void GrinderController::UpdateHomed() {
 }
 
 void GrinderController::UpdateError() {
-	m_view.DisplayMessage(m_model.Error());
+	m_view.SetMessage(m_model.Error());
 }
 
 void GrinderController::UpdateDRO(Axis axis) {

@@ -58,28 +58,46 @@ public:
         m_isHomed(false),
         m_axisSwitchPosition(Optional<int>()),
         m_resolutionSwitchPosition(Optional<int>()),
-        m_currentForm(1)
+        m_currentForm(1),
+        m_units(Units::INCHES),
+        m_status(Status::IDLE),
+		m_selectedAxis(Optional<Axis>()),
+		m_selectedResolution(0)
     {
 		s_instance = this;
     }
 
     void Init(IUserActions* controller);
     void Update();
-    void SetAxisIndicators(Optional<Axis> selectedAxis, int32_t selectedResolution);
+
+    // Set values to be displayed
     void SetDroValue(Axis axis, int32_t unitsValue);
+    void SetStatus(Status status);
+    void SetIsHomed(bool);
+    void SetMessage(Optional<const char*> message);
+    void SetAxisIndicators(Optional<Axis> selectedAxis, int32_t selectedResolution);
+
 	void SetStartDroValue(Axis axis, int32_t unitsValue, bool isSet);
 	void SetEndDroValue(Axis axis, int32_t unitsValue, bool isSet);
     void SetSafeDroValue(Axis axis, int32_t unitsValue, bool isSet);
 	void SetWorkDroValue(Axis axis, int32_t unitsValue, bool isSet);
 	void SetOperatingMode(Mode mode);
-    void SetStatus(Status status);
-    void SetIsHomed(bool);
+
 	void SetCycleType(CycleType cycleType);
-	void DisplayMessage(Optional<const char*> message);
 
     void HandleHmiEvent(genieFrame& Event);
 
 private:
+    // Write mirror values to the HMI
+    void WriteDroValue(Axis axis);
+    void WriteUnits();
+    void WriteStatus();
+    void WriteIsHomed();
+    void WriteMessage();
+    void WriteAxisIndicators();
+
+    void WriteCommonValues();
+
     void UpdateAxisSelectors();
     void UpdateEncoder();
 	void UpdateEstop();
@@ -110,12 +128,17 @@ private:
     TrackedValue<Optional<int>> m_axisSwitchPosition;
 	TrackedValue<Optional<int>> m_resolutionSwitchPosition;
 
-    // previous HMI element values
+    // HMI Value Mirror Registers
+    TrackedValue<int32_t> m_droValues[AXIS_COUNT] = { 0, 0, 0 };
+	TrackedValue<Units> m_units;
+    TrackedValue<Status> m_status;
+    TrackedValue<bool> m_isHomed;
+    TrackedValue<Optional<const char*>> m_message;
+	TrackedValue<Optional<Axis>> m_selectedAxis;
+	TrackedValue<int32_t> m_selectedResolution;
+
     TrackedValue<Mode> m_operatingMode;
     TrackedValue<CycleType> m_cycleType;
-    TrackedValue<int32_t> m_droValues[AXIS_COUNT] = { 0, 0, 0 };
-    TrackedValue<bool> m_isHomed;
-	TrackedValue<Optional<const char*>> m_message;
 
     // other software components
     IUserActions* m_controller = nullptr;
