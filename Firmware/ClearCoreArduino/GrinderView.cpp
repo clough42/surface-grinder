@@ -35,7 +35,7 @@ void GrinderView::Init(IUserActions* controller) {
 	    
     EncoderIn.Enable(true);
         
-    m_hmiSerial.begin(115200);
+    m_hmiSerial.begin(300000);
 
     ConnectorCOM1.RtsMode(SerialBase::LINE_ON);
     delay(100);
