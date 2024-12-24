@@ -5,7 +5,7 @@ Depends
 end
 Options
     Genie
-    Speed                        300000
+    Speed                        600000
     Checksum                     No
     ResponseSize                 2
     Multidrop                    No
@@ -48,7 +48,7 @@ Form
 end
 iLedDigits
     Name                         ILedDigits0
-    Alias                        XDro
+    Alias                        F0XDro
     ColorActive                  WHEAT
     ColorInactive                0x181818
     DecimalPlace                 5
@@ -66,7 +66,7 @@ iLedDigits
 end
 iLedDigits
     Name                         ILedDigits1
-    Alias                        YDro
+    Alias                        F0YDro
     ColorActive                  WHEAT
     ColorInactive                0x181818
     DecimalPlace                 5
@@ -84,7 +84,7 @@ iLedDigits
 end
 iLedDigits
     Name                         ILedDigits2
-    Alias                        ZDro
+    Alias                        F0ZDro
     ColorActive                  WHEAT
     ColorInactive                0x181818
     DecimalPlace                 5
@@ -102,7 +102,7 @@ iLedDigits
 end
 iLed
     Name                         ILed0
-    Alias                        XJog
+    Alias                        F0XJog
     BaseColorA                   0x282C28
     BaseColorB                   BLACK
     BaseInnerCorner              5
@@ -121,7 +121,7 @@ iLed
 end
 iLed
     Name                         ILed1
-    Alias                        YJog
+    Alias                        F0YJog
     BaseColorA                   0x282C28
     BaseColorB                   BLACK
     BaseInnerCorner              5
@@ -140,7 +140,7 @@ iLed
 end
 iLed
     Name                         ILed2
-    Alias                        ZJog
+    Alias                        F0ZJog
     BaseColorA                   0x282C28
     BaseColorB                   BLACK
     BaseInnerCorner              5
@@ -159,7 +159,7 @@ iLed
 end
 StaticText
     Name                         Statictext0
-    Alias                        XLabel
+    Alias                        F0XLabel
     Alignment                    Center
     AutoSize                     No
     Caption                      X
@@ -178,7 +178,7 @@ StaticText
 end
 StaticText
     Name                         Statictext1
-    Alias                        YLabel
+    Alias                        F0YLabel
     Alignment                    Center
     AutoSize                     No
     Caption                      Y
@@ -197,7 +197,7 @@ StaticText
 end
 StaticText
     Name                         Statictext2
-    Alias                        ZLabel
+    Alias                        F0ZLabel
     Alignment                    Center
     AutoSize                     No
     Caption                      Z
@@ -216,7 +216,7 @@ StaticText
 end
 iLed
     Name                         ILed3
-    Alias                        Resolution1
+    Alias                        F0Resolution1
     BaseColorA                   0x282C28
     BaseColorB                   BLACK
     BaseInnerCorner              5
@@ -235,7 +235,7 @@ iLed
 end
 iLed
     Name                         ILed4
-    Alias                        Resolution10
+    Alias                        F0Resolution10
     BaseColorA                   0x282C28
     BaseColorB                   BLACK
     BaseInnerCorner              5
@@ -254,7 +254,7 @@ iLed
 end
 iLed
     Name                         ILed5
-    Alias                        Resolution100
+    Alias                        F0Resolution100
     BaseColorA                   0x282C28
     BaseColorB                   BLACK
     BaseInnerCorner              5
@@ -273,7 +273,7 @@ iLed
 end
 iLed
     Name                         ILed6
-    Alias                        Resolution1000
+    Alias                        F0Resolution1000
     BaseColorA                   0x282C28
     BaseColorB                   BLACK
     BaseInnerCorner              5
@@ -292,7 +292,7 @@ iLed
 end
 iLed
     Name                         ILed7
-    Alias                        Resolution10000
+    Alias                        F0Resolution10000
     BaseColorA                   0x282C28
     BaseColorB                   BLACK
     BaseInnerCorner              5
@@ -311,7 +311,7 @@ iLed
 end
 iLedDigits
     Name                         ILedDigits3
-    Alias                        XStartDRO
+    Alias                        F0XStartDRO
     ColorActive                  WHEAT
     ColorInactive                0x181818
     DecimalPlace                 5
@@ -329,7 +329,7 @@ iLedDigits
 end
 iLedDigits
     Name                         ILedDigits4
-    Alias                        XEndDRO
+    Alias                        F0XEndDRO
     ColorActive                  WHEAT
     ColorInactive                0x181818
     DecimalPlace                 5
@@ -347,7 +347,7 @@ iLedDigits
 end
 iLedDigits
     Name                         ILedDigits5
-    Alias                        ZStartDRO
+    Alias                        F0ZStartDRO
     ColorActive                  WHEAT
     ColorInactive                0x181818
     DecimalPlace                 5
@@ -365,7 +365,7 @@ iLedDigits
 end
 iLedDigits
     Name                         ILedDigits6
-    Alias                        ZEndDRO
+    Alias                        F0ZEndDRO
     ColorActive                  WHEAT
     ColorInactive                0x181818
     DecimalPlace                 5
@@ -383,7 +383,7 @@ iLedDigits
 end
 Line
     Name                         Line0
-    Alias                        Line0
+    Alias                        F0Line0
     Color                        GRAY
     Pattern                      Solid
     X1                           8
@@ -393,7 +393,7 @@ Line
 end
 Line
     Name                         Line1
-    Alias                        Line1
+    Alias                        F0Line1
     Color                        GRAY
     Pattern                      Solid
     X1                           8
@@ -403,7 +403,7 @@ Line
 end
 StaticText
     Name                         Statictext6
-    Alias                        Statictext6
+    Alias                        F0Statictext6
     Alignment                    Center
     AutoSize                     No
     Caption                      GO
@@ -422,7 +422,7 @@ StaticText
 end
 UserButton
     Name                         Userbutton0
-    Alias                        UnitButton
+    Alias                        F0UnitButton
     Height                       65
     Images                       UnitInchButton.png\nUnitInchButtonTouch.png\nUnitMMButton.png\nUnitMMButtonTouch.png
     Left                         190
@@ -435,7 +435,7 @@ UserButton
 end
 iLedDigits
     Name                         ILedDigits7
-    Alias                        YWorkDRO
+    Alias                        F0YWorkDRO
     ColorActive                  WHEAT
     ColorInactive                0x181818
     DecimalPlace                 5
@@ -453,7 +453,7 @@ iLedDigits
 end
 UserImages
     Name                         Userimages0
-    Alias                        StatusImage
+    Alias                        F0StatusImage
     Height                       65
     Images                       IdleStatus.png\nRunStatus.png\nHoldStatus.png\nEstopStatus.png
     Left                         20
@@ -464,7 +464,7 @@ UserImages
 end
 iLedDigits
     Name                         ILedDigits8
-    Alias                        YSafeDRO
+    Alias                        F0YSafeDRO
     ColorActive                  WHEAT
     ColorInactive                0x181818
     DecimalPlace                 5
@@ -482,7 +482,7 @@ iLedDigits
 end
 Image
     Name                         Image1
-    Alias                        Image1
+    Alias                        F0Image1
     Height                       15
     Image                        ArrowLeft.png
     Left                         215
@@ -498,7 +498,7 @@ Image
 end
 Image
     Name                         Image2
-    Alias                        Image2
+    Alias                        F0Image2
     Height                       15
     Image                        ArrowLeft.png
     Left                         215
@@ -514,7 +514,7 @@ Image
 end
 Image
     Name                         Image3
-    Alias                        Image3
+    Alias                        F0Image3
     Height                       15
     Image                        ArrowLeft.png
     Left                         215
@@ -530,7 +530,7 @@ Image
 end
 Image
     Name                         Image4
-    Alias                        Image4
+    Alias                        F0Image4
     Height                       15
     Image                        ArrowRight.png
     Left                         74
@@ -546,7 +546,7 @@ Image
 end
 Image
     Name                         Image5
-    Alias                        Image5
+    Alias                        F0Image5
     Height                       15
     Image                        ArrowRight.png
     Left                         74
@@ -562,7 +562,7 @@ Image
 end
 Image
     Name                         Image6
-    Alias                        Image6
+    Alias                        F0Image6
     Height                       15
     Image                        ArrowRight.png
     Left                         74
@@ -578,7 +578,7 @@ Image
 end
 UserButton
     Name                         Userbutton1
-    Alias                        ModeSetupButton
+    Alias                        F0ModeSetupButton
     Height                       65
     Images                       ModeSetup.png\nModeSetupTouch.png\nModeSetupSelected.png\nModeSetupTouch.png
     Left                         285
@@ -591,7 +591,7 @@ UserButton
 end
 UserButton
     Name                         Userbutton2
-    Alias                        ModeFlatButton
+    Alias                        F0ModeFlatButton
     Height                       65
     Images                       ModeFlat.png\nModeFlatTouch.png\nModeFlatSelected.png\nModeFlatTouch.png
     Left                         365
@@ -604,7 +604,7 @@ UserButton
 end
 UserButton
     Name                         Userbutton3
-    Alias                        ModeSideButton
+    Alias                        F0ModeSideButton
     Height                       65
     Images                       ModeSide.png\nModeSideTouch.png\nModeSideSelected.png\nModeSideTouch.png
     Left                         445
@@ -617,7 +617,7 @@ UserButton
 end
 UserButton
     Name                         Userbutton4
-    Alias                        ModeCylButton
+    Alias                        F0ModeCylButton
     Height                       65
     Images                       ModeCylinder.png\nModeCylinderTouch.png\nModeCylinderSelected.png\nModeCylinderTouch.png
     Left                         525
@@ -630,7 +630,7 @@ UserButton
 end
 UserButton
     Name                         Userbutton5
-    Alias                        ModeDressButton
+    Alias                        F0ModeDressButton
     Height                       65
     Images                       ModeDress.png\nModeDressTouch.png\nModeDressSelected.png\nModeDressTouch.png
     Left                         605
@@ -643,7 +643,7 @@ UserButton
 end
 UserButton
     Name                         Userbutton6
-    Alias                        SettingsButton
+    Alias                        F0SettingsButton
     Height                       65
     Images                       GearButton.png\nGearButtonTouch.png
     Left                         715
@@ -656,7 +656,7 @@ UserButton
 end
 UserButton
     Name                         Userbutton7
-    Alias                        XZeroButton
+    Alias                        F0XZeroButton
     Height                       55
     Images                       ZeroButton.png\nZeroButtonTouch.png
     Left                         727
@@ -669,7 +669,7 @@ UserButton
 end
 UserButton
     Name                         Userbutton8
-    Alias                        YZeroButton
+    Alias                        F0YZeroButton
     Height                       55
     Images                       ZeroButton.png\nZeroButtonTouch.png
     Left                         727
@@ -682,7 +682,7 @@ UserButton
 end
 UserButton
     Name                         Userbutton9
-    Alias                        ZZeroButton
+    Alias                        F0ZZeroButton
     Height                       55
     Images                       ZeroButton.png\nZeroButtonTouch.png
     Left                         727
@@ -695,7 +695,7 @@ UserButton
 end
 UserButton
     Name                         Userbutton10
-    Alias                        XSetStartButton
+    Alias                        F0XSetStartButton
     Height                       55
     Images                       StartButton.png\nStartButtonTouch.png\nStartButtonOn.png\nStartButtonTouch.png
     Left                         16
@@ -708,7 +708,7 @@ UserButton
 end
 UserButton
     Name                         Userbutton11
-    Alias                        ZSetStartButton
+    Alias                        F0ZSetStartButton
     Height                       55
     Images                       StartButton.png\nStartButtonTouch.png\nStartButtonOn.png\nStartButtonTouch.png
     Left                         16
@@ -721,7 +721,7 @@ UserButton
 end
 UserButton
     Name                         Userbutton12
-    Alias                        YSetWorkButton
+    Alias                        F0YSetWorkButton
     Height                       55
     Images                       WorkButton.png\nWorkButtonTouch.png\nWorkButtonOn.png\nWorkButtonTouch.png
     Left                         16
@@ -734,7 +734,7 @@ UserButton
 end
 UserButton
     Name                         Userbutton13
-    Alias                        XSetEndButton
+    Alias                        F0XSetEndButton
     Height                       55
     Images                       EndButton.png\nEndButtonTouch.png\nEndButtonOn.png\nEndButtonTouch.png
     Left                         233
@@ -747,7 +747,7 @@ UserButton
 end
 UserButton
     Name                         Userbutton14
-    Alias                        ZSetEndButton
+    Alias                        F0ZSetEndButton
     Height                       55
     Images                       EndButton.png\nEndButtonTouch.png\nEndButtonOn.png\nEndButtonTouch.png
     Left                         233
@@ -760,7 +760,7 @@ UserButton
 end
 UserButton
     Name                         Userbutton15
-    Alias                        YSetSafeButton
+    Alias                        F0YSetSafeButton
     Height                       55
     Images                       SafeButton.png\nSafeButtonTouch.png\nSafeButtonOn.png\nSafeButtonTouch.png
     Left                         233
@@ -825,7 +825,7 @@ UserButton
 end
 UserImages
     Name                         Userimages1
-    Alias                        HomeIndicator
+    Alias                        F0HomeIndicator
     Height                       22
     Images                       Images---75x25_UNHOMED.png\nImages---75x25_HOMED.png
     Left                         707
@@ -958,7 +958,7 @@ Rectangle
 end
 Strings
     Name                         Strings0
-    Alias                        Message
+    Alias                        F0Message
     Alignment                    Left
     BGcolor                      BLACK
     Height                       24
@@ -1081,4 +1081,3028 @@ StaticText
     Transparent                  Yes
     Width                        416
     WordWrap                     No
+end
+Form
+    Name                         Form3
+    Alias                        FlatMode
+    Bgtype                       Color
+    Color                        BLACK
+    Image                        (None)
+    Source.Height                0
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 0
+    OnActivate                   'Report Message'
+    OnCreate                     ''
+    OnRepeat                     ''
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+iLedDigits
+    Name                         ILedDigits9
+    Alias                        F3XDro
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         356
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         3
+    Spacing                      0
+    Top                          26
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits10
+    Alias                        F3YDro
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         356
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         3
+    Spacing                      0
+    Top                          96
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits11
+    Alias                        F3ZDro
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         356
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         3
+    Spacing                      0
+    Top                          166
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed8
+    Alias                        F3XJog
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       60
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         709
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          27
+    Width                        15
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed9
+    Alias                        F3YJog
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       60
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         709
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          97
+    Width                        15
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed10
+    Alias                        F3ZJog
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       60
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         709
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          167
+    Width                        15
+    OnChanged                    ''
+end
+StaticText
+    Name                         Statictext9
+    Alias                        F3XLabel
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      X
+    Color                        BLACK
+    Font.Color                   SILVER
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    48
+    Font.Style                   [Bold]
+    Height                       80
+    Left                         300
+    Top                          18
+    Transparent                  Yes
+    Width                        50
+    WordWrap                     Yes
+end
+StaticText
+    Name                         Statictext10
+    Alias                        F3YLabel
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      Y
+    Color                        BLACK
+    Font.Color                   SILVER
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    48
+    Font.Style                   [Bold]
+    Height                       80
+    Left                         300
+    Top                          88
+    Transparent                  Yes
+    Width                        50
+    WordWrap                     Yes
+end
+StaticText
+    Name                         Statictext11
+    Alias                        F3ZLabel
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      Z
+    Color                        BLACK
+    Font.Color                   SILVER
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    48
+    Font.Style                   [Bold]
+    Height                       75
+    Left                         300
+    Top                          158
+    Transparent                  Yes
+    Width                        50
+    WordWrap                     Yes
+end
+iLed
+    Name                         ILed11
+    Alias                        F3Resolution1
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         669
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed12
+    Alias                        F3Resolution10
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         629
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed13
+    Alias                        F3Resolution100
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         590
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed14
+    Alias                        F3Resolution1000
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         551
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed15
+    Alias                        F3Resolution10000
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         512
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits12
+    Alias                        F3XStartDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          32
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits13
+    Alias                        F3XEndDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          62
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits14
+    Alias                        F3ZStartDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          172
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits15
+    Alias                        F3ZEndDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          202
+    OnChanged                    ''
+end
+Line
+    Name                         Line2
+    Alias                        F3Line0
+    Color                        GRAY
+    Pattern                      Solid
+    X1                           8
+    X2                           792
+    Y1                           236
+    Y2                           236
+end
+Line
+    Name                         Line3
+    Alias                        F3Line1
+    Color                        GRAY
+    Pattern                      Solid
+    X1                           8
+    X2                           792
+    Y1                           400
+    Y2                           400
+end
+UserButton
+    Name                         Userbutton24
+    Alias                        F3UnitButton
+    Height                       65
+    Images                       UnitInchButton.png\nUnitInchButtonTouch.png\nUnitMMButton.png\nUnitMMButtonTouch.png
+    Left                         190
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          408
+    Width                        65
+    OnChanged                    'Report Message'
+end
+iLedDigits
+    Name                         ILedDigits16
+    Alias                        F3YWorkDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          102
+    OnChanged                    ''
+end
+UserImages
+    Name                         Userimages2
+    Alias                        F3StatusImage
+    Height                       65
+    Images                       IdleStatus.png\nRunStatus.png\nHoldStatus.png\nEstopStatus.png
+    Left                         20
+    Stretch                      No
+    Top                          409
+    Width                        150
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits17
+    Alias                        F3YSafeDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          132
+    OnChanged                    ''
+end
+Image
+    Name                         Image8
+    Alias                        F3Image1
+    Height                       15
+    Image                        ArrowLeft.png
+    Left                         215
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          64
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image9
+    Alias                        F3Image2
+    Height                       15
+    Image                        ArrowLeft.png
+    Left                         215
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          134
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image10
+    Alias                        F3Image3
+    Height                       15
+    Image                        ArrowLeft.png
+    Left                         215
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          204
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image11
+    Alias                        F3Image4
+    Height                       15
+    Image                        ArrowRight.png
+    Left                         74
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          36
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image12
+    Alias                        F3Image5
+    Height                       15
+    Image                        ArrowRight.png
+    Left                         74
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          106
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image13
+    Alias                        F3Image6
+    Height                       15
+    Image                        ArrowRight.png
+    Left                         74
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          176
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+UserButton
+    Name                         Userbutton25
+    Alias                        F3ModeSetupButton
+    Height                       65
+    Images                       ModeSetup.png\nModeSetupTouch.png\nModeSetupSelected.png\nModeSetupTouch.png
+    Left                         285
+    Matrix                       1
+    Momentary                    On
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton26
+    Alias                        F3ModeFlatButton
+    Height                       65
+    Images                       ModeFlat.png\nModeFlatTouch.png\nModeFlatSelected.png\nModeFlatTouch.png
+    Left                         365
+    Matrix                       1
+    Momentary                    No
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton27
+    Alias                        F3ModeSideButton
+    Height                       65
+    Images                       ModeSide.png\nModeSideTouch.png\nModeSideSelected.png\nModeSideTouch.png
+    Left                         445
+    Matrix                       1
+    Momentary                    No
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton28
+    Alias                        F3ModeCylButton
+    Height                       65
+    Images                       ModeCylinder.png\nModeCylinderTouch.png\nModeCylinderSelected.png\nModeCylinderTouch.png
+    Left                         525
+    Matrix                       1
+    Momentary                    No
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton29
+    Alias                        F3ModeDressButton
+    Height                       65
+    Images                       ModeDress.png\nModeDressTouch.png\nModeDressSelected.png\nModeDressTouch.png
+    Left                         605
+    Matrix                       1
+    Momentary                    No
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton30
+    Alias                        F3SettingsButton
+    Height                       65
+    Images                       GearButton.png\nGearButtonTouch.png
+    Left                         715
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          408
+    Width                        65
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton31
+    Alias                        F3XZeroButton
+    Height                       55
+    Images                       ZeroButton.png\nZeroButtonTouch.png
+    Left                         727
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          30
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton32
+    Alias                        F3YZeroButton
+    Height                       55
+    Images                       ZeroButton.png\nZeroButtonTouch.png
+    Left                         727
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          100
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton33
+    Alias                        F3ZZeroButton
+    Height                       55
+    Images                       ZeroButton.png\nZeroButtonTouch.png
+    Left                         727
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          170
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton34
+    Alias                        F3XSetStartButton
+    Height                       55
+    Images                       StartButton.png\nStartButtonTouch.png\nStartButtonOn.png\nStartButtonTouch.png
+    Left                         16
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          30
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton35
+    Alias                        F3ZSetStartButton
+    Height                       55
+    Images                       StartButton.png\nStartButtonTouch.png\nStartButtonOn.png\nStartButtonTouch.png
+    Left                         16
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          170
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton36
+    Alias                        F3YSetWorkButton
+    Height                       55
+    Images                       WorkButton.png\nWorkButtonTouch.png\nWorkButtonOn.png\nWorkButtonTouch.png
+    Left                         16
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          100
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton37
+    Alias                        F3XSetEndButton
+    Height                       55
+    Images                       EndButton.png\nEndButtonTouch.png\nEndButtonOn.png\nEndButtonTouch.png
+    Left                         233
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          30
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton38
+    Alias                        F3ZSetEndButton
+    Height                       55
+    Images                       EndButton.png\nEndButtonTouch.png\nEndButtonOn.png\nEndButtonTouch.png
+    Left                         233
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          170
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton39
+    Alias                        F3YSetSafeButton
+    Height                       55
+    Images                       SafeButton.png\nSafeButtonTouch.png\nSafeButtonOn.png\nSafeButtonTouch.png
+    Left                         233
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          100
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserImages
+    Name                         Userimages3
+    Alias                        F3HomeIndicator
+    Height                       22
+    Images                       Images---75x25_UNHOMED.png\nImages---75x25_HOMED.png
+    Left                         707
+    Stretch                      No
+    Top                          2
+    Width                        75
+    OnChanged                    ''
+end
+Strings
+    Name                         Strings1
+    Alias                        F3Message
+    Alignment                    Left
+    BGcolor                      BLACK
+    Height                       24
+    FGcolor                      WHITE
+    Font.Bold                    No
+    Font.CharSet                 ANSI
+    Font.Italic                  No
+    Font.Name                    '4D Font3 (8x12)'
+    Font.Opaque                  Yes
+    Font.Size                    -12
+    Font.Strikethrough           No
+    Font.Underline               No
+    Left                         2
+    Strings                      ''
+    StringsStyle                 Book
+    Top                          2
+    Width                        350
+    OnChanged                    ''
+end
+Form
+    Name                         Form4
+    Alias                        SideMode
+    Bgtype                       Color
+    Color                        BLACK
+    Image                        (None)
+    Source.Height                0
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 0
+    OnActivate                   'Report Message'
+    OnCreate                     ''
+    OnRepeat                     ''
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+iLedDigits
+    Name                         ILedDigits18
+    Alias                        F4XDro
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         356
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         3
+    Spacing                      0
+    Top                          26
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits19
+    Alias                        F4YDro
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         356
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         3
+    Spacing                      0
+    Top                          96
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits20
+    Alias                        F4ZDro
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         356
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         3
+    Spacing                      0
+    Top                          166
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed16
+    Alias                        F4XJog
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       60
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         709
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          27
+    Width                        15
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed17
+    Alias                        F4YJog
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       60
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         709
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          97
+    Width                        15
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed18
+    Alias                        F4ZJog
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       60
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         709
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          167
+    Width                        15
+    OnChanged                    ''
+end
+StaticText
+    Name                         Statictext12
+    Alias                        F4XLabel
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      X
+    Color                        BLACK
+    Font.Color                   SILVER
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    48
+    Font.Style                   [Bold]
+    Height                       80
+    Left                         300
+    Top                          18
+    Transparent                  Yes
+    Width                        50
+    WordWrap                     Yes
+end
+StaticText
+    Name                         Statictext13
+    Alias                        F4YLabel
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      Y
+    Color                        BLACK
+    Font.Color                   SILVER
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    48
+    Font.Style                   [Bold]
+    Height                       80
+    Left                         300
+    Top                          88
+    Transparent                  Yes
+    Width                        50
+    WordWrap                     Yes
+end
+StaticText
+    Name                         Statictext14
+    Alias                        F4ZLabel
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      Z
+    Color                        BLACK
+    Font.Color                   SILVER
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    48
+    Font.Style                   [Bold]
+    Height                       75
+    Left                         300
+    Top                          158
+    Transparent                  Yes
+    Width                        50
+    WordWrap                     Yes
+end
+iLed
+    Name                         ILed19
+    Alias                        F4Resolution1
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         669
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed20
+    Alias                        F4Resolution10
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         629
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed21
+    Alias                        F4Resolution100
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         590
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed22
+    Alias                        F4Resolution1000
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         551
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed23
+    Alias                        F4Resolution10000
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         512
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits21
+    Alias                        F4XStartDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          32
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits22
+    Alias                        F4XEndDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          62
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits23
+    Alias                        F4ZStartDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          172
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits24
+    Alias                        F4ZEndDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          202
+    OnChanged                    ''
+end
+Line
+    Name                         Line4
+    Alias                        F4Line0
+    Color                        GRAY
+    Pattern                      Solid
+    X1                           8
+    X2                           792
+    Y1                           236
+    Y2                           236
+end
+Line
+    Name                         Line5
+    Alias                        F4Line1
+    Color                        GRAY
+    Pattern                      Solid
+    X1                           8
+    X2                           792
+    Y1                           400
+    Y2                           400
+end
+UserButton
+    Name                         Userbutton40
+    Alias                        F4UnitButton
+    Height                       65
+    Images                       UnitInchButton.png\nUnitInchButtonTouch.png\nUnitMMButton.png\nUnitMMButtonTouch.png
+    Left                         190
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          408
+    Width                        65
+    OnChanged                    'Report Message'
+end
+iLedDigits
+    Name                         ILedDigits25
+    Alias                        F4YWorkDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          102
+    OnChanged                    ''
+end
+UserImages
+    Name                         Userimages4
+    Alias                        F4StatusImage
+    Height                       65
+    Images                       IdleStatus.png\nRunStatus.png\nHoldStatus.png\nEstopStatus.png
+    Left                         20
+    Stretch                      No
+    Top                          409
+    Width                        150
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits26
+    Alias                        F4YSafeDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          132
+    OnChanged                    ''
+end
+Image
+    Name                         Image14
+    Alias                        F4Image1
+    Height                       15
+    Image                        ArrowLeft.png
+    Left                         215
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          64
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image15
+    Alias                        F4Image2
+    Height                       15
+    Image                        ArrowLeft.png
+    Left                         215
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          134
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image16
+    Alias                        F4Image3
+    Height                       15
+    Image                        ArrowLeft.png
+    Left                         215
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          204
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image17
+    Alias                        F4Image4
+    Height                       15
+    Image                        ArrowRight.png
+    Left                         74
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          36
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image18
+    Alias                        F4Image5
+    Height                       15
+    Image                        ArrowRight.png
+    Left                         74
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          106
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image19
+    Alias                        F4Image6
+    Height                       15
+    Image                        ArrowRight.png
+    Left                         74
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          176
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+UserButton
+    Name                         Userbutton41
+    Alias                        F4ModeSetupButton
+    Height                       65
+    Images                       ModeSetup.png\nModeSetupTouch.png\nModeSetupSelected.png\nModeSetupTouch.png
+    Left                         285
+    Matrix                       1
+    Momentary                    On
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton42
+    Alias                        F4ModeFlatButton
+    Height                       65
+    Images                       ModeFlat.png\nModeFlatTouch.png\nModeFlatSelected.png\nModeFlatTouch.png
+    Left                         365
+    Matrix                       1
+    Momentary                    No
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton43
+    Alias                        F4ModeSideButton
+    Height                       65
+    Images                       ModeSide.png\nModeSideTouch.png\nModeSideSelected.png\nModeSideTouch.png
+    Left                         445
+    Matrix                       1
+    Momentary                    No
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton44
+    Alias                        F4ModeCylButton
+    Height                       65
+    Images                       ModeCylinder.png\nModeCylinderTouch.png\nModeCylinderSelected.png\nModeCylinderTouch.png
+    Left                         525
+    Matrix                       1
+    Momentary                    No
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton45
+    Alias                        F4ModeDressButton
+    Height                       65
+    Images                       ModeDress.png\nModeDressTouch.png\nModeDressSelected.png\nModeDressTouch.png
+    Left                         605
+    Matrix                       1
+    Momentary                    No
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton46
+    Alias                        F4SettingsButton
+    Height                       65
+    Images                       GearButton.png\nGearButtonTouch.png
+    Left                         715
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          408
+    Width                        65
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton47
+    Alias                        F4XZeroButton
+    Height                       55
+    Images                       ZeroButton.png\nZeroButtonTouch.png
+    Left                         727
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          30
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton48
+    Alias                        F4YZeroButton
+    Height                       55
+    Images                       ZeroButton.png\nZeroButtonTouch.png
+    Left                         727
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          100
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton49
+    Alias                        F4ZZeroButton
+    Height                       55
+    Images                       ZeroButton.png\nZeroButtonTouch.png
+    Left                         727
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          170
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton50
+    Alias                        F4XSetStartButton
+    Height                       55
+    Images                       StartButton.png\nStartButtonTouch.png\nStartButtonOn.png\nStartButtonTouch.png
+    Left                         16
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          30
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton51
+    Alias                        F4ZSetStartButton
+    Height                       55
+    Images                       StartButton.png\nStartButtonTouch.png\nStartButtonOn.png\nStartButtonTouch.png
+    Left                         16
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          170
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton52
+    Alias                        F4YSetWorkButton
+    Height                       55
+    Images                       WorkButton.png\nWorkButtonTouch.png\nWorkButtonOn.png\nWorkButtonTouch.png
+    Left                         16
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          100
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton53
+    Alias                        F4XSetEndButton
+    Height                       55
+    Images                       EndButton.png\nEndButtonTouch.png\nEndButtonOn.png\nEndButtonTouch.png
+    Left                         233
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          30
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton54
+    Alias                        F4ZSetEndButton
+    Height                       55
+    Images                       EndButton.png\nEndButtonTouch.png\nEndButtonOn.png\nEndButtonTouch.png
+    Left                         233
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          170
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton55
+    Alias                        F4YSetSafeButton
+    Height                       55
+    Images                       SafeButton.png\nSafeButtonTouch.png\nSafeButtonOn.png\nSafeButtonTouch.png
+    Left                         233
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          100
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserImages
+    Name                         Userimages5
+    Alias                        F4HomeIndicator
+    Height                       22
+    Images                       Images---75x25_UNHOMED.png\nImages---75x25_HOMED.png
+    Left                         707
+    Stretch                      No
+    Top                          2
+    Width                        75
+    OnChanged                    ''
+end
+Strings
+    Name                         Strings2
+    Alias                        F4Message
+    Alignment                    Left
+    BGcolor                      BLACK
+    Height                       24
+    FGcolor                      WHITE
+    Font.Bold                    No
+    Font.CharSet                 ANSI
+    Font.Italic                  No
+    Font.Name                    '4D Font3 (8x12)'
+    Font.Opaque                  Yes
+    Font.Size                    -12
+    Font.Strikethrough           No
+    Font.Underline               No
+    Left                         2
+    Strings                      ''
+    StringsStyle                 Book
+    Top                          2
+    Width                        350
+    OnChanged                    ''
+end
+Form
+    Name                         Form5
+    Alias                        CylMode
+    Bgtype                       Color
+    Color                        BLACK
+    Image                        (None)
+    Source.Height                0
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 0
+    OnActivate                   'Report Message'
+    OnCreate                     ''
+    OnRepeat                     ''
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+iLedDigits
+    Name                         ILedDigits27
+    Alias                        F5XDro
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         356
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         3
+    Spacing                      0
+    Top                          26
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits28
+    Alias                        F5YDro
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         356
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         3
+    Spacing                      0
+    Top                          96
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits29
+    Alias                        F5ZDro
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         356
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         3
+    Spacing                      0
+    Top                          166
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed24
+    Alias                        F5XJog
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       60
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         709
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          27
+    Width                        15
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed25
+    Alias                        F5YJog
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       60
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         709
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          97
+    Width                        15
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed26
+    Alias                        F5ZJog
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       60
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         709
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          167
+    Width                        15
+    OnChanged                    ''
+end
+StaticText
+    Name                         Statictext15
+    Alias                        F5XLabel
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      X
+    Color                        BLACK
+    Font.Color                   SILVER
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    48
+    Font.Style                   [Bold]
+    Height                       80
+    Left                         300
+    Top                          18
+    Transparent                  Yes
+    Width                        50
+    WordWrap                     Yes
+end
+StaticText
+    Name                         Statictext16
+    Alias                        F5YLabel
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      Y
+    Color                        BLACK
+    Font.Color                   SILVER
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    48
+    Font.Style                   [Bold]
+    Height                       80
+    Left                         300
+    Top                          88
+    Transparent                  Yes
+    Width                        50
+    WordWrap                     Yes
+end
+StaticText
+    Name                         Statictext17
+    Alias                        F5ZLabel
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      Z
+    Color                        BLACK
+    Font.Color                   SILVER
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    48
+    Font.Style                   [Bold]
+    Height                       75
+    Left                         300
+    Top                          158
+    Transparent                  Yes
+    Width                        50
+    WordWrap                     Yes
+end
+iLed
+    Name                         ILed27
+    Alias                        F5Resolution1
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         669
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed28
+    Alias                        F5Resolution10
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         629
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed29
+    Alias                        F5Resolution100
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         590
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed30
+    Alias                        F5Resolution1000
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         551
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed31
+    Alias                        F5Resolution10000
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         512
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits30
+    Alias                        F5XStartDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          32
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits31
+    Alias                        F5XEndDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          62
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits32
+    Alias                        F5ZStartDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          172
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits33
+    Alias                        F5ZEndDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          202
+    OnChanged                    ''
+end
+Line
+    Name                         Line6
+    Alias                        F5Line0
+    Color                        GRAY
+    Pattern                      Solid
+    X1                           8
+    X2                           792
+    Y1                           236
+    Y2                           236
+end
+Line
+    Name                         Line7
+    Alias                        F5Line1
+    Color                        GRAY
+    Pattern                      Solid
+    X1                           8
+    X2                           792
+    Y1                           400
+    Y2                           400
+end
+UserButton
+    Name                         Userbutton56
+    Alias                        F5UnitButton
+    Height                       65
+    Images                       UnitInchButton.png\nUnitInchButtonTouch.png\nUnitMMButton.png\nUnitMMButtonTouch.png
+    Left                         190
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          408
+    Width                        65
+    OnChanged                    'Report Message'
+end
+iLedDigits
+    Name                         ILedDigits34
+    Alias                        F5YWorkDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          102
+    OnChanged                    ''
+end
+UserImages
+    Name                         Userimages6
+    Alias                        F5StatusImage
+    Height                       65
+    Images                       IdleStatus.png\nRunStatus.png\nHoldStatus.png\nEstopStatus.png
+    Left                         20
+    Stretch                      No
+    Top                          409
+    Width                        150
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits35
+    Alias                        F5YSafeDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          132
+    OnChanged                    ''
+end
+Image
+    Name                         Image20
+    Alias                        F5Image1
+    Height                       15
+    Image                        ArrowLeft.png
+    Left                         215
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          64
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image21
+    Alias                        F5Image2
+    Height                       15
+    Image                        ArrowLeft.png
+    Left                         215
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          134
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image22
+    Alias                        F5Image3
+    Height                       15
+    Image                        ArrowLeft.png
+    Left                         215
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          204
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image23
+    Alias                        F5Image4
+    Height                       15
+    Image                        ArrowRight.png
+    Left                         74
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          36
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image24
+    Alias                        F5Image5
+    Height                       15
+    Image                        ArrowRight.png
+    Left                         74
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          106
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image25
+    Alias                        F5Image6
+    Height                       15
+    Image                        ArrowRight.png
+    Left                         74
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          176
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+UserButton
+    Name                         Userbutton57
+    Alias                        F5ModeSetupButton
+    Height                       65
+    Images                       ModeSetup.png\nModeSetupTouch.png\nModeSetupSelected.png\nModeSetupTouch.png
+    Left                         285
+    Matrix                       1
+    Momentary                    On
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton58
+    Alias                        F5ModeFlatButton
+    Height                       65
+    Images                       ModeFlat.png\nModeFlatTouch.png\nModeFlatSelected.png\nModeFlatTouch.png
+    Left                         365
+    Matrix                       1
+    Momentary                    No
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton59
+    Alias                        F5ModeSideButton
+    Height                       65
+    Images                       ModeSide.png\nModeSideTouch.png\nModeSideSelected.png\nModeSideTouch.png
+    Left                         445
+    Matrix                       1
+    Momentary                    No
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton60
+    Alias                        F5ModeCylButton
+    Height                       65
+    Images                       ModeCylinder.png\nModeCylinderTouch.png\nModeCylinderSelected.png\nModeCylinderTouch.png
+    Left                         525
+    Matrix                       1
+    Momentary                    No
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton61
+    Alias                        F5ModeDressButton
+    Height                       65
+    Images                       ModeDress.png\nModeDressTouch.png\nModeDressSelected.png\nModeDressTouch.png
+    Left                         605
+    Matrix                       1
+    Momentary                    No
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton62
+    Alias                        F5SettingsButton
+    Height                       65
+    Images                       GearButton.png\nGearButtonTouch.png
+    Left                         715
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          408
+    Width                        65
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton63
+    Alias                        F5XZeroButton
+    Height                       55
+    Images                       ZeroButton.png\nZeroButtonTouch.png
+    Left                         727
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          30
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton64
+    Alias                        F5YZeroButton
+    Height                       55
+    Images                       ZeroButton.png\nZeroButtonTouch.png
+    Left                         727
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          100
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton65
+    Alias                        F5ZZeroButton
+    Height                       55
+    Images                       ZeroButton.png\nZeroButtonTouch.png
+    Left                         727
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          170
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton66
+    Alias                        F5XSetStartButton
+    Height                       55
+    Images                       StartButton.png\nStartButtonTouch.png\nStartButtonOn.png\nStartButtonTouch.png
+    Left                         16
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          30
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton67
+    Alias                        F5ZSetStartButton
+    Height                       55
+    Images                       StartButton.png\nStartButtonTouch.png\nStartButtonOn.png\nStartButtonTouch.png
+    Left                         16
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          170
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton68
+    Alias                        F5YSetWorkButton
+    Height                       55
+    Images                       WorkButton.png\nWorkButtonTouch.png\nWorkButtonOn.png\nWorkButtonTouch.png
+    Left                         16
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          100
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton69
+    Alias                        F5XSetEndButton
+    Height                       55
+    Images                       EndButton.png\nEndButtonTouch.png\nEndButtonOn.png\nEndButtonTouch.png
+    Left                         233
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          30
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton70
+    Alias                        F5ZSetEndButton
+    Height                       55
+    Images                       EndButton.png\nEndButtonTouch.png\nEndButtonOn.png\nEndButtonTouch.png
+    Left                         233
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          170
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton71
+    Alias                        F5YSetSafeButton
+    Height                       55
+    Images                       SafeButton.png\nSafeButtonTouch.png\nSafeButtonOn.png\nSafeButtonTouch.png
+    Left                         233
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          100
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserImages
+    Name                         Userimages7
+    Alias                        F5HomeIndicator
+    Height                       22
+    Images                       Images---75x25_UNHOMED.png\nImages---75x25_HOMED.png
+    Left                         707
+    Stretch                      No
+    Top                          2
+    Width                        75
+    OnChanged                    ''
+end
+Strings
+    Name                         Strings3
+    Alias                        F5Message
+    Alignment                    Left
+    BGcolor                      BLACK
+    Height                       24
+    FGcolor                      WHITE
+    Font.Bold                    No
+    Font.CharSet                 ANSI
+    Font.Italic                  No
+    Font.Name                    '4D Font3 (8x12)'
+    Font.Opaque                  Yes
+    Font.Size                    -12
+    Font.Strikethrough           No
+    Font.Underline               No
+    Left                         2
+    Strings                      ''
+    StringsStyle                 Book
+    Top                          2
+    Width                        350
+    OnChanged                    ''
+end
+Form
+    Name                         Form6
+    Alias                        DressMode
+    Bgtype                       Color
+    Color                        BLACK
+    Image                        (None)
+    Source.Height                0
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 0
+    OnActivate                   'Report Message'
+    OnCreate                     ''
+    OnRepeat                     ''
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+iLedDigits
+    Name                         ILedDigits36
+    Alias                        F6XDro
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         356
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         3
+    Spacing                      0
+    Top                          26
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits37
+    Alias                        F6YDro
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         356
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         3
+    Spacing                      0
+    Top                          96
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits38
+    Alias                        F6ZDro
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         356
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         3
+    Spacing                      0
+    Top                          166
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed32
+    Alias                        F6XJog
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       60
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         709
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          27
+    Width                        15
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed33
+    Alias                        F6YJog
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       60
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         709
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          97
+    Width                        15
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed34
+    Alias                        F6ZJog
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       60
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         709
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          167
+    Width                        15
+    OnChanged                    ''
+end
+StaticText
+    Name                         Statictext18
+    Alias                        F6XLabel
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      X
+    Color                        BLACK
+    Font.Color                   SILVER
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    48
+    Font.Style                   [Bold]
+    Height                       80
+    Left                         300
+    Top                          18
+    Transparent                  Yes
+    Width                        50
+    WordWrap                     Yes
+end
+StaticText
+    Name                         Statictext19
+    Alias                        F6YLabel
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      Y
+    Color                        BLACK
+    Font.Color                   SILVER
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    48
+    Font.Style                   [Bold]
+    Height                       80
+    Left                         300
+    Top                          88
+    Transparent                  Yes
+    Width                        50
+    WordWrap                     Yes
+end
+StaticText
+    Name                         Statictext20
+    Alias                        F6ZLabel
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      Z
+    Color                        BLACK
+    Font.Color                   SILVER
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    48
+    Font.Style                   [Bold]
+    Height                       75
+    Left                         300
+    Top                          158
+    Transparent                  Yes
+    Width                        50
+    WordWrap                     Yes
+end
+iLed
+    Name                         ILed35
+    Alias                        F6Resolution1
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         669
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed36
+    Alias                        F6Resolution10
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         629
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed37
+    Alias                        F6Resolution100
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         590
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed38
+    Alias                        F6Resolution1000
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         551
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLed
+    Name                         ILed39
+    Alias                        F6Resolution10000
+    BaseColorA                   0x282C28
+    BaseColorB                   BLACK
+    BaseInnerCorner              5
+    BaseOuterCorner              7
+    Height                       15
+    LEDcolorOff                  0x000058
+    LEDcolorOn                   0x0000F8
+    LEDLampRadius                5
+    Left                         512
+    ShineColor                   0xD8DCD8
+    ShineEffect                  No
+    ShineRadius                  10
+    Top                          6
+    Width                        35
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits39
+    Alias                        F6XStartDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          32
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits40
+    Alias                        F6XEndDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          62
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits41
+    Alias                        F6ZStartDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          172
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits42
+    Alias                        F6ZEndDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          202
+    OnChanged                    ''
+end
+Line
+    Name                         Line8
+    Alias                        F6Line0
+    Color                        GRAY
+    Pattern                      Solid
+    X1                           8
+    X2                           792
+    Y1                           236
+    Y2                           236
+end
+Line
+    Name                         Line9
+    Alias                        F6Line1
+    Color                        GRAY
+    Pattern                      Solid
+    X1                           8
+    X2                           792
+    Y1                           400
+    Y2                           400
+end
+UserButton
+    Name                         Userbutton72
+    Alias                        F6UnitButton
+    Height                       65
+    Images                       UnitInchButton.png\nUnitInchButtonTouch.png\nUnitMMButton.png\nUnitMMButtonTouch.png
+    Left                         190
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          408
+    Width                        65
+    OnChanged                    'Report Message'
+end
+iLedDigits
+    Name                         ILedDigits43
+    Alias                        F6YWorkDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          102
+    OnChanged                    ''
+end
+UserImages
+    Name                         Userimages8
+    Alias                        F6StatusImage
+    Height                       65
+    Images                       IdleStatus.png\nRunStatus.png\nHoldStatus.png\nEstopStatus.png
+    Left                         20
+    Stretch                      No
+    Top                          409
+    Width                        150
+    OnChanged                    ''
+end
+iLedDigits
+    Name                         ILedDigits44
+    Alias                        F6YSafeDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 5
+    Digits                       9
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         95
+    ShowDP                       Yes
+    Signed                       Yes
+    Size                         1
+    Spacing                      0
+    Top                          132
+    OnChanged                    ''
+end
+Image
+    Name                         Image26
+    Alias                        F6Image1
+    Height                       15
+    Image                        ArrowLeft.png
+    Left                         215
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          64
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image27
+    Alias                        F6Image2
+    Height                       15
+    Image                        ArrowLeft.png
+    Left                         215
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          134
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image28
+    Alias                        F6Image3
+    Height                       15
+    Image                        ArrowLeft.png
+    Left                         215
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          204
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image29
+    Alias                        F6Image4
+    Height                       15
+    Image                        ArrowRight.png
+    Left                         74
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          36
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image30
+    Alias                        F6Image5
+    Height                       15
+    Image                        ArrowRight.png
+    Left                         74
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          106
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Image
+    Name                         Image31
+    Alias                        F6Image6
+    Height                       15
+    Image                        ArrowRight.png
+    Left                         74
+    Source.Height                15
+    Source.Left                  0
+    Source.Top                   0
+    Source.Width                 15
+    Top                          176
+    Width                        15
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+UserButton
+    Name                         Userbutton73
+    Alias                        F6ModeSetupButton
+    Height                       65
+    Images                       ModeSetup.png\nModeSetupTouch.png\nModeSetupSelected.png\nModeSetupTouch.png
+    Left                         285
+    Matrix                       1
+    Momentary                    On
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton74
+    Alias                        F6ModeFlatButton
+    Height                       65
+    Images                       ModeFlat.png\nModeFlatTouch.png\nModeFlatSelected.png\nModeFlatTouch.png
+    Left                         365
+    Matrix                       1
+    Momentary                    No
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton75
+    Alias                        F6ModeSideButton
+    Height                       65
+    Images                       ModeSide.png\nModeSideTouch.png\nModeSideSelected.png\nModeSideTouch.png
+    Left                         445
+    Matrix                       1
+    Momentary                    No
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton76
+    Alias                        F6ModeCylButton
+    Height                       65
+    Images                       ModeCylinder.png\nModeCylinderTouch.png\nModeCylinderSelected.png\nModeCylinderTouch.png
+    Left                         525
+    Matrix                       1
+    Momentary                    No
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton77
+    Alias                        F6ModeDressButton
+    Height                       65
+    Images                       ModeDress.png\nModeDressTouch.png\nModeDressSelected.png\nModeDressTouch.png
+    Left                         605
+    Matrix                       1
+    Momentary                    No
+    Stretch                      No
+    Top                          409
+    Width                        80
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton78
+    Alias                        F6SettingsButton
+    Height                       65
+    Images                       GearButton.png\nGearButtonTouch.png
+    Left                         715
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          408
+    Width                        65
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton79
+    Alias                        F6XZeroButton
+    Height                       55
+    Images                       ZeroButton.png\nZeroButtonTouch.png
+    Left                         727
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          30
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton80
+    Alias                        F6YZeroButton
+    Height                       55
+    Images                       ZeroButton.png\nZeroButtonTouch.png
+    Left                         727
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          100
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton81
+    Alias                        F6ZZeroButton
+    Height                       55
+    Images                       ZeroButton.png\nZeroButtonTouch.png
+    Left                         727
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          170
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton82
+    Alias                        F6XSetStartButton
+    Height                       55
+    Images                       StartButton.png\nStartButtonTouch.png\nStartButtonOn.png\nStartButtonTouch.png
+    Left                         16
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          30
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton83
+    Alias                        F6ZSetStartButton
+    Height                       55
+    Images                       StartButton.png\nStartButtonTouch.png\nStartButtonOn.png\nStartButtonTouch.png
+    Left                         16
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          170
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton84
+    Alias                        F6YSetWorkButton
+    Height                       55
+    Images                       WorkButton.png\nWorkButtonTouch.png\nWorkButtonOn.png\nWorkButtonTouch.png
+    Left                         16
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          100
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton85
+    Alias                        F6XSetEndButton
+    Height                       55
+    Images                       EndButton.png\nEndButtonTouch.png\nEndButtonOn.png\nEndButtonTouch.png
+    Left                         233
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          30
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton86
+    Alias                        F6ZSetEndButton
+    Height                       55
+    Images                       EndButton.png\nEndButtonTouch.png\nEndButtonOn.png\nEndButtonTouch.png
+    Left                         233
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          170
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton87
+    Alias                        F6YSetSafeButton
+    Height                       55
+    Images                       SafeButton.png\nSafeButtonTouch.png\nSafeButtonOn.png\nSafeButtonTouch.png
+    Left                         233
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          100
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserImages
+    Name                         Userimages9
+    Alias                        F6HomeIndicator
+    Height                       22
+    Images                       Images---75x25_UNHOMED.png\nImages---75x25_HOMED.png
+    Left                         707
+    Stretch                      No
+    Top                          2
+    Width                        75
+    OnChanged                    ''
+end
+Strings
+    Name                         Strings4
+    Alias                        F6Message
+    Alignment                    Left
+    BGcolor                      BLACK
+    Height                       24
+    FGcolor                      WHITE
+    Font.Bold                    No
+    Font.CharSet                 ANSI
+    Font.Italic                  No
+    Font.Name                    '4D Font3 (8x12)'
+    Font.Opaque                  Yes
+    Font.Size                    -12
+    Font.Strikethrough           No
+    Font.Underline               No
+    Left                         2
+    Strings                      ''
+    StringsStyle                 Book
+    Top                          2
+    Width                        350
+    OnChanged                    ''
 end
