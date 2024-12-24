@@ -55,9 +55,10 @@ public:
         m_config(config),
         m_operatingMode(Mode::INIT),
         m_cycleType(CycleType::HOME),
-		m_isHomed(false),
-		m_axisSwitchPosition(Optional<int>()),
-		m_resolutionSwitchPosition(Optional<int>())
+        m_isHomed(false),
+        m_axisSwitchPosition(Optional<int>()),
+        m_resolutionSwitchPosition(Optional<int>()),
+        m_currentForm(1)
     {
 		s_instance = this;
     }
@@ -83,6 +84,7 @@ private:
     void UpdateEncoder();
 	void UpdateEstop();
     void UpdateCycleButtons();
+    void SetForm(int form);
 
     // Hardware I/O
     DigitalInOut& m_eStop;
@@ -96,6 +98,7 @@ private:
     // HMI
     Uart& m_hmiSerial;
     Genie m_genie;
+    int m_currentForm;
 
     static void HmiEventHandler();
     static GrinderView *s_instance;
