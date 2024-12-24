@@ -77,10 +77,10 @@ public:
     void SetMessage(Optional<const char*> message);
     void SetAxisIndicators(Optional<Axis> selectedAxis, int32_t selectedResolution);
 
-	void SetStartDroValue(Axis axis, int32_t unitsValue, bool isSet);
-	void SetEndDroValue(Axis axis, int32_t unitsValue, bool isSet);
-    void SetSafeDroValue(Axis axis, int32_t unitsValue, bool isSet);
-	void SetWorkDroValue(Axis axis, int32_t unitsValue, bool isSet);
+	void SetStartDroValue(Axis axis, Optional<int32_t> unitsValue);
+	void SetEndDroValue(Axis axis, Optional<int32_t> unitsValue);
+    void SetSafeDroValue(Axis axis, Optional<int32_t> unitsValue);
+	void SetWorkDroValue(Axis axis, Optional<int32_t> unitsValue);
 	void SetOperatingMode(Mode mode);
 
 	void SetCycleType(CycleType cycleType);
