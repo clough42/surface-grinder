@@ -1838,6 +1838,25 @@ Strings
     Width                        350
     OnChanged                    ''
 end
+StaticText
+    Name                         Statictext21
+    Alias                        Statictext21
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      'Flat Mode'
+    Color                        BLACK
+    Font.Color                   WHITE
+    Font.Effects                 []
+    Font.Name                    Tahoma
+    Font.Size                    9
+    Font.Style                   []
+    Height                       14
+    Left                         0
+    Top                          288
+    Transparent                  Yes
+    Width                        800
+    WordWrap                     Yes
+end
 Form
     Name                         Form4
     Alias                        SideMode
@@ -2593,6 +2612,25 @@ Strings
     Top                          2
     Width                        350
     OnChanged                    ''
+end
+StaticText
+    Name                         Statictext22
+    Alias                        Statictext22
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      'Side Mode'
+    Color                        BLACK
+    Font.Color                   WHITE
+    Font.Effects                 []
+    Font.Name                    Tahoma
+    Font.Size                    9
+    Font.Style                   []
+    Height                       14
+    Left                         0
+    Top                          288
+    Transparent                  Yes
+    Width                        800
+    WordWrap                     Yes
 end
 Form
     Name                         Form5
@@ -3350,6 +3388,25 @@ Strings
     Width                        350
     OnChanged                    ''
 end
+StaticText
+    Name                         Statictext23
+    Alias                        Statictext23
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      'Cyl Mode'
+    Color                        BLACK
+    Font.Color                   WHITE
+    Font.Effects                 []
+    Font.Name                    Tahoma
+    Font.Size                    9
+    Font.Style                   []
+    Height                       14
+    Left                         0
+    Top                          288
+    Transparent                  Yes
+    Width                        800
+    WordWrap                     Yes
+end
 Form
     Name                         Form6
     Alias                        DressMode
@@ -4105,4 +4162,23 @@ Strings
     Top                          2
     Width                        350
     OnChanged                    ''
+end
+StaticText
+    Name                         Statictext24
+    Alias                        Statictext24
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      'Dress Mode'
+    Color                        BLACK
+    Font.Color                   WHITE
+    Font.Effects                 []
+    Font.Name                    Tahoma
+    Font.Size                    9
+    Font.Style                   []
+    Height                       14
+    Left                         0
+    Top                          288
+    Transparent                  Yes
+    Width                        800
+    WordWrap                     Yes
 end
