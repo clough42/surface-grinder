@@ -21,6 +21,7 @@
 #include <cstdint>
 #include "GrinderView.h"
 #include "HMIConstants.h"
+#include "HMIMap.h"
 #include "IUserActions.h"
 
 GrinderView* GrinderView::s_instance = nullptr;
@@ -35,7 +36,7 @@ void GrinderView::Init(IUserActions* controller) {
 	    
     EncoderIn.Enable(true);
         
-    m_hmiSerial.begin(300000);
+    m_hmiSerial.begin(600000);
 
     ConnectorCOM1.RtsMode(SerialBase::LINE_ON);
     delay(100);
@@ -49,7 +50,7 @@ void GrinderView::Init(IUserActions* controller) {
     m_genie.AttachEventHandler(GrinderView::HmiEventHandler);
 
 	// put up the mechanics initialization form
-    m_genie.SetForm(HMI::INITMECHANICS::FORM_ID);
+    SetForm(HMI::INITMECHANICS::FORM_ID);
     m_genie.WriteContrast(m_config.GetHmiContrast());
 }
 
@@ -65,83 +66,138 @@ void GrinderView::Update() {
 }
 
 void GrinderView::SetDroValue(Axis axis, int32_t unitsValue) {
-	using namespace HMI::SETUPMODE;
     if (m_droValues[static_cast<int>(axis)].Set(unitsValue)) {
-	    uint16_t hmiDigitsId = 0;
-	    switch (axis) {
-	    case Axis::X:
-		    hmiDigitsId = XDro_ID;
-		    break;
-	    case Axis::Y:
-		    hmiDigitsId = YDro_ID;
-		    break;
-	    case Axis::Z:
-		    hmiDigitsId = ZDro_ID;
-		    break;
-	    }
-
-		m_genie.WriteIntLedDigits(hmiDigitsId, unitsValue * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
+		WriteDroValue(axis);
 	}
 }
 
-void GrinderView::SetStartDroValue(Axis axis, int32_t unitsValue, bool isSet) {
+void GrinderView::WriteDroValue(Axis axis) {
 	using namespace HMI::SETUPMODE;
+	using namespace HMI::ALLMODES;
+
+	uint16_t hmiDigitsId = 0;
 	switch (axis) {
 	case Axis::X:
-        m_genie.WriteIntLedDigits(XStartDRO_ID, unitsValue * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
-		m_genie.WriteObject(XSetStartButton_TYPE, XSetStartButton_ID, isSet ? 1 : 0);
+		hmiDigitsId = XDro_ID[m_currentForm];
+		break;
+	case Axis::Y:
+		hmiDigitsId = YDro_ID[m_currentForm];
 		break;
 	case Axis::Z:
-        m_genie.WriteIntLedDigits(ZStartDRO_ID, unitsValue * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
-		m_genie.WriteObject(ZSetStartButton_TYPE, ZSetStartButton_ID, isSet ? 1 : 0); 
+		hmiDigitsId = ZDro_ID[m_currentForm];
+		break;
+	}
+
+	int32_t unitsValue = m_droValues[static_cast<int>(axis)].Get();
+	m_genie.WriteIntLedDigits(hmiDigitsId, unitsValue * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
+}
+
+void GrinderView::WriteUnits() {
+	m_genie.WriteObject(HMI::SETUPMODE::F0UnitButton_TYPE, HMI::ALLMODES::UnitButton_ID[m_currentForm], m_units.Get() == Units::INCHES ? HMI::UNITS_BUTTON_VAL_INCH : HMI::UNITS_BUTTON_VAL_MM);
+}
+
+void GrinderView::SetStartDroValue(Axis axis, Optional<int32_t> unitsValue) {
+	if (m_startDroValues[static_cast<int>(axis)].Set(unitsValue)) {
+		WriteStartDroValue(axis);
+	}
+}
+
+void GrinderView::WriteStartDroValue(Axis axis) {
+	using namespace HMI::ALLMODES;
+
+	Optional<int32_t> unitsValue = m_startDroValues[static_cast<int>(axis)].Get();
+
+	switch (axis) {
+	case Axis::X:
+        m_genie.WriteIntLedDigits(XStartDRO_ID[m_currentForm], unitsValue.ValueOr(0) * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
+		m_genie.WriteObject(F0XSetStartButton_TYPE, XSetStartButton_ID[m_currentForm], unitsValue.HasValue() ? 1 : 0);
+		break;
+	case Axis::Z:
+        m_genie.WriteIntLedDigits(ZStartDRO_ID[m_currentForm], unitsValue.ValueOr(0) * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
+		m_genie.WriteObject(F0ZSetStartButton_TYPE, ZSetStartButton_ID[m_currentForm], unitsValue.HasValue() ? 1 : 0);
 		break;
 	}
 }
 
-void GrinderView::SetEndDroValue(Axis axis, int32_t unitsValue, bool isSet) {
-	using namespace HMI::SETUPMODE;
+void GrinderView::SetEndDroValue(Axis axis, Optional<int32_t> unitsValue) {
+	if (m_endDroValues[static_cast<int>(axis)].Set(unitsValue)) {
+		WriteEndDroValue(axis);
+	}
+}
+
+void GrinderView::WriteEndDroValue(Axis axis) {
+	using namespace HMI::ALLMODES;
+
+	Optional<int32_t> unitsValue = m_endDroValues[static_cast<int>(axis)].Get();
+
     switch (axis) {
     case Axis::X:
-        m_genie.WriteIntLedDigits(XEndDRO_ID, unitsValue * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
-		m_genie.WriteObject(XSetEndButton_TYPE, XSetEndButton_ID, isSet ? 1 : 0);
+        m_genie.WriteIntLedDigits(XEndDRO_ID[m_currentForm], unitsValue.ValueOr(0) * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
+		m_genie.WriteObject(F0XSetEndButton_TYPE, XSetEndButton_ID[m_currentForm], unitsValue.HasValue() ? 1 : 0);
         break;
     case Axis::Z:
-        m_genie.WriteIntLedDigits(ZEndDRO_ID, unitsValue * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
-		m_genie.WriteObject(ZSetEndButton_TYPE, ZSetEndButton_ID, isSet ? 1 : 0);
+        m_genie.WriteIntLedDigits(ZEndDRO_ID[m_currentForm], unitsValue.ValueOr(0) * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
+		m_genie.WriteObject(F0ZSetEndButton_TYPE, ZSetEndButton_ID[m_currentForm], unitsValue.HasValue() ? 1 : 0);
         break;
     }
 }
 
-void GrinderView::SetSafeDroValue(Axis axis, int32_t unitsValue, bool isSet) {
-	using namespace HMI::SETUPMODE;
+void GrinderView::SetSafeDroValue(Axis axis, Optional<int32_t> unitsValue) {
+	if (m_safeDroValues[static_cast<int>(axis)].Set(unitsValue)) {
+		WriteSafeDroValue(axis);
+	}
+}
+
+void GrinderView::WriteSafeDroValue(Axis axis) {
+	using namespace HMI::ALLMODES;
+
+	Optional<int32_t> unitsValue = m_safeDroValues[static_cast<int>(axis)].Get();
+
 	switch (axis) {
 	case Axis::Y:
-		m_genie.WriteIntLedDigits(YSafeDRO_ID, unitsValue * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
-		m_genie.WriteObject(YSetSafeButton_TYPE, YSetSafeButton_ID, isSet ? 1 : 0);
+		m_genie.WriteIntLedDigits(YSafeDRO_ID[m_currentForm], unitsValue.ValueOr(0) * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
+		m_genie.WriteObject(F0YSetSafeButton_TYPE, YSetSafeButton_ID[m_currentForm], unitsValue.HasValue() ? 1 : 0);
 		break;
 	}
 }
 
-void GrinderView::SetWorkDroValue(Axis axis, int32_t unitsValue, bool isSet) {
-	using namespace HMI::SETUPMODE;
+void GrinderView::SetWorkDroValue(Axis axis, Optional<int32_t> unitsValue) {
+	if (m_workDroValues[static_cast<int>(axis)].Set(unitsValue)) {
+		WriteWorkDroValue(axis);
+	}
+}
+
+void GrinderView::WriteWorkDroValue(Axis axis) {
+	using namespace HMI::ALLMODES;
+
+	Optional<int32_t> unitsValue = m_workDroValues[static_cast<int>(axis)].Get();
+
 	switch (axis) {
 	case Axis::Y:
-		m_genie.WriteIntLedDigits(YWorkDRO_ID, unitsValue * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
-		m_genie.WriteObject(YSetWorkButton_TYPE, YSetWorkButton_ID, isSet ? 1 : 0);
+		m_genie.WriteIntLedDigits(YWorkDRO_ID[m_currentForm], unitsValue.ValueOr(0) * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
+		m_genie.WriteObject(F0YSetWorkButton_TYPE, YSetWorkButton_ID[m_currentForm], unitsValue.HasValue() ? 1 : 0);
 		break;
 	}
 }
 
 void GrinderView::SetIsHomed(bool isHomed) {
 	if (m_isHomed.Set(isHomed)) {
-		m_genie.WriteObject(HMI::SETUPMODE::HomeIndicator_TYPE, HMI::SETUPMODE::HomeIndicator_ID, isHomed ? 1 : 0);
+		WriteIsHomed();
 	}
 }
 
-void GrinderView::DisplayMessage(Optional<const char*> message) {
+void GrinderView::WriteIsHomed() {
+	m_genie.WriteObject(HMI::SETUPMODE::F0HomeIndicator_TYPE, HMI::ALLMODES::HomeIndicator_ID[m_currentForm], m_isHomed.Get() ? 1 : 0);
+}
+
+void GrinderView::SetMessage(Optional<const char*> message) {
 	if (m_message.Set(message)) {
-		m_genie.WriteStr(HMI::SETUPMODE::Message_ID, message.ValueOr(""));
+		WriteMessage();
 	}
+}
+
+void GrinderView::WriteMessage() {
+	m_genie.WriteStr(HMI::ALLMODES::Message_ID[m_currentForm], m_message.Get().ValueOr(""));
 }
 
 void GrinderView::UpdateAxisSelectors() {
@@ -156,50 +212,102 @@ void GrinderView::UpdateAxisSelectors() {
 }
 
 void GrinderView::SetAxisIndicators(Optional<Axis> selectedAxis, int32_t resolution) {
-	using namespace HMI::SETUPMODE;
+	bool changed = false;
 
-    // reset the encoder, just to keep it in a reasonable range
-    EncoderIn.Position(0);
-    m_previousEncoderCount = 0;
+	changed |= m_selectedAxis.Set(selectedAxis);
+	changed |= m_selectedResolution.Set(resolution);
+
+	if (changed) {
+		// reset the encoder, just to keep it in a reasonable range
+		EncoderIn.Position(0);
+		m_previousEncoderCount = 0;
+
+		WriteAxisIndicators();
+	}
+}
+
+void GrinderView::WriteAxisIndicators() {
+	using namespace HMI::SETUPMODE;
+	using namespace HMI::ALLMODES;
+
+	int32_t resolution = m_selectedResolution.Get();
+	Optional<Axis> selectedAxis = m_selectedAxis.Get();
 
 	// update the axis LEDs
-	m_genie.WriteObject(XJog_TYPE, XJog_ID, resolution > 0 && selectedAxis.HasValue() && selectedAxis.Value() == Axis::X ? 1 : 0);
-	m_genie.WriteObject(YJog_TYPE, YJog_ID, resolution > 0 && selectedAxis.HasValue() && selectedAxis.Value() == Axis::Y ? 1 : 0);
-	m_genie.WriteObject(ZJog_TYPE, ZJog_ID, resolution > 0 && selectedAxis.HasValue() && selectedAxis.Value() == Axis::Z ? 1 : 0);
+	m_genie.WriteObject(F0XJog_TYPE, XJog_ID[m_currentForm], resolution > 0 && selectedAxis.HasValue() && selectedAxis.Value() == Axis::X ? 1 : 0);
+	m_genie.WriteObject(F0YJog_TYPE, YJog_ID[m_currentForm], resolution > 0 && selectedAxis.HasValue() && selectedAxis.Value() == Axis::Y ? 1 : 0);
+	m_genie.WriteObject(F0ZJog_TYPE, ZJog_ID[m_currentForm], resolution > 0 && selectedAxis.HasValue() && selectedAxis.Value() == Axis::Z ? 1 : 0);
 
 	// update the resolution LEDs
-    m_genie.WriteObject(Resolution1_TYPE, Resolution1_ID, selectedAxis.HasValue() && resolution == 1 ? 1 : 0);
-    m_genie.WriteObject(Resolution10_TYPE, Resolution10_ID, selectedAxis.HasValue() && resolution == 10 ? 1 : 0);
-    m_genie.WriteObject(Resolution100_TYPE, Resolution100_ID, selectedAxis.HasValue() && resolution == 100 ? 1 : 0);
-    m_genie.WriteObject(Resolution1000_TYPE, Resolution1000_ID, selectedAxis.HasValue() && resolution == 1000 ? 1 : 0);
-    m_genie.WriteObject(Resolution10000_TYPE, Resolution10000_ID, selectedAxis.HasValue() && resolution == 10000 ? 1 : 0);
+    m_genie.WriteObject(F0Resolution1_TYPE, Resolution1_ID[m_currentForm], selectedAxis.HasValue() && resolution == 1 ? 1 : 0);
+    m_genie.WriteObject(F0Resolution10_TYPE, Resolution10_ID[m_currentForm], selectedAxis.HasValue() && resolution == 10 ? 1 : 0);
+    m_genie.WriteObject(F0Resolution100_TYPE, Resolution100_ID[m_currentForm], selectedAxis.HasValue() && resolution == 100 ? 1 : 0);
+    m_genie.WriteObject(F0Resolution1000_TYPE, Resolution1000_ID[m_currentForm], selectedAxis.HasValue() && resolution == 1000 ? 1 : 0);
+    m_genie.WriteObject(F0Resolution10000_TYPE, Resolution10000_ID[m_currentForm], selectedAxis.HasValue() && resolution == 10000 ? 1 : 0);
 }
+
+
 
 void GrinderView::SetOperatingMode(Mode mode) {
 	using namespace HMI::SETUPMODE;
+	using namespace HMI::ALLMODES;
 
 	if (m_operatingMode.Set(mode)) {
 
 		switch (mode) {
 		case Mode::SETUP:
-			m_genie.SetForm(HMI::SETUPMODE::FORM_ID);
-			m_genie.WriteObject(ModeSetupButton_TYPE, ModeSetupButton_ID, 1);
+			SetForm(HMI::SETUPMODE::FORM_ID);
+			m_genie.WriteObject(F0ModeSetupButton_TYPE, ModeSetupButton_ID[m_currentForm], 1);
 			break;
 		case Mode::FLAT:
-			m_genie.WriteObject(ModeFlatButton_TYPE, ModeFlatButton_ID, 1);
+			SetForm(HMI::FLATMODE::FORM_ID);
+			m_genie.WriteObject(F0ModeFlatButton_TYPE, ModeFlatButton_ID[m_currentForm], 1);
 			break;
 		case Mode::SIDE:
-			m_genie.WriteObject(ModeSideButton_TYPE, ModeSideButton_ID, 1);
+			SetForm(HMI::SIDEMODE::FORM_ID);
+			m_genie.WriteObject(F0ModeSideButton_TYPE, ModeSideButton_ID[m_currentForm], 1);
 			break;
 		case Mode::CYLINDER:
-			m_genie.WriteObject(ModeCylButton_TYPE, ModeCylButton_ID, 1);
+			SetForm(HMI::CYLMODE::FORM_ID);
+			m_genie.WriteObject(F0ModeCylButton_TYPE, ModeCylButton_ID[m_currentForm], 1);
 			break;
 		case Mode::DRESS:
-			m_genie.WriteObject(ModeDressButton_TYPE, ModeDressButton_ID, 1);
+			SetForm(HMI::DRESSMODE::FORM_ID);
+			m_genie.WriteObject(F0ModeDressButton_TYPE, ModeDressButton_ID[m_currentForm], 1);
 			break;
 		}
 
+		WriteCommonValues();
 	}
+}
+
+/// <summary>
+/// Write all common values out to the HMI after switching forms.
+/// </summary>
+void GrinderView::WriteCommonValues() {
+	WriteDroValue(Axis::X);
+	WriteDroValue(Axis::Y);
+	WriteDroValue(Axis::Z);
+	WriteAxisIndicators();
+
+	WriteUnits();
+	WriteStatus();
+	WriteIsHomed();
+	WriteMessage();
+
+	WriteStartDroValue(Axis::X);
+	WriteEndDroValue(Axis::X);
+	WriteStartDroValue(Axis::Z);
+	WriteEndDroValue(Axis::Z);
+	WriteSafeDroValue(Axis::Y);
+	WriteWorkDroValue(Axis::Y);
+}
+
+void GrinderView::SetForm(int form) {
+	ASSERT(form >= 0 && form < 7);
+	m_currentForm = form;
+	m_genie.SetForm(form);
+
 }
 
 void GrinderView::SetCycleType(CycleType cycleType) {
@@ -219,9 +327,16 @@ void GrinderView::SetCycleType(CycleType cycleType) {
 
 
 void GrinderView::SetStatus(Status status) {
-	using namespace HMI::SETUPMODE;
+	if (m_status.Set(status)) {
+		WriteStatus();
+	}
+}
 
-	m_genie.WriteObject(StatusImage_TYPE, StatusImage_ID, static_cast<int>(status));
+void GrinderView::WriteStatus() {
+	using namespace HMI::SETUPMODE;
+	using namespace HMI::ALLMODES;
+
+	m_genie.WriteObject(F0StatusImage_TYPE, StatusImage_ID[m_currentForm], static_cast<int>(m_status.Get()));
 }
 
 void GrinderView::UpdateEncoder() {
@@ -270,125 +385,112 @@ void GrinderView::HmiEventHandler() {
 void GrinderView::HandleHmiEvent(genieFrame& Event)
 {
 	using namespace HMI::SETUPMODE;
+	using namespace HMI::ALLMODES;
 
     // DRO Zero Buttons
-    if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, XZeroButton_TYPE, XZeroButton_ID)) {
+    if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0XZeroButton_TYPE, XZeroButton_ID[m_currentForm])) {
 		if (m_controller) m_controller->SetWorkOffset(Axis::X);
         return;
     }
-    if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, YZeroButton_TYPE, YZeroButton_ID)) {
+    if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0YZeroButton_TYPE, YZeroButton_ID[m_currentForm])) {
         if (m_controller) m_controller->SetWorkOffset(Axis::Y);
         return;
     }
-    if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, ZZeroButton_TYPE, ZZeroButton_ID)) {
+    if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0ZZeroButton_TYPE, ZZeroButton_ID[m_currentForm])) {
         if (m_controller) m_controller->SetWorkOffset(Axis::Z);
         return;
     }
 
 	// Limit Set Buttons
-	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, XSetStartButton_TYPE, XSetStartButton_ID)) {
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0XSetStartButton_TYPE, XSetStartButton_ID[m_currentForm])) {
 		if (m_controller) {
 			m_controller->SetStartLimit(Axis::X);
 		}
 		return;
 	}
-	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, XSetEndButton_TYPE, XSetEndButton_ID)) {
-		if (m_controller) {
-			m_controller->SetEndLimit(Axis::X);
-		}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0XSetEndButton_TYPE, XSetEndButton_ID[m_currentForm])) {
+		if (m_controller) m_controller->SetEndLimit(Axis::X);
 		return;
 	}
-	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, ZSetStartButton_TYPE, ZSetStartButton_ID)) {
-		if (m_controller) {
-			m_controller->SetStartLimit(Axis::Z);
-		}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0ZSetStartButton_TYPE, ZSetStartButton_ID[m_currentForm])) {
+		if (m_controller) m_controller->SetStartLimit(Axis::Z);
 		return;
 	}
-	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, ZSetEndButton_TYPE, ZSetEndButton_ID)) {
-		if (m_controller) {
-			m_controller->SetEndLimit(Axis::Z);
-		}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0ZSetEndButton_TYPE, ZSetEndButton_ID[m_currentForm])) {
+		if (m_controller) m_controller->SetEndLimit(Axis::Z);
 		return;
 	}
 
 	// Safe and Work Set Buttons
-	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, YSetSafeButton_TYPE, YSetSafeButton_ID)) {
-		if (m_controller) {
-			m_controller->SetSafePosition(Axis::Y);
-		}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0YSetSafeButton_TYPE, YSetSafeButton_ID[m_currentForm])) {
+		if (m_controller) m_controller->SetSafePosition(Axis::Y);
 		return;
 	}
-	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, YSetWorkButton_TYPE, YSetWorkButton_ID)) {
-		if (m_controller) {
-			m_controller->SetWorkPosition(Axis::Y);
-		}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0YSetWorkButton_TYPE, YSetWorkButton_ID[m_currentForm])) {
+		if (m_controller) m_controller->SetWorkPosition(Axis::Y);
 		return;
 	}
 
 	// Respond to Go Right/Left/Up/Down buttons
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoUpButton_TYPE, GoUpButton_ID)) {
-		if (m_controller) {
-			m_controller->TraverseToStartPosition(Axis::Z);
-		}
+		if (m_controller) m_controller->TraverseToStartPosition(Axis::Z);
+		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoDownButton_TYPE, GoDownButton_ID)) {
-		if (m_controller) {
-			m_controller->TraverseToEndPosition(Axis::Z);
-		}
+		if (m_controller) m_controller->TraverseToEndPosition(Axis::Z);
+		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoLeftButton_TYPE, GoLeftButton_ID)) {
-		if (m_controller) {
-			m_controller->TraverseToStartPosition(Axis::X);
-		}
+		if (m_controller) m_controller->TraverseToStartPosition(Axis::X);
+		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoRightButton_TYPE, GoRightButton_ID)) {
-		if (m_controller) {
-			m_controller->TraverseToEndPosition(Axis::X);
-		}
+		if (m_controller) m_controller->TraverseToEndPosition(Axis::X);
+		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoSafeButton_TYPE, GoSafeButton_ID)) {
-		if (m_controller) {
-			m_controller->TraverseToSafePosition(Axis::Y);
-		}
+		if (m_controller) m_controller->TraverseToSafePosition(Axis::Y);
+		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoWorkButton_TYPE, GoWorkButton_ID)) {
-		if (m_controller) {
-			m_controller->TraverseToWorkPosition(Axis::Y);
-		}
+		if (m_controller) m_controller->TraverseToWorkPosition(Axis::Y);
+		return;
 	}
 
     // Unit Selection
-    if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, UnitButton_TYPE, UnitButton_ID)) {
+    if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0UnitButton_TYPE, UnitButton_ID[m_currentForm])) {
         switch (Event.reportObject.data_lsb) {
         case HMI::UNITS_BUTTON_VAL_INCH:
-			if (m_controller) m_controller->SelectUnits(Units::INCHES);
+			m_units.Set(Units::INCHES);
             break;
         case HMI::UNITS_BUTTON_VAL_MM:
-			if (m_controller) m_controller->SelectUnits(Units::MILLIMETERS);
+			m_units.Set(Units::MILLIMETERS);
             break;
         }
+
+		if (m_controller) m_controller->SelectUnits(m_units.Get());
 		
         return;
     }
 
     // Mode Selection
-	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, ModeSetupButton_TYPE, ModeSetupButton_ID)) {
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0ModeSetupButton_TYPE, ModeSetupButton_ID[m_currentForm])) {
 		if (m_controller) m_controller->SetOperatingMode(Mode::SETUP);
 		return;
 	}
-	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, ModeFlatButton_TYPE, ModeFlatButton_ID)) {
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0ModeFlatButton_TYPE, ModeFlatButton_ID[m_currentForm])) {
 		if (m_controller) m_controller->SetOperatingMode(Mode::FLAT);
 		return;
 	}
-	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, ModeSideButton_TYPE, ModeSideButton_ID)) {
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0ModeSideButton_TYPE, ModeSideButton_ID[m_currentForm])) {
 		if (m_controller) m_controller->SetOperatingMode(Mode::SIDE);
 		return;
 	}
-	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, ModeCylButton_TYPE, ModeCylButton_ID)) {
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0ModeCylButton_TYPE, ModeCylButton_ID[m_currentForm])) {
 		if (m_controller) m_controller->SetOperatingMode(Mode::CYLINDER);
 		return;
 	}
-	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, ModeDressButton_TYPE, ModeDressButton_ID)) {
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0ModeDressButton_TYPE, ModeDressButton_ID[m_currentForm])) {
 		if (m_controller) m_controller->SetOperatingMode(Mode::DRESS);
 		return;
 	}

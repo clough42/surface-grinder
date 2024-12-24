@@ -7,6 +7,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ClearCoreArduino", "ClearCo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTests", "UnitTests\UnitTests.vcxproj", "{1CC427B5-2B3B-435D-AB9B-60319AAD3D48}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HMI", "HMI", "{6CE43869-645C-4CF3-A01F-4282CD8126E2}"
+	ProjectSection(SolutionItems) = preProject
+		HMI\generateHeader.py = HMI\generateHeader.py
+		HMI\SurfaceGrinder.4DGenie = HMI\SurfaceGrinder.4DGenie
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -20,17 +26,11 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B8D2A79A-842E-47B3-A785-5D81DE169AB3}.Debug|ARM.ActiveCfg = Debug|ARM
-		{B8D2A79A-842E-47B3-A785-5D81DE169AB3}.Debug|ARM.Build.0 = Debug|ARM
-		{B8D2A79A-842E-47B3-A785-5D81DE169AB3}.Debug|ARM.Deploy.0 = Debug|ARM
 		{B8D2A79A-842E-47B3-A785-5D81DE169AB3}.Debug|ARM64.ActiveCfg = Debug|ARM64
 		{B8D2A79A-842E-47B3-A785-5D81DE169AB3}.Debug|ARM64.Build.0 = Debug|ARM64
 		{B8D2A79A-842E-47B3-A785-5D81DE169AB3}.Debug|ARM64.Deploy.0 = Debug|ARM64
 		{B8D2A79A-842E-47B3-A785-5D81DE169AB3}.Debug|x64.ActiveCfg = Debug|ARM
-		{B8D2A79A-842E-47B3-A785-5D81DE169AB3}.Debug|x64.Build.0 = Debug|ARM
-		{B8D2A79A-842E-47B3-A785-5D81DE169AB3}.Debug|x64.Deploy.0 = Debug|ARM
 		{B8D2A79A-842E-47B3-A785-5D81DE169AB3}.Debug|x86.ActiveCfg = Debug|ARM
-		{B8D2A79A-842E-47B3-A785-5D81DE169AB3}.Debug|x86.Build.0 = Debug|ARM
-		{B8D2A79A-842E-47B3-A785-5D81DE169AB3}.Debug|x86.Deploy.0 = Debug|ARM
 		{B8D2A79A-842E-47B3-A785-5D81DE169AB3}.Release|ARM.ActiveCfg = Release|ARM
 		{B8D2A79A-842E-47B3-A785-5D81DE169AB3}.Release|ARM.Build.0 = Release|ARM
 		{B8D2A79A-842E-47B3-A785-5D81DE169AB3}.Release|ARM.Deploy.0 = Release|ARM

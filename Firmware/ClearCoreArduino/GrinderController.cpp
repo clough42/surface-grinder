@@ -142,11 +142,19 @@ void GrinderController::SetWorkPosition(Axis axis) {
 void GrinderController::UpdateLimitDros() {
 	for (int i = 0; i < AXIS_COUNT; i++) {
 		Axis axis = static_cast<Axis>(i);
-		m_view.SetStartDroValue(axis, ConvertToUnits(m_config.GetProcessValues(axis)->startLimit.ValueOr(0) - m_config.GetProcessValues(axis)->droWorkOffset), m_config.GetProcessValues(axis)->startLimit.HasValue());
-		m_view.SetEndDroValue(axis, ConvertToUnits(m_config.GetProcessValues(axis)->endLimit.ValueOr(0) - m_config.GetProcessValues(axis)->droWorkOffset), m_config.GetProcessValues(axis)->endLimit.HasValue());
-		m_view.SetSafeDroValue(axis, ConvertToUnits(m_config.GetProcessValues(axis)->safePosition.ValueOr(0) - m_config.GetProcessValues(axis)->droWorkOffset), m_config.GetProcessValues(axis)->safePosition.HasValue());
-		m_view.SetWorkDroValue(axis, ConvertToUnits(m_config.GetProcessValues(axis)->workPosition.ValueOr(0) - m_config.GetProcessValues(axis)->droWorkOffset), m_config.GetProcessValues(axis)->workPosition.HasValue());
+		Configuration::ProcessValues *processValues = m_config.GetProcessValues(axis);
+		m_view.SetStartDroValue(axis, ApplyOffsetAndConvertToUnits(processValues->startLimit, processValues->droWorkOffset));
+		m_view.SetEndDroValue(axis, ApplyOffsetAndConvertToUnits(processValues->endLimit, processValues->droWorkOffset));
+		m_view.SetSafeDroValue(axis, ApplyOffsetAndConvertToUnits(processValues->safePosition, processValues->droWorkOffset));
+		m_view.SetWorkDroValue(axis, ApplyOffsetAndConvertToUnits(processValues->workPosition, processValues->droWorkOffset));
 	}
+}
+
+Optional<int32_t> GrinderController::ApplyOffsetAndConvertToUnits(Optional<int32_t> value, int32_t offset) {
+	if (value.HasValue()) {
+		return Optional<int32_t>(ConvertToUnits(value.Value() - offset));
+	}
+	return Optional<int32_t>();
 }
 
 void GrinderController::SetCycleType(CycleType cycleType) {
@@ -259,7 +267,7 @@ void GrinderController::UpdateHomed() {
 }
 
 void GrinderController::UpdateError() {
-	m_view.DisplayMessage(m_model.Error());
+	m_view.SetMessage(m_model.Error());
 }
 
 void GrinderController::UpdateDRO(Axis axis) {

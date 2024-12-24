@@ -92,6 +92,7 @@
     <ClInclude Include="Cycle.h" />
     <ClInclude Include="CycleHoming.h" />
     <ClInclude Include="CycleTouchoff.h" />
+    <ClInclude Include="HMIMap.h" />
     <ClInclude Include="IUserActions.h" />
     <ClInclude Include="GrinderView.h" />
     <ClInclude Include="GrinderController.h" />
