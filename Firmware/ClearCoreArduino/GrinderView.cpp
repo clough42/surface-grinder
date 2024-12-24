@@ -97,8 +97,15 @@ void GrinderView::WriteUnits() {
 }
 
 void GrinderView::SetStartDroValue(Axis axis, Optional<int32_t> unitsValue) {
-	using namespace HMI::SETUPMODE;
+	if (m_startDroValues[static_cast<int>(axis)].Set(unitsValue)) {
+		WriteStartDroValue(axis);
+	}
+}
+
+void GrinderView::WriteStartDroValue(Axis axis) {
 	using namespace HMI::ALLMODES;
+
+	Optional<int32_t> unitsValue = m_startDroValues[static_cast<int>(axis)].Get();
 
 	switch (axis) {
 	case Axis::X:
@@ -113,8 +120,15 @@ void GrinderView::SetStartDroValue(Axis axis, Optional<int32_t> unitsValue) {
 }
 
 void GrinderView::SetEndDroValue(Axis axis, Optional<int32_t> unitsValue) {
-	using namespace HMI::SETUPMODE;
+	if (m_endDroValues[static_cast<int>(axis)].Set(unitsValue)) {
+		WriteEndDroValue(axis);
+	}
+}
+
+void GrinderView::WriteEndDroValue(Axis axis) {
 	using namespace HMI::ALLMODES;
+
+	Optional<int32_t> unitsValue = m_endDroValues[static_cast<int>(axis)].Get();
 
     switch (axis) {
     case Axis::X:
@@ -129,8 +143,15 @@ void GrinderView::SetEndDroValue(Axis axis, Optional<int32_t> unitsValue) {
 }
 
 void GrinderView::SetSafeDroValue(Axis axis, Optional<int32_t> unitsValue) {
-	using namespace HMI::SETUPMODE;
+	if (m_safeDroValues[static_cast<int>(axis)].Set(unitsValue)) {
+		WriteSafeDroValue(axis);
+	}
+}
+
+void GrinderView::WriteSafeDroValue(Axis axis) {
 	using namespace HMI::ALLMODES;
+
+	Optional<int32_t> unitsValue = m_safeDroValues[static_cast<int>(axis)].Get();
 
 	switch (axis) {
 	case Axis::Y:
@@ -141,8 +162,16 @@ void GrinderView::SetSafeDroValue(Axis axis, Optional<int32_t> unitsValue) {
 }
 
 void GrinderView::SetWorkDroValue(Axis axis, Optional<int32_t> unitsValue) {
-	using namespace HMI::SETUPMODE;
+	if (m_workDroValues[static_cast<int>(axis)].Set(unitsValue)) {
+		WriteWorkDroValue(axis);
+	}
+}
+
+void GrinderView::WriteWorkDroValue(Axis axis) {
 	using namespace HMI::ALLMODES;
+
+	Optional<int32_t> unitsValue = m_workDroValues[static_cast<int>(axis)].Get();
+
 	switch (axis) {
 	case Axis::Y:
 		m_genie.WriteIntLedDigits(YWorkDRO_ID[m_currentForm], unitsValue.ValueOr(0) * static_cast<int>(m_config.GetAxisConfig(axis)->droDirection));
@@ -265,6 +294,13 @@ void GrinderView::WriteCommonValues() {
 	WriteStatus();
 	WriteIsHomed();
 	WriteMessage();
+
+	WriteStartDroValue(Axis::X);
+	WriteEndDroValue(Axis::X);
+	WriteStartDroValue(Axis::Z);
+	WriteEndDroValue(Axis::Z);
+	WriteSafeDroValue(Axis::Y);
+	WriteWorkDroValue(Axis::Y);
 }
 
 void GrinderView::SetForm(int form) {
@@ -373,68 +409,52 @@ void GrinderView::HandleHmiEvent(genieFrame& Event)
 		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0XSetEndButton_TYPE, XSetEndButton_ID[m_currentForm])) {
-		if (m_controller) {
-			m_controller->SetEndLimit(Axis::X);
-		}
+		if (m_controller) m_controller->SetEndLimit(Axis::X);
 		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0ZSetStartButton_TYPE, ZSetStartButton_ID[m_currentForm])) {
-		if (m_controller) {
-			m_controller->SetStartLimit(Axis::Z);
-		}
+		if (m_controller) m_controller->SetStartLimit(Axis::Z);
 		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0ZSetEndButton_TYPE, ZSetEndButton_ID[m_currentForm])) {
-		if (m_controller) {
-			m_controller->SetEndLimit(Axis::Z);
-		}
+		if (m_controller) m_controller->SetEndLimit(Axis::Z);
 		return;
 	}
 
 	// Safe and Work Set Buttons
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0YSetSafeButton_TYPE, YSetSafeButton_ID[m_currentForm])) {
-		if (m_controller) {
-			m_controller->SetSafePosition(Axis::Y);
-		}
+		if (m_controller) m_controller->SetSafePosition(Axis::Y);
 		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0YSetWorkButton_TYPE, YSetWorkButton_ID[m_currentForm])) {
-		if (m_controller) {
-			m_controller->SetWorkPosition(Axis::Y);
-		}
+		if (m_controller) m_controller->SetWorkPosition(Axis::Y);
 		return;
 	}
 
 	// Respond to Go Right/Left/Up/Down buttons
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoUpButton_TYPE, GoUpButton_ID)) {
-		if (m_controller) {
-			m_controller->TraverseToStartPosition(Axis::Z);
-		}
+		if (m_controller) m_controller->TraverseToStartPosition(Axis::Z);
+		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoDownButton_TYPE, GoDownButton_ID)) {
-		if (m_controller) {
-			m_controller->TraverseToEndPosition(Axis::Z);
-		}
+		if (m_controller) m_controller->TraverseToEndPosition(Axis::Z);
+		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoLeftButton_TYPE, GoLeftButton_ID)) {
-		if (m_controller) {
-			m_controller->TraverseToStartPosition(Axis::X);
-		}
+		if (m_controller) m_controller->TraverseToStartPosition(Axis::X);
+		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoRightButton_TYPE, GoRightButton_ID)) {
-		if (m_controller) {
-			m_controller->TraverseToEndPosition(Axis::X);
-		}
+		if (m_controller) m_controller->TraverseToEndPosition(Axis::X);
+		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoSafeButton_TYPE, GoSafeButton_ID)) {
-		if (m_controller) {
-			m_controller->TraverseToSafePosition(Axis::Y);
-		}
+		if (m_controller) m_controller->TraverseToSafePosition(Axis::Y);
+		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoWorkButton_TYPE, GoWorkButton_ID)) {
-		if (m_controller) {
-			m_controller->TraverseToWorkPosition(Axis::Y);
-		}
+		if (m_controller) m_controller->TraverseToWorkPosition(Axis::Y);
+		return;
 	}
 
     // Unit Selection

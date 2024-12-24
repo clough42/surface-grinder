@@ -76,11 +76,11 @@ public:
     void SetIsHomed(bool);
     void SetMessage(Optional<const char*> message);
     void SetAxisIndicators(Optional<Axis> selectedAxis, int32_t selectedResolution);
-
 	void SetStartDroValue(Axis axis, Optional<int32_t> unitsValue);
 	void SetEndDroValue(Axis axis, Optional<int32_t> unitsValue);
     void SetSafeDroValue(Axis axis, Optional<int32_t> unitsValue);
 	void SetWorkDroValue(Axis axis, Optional<int32_t> unitsValue);
+
 	void SetOperatingMode(Mode mode);
 
 	void SetCycleType(CycleType cycleType);
@@ -95,6 +95,10 @@ private:
     void WriteIsHomed();
     void WriteMessage();
     void WriteAxisIndicators();
+    void WriteStartDroValue(Axis axis);
+	void WriteEndDroValue(Axis axis);
+	void WriteSafeDroValue(Axis axis);
+	void WriteWorkDroValue(Axis axis);
 
     void WriteCommonValues();
 
@@ -136,6 +140,10 @@ private:
     TrackedValue<Optional<const char*>> m_message;
 	TrackedValue<Optional<Axis>> m_selectedAxis;
 	TrackedValue<int32_t> m_selectedResolution;
+	TrackedValue<Optional<int32_t>> m_startDroValues[AXIS_COUNT] = { Optional<int32_t>(), Optional<int32_t>(), Optional<int32_t>() };
+	TrackedValue<Optional<int32_t>> m_endDroValues[AXIS_COUNT] = { Optional<int32_t>(), Optional<int32_t>(), Optional<int32_t>() };
+	TrackedValue<Optional<int32_t>> m_safeDroValues[AXIS_COUNT] = { Optional<int32_t>(), Optional<int32_t>(), Optional<int32_t>() };
+	TrackedValue<Optional<int32_t>> m_workDroValues[AXIS_COUNT] = { Optional<int32_t>(), Optional<int32_t>(), Optional<int32_t>() };
 
     TrackedValue<Mode> m_operatingMode;
     TrackedValue<CycleType> m_cycleType;
