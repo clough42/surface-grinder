@@ -48,6 +48,7 @@ public:
     struct ProcessValues {
         int32_t droWorkOffset;
         int32_t grindSpeedMmM;
+        int32_t grindingStepoverNm;
         Optional<int32_t> startLimit;
         Optional<int32_t> endLimit;
         Optional<int32_t> safePosition;
@@ -116,15 +117,17 @@ private:
     ProcessValues processValues[AXIS_COUNT] = {
         {
             .droWorkOffset = 0,
-			.grindSpeedMmM = 15240 // 50fpm = 15240mm/min
+            .grindSpeedMmM = 15240 // 50fpm = 15240mm/min
         },
         {
             .droWorkOffset = 0,
-			.grindSpeedMmM = 0 // do we ever even want to do this?
+            .grindSpeedMmM = 0, // do we ever even want to do this?
+			.grindingStepoverNm = 3175000 // 1/8" = 3175000nm
         },
         {
             .droWorkOffset = 0,
-			.grindSpeedMmM = 100 // very slow; figure out reasonable values later
+			.grindSpeedMmM = 100, // very slow; figure out reasonable values later
+            .grindingStepoverNm = 3175000 // 1/8" = 3175000nm
         }
     };
 

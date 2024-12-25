@@ -18,47 +18,65 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef CYCLEHOMING_H
-#define CYCLEHOMING_H
+#ifndef CYCLEFLATGRIND_H
+#define CYCLEFLATGRIND_H
 
 #include <Arduino.h>
 #include "Cycle.h"
 #include "MachineAxis.h"
+#include "Configuration.h"
 
-class CycleHoming : public Cycle {
+class CycleFlatGrind : public Cycle {
 public:
     // Define the states of the state machine
-    enum HomingState {
+    enum FlatGrindState {
         INITIAL,
-        HOME_Y,
-        HOME_Z,
-        HOME_X,
+        RISE_TO_SAFE,
+        MOVE_TO_START,
+        LOWER_TO_WORK,
+        GRIND_TO_END_X,
+        ADVANCE_Z_AT_END,
+        GRIND_TO_START_X,
+        ADVANCE_Z_AT_START,
+        REWIND_Z,
         FINAL
     };
 
     // Constructor
-	CycleHoming(MachineAxis* axes, Configuration& config ) 
-        : Cycle(CycleType::HOME, axes, config), currentState(INITIAL) { }
+    CycleFlatGrind(MachineAxis* axes, Configuration& config)
+        : Cycle(CycleType::FLATGRIND, axes, config), currentState(INITIAL) { }
 
-	void Reset() override;
-	void Cancel() override;
-	bool CanRun() override;
+    void Reset() override;
+    bool CanRun() override;
     bool Update() override;
+    void Cancel() override;
+    bool AllowJog(Axis axis, int32_t nanometers) const override;
 
 private:
-    HomingState currentState;
+    FlatGrindState currentState;
 
-    // Transition methods for each state
-    void TransitionToHomeY();
-    void TransitionToHomeZ();
-    void TransitionToHomeX();
+    // Transition and update methods
+    void UpdateInitial();
+    void TransitionToRiseToSafe();
+	void UpdateRiseToSafe();
+    void TransitionToMoveToStart();
+	void UpdateMoveToStart();
+    void TransitionToLowerToWork();
+	void UpdateLowerToWork();
+    void TransitionToGrindToEndX();
+	void UpdateGrindToEndX();
+    void TransitionToAdvanceZAtEnd();
+	void UpdateAdvanceZAtEnd();
+    void TransitionToGrindToStartX();
+	void UpdateGrindToStartX();
+    void TransitionToAdvanceZAtStart();
+	void UpdateAdvanceZAtStart();
+    void TransitionToRewindZ();
+	void UpdateRewindZ();
     void TransitionToFinal();
 
-    // Update methods for each state
-    void UpdateInitial();
-    void UpdateHomeY();
-    void UpdateHomeZ();
-    void UpdateHomeX();
+    int32_t CalculateZAdvance();
+
 };
 
-#endif // CYCLEHOMING_H
+#endif // CYCLEFLATGRIND_H

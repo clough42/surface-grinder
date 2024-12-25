@@ -182,6 +182,9 @@ void GrinderController::CycleStart() {
 	case Mode::SETUP:
 		m_model.CycleStart(m_cycleType.Get());
 		break;
+	case Mode::FLAT:
+		m_model.CycleStart(CycleType::FLATGRIND);
+		break;
 	}
 }
 

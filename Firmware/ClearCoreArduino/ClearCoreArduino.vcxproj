@@ -77,6 +77,7 @@
       <FileType>CppCode</FileType>
       <DeploymentContent>true</DeploymentContent>
     </ClCompile>
+    <ClCompile Include="CycleFlatGrind.cpp" />
     <ClCompile Include="CycleHoming.cpp" />
     <ClCompile Include="CycleTouchoff.cpp" />
     <ClCompile Include="GrinderView.cpp" />
@@ -90,6 +91,7 @@
     <ClInclude Include="CommonEnums.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="Cycle.h" />
+    <ClInclude Include="CycleFlatGrind.h" />
     <ClInclude Include="CycleHoming.h" />
     <ClInclude Include="CycleTouchoff.h" />
     <ClInclude Include="HMIMap.h" />

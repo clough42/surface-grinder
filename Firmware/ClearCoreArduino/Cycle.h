@@ -21,12 +21,15 @@
 #ifndef CYCLE_H
 #define CYCLE_H
 
+#include "Configuration.h"
+#include "MachineAxis.h"
 #include "CommonEnums.h"
 #include "Optional.h"
 
 class Cycle {
 public:
-	Cycle(CycleType cycleType) : m_cycleType(cycleType), m_error(Optional<const char*>()) {}
+	Cycle(CycleType cycleType, MachineAxis* axes, Configuration& config) : 
+		m_cycleType(cycleType), m_axes(axes), m_config(config), m_error(Optional<const char*>()) {}
 
 	bool IsType(CycleType type) {
 		return m_cycleType == type;
@@ -68,6 +71,14 @@ protected:
 	void ClearError() {
 		m_error = Optional<const char*>();
 	}
+
+	bool CloseEnoughTo(int32_t xPositionNm, int32_t zPositionNm) {
+		return abs(xPositionNm - m_axes[AXIS_X].GetCurrentPositionNm()) < 1000000 // 1mm
+			&& abs(zPositionNm - m_axes[AXIS_Z].GetCurrentPositionNm()) < 1000000; // 1mm
+	}
+
+	MachineAxis* m_axes;
+	Configuration& m_config;
 
 private:
     CycleType m_cycleType;

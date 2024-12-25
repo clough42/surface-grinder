@@ -36,7 +36,7 @@ public:
 
     // Constructor
     CycleTouchoff(MachineAxis* axes, Configuration& config)
-        : Cycle(CycleType::TOUCHOFF), m_axes(axes), m_config(config), currentState(INITIAL) { }
+        : Cycle(CycleType::TOUCHOFF, axes, config), currentState(INITIAL) { }
 
     void Reset() override;
 	bool CanRun() override;
@@ -46,8 +46,6 @@ public:
 
 private:
     TouchoffState currentState;
-    MachineAxis* m_axes;
-	Configuration& m_config;
 
     // Transition methods for each state
 	void TransitionToMoveToXStartLimit();
