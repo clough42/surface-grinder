@@ -35,7 +35,7 @@ void CycleFlatGrind::Cancel() {
 
 bool CycleFlatGrind::CanRun() {
     if (!m_axes[AXIS_X].IsHomed()) {
-        Cycle::SetError("HOME machine before grindingF");
+        Cycle::SetError("HOME machine before grinding");
         return false;
     }
     if (!m_config.GetProcessValues(Axis::X)->startLimit.HasValue() ||
