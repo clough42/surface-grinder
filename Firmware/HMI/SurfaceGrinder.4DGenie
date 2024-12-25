@@ -1617,7 +1617,7 @@ UserButton
     Images                       ModeSetup.png\nModeSetupTouch.png\nModeSetupSelected.png\nModeSetupTouch.png
     Left                         285
     Matrix                       1
-    Momentary                    On
+    Momentary                    No
     Stretch                      No
     Top                          409
     Width                        80
@@ -1630,7 +1630,7 @@ UserButton
     Images                       ModeFlat.png\nModeFlatTouch.png\nModeFlatSelected.png\nModeFlatTouch.png
     Left                         365
     Matrix                       1
-    Momentary                    No
+    Momentary                    On
     Stretch                      No
     Top                          409
     Width                        80
@@ -1838,24 +1838,419 @@ Strings
     Width                        350
     OnChanged                    ''
 end
+iLedDigits
+    Name                         ILedDigits45
+    Alias                        RoughDepthDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 4
+    Digits                       5
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         370
+    ShowDP                       Yes
+    Signed                       No
+    Size                         2
+    Spacing                      0
+    Top                          248
+    OnChanged                    ''
+end
 StaticText
     Name                         Statictext21
     Alias                        Statictext21
-    Alignment                    Center
+    Alignment                    Left
     AutoSize                     No
-    Caption                      'Flat Mode'
+    Caption                      ROUGH:
     Color                        BLACK
     Font.Color                   WHITE
     Font.Effects                 []
-    Font.Name                    Tahoma
-    Font.Size                    9
+    Font.Name                    'Agency FB'
+    Font.Size                    24
     Font.Style                   []
-    Height                       14
-    Left                         0
-    Top                          288
+    Height                       45
+    Left                         30
+    Top                          250
     Transparent                  Yes
-    Width                        800
+    Width                        75
     WordWrap                     Yes
+end
+Trackbar
+    Name                         Trackbar0
+    Alias                        RoughCountSlider
+    BorderWidth                  0
+    Color                        BLACK
+    Frequency                    1
+    GutterBevel.BorderColor      clBtnFace
+    GutterBevel.BorderWidth      0
+    GutterBevel.InnerColor       BLACK
+    GutterBevel.InnerHighlight   clBtnHighlight
+    GutterBevel.InnerOutline     None
+    GutterBevel.InnerShadow      clBtnShadow
+    GutterBevel.InnerSpace       1
+    GutterBevel.InnerStyle       Lowered
+    GutterBevel.Innerwidth       2
+    GutterBevel.OuterColor       clBtnFace
+    GutterBevel.OuterHighlight   clBtnHighlight
+    GutterBevel.OuterOutline     Outer
+    GutterBevel.OuterShadow      clBtnShadow
+    GutterBevel.OuterSpace       0
+    GutterBevel.OuterStyle       Raised
+    GutterBevel.Outerwidth       1
+    GutterBevel.Visible          Yes
+    GutterColor                  BLACK
+    GutterWidth                  9
+    Height                       50
+    Left                         125
+    Maxvalue                     5
+    Minvalue                     0
+    Orientation                  Horizontal
+    ScaleOffset                  5
+    TickColor                    WHITE
+    TickMarks                    Both
+    Top                          244
+    Width                        170
+    OnChanged                    'Report Message'
+    OnChanging                   ILedDigits46Set
+end
+iLedDigits
+    Name                         ILedDigits46
+    Alias                        RoughCountDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 0
+    Digits                       1
+    DPisComma                    No
+    Format                       Int16
+    LeadingZero                  No
+    Left                         315
+    ShowDP                       No
+    Signed                       No
+    Size                         2
+    Spacing                      0
+    Top                          248
+    OnChanged                    ''
+end
+StaticText
+    Name                         Statictext25
+    Alias                        Statictext25
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      x
+    Color                        BLACK
+    Font.Color                   WHITE
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    32
+    Font.Style                   []
+    Height                       50
+    Left                         342
+    Top                          238
+    Transparent                  Yes
+    Width                        20
+    WordWrap                     Yes
+end
+Trackbar
+    Name                         Trackbar1
+    Alias                        RoughDepthSlider
+    BorderWidth                  0
+    Color                        BLACK
+    Frequency                    1
+    GutterBevel.BorderColor      clBtnFace
+    GutterBevel.BorderWidth      0
+    GutterBevel.InnerColor       BLACK
+    GutterBevel.InnerHighlight   clBtnHighlight
+    GutterBevel.InnerOutline     None
+    GutterBevel.InnerShadow      clBtnShadow
+    GutterBevel.InnerSpace       1
+    GutterBevel.InnerStyle       Lowered
+    GutterBevel.Innerwidth       2
+    GutterBevel.OuterColor       clBtnFace
+    GutterBevel.OuterHighlight   clBtnHighlight
+    GutterBevel.OuterOutline     Outer
+    GutterBevel.OuterShadow      clBtnShadow
+    GutterBevel.OuterSpace       0
+    GutterBevel.OuterStyle       Raised
+    GutterBevel.Outerwidth       1
+    GutterBevel.Visible          Yes
+    GutterColor                  BLACK
+    GutterWidth                  12
+    Height                       50
+    Left                         520
+    Maxvalue                     5
+    Minvalue                     0
+    Orientation                  Horizontal
+    ScaleOffset                  10
+    TickColor                    WHITE
+    TickMarks                    Both
+    Top                          244
+    Width                        190
+    OnChanged                    'Report Message'
+    OnChanging                   'Report Message'
+end
+Trackbar
+    Name                         Trackbar2
+    Alias                        FinishDepthSlider
+    BorderWidth                  0
+    Color                        BLACK
+    Frequency                    1
+    GutterBevel.BorderColor      clBtnFace
+    GutterBevel.BorderWidth      0
+    GutterBevel.InnerColor       BLACK
+    GutterBevel.InnerHighlight   clBtnHighlight
+    GutterBevel.InnerOutline     None
+    GutterBevel.InnerShadow      clBtnShadow
+    GutterBevel.InnerSpace       1
+    GutterBevel.InnerStyle       Lowered
+    GutterBevel.Innerwidth       2
+    GutterBevel.OuterColor       clBtnFace
+    GutterBevel.OuterHighlight   clBtnHighlight
+    GutterBevel.OuterOutline     Outer
+    GutterBevel.OuterShadow      clBtnShadow
+    GutterBevel.OuterSpace       0
+    GutterBevel.OuterStyle       Raised
+    GutterBevel.Outerwidth       1
+    GutterBevel.Visible          Yes
+    GutterColor                  BLACK
+    GutterWidth                  9
+    Height                       50
+    Left                         520
+    Maxvalue                     5
+    Minvalue                     0
+    Orientation                  Horizontal
+    ScaleOffset                  5
+    TickColor                    WHITE
+    TickMarks                    Both
+    Top                          294
+    Width                        190
+    OnChanged                    'Report Message'
+    OnChanging                   'Report Message'
+end
+StaticText
+    Name                         Statictext26
+    Alias                        Statictext26
+    Alignment                    Left
+    AutoSize                     No
+    Caption                      FINISH:
+    Color                        BLACK
+    Font.Color                   WHITE
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    24
+    Font.Style                   []
+    Height                       45
+    Left                         30
+    Top                          300
+    Transparent                  Yes
+    Width                        75
+    WordWrap                     Yes
+end
+iLedDigits
+    Name                         ILedDigits47
+    Alias                        FinishDepthDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 4
+    Digits                       5
+    DPisComma                    No
+    Format                       Int32
+    LeadingZero                  No
+    Left                         370
+    ShowDP                       Yes
+    Signed                       No
+    Size                         2
+    Spacing                      0
+    Top                          296
+    OnChanged                    ''
+end
+StaticText
+    Name                         Statictext27
+    Alias                        Statictext27
+    Alignment                    Center
+    AutoSize                     No
+    Caption                      x
+    Color                        BLACK
+    Font.Color                   WHITE
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    32
+    Font.Style                   []
+    Height                       50
+    Left                         342
+    Top                          286
+    Transparent                  Yes
+    Width                        20
+    WordWrap                     Yes
+end
+iLedDigits
+    Name                         ILedDigits48
+    Alias                        FinishCountDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 0
+    Digits                       1
+    DPisComma                    No
+    Format                       Int16
+    LeadingZero                  No
+    Left                         315
+    ShowDP                       No
+    Signed                       No
+    Size                         2
+    Spacing                      0
+    Top                          298
+    OnChanged                    ''
+end
+Trackbar
+    Name                         Trackbar3
+    Alias                        FinishCountSlider
+    BorderWidth                  0
+    Color                        BLACK
+    Frequency                    1
+    GutterBevel.BorderColor      clBtnFace
+    GutterBevel.BorderWidth      0
+    GutterBevel.InnerColor       BLACK
+    GutterBevel.InnerHighlight   clBtnHighlight
+    GutterBevel.InnerOutline     None
+    GutterBevel.InnerShadow      clBtnShadow
+    GutterBevel.InnerSpace       1
+    GutterBevel.InnerStyle       Lowered
+    GutterBevel.Innerwidth       2
+    GutterBevel.OuterColor       clBtnFace
+    GutterBevel.OuterHighlight   clBtnHighlight
+    GutterBevel.OuterOutline     Outer
+    GutterBevel.OuterShadow      clBtnShadow
+    GutterBevel.OuterSpace       0
+    GutterBevel.OuterStyle       Raised
+    GutterBevel.Outerwidth       1
+    GutterBevel.Visible          Yes
+    GutterColor                  BLACK
+    GutterWidth                  9
+    Height                       50
+    Left                         125
+    Maxvalue                     5
+    Minvalue                     0
+    Orientation                  Horizontal
+    ScaleOffset                  5
+    TickColor                    WHITE
+    TickMarks                    Both
+    Top                          294
+    Width                        170
+    OnChanged                    'Report Message'
+    OnChanging                   ILedDigits48Set
+end
+StaticText
+    Name                         Statictext28
+    Alias                        Statictext28
+    Alignment                    Left
+    AutoSize                     No
+    Caption                      SPARK:
+    Color                        BLACK
+    Font.Color                   WHITE
+    Font.Effects                 []
+    Font.Name                    'Agency FB'
+    Font.Size                    24
+    Font.Style                   []
+    Height                       45
+    Left                         30
+    Top                          350
+    Transparent                  Yes
+    Width                        75
+    WordWrap                     Yes
+end
+Trackbar
+    Name                         Trackbar4
+    Alias                        Trackbar4
+    BorderWidth                  0
+    Color                        BLACK
+    Frequency                    1
+    GutterBevel.BorderColor      clBtnFace
+    GutterBevel.BorderWidth      0
+    GutterBevel.InnerColor       BLACK
+    GutterBevel.InnerHighlight   clBtnHighlight
+    GutterBevel.InnerOutline     None
+    GutterBevel.InnerShadow      clBtnShadow
+    GutterBevel.InnerSpace       1
+    GutterBevel.InnerStyle       Lowered
+    GutterBevel.Innerwidth       2
+    GutterBevel.OuterColor       clBtnFace
+    GutterBevel.OuterHighlight   clBtnHighlight
+    GutterBevel.OuterOutline     Outer
+    GutterBevel.OuterShadow      clBtnShadow
+    GutterBevel.OuterSpace       0
+    GutterBevel.OuterStyle       Raised
+    GutterBevel.Outerwidth       1
+    GutterBevel.Visible          Yes
+    GutterColor                  BLACK
+    GutterWidth                  9
+    Height                       50
+    Left                         125
+    Maxvalue                     5
+    Minvalue                     0
+    Orientation                  Horizontal
+    ScaleOffset                  5
+    TickColor                    WHITE
+    TickMarks                    Both
+    Top                          344
+    Width                        170
+    OnChanged                    'Report Message'
+    OnChanging                   ILedDigits49Set
+end
+iLedDigits
+    Name                         ILedDigits49
+    Alias                        SparkCountDRO
+    ColorActive                  WHEAT
+    ColorInactive                0x181818
+    DecimalPlace                 0
+    Digits                       1
+    DPisComma                    No
+    Format                       Int16
+    LeadingZero                  No
+    Left                         315
+    ShowDP                       No
+    Signed                       No
+    Size                         2
+    Spacing                      0
+    Top                          348
+    OnChanged                    ''
+end
+UserButton
+    Name                         Userbutton88
+    Alias                        RoughFeedButton
+    Height                       45
+    Images                       FeedButton.png\nFeedButtonTouch.png
+    Left                         727
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          246
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton89
+    Alias                        FinishFeedButton
+    Height                       45
+    Images                       FeedButton.png\nFeedButtonTouch.png
+    Left                         727
+    Matrix                       -1
+    Momentary                    Yes
+    Stretch                      No
+    Top                          296
+    Width                        55
+    OnChanged                    'Report Message'
+end
+UserButton
+    Name                         Userbutton90
+    Alias                        AutoButton
+    Height                       45
+    Images                       AutoButton.png\nAutoButtonTouch.png\nAutoButtonOn.png\nAutoButtonTouch.png
+    Left                         368
+    Matrix                       -1
+    Momentary                    No
+    Stretch                      No
+    Top                          346
+    Width                        55
+    OnChanged                    'Report Message'
 end
 Form
     Name                         Form4
@@ -2392,7 +2787,7 @@ UserButton
     Images                       ModeSetup.png\nModeSetupTouch.png\nModeSetupSelected.png\nModeSetupTouch.png
     Left                         285
     Matrix                       1
-    Momentary                    On
+    Momentary                    No
     Stretch                      No
     Top                          409
     Width                        80
@@ -2418,7 +2813,7 @@ UserButton
     Images                       ModeSide.png\nModeSideTouch.png\nModeSideSelected.png\nModeSideTouch.png
     Left                         445
     Matrix                       1
-    Momentary                    No
+    Momentary                    On
     Stretch                      No
     Top                          409
     Width                        80
@@ -3167,7 +3562,7 @@ UserButton
     Images                       ModeSetup.png\nModeSetupTouch.png\nModeSetupSelected.png\nModeSetupTouch.png
     Left                         285
     Matrix                       1
-    Momentary                    On
+    Momentary                    No
     Stretch                      No
     Top                          409
     Width                        80
@@ -3206,7 +3601,7 @@ UserButton
     Images                       ModeCylinder.png\nModeCylinderTouch.png\nModeCylinderSelected.png\nModeCylinderTouch.png
     Left                         525
     Matrix                       1
-    Momentary                    No
+    Momentary                    On
     Stretch                      No
     Top                          409
     Width                        80
@@ -3942,7 +4337,7 @@ UserButton
     Images                       ModeSetup.png\nModeSetupTouch.png\nModeSetupSelected.png\nModeSetupTouch.png
     Left                         285
     Matrix                       1
-    Momentary                    On
+    Momentary                    No
     Stretch                      No
     Top                          409
     Width                        80
@@ -3994,7 +4389,7 @@ UserButton
     Images                       ModeDress.png\nModeDressTouch.png\nModeDressSelected.png\nModeDressTouch.png
     Left                         605
     Matrix                       1
-    Momentary                    No
+    Momentary                    On
     Stretch                      No
     Top                          409
     Width                        80
