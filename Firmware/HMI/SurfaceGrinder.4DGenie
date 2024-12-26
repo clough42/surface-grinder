@@ -1911,7 +1911,7 @@ Trackbar
     Top                          244
     Width                        170
     OnChanged                    'Report Message'
-    OnChanging                   ILedDigits46Set
+    OnChanging                   'Report Message'
 end
 iLedDigits
     Name                         ILedDigits46
@@ -2136,7 +2136,7 @@ Trackbar
     Top                          294
     Width                        170
     OnChanged                    'Report Message'
-    OnChanging                   ILedDigits48Set
+    OnChanging                   'Report Message'
 end
 StaticText
     Name                         Statictext28
@@ -2193,7 +2193,7 @@ Trackbar
     Top                          344
     Width                        170
     OnChanged                    'Report Message'
-    OnChanging                   ILedDigits49Set
+    OnChanging                   'Report Message'
 end
 iLedDigits
     Name                         ILedDigits49

@@ -74,6 +74,7 @@ private:
     void UpdateUnits();
 	void UpdateRoughDepthUnits();
 	void UpdateFinishDepthUnits();
+	void UpdatePassCounts();
 	void UpdateGrindingPassParameters();
 
 

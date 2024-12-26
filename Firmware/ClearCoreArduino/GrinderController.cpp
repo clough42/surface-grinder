@@ -164,18 +164,21 @@ void GrinderController::SetRoughCount(int count) {
 	Serial.println("SetRoughCount");
 
 	m_config.GetFlatGrindParams()->roughPassCount = count;
+	UpdatePassCounts();
 }
 
 void GrinderController::SetFinishCount(int count) {
 	Serial.println("SetFinishCount");
 
 	m_config.GetFlatGrindParams()->finishPassCount = count;
+	UpdatePassCounts();
 }
 
 void GrinderController::SetSparkCount(int count) {
 	Serial.println("SetSparkCount");
 
 	m_config.GetFlatGrindParams()->sparkPassCount = count;
+	UpdatePassCounts();
 }
 
 void GrinderController::SetGrindAuto(boolean enabled) {
@@ -192,12 +195,16 @@ void GrinderController::UpdateFinishDepthUnits() {
 	m_view.SetFinishDepth(m_config.GetFlatGrindParams()->finishPassDepthIndex, ConvertToUnits(GetFinishFeedNm()));
 }
 
-void GrinderController::UpdateGrindingPassParameters() {
-	UpdateRoughDepthUnits();
-	UpdateFinishDepthUnits();
+void GrinderController::UpdatePassCounts() {
 	m_view.SetRoughCount(m_config.GetFlatGrindParams()->roughPassCount);
 	m_view.SetFinishCount(m_config.GetFlatGrindParams()->finishPassCount);
 	m_view.SetSparkCount(m_config.GetFlatGrindParams()->sparkPassCount);
+}
+
+void GrinderController::UpdateGrindingPassParameters() {
+	UpdateRoughDepthUnits();
+	UpdateFinishDepthUnits();
+	UpdatePassCounts();
 	m_view.SetAutoGrind(m_config.GetFlatGrindParams()->autoAdvance);
 }
 
