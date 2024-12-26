@@ -54,7 +54,15 @@ public:
 	void TraverseToStartPosition(Axis axis) override;
 	void TraverseToEndPosition(Axis axis) override;
 	void TraverseToSafePosition(Axis axis) override;
-	void TraverseToWorkPosition(Axis axis) override;    
+	void TraverseToWorkPosition(Axis axis) override;
+	void SetRoughDepthIndex(int index) override;
+	void SetFinishDepthIndex(int index) override;
+	void SetRoughCount(int count) override;
+	void SetFinishCount(int count) override;
+	void SetSparkCount(int count) override;
+	void SetGrindAuto(bool enabled) override;
+	void FeedRough() override;
+	void FeedFinish() override;
 
 private:
     void UpdateDROs();
@@ -64,10 +72,16 @@ private:
     void UpdateLimitDros();
     void UpdateError();
     void UpdateUnits();
+	void UpdateRoughDepthUnits();
+	void UpdateFinishDepthUnits();
+	void UpdateGrindingPassParameters();
+
 
     int32_t ConvertToNm(int32_t units); // convert from (units * 2^5)
 	int32_t ConvertToUnits(int32_t nanometers); // convert to (units * 2^5)
     Optional<int32_t> ApplyOffsetAndConvertToUnits(Optional<int32_t> value, int32_t offset, Axis axis);
+	int32_t GetRoughFeedNm();
+	int32_t GetFinishFeedNm();
 
     GrinderModel& m_model;
     GrinderView& m_view;

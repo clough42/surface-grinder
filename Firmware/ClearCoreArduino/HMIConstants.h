@@ -21,7 +21,7 @@
 #ifndef HMI_CONSTANTS_H
 #define HMI_CONSTANTS_H
 
-#include <genieArduinoDEV.h>
+#include "genieArduinoCLOUGH.h"
 
 namespace HMI {
 
@@ -498,6 +498,78 @@ namespace HMI {
 		constexpr int F3Message_TYPE = GENIE_OBJ_STRINGS;
 		constexpr int F3Message_ID = 1;
 
+		// iLedDigits 45: RoughDepthDRO
+		constexpr int RoughDepthDRO_TYPE = GENIE_OBJ_ILED_DIGITS;
+		constexpr int RoughDepthDRO_ID = 45;
+
+		// StaticText 21: Statictext21
+		constexpr int Statictext21_TYPE = GENIE_OBJ_STATIC_TEXT;
+		constexpr int Statictext21_ID = 21;
+
+		// Trackbar 0: RoughCountSlider
+		constexpr int RoughCountSlider_TYPE = GENIE_OBJ_TRACKBAR;
+		constexpr int RoughCountSlider_ID = 0;
+
+		// iLedDigits 46: RoughCountDRO
+		constexpr int RoughCountDRO_TYPE = GENIE_OBJ_ILED_DIGITS;
+		constexpr int RoughCountDRO_ID = 46;
+
+		// StaticText 25: Statictext25
+		constexpr int Statictext25_TYPE = GENIE_OBJ_STATIC_TEXT;
+		constexpr int Statictext25_ID = 25;
+
+		// Trackbar 1: RoughDepthSlider
+		constexpr int RoughDepthSlider_TYPE = GENIE_OBJ_TRACKBAR;
+		constexpr int RoughDepthSlider_ID = 1;
+
+		// Trackbar 2: FinishDepthSlider
+		constexpr int FinishDepthSlider_TYPE = GENIE_OBJ_TRACKBAR;
+		constexpr int FinishDepthSlider_ID = 2;
+
+		// StaticText 26: Statictext26
+		constexpr int Statictext26_TYPE = GENIE_OBJ_STATIC_TEXT;
+		constexpr int Statictext26_ID = 26;
+
+		// iLedDigits 47: FinishDepthDRO
+		constexpr int FinishDepthDRO_TYPE = GENIE_OBJ_ILED_DIGITS;
+		constexpr int FinishDepthDRO_ID = 47;
+
+		// StaticText 27: Statictext27
+		constexpr int Statictext27_TYPE = GENIE_OBJ_STATIC_TEXT;
+		constexpr int Statictext27_ID = 27;
+
+		// iLedDigits 48: FinishCountDRO
+		constexpr int FinishCountDRO_TYPE = GENIE_OBJ_ILED_DIGITS;
+		constexpr int FinishCountDRO_ID = 48;
+
+		// Trackbar 3: FinishCountSlider
+		constexpr int FinishCountSlider_TYPE = GENIE_OBJ_TRACKBAR;
+		constexpr int FinishCountSlider_ID = 3;
+
+		// StaticText 28: Statictext28
+		constexpr int Statictext28_TYPE = GENIE_OBJ_STATIC_TEXT;
+		constexpr int Statictext28_ID = 28;
+
+		// Trackbar 4: SparkCountSlider
+		constexpr int SparkCountSlider_TYPE = GENIE_OBJ_TRACKBAR;
+		constexpr int SparkCountSlider_ID = 4;
+
+		// iLedDigits 49: SparkCountDRO
+		constexpr int SparkCountDRO_TYPE = GENIE_OBJ_ILED_DIGITS;
+		constexpr int SparkCountDRO_ID = 49;
+
+		// UserButton 88: RoughFeedButton
+		constexpr int RoughFeedButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int RoughFeedButton_ID = 88;
+
+		// UserButton 89: FinishFeedButton
+		constexpr int FinishFeedButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int FinishFeedButton_ID = 89;
+
+		// UserButton 90: AutoGrindButton
+		constexpr int AutoGrindButton_TYPE = GENIE_OBJ_USERBUTTON;
+		constexpr int AutoGrindButton_ID = 90;
+
 	}
 
 	// Form 4: SideMode
@@ -692,6 +764,10 @@ namespace HMI {
 		// Strings 2: F4Message
 		constexpr int F4Message_TYPE = GENIE_OBJ_STRINGS;
 		constexpr int F4Message_ID = 2;
+
+		// StaticText 22: Statictext22
+		constexpr int Statictext22_TYPE = GENIE_OBJ_STATIC_TEXT;
+		constexpr int Statictext22_ID = 22;
 
 	}
 
@@ -888,6 +964,10 @@ namespace HMI {
 		constexpr int F5Message_TYPE = GENIE_OBJ_STRINGS;
 		constexpr int F5Message_ID = 3;
 
+		// StaticText 23: Statictext23
+		constexpr int Statictext23_TYPE = GENIE_OBJ_STATIC_TEXT;
+		constexpr int Statictext23_ID = 23;
+
 	}
 
 	// Form 6: DressMode
@@ -1082,6 +1162,10 @@ namespace HMI {
 		// Strings 4: F6Message
 		constexpr int F6Message_TYPE = GENIE_OBJ_STRINGS;
 		constexpr int F6Message_ID = 4;
+
+		// StaticText 24: Statictext24
+		constexpr int Statictext24_TYPE = GENIE_OBJ_STATIC_TEXT;
+		constexpr int Statictext24_ID = 24;
 
 	}
 

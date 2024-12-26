@@ -50,6 +50,14 @@ public:
 	virtual void TraverseToSafePosition(Axis axis) = 0;
 	virtual void TraverseToWorkPosition(Axis axis) = 0;
 	virtual void SetCycleType(CycleType cycleType) = 0;
+	virtual void SetRoughDepthIndex(int) = 0;
+	virtual void SetFinishDepthIndex(int) = 0;
+	virtual void SetRoughCount(int) = 0;
+	virtual void SetFinishCount(int) = 0;
+	virtual void SetSparkCount(int) = 0;
+	virtual void SetGrindAuto(bool) = 0;
+	virtual void FeedRough() = 0;
+	virtual void FeedFinish() = 0;
 };
 
 #endif // I_USER_ACTIONS_H

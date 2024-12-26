@@ -25,7 +25,7 @@
 #include <MotorDriver.h>
 #include <SerialUsb.h>
 
-#include <genieArduinoDEV.h>
+#include "genieArduinoCLOUGH.h"
 
 #include "Configuration.h"
 #include "MachineAxis.h"

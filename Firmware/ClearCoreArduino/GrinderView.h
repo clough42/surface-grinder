@@ -24,7 +24,7 @@
 #include <cstdint>
 #include <ClearCore.h> // Include the ClearCore library
 #include <SerialUsb.h>
-#include <genieArduinoDEV.h>
+#include "genieArduinoCLOUGH.h"
 #include "AnalogSwitch.h"
 #include "IUserActions.h"
 #include "CommonEnums.h"
@@ -81,6 +81,13 @@ public:
 	void SetEndDroValue(Axis axis, Optional<int32_t> unitsValue);
     void SetSafeDroValue(Axis axis, Optional<int32_t> unitsValue);
 	void SetWorkDroValue(Axis axis, Optional<int32_t> unitsValue);
+    
+    void SetRoughDepth(int index, int32_t unitsValue);
+	void SetFinishDepth(int index, int32_t unitsValue);
+    void SetRoughCount(int count);
+    void SetFinishCount(int count);
+    void SetSparkCount(int count);
+    void SetAutoGrind(boolean enabled);
 
 	void SetOperatingMode(Mode mode);
 
@@ -100,6 +107,12 @@ private:
 	void WriteEndDroValue(Axis axis);
 	void WriteSafeDroValue(Axis axis);
 	void WriteWorkDroValue(Axis axis);
+    void WriteRoughDepth();
+    void WriteFinishDepth();
+	void WriteRoughCount();
+	void WriteFinishCount();
+	void WriteSparkCount();
+	void WriteAutoGrind();
 
     // Write all of the common values when switching forms
     void WriteCommonValues();
@@ -146,6 +159,14 @@ private:
 	TrackedValue<Optional<int32_t>> m_endDroValues[AXIS_COUNT] = { Optional<int32_t>(), Optional<int32_t>(), Optional<int32_t>() };
 	TrackedValue<Optional<int32_t>> m_safeDroValues[AXIS_COUNT] = { Optional<int32_t>(), Optional<int32_t>(), Optional<int32_t>() };
 	TrackedValue<Optional<int32_t>> m_workDroValues[AXIS_COUNT] = { Optional<int32_t>(), Optional<int32_t>(), Optional<int32_t>() };
+    TrackedValue<int> m_roughDepthIndex;
+    TrackedValue<int16_t> m_roughDepthUnitsValue;
+	TrackedValue<int> m_finishDepthIndex;
+	TrackedValue<int16_t> m_finishDepthUnitsValue;
+	TrackedValue<int> m_roughCount;
+	TrackedValue<int> m_finishCount;
+    TrackedValue<int> m_sparkCount;
+	TrackedValue<bool> m_autoGrind;
 
     TrackedValue<Mode> m_operatingMode;
     TrackedValue<CycleType> m_cycleType;

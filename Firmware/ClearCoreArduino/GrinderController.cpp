@@ -72,6 +72,7 @@ void GrinderController::UpdateUnits() {
 	m_view.SetUnits(m_config.GetUIParams()->units);
 	UpdateResolutionAndAxisIndicators();
 	UpdateLimitDros();
+	UpdateGrindingPassParameters();
 }
 
 void GrinderController::UpdateResolutionAndAxisIndicators() {
@@ -144,6 +145,103 @@ void GrinderController::SetWorkPosition(Axis axis) {
 	m_config.GetProcessValues(axis)->workPosition = m_model.GetLastCommandedPositionNm(axis);
 	UpdateLimitDros();
 }
+
+void GrinderController::SetRoughDepthIndex(int index) {
+	Serial.println("SetRoughDepthIndex");
+
+	m_config.GetFlatGrindParams()->roughPassDepthIndex = index;
+	UpdateRoughDepthUnits();
+}
+
+void GrinderController::SetFinishDepthIndex(int index) {
+	Serial.println("SetFinishDepthIndex");
+
+	m_config.GetFlatGrindParams()->finishPassDepthIndex = index;
+	UpdateFinishDepthUnits();
+}
+
+void GrinderController::SetRoughCount(int count) {
+	Serial.println("SetRoughCount");
+
+	m_config.GetFlatGrindParams()->roughPassCount = count;
+}
+
+void GrinderController::SetFinishCount(int count) {
+	Serial.println("SetFinishCount");
+
+	m_config.GetFlatGrindParams()->finishPassCount = count;
+}
+
+void GrinderController::SetSparkCount(int count) {
+	Serial.println("SetSparkCount");
+
+	m_config.GetFlatGrindParams()->sparkPassCount = count;
+}
+
+void GrinderController::SetGrindAuto(boolean enabled) {
+	Serial.println("SetGrindAuto");
+
+	m_config.GetFlatGrindParams()->autoAdvance = enabled;
+}
+
+void GrinderController::UpdateRoughDepthUnits() {
+	m_view.SetRoughDepth(m_config.GetFlatGrindParams()->roughPassDepthIndex, ConvertToUnits(GetRoughFeedNm()));
+}
+
+void GrinderController::UpdateFinishDepthUnits() {
+	m_view.SetFinishDepth(m_config.GetFlatGrindParams()->finishPassDepthIndex, ConvertToUnits(GetFinishFeedNm()));
+}
+
+void GrinderController::UpdateGrindingPassParameters() {
+	UpdateRoughDepthUnits();
+	UpdateFinishDepthUnits();
+	m_view.SetRoughCount(m_config.GetFlatGrindParams()->roughPassCount);
+	m_view.SetFinishCount(m_config.GetFlatGrindParams()->finishPassCount);
+	m_view.SetSparkCount(m_config.GetFlatGrindParams()->sparkPassCount);
+	m_view.SetAutoGrind(m_config.GetFlatGrindParams()->autoAdvance);
+}
+
+void GrinderController::FeedRough() {
+	Serial.println("FeedRough");
+
+	Configuration::ProcessValues *values = m_config.GetProcessValues(Axis::Y);
+	if (values->workPosition.HasValue()) {
+		values->workPosition = values->workPosition.Value() - GetRoughFeedNm();
+		UpdateLimitDros();
+	}
+}
+
+int32_t GrinderController::GetRoughFeedNm() {
+	if (m_config.GetUIParams()->units == Units::INCHES) {
+		return m_config.GetGrindDepths()->RoughInchDepthsNm[m_config.GetFlatGrindParams()->roughPassDepthIndex];
+	}
+	if (m_config.GetUIParams()->units == Units::MILLIMETERS) {
+		return m_config.GetGrindDepths()->RoughMmDepthsNm[m_config.GetFlatGrindParams()->roughPassDepthIndex];
+	}
+	return 0;
+}
+
+void GrinderController::FeedFinish() {
+	Serial.println("FeedFine");
+
+	Configuration::ProcessValues* values = m_config.GetProcessValues(Axis::Y);
+	if (values->workPosition.HasValue()) {
+		values->workPosition = values->workPosition.Value() - GetFinishFeedNm();
+		UpdateLimitDros();
+	}
+}
+
+int32_t GrinderController::GetFinishFeedNm() {
+	if (m_config.GetUIParams()->units == Units::INCHES) {
+		return m_config.GetGrindDepths()->FinishInchDepthsNm[m_config.GetFlatGrindParams()->finishPassDepthIndex];
+	}
+	if (m_config.GetUIParams()->units == Units::MILLIMETERS) {
+		return m_config.GetGrindDepths()->FinishMmDepthsNm[m_config.GetFlatGrindParams()->finishPassDepthIndex];
+	}
+	return 0;
+}
+
+
 
 void GrinderController::UpdateLimitDros() {
 	for (int i = 0; i < AXIS_COUNT; i++) {

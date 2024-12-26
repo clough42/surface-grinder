@@ -1843,12 +1843,12 @@ iLedDigits
     Alias                        RoughDepthDRO
     ColorActive                  WHEAT
     ColorInactive                0x181818
-    DecimalPlace                 4
-    Digits                       5
+    DecimalPlace                 5
+    Digits                       6
     DPisComma                    No
-    Format                       Int32
+    Format                       Int16
     LeadingZero                  No
-    Left                         370
+    Left                         352
     ShowDP                       Yes
     Signed                       No
     Size                         2
@@ -1869,7 +1869,7 @@ StaticText
     Font.Size                    24
     Font.Style                   []
     Height                       45
-    Left                         30
+    Left                         17
     Top                          250
     Transparent                  Yes
     Width                        75
@@ -1901,7 +1901,7 @@ Trackbar
     GutterColor                  BLACK
     GutterWidth                  9
     Height                       50
-    Left                         125
+    Left                         112
     Maxvalue                     5
     Minvalue                     0
     Orientation                  Horizontal
@@ -1923,7 +1923,7 @@ iLedDigits
     DPisComma                    No
     Format                       Int16
     LeadingZero                  No
-    Left                         315
+    Left                         297
     ShowDP                       No
     Signed                       No
     Size                         2
@@ -1944,7 +1944,7 @@ StaticText
     Font.Size                    32
     Font.Style                   []
     Height                       50
-    Left                         342
+    Left                         324
     Top                          238
     Transparent                  Yes
     Width                        20
@@ -2039,7 +2039,7 @@ StaticText
     Font.Size                    24
     Font.Style                   []
     Height                       45
-    Left                         30
+    Left                         17
     Top                          300
     Transparent                  Yes
     Width                        75
@@ -2050,12 +2050,12 @@ iLedDigits
     Alias                        FinishDepthDRO
     ColorActive                  WHEAT
     ColorInactive                0x181818
-    DecimalPlace                 4
-    Digits                       5
+    DecimalPlace                 5
+    Digits                       6
     DPisComma                    No
-    Format                       Int32
+    Format                       Int16
     LeadingZero                  No
-    Left                         370
+    Left                         352
     ShowDP                       Yes
     Signed                       No
     Size                         2
@@ -2076,7 +2076,7 @@ StaticText
     Font.Size                    32
     Font.Style                   []
     Height                       50
-    Left                         342
+    Left                         324
     Top                          286
     Transparent                  Yes
     Width                        20
@@ -2092,7 +2092,7 @@ iLedDigits
     DPisComma                    No
     Format                       Int16
     LeadingZero                  No
-    Left                         315
+    Left                         297
     ShowDP                       No
     Signed                       No
     Size                         2
@@ -2126,7 +2126,7 @@ Trackbar
     GutterColor                  BLACK
     GutterWidth                  9
     Height                       50
-    Left                         125
+    Left                         112
     Maxvalue                     5
     Minvalue                     0
     Orientation                  Horizontal
@@ -2151,7 +2151,7 @@ StaticText
     Font.Size                    24
     Font.Style                   []
     Height                       45
-    Left                         30
+    Left                         17
     Top                          350
     Transparent                  Yes
     Width                        75
@@ -2159,7 +2159,7 @@ StaticText
 end
 Trackbar
     Name                         Trackbar4
-    Alias                        Trackbar4
+    Alias                        SparkCountSlider
     BorderWidth                  0
     Color                        BLACK
     Frequency                    1
@@ -2183,7 +2183,7 @@ Trackbar
     GutterColor                  BLACK
     GutterWidth                  9
     Height                       50
-    Left                         125
+    Left                         112
     Maxvalue                     5
     Minvalue                     0
     Orientation                  Horizontal
@@ -2205,7 +2205,7 @@ iLedDigits
     DPisComma                    No
     Format                       Int16
     LeadingZero                  No
-    Left                         315
+    Left                         297
     ShowDP                       No
     Signed                       No
     Size                         2
@@ -2241,10 +2241,10 @@ UserButton
 end
 UserButton
     Name                         Userbutton90
-    Alias                        AutoButton
+    Alias                        AutoGrindButton
     Height                       45
     Images                       AutoButton.png\nAutoButtonTouch.png\nAutoButtonOn.png\nAutoButtonTouch.png
-    Left                         368
+    Left                         350
     Matrix                       -1
     Momentary                    No
     Stretch                      No

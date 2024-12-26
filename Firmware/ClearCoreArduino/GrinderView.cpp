@@ -43,7 +43,7 @@ void GrinderView::Init(IUserActions* controller) {
     ConnectorCOM1.RtsMode(SerialBase::LINE_OFF);
     delay(5000); // let the HMI boot after resetting and show the splash screen before trying to talk to it
 
-	//m_genie.AttachDebugStream(Serial);
+	m_genie.AttachDebugStream(Serial);
     while(!m_genie.Begin(m_hmiSerial));
     while (!m_genie.IsOnline()) delay(100);
 
@@ -200,6 +200,107 @@ void GrinderView::SetMessage(Optional<const char*> message) {
 
 void GrinderView::WriteMessage() {
 	m_genie.WriteStr(HMI::ALLMODES::Message_ID[m_currentForm], m_message.Get().ValueOr(""));
+}
+
+void GrinderView::SetRoughDepth(int index, int32_t unitsValue) {
+	Serial.print("SetRoughDepth unitsValue: ");
+	Serial.println(unitsValue);
+
+	bool changed = false;
+	changed |= m_roughDepthIndex.Set(index);
+	changed |= m_roughDepthUnitsValue.Set(unitsValue);
+	if (changed) {
+		WriteRoughDepth();
+	}
+}
+
+void GrinderView::WriteRoughDepth() {
+	using namespace HMI::FLATMODE;
+	bool result = false;
+
+	int16_t depth = static_cast<int16_t>(m_roughDepthUnitsValue.Get());
+	Serial.print("WriteRoughDepth: ");
+	Serial.println(depth);
+
+	result = m_genie.WriteObject(RoughDepthSlider_TYPE, RoughDepthSlider_ID, m_roughDepthIndex.Get());
+	result = m_genie.WriteIntLedDigits(RoughDepthDRO_ID, depth);
+}
+
+void GrinderView::SetFinishDepth(int index, int32_t unitsValue) {
+	Serial.print("GrinderView::SetFinishDepth unitsValue: ");
+	Serial.println(unitsValue);
+
+	bool changed = false;
+	changed |= m_finishDepthIndex.Set(index);
+	changed |= m_finishDepthUnitsValue.Set(unitsValue);
+	if (changed) {
+		WriteFinishDepth();
+	}
+}
+
+void GrinderView::WriteFinishDepth() {
+	using namespace HMI::FLATMODE;
+
+	int16_t depth = static_cast<int16_t>(m_finishDepthUnitsValue.Get());
+	Serial.print("WriteFinishDepth: ");
+	Serial.println(depth);
+
+	m_genie.WriteObject(FinishDepthSlider_TYPE, FinishDepthSlider_ID, m_finishDepthIndex.Get());
+	m_genie.WriteIntLedDigits(FinishDepthDRO_ID, depth);
+}
+
+void GrinderView::SetRoughCount(int count) {
+	if (m_roughCount.Set(count)) {
+		WriteRoughCount();
+	}
+}
+
+void GrinderView::WriteRoughCount() {
+	using namespace HMI::FLATMODE;
+
+	int16_t count = m_roughCount.Get();
+	m_genie.WriteObject(RoughCountSlider_TYPE, RoughCountSlider_ID, count);
+	m_genie.WriteIntLedDigits(RoughCountDRO_ID, count);
+}
+
+void GrinderView::SetFinishCount(int count) {
+	if (m_finishCount.Set(count)) {
+		WriteFinishCount();
+	}
+}
+
+void GrinderView::WriteFinishCount() {
+	using namespace HMI::FLATMODE;
+
+	int16_t count = m_finishCount.Get();
+	m_genie.WriteObject(FinishCountSlider_TYPE, FinishCountSlider_ID, count);
+	m_genie.WriteIntLedDigits(FinishCountDRO_ID, count);
+}
+
+void GrinderView::SetSparkCount(int count) {
+	if (m_sparkCount.Set(count)) {
+		WriteSparkCount();
+	}
+}
+
+void GrinderView::WriteSparkCount() {
+	using namespace HMI::FLATMODE;
+
+	int16_t count = m_sparkCount.Get();
+	m_genie.WriteObject(SparkCountSlider_TYPE, SparkCountSlider_ID, count);
+	m_genie.WriteIntLedDigits(SparkCountDRO_ID, count);
+}
+
+void GrinderView::SetAutoGrind(boolean enabled) {
+	if (m_autoGrind.Set(enabled)) {
+		WriteAutoGrind();
+	}
+}
+
+void GrinderView::WriteAutoGrind() {
+	using namespace HMI::FLATMODE;
+
+	m_genie.WriteObject(AutoGrindButton_TYPE, AutoGrindButton_ID, m_autoGrind.Get() ? 1 : 0);
 }
 
 void GrinderView::UpdateAxisSelectors() {
@@ -392,6 +493,7 @@ void GrinderView::HmiEventHandler() {
 void GrinderView::HandleHmiEvent(genieFrame& Event)
 {
 	using namespace HMI::SETUPMODE;
+	using namespace HMI::FLATMODE;
 	using namespace HMI::ALLMODES;
 
     // DRO Zero Buttons
@@ -507,6 +609,40 @@ void GrinderView::HandleHmiEvent(genieFrame& Event)
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, CycleTouchButton_TYPE, CycleTouchButton_ID)) {
 		if (m_controller) m_controller->SetCycleType(CycleType::TOUCHOFF);
+		return;
+	}
+
+	// Flat Grinding parameters
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, RoughDepthSlider_TYPE, RoughDepthSlider_ID)) {
+		if (m_controller) m_controller->SetRoughDepthIndex(Event.reportObject.data_lsb);
+		return;
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, FinishDepthSlider_TYPE, FinishDepthSlider_ID)) {
+		if (m_controller) m_controller->SetFinishDepthIndex(Event.reportObject.data_lsb);
+		return;
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, RoughCountSlider_TYPE, RoughCountSlider_ID)) {
+		if (m_controller) m_controller->SetRoughCount(Event.reportObject.data_lsb);
+		return;
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, FinishCountSlider_TYPE, FinishCountSlider_ID)) {
+		if (m_controller) m_controller->SetFinishCount(Event.reportObject.data_lsb);
+		return;
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, SparkCountSlider_TYPE, SparkCountSlider_ID)) {
+		if (m_controller) m_controller->SetSparkCount(Event.reportObject.data_lsb);
+		return;
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, AutoGrindButton_TYPE, AutoGrindButton_ID)) {
+		if (m_controller) m_controller->SetGrindAuto(Event.reportObject.data_lsb == 1);
+		return;
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, RoughFeedButton_TYPE, RoughFeedButton_ID)) {
+		if (m_controller) m_controller->FeedRough();
+		return;
+	}
+	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, FinishFeedButton_TYPE, FinishFeedButton_ID)) {
+		if (m_controller) m_controller->FeedFinish();
 		return;
 	}
 

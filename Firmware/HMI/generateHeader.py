@@ -70,7 +70,7 @@ def generate_cpp_header(controls, output_path):
 #ifndef HMI_CONSTANTS_H
 #define HMI_CONSTANTS_H
 
-#include <genieArduinoDEV.h>
+#include "genieArduinoCLOUGH.h"
 
 namespace HMI {
 

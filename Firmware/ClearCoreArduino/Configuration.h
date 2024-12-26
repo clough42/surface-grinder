@@ -57,8 +57,8 @@ public:
     };
 
     struct GrindCycleParameters {
- 		int32_t roughPassDepthNm;
-        int32_t finishPassDepthNm;
+ 		int32_t roughPassDepthIndex;
+        int32_t finishPassDepthIndex;
         int16_t roughPassCount;
         int16_t finishPassCount;
         int16_t sparkPassCount;
@@ -70,12 +70,21 @@ public:
         uint8_t hmiContrast;
     };
 
+#define GRIND_DEPTHS_COUNT 6
+    struct PredefinedGrindDepths {
+        int32_t RoughInchDepthsNm[GRIND_DEPTHS_COUNT];
+        int32_t RoughMmDepthsNm[GRIND_DEPTHS_COUNT];
+        int32_t FinishInchDepthsNm[GRIND_DEPTHS_COUNT];
+        int32_t FinishMmDepthsNm[GRIND_DEPTHS_COUNT];
+    };
+
     Configuration(const char* filename) : m_filename(filename) {};
 
     AxisConfig* GetAxisConfig(Axis axis) { return &axisConfigs[static_cast<int>(axis)]; }
 	ProcessValues* GetProcessValues(Axis axis) { return &processValues[static_cast<int>(axis)]; }
 	GrindCycleParameters* GetFlatGrindParams() { return &flatGrindParams; }
 	UIParameters* GetUIParams() { return &uiParams; }
+	PredefinedGrindDepths* GetGrindDepths() { return &grindDepths; }
 
     //bool Load();
     //bool Save();
@@ -145,12 +154,12 @@ private:
     };
 
 	GrindCycleParameters flatGrindParams = {
-		.roughPassDepthNm = 12700, // 0.0005" = 12700nm
-		.finishPassDepthNm = 2540, // 0.0001" = 2540nm
-		.roughPassCount = 0,
-		.finishPassCount = 0,
-		.sparkPassCount = 0,
-		.autoAdvance = false
+		.roughPassDepthIndex = 1,
+		.finishPassDepthIndex = 3,
+		.roughPassCount = 3,
+		.finishPassCount = 2,
+		.sparkPassCount = 1,
+		.autoAdvance = true
 	};
 
     // UI Configuration
@@ -159,6 +168,43 @@ private:
 		.hmiContrast = 15
     };
 
+    PredefinedGrindDepths grindDepths = {
+		.RoughInchDepthsNm = {
+            12700,  // 0.0005"
+            25400,  // 0.001"
+			38100,  // 0.0015"
+			50800,  // 0.002"
+			63500,  // 0.0025"
+			76200   // 0.003"
+        },
+		.RoughMmDepthsNm = { 
+            10000,  // 0.01mm 
+            20000,  // 0.02mm 
+            30000,  // 0.03mm 
+            40000,  // 0.04mm 
+            50000,  // 0.05mm 
+			60000   // 0.06mm
+        },
+		.FinishInchDepthsNm = {
+			1270,   // 0.00005"
+			2540,   // 0.0001"
+			3810,   // 0.00015"
+			5080,   // 0.0002"
+			7620,   // 0.0003"
+			12700   // 0.0005"
+        },
+		.FinishMmDepthsNm = {
+            1000,   // 0.001mm
+			2000,   // 0.002mm
+			3000,   // 0.003mm
+			5000,   // 0.005mm
+            7500,   // 0.0075mm   
+			10000   // 0.01mm
+        }
+	};
+
 };
+
+
 
 #endif // CONFIGURATION_H
