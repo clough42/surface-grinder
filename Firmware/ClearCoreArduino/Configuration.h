@@ -53,7 +53,6 @@ public:
         Optional<int32_t> endLimit;
         Optional<int32_t> safePosition;
         Optional<int32_t> workPosition;
-
     };
 
     struct GrindCycleParameters {
