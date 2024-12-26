@@ -72,6 +72,7 @@ public:
 
     // Set values to be displayed
     void SetDroValue(Axis axis, int32_t unitsValue);
+    void SetUnits(Units units);
     void SetStatus(Status status);
     void SetIsHomed(bool);
     void SetMessage(Optional<const char*> message);

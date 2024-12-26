@@ -63,6 +63,7 @@ private:
     void UpdateResolutionAndAxisIndicators();
     void UpdateLimitDros();
     void UpdateError();
+    void UpdateUnits();
 
     int32_t ConvertToNm(int32_t units); // convert from (units * 2^5)
 	int32_t ConvertToUnits(int32_t nanometers); // convert to (units * 2^5)
@@ -71,7 +72,6 @@ private:
     GrinderModel& m_model;
     GrinderView& m_view;
 
-    Units m_units = Units::INCHES;
     TrackedValue<Mode> m_mode;
 	TrackedValue<Status> m_status;
     TrackedValue<CycleType> m_cycleType;

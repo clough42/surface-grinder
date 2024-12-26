@@ -56,19 +56,32 @@ public:
 
     };
 
+    struct GrindCycleParameters {
+ 		int32_t roughPassDepthNm;
+        int32_t finishPassDepthNm;
+        int16_t roughPassCount;
+        int16_t finishPassCount;
+        int16_t sparkPassCount;
+        bool autoAdvance;
+    };
+
+    struct UIParameters {
+        Units units;
+        uint8_t hmiContrast;
+    };
+
     Configuration(const char* filename) : m_filename(filename) {};
 
     AxisConfig* GetAxisConfig(Axis axis) { return &axisConfigs[static_cast<int>(axis)]; }
 	ProcessValues* GetProcessValues(Axis axis) { return &processValues[static_cast<int>(axis)]; }
-
-	uint8_t GetHmiContrast() { return m_hmiContrast; }
+	GrindCycleParameters* GetFlatGrindParams() { return &flatGrindParams; }
+	UIParameters* GetUIParams() { return &uiParams; }
 
     //bool Load();
     //bool Save();
 
 private:
     const char* m_filename;
-    uint8_t m_hmiContrast = 15; // HMI brightnesss (1-15)
 
     // Machine configuration values
     AxisConfig axisConfigs[AXIS_COUNT] = {
@@ -131,8 +144,20 @@ private:
         }
     };
 
+	GrindCycleParameters flatGrindParams = {
+		.roughPassDepthNm = 12700, // 0.0005" = 12700nm
+		.finishPassDepthNm = 2540, // 0.0001" = 2540nm
+		.roughPassCount = 0,
+		.finishPassCount = 0,
+		.sparkPassCount = 0,
+		.autoAdvance = false
+	};
+
     // UI Configuration
-    Units units;
+    UIParameters uiParams = {
+        .units = Units::INCHES,
+		.hmiContrast = 15
+    };
 
 };
 

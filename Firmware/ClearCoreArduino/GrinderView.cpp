@@ -51,7 +51,7 @@ void GrinderView::Init(IUserActions* controller) {
 
 	// put up the mechanics initialization form
     SetForm(HMI::INITMECHANICS::FORM_ID);
-    m_genie.WriteContrast(m_config.GetHmiContrast());
+    m_genie.WriteContrast(m_config.GetUIParams()->hmiContrast);
 }
 
 void GrinderView::Update() {
@@ -309,7 +309,6 @@ void GrinderView::SetForm(int form) {
 	ASSERT(form >= 0 && form < 7);
 	m_currentForm = form;
 	m_genie.SetForm(form);
-
 }
 
 void GrinderView::SetCycleType(CycleType cycleType) {
@@ -339,6 +338,12 @@ void GrinderView::WriteStatus() {
 	using namespace HMI::ALLMODES;
 
 	m_genie.WriteObject(F0StatusImage_TYPE, StatusImage_ID[m_currentForm], static_cast<int>(m_status.Get()));
+}
+
+void GrinderView::SetUnits(Units units) {
+	if (m_units.Set(units)) {
+		WriteUnits();
+	}
 }
 
 void GrinderView::UpdateEncoder() {
@@ -463,14 +468,12 @@ void GrinderView::HandleHmiEvent(genieFrame& Event)
     if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, F0UnitButton_TYPE, UnitButton_ID[m_currentForm])) {
         switch (Event.reportObject.data_lsb) {
         case HMI::UNITS_BUTTON_VAL_INCH:
-			m_units.Set(Units::INCHES);
+			if (m_controller) m_controller->SelectUnits(Units::INCHES);
             break;
         case HMI::UNITS_BUTTON_VAL_MM:
-			m_units.Set(Units::MILLIMETERS);
+			if (m_controller) m_controller->SelectUnits(Units::MILLIMETERS);
             break;
         }
-
-		if (m_controller) m_controller->SelectUnits(m_units.Get());
 		
         return;
     }

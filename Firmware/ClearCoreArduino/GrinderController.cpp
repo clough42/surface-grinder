@@ -28,6 +28,7 @@ void GrinderController::Init() {
 	m_model.Init();
 
 	SetOperatingMode(Mode::SETUP);
+	UpdateUnits();
 }
 
 void GrinderController::Update() {
@@ -47,9 +48,8 @@ void GrinderController::Update() {
 void GrinderController::SelectUnits(Units units) {
 	Serial.println("SelectUnits");
 
-    m_units = units;
-	UpdateResolutionAndAxisIndicators();
-	UpdateLimitDros();
+	m_config.GetUIParams()->units = units;
+	UpdateUnits();
 }
 
 void GrinderController::SetOperatingMode(Mode mode) {
@@ -68,6 +68,12 @@ void GrinderController::SelectAxis(Optional<Axis> selectedAxis, Optional<int> re
 	UpdateResolutionAndAxisIndicators();
 }
 
+void GrinderController::UpdateUnits() {
+	m_view.SetUnits(m_config.GetUIParams()->units);
+	UpdateResolutionAndAxisIndicators();
+	UpdateLimitDros();
+}
+
 void GrinderController::UpdateResolutionAndAxisIndicators() {
 	int32_t resolution = 0;
 	if (m_resolutionSwitchPosition.HasValue()) {
@@ -84,7 +90,7 @@ void GrinderController::UpdateResolutionAndAxisIndicators() {
 			resolution = 10;
 			break;
 		}
-		if (m_units == Units::MILLIMETERS) {
+		if (m_config.GetUIParams()->units == Units::MILLIMETERS) {
 			resolution *= 10;
 		}
 	}
@@ -227,7 +233,7 @@ void GrinderController::TraverseToWorkPosition(Axis axis) {
 
 
 int32_t GrinderController::ConvertToNm(int32_t units) {
-	switch (m_units) {
+	switch (m_config.GetUIParams()->units) {
 	case Units::MILLIMETERS:
 		return units * 10;
 	case Units::INCHES:
@@ -237,7 +243,7 @@ int32_t GrinderController::ConvertToNm(int32_t units) {
 }
 
 int32_t GrinderController::ConvertToUnits(int32_t nanometers) {
-	switch (m_units) {
+	switch (m_config.GetUIParams()->units) {
 	case Units::MILLIMETERS:
 		return nanometers / 10;
 	case Units::INCHES:
