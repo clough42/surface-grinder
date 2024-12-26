@@ -528,27 +528,27 @@ void GrinderView::HandleHmiEvent(genieFrame& Event)
 
 	// Respond to Go Right/Left/Up/Down buttons
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoUpButton_TYPE, GoUpButton_ID)) {
-		if (m_controller) m_controller->TraverseToStartPosition(Axis::Z);
+		if (m_controller && Debounce()) m_controller->TraverseToStartPosition(Axis::Z);
 		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoDownButton_TYPE, GoDownButton_ID)) {
-		if (m_controller) m_controller->TraverseToEndPosition(Axis::Z);
+		if (m_controller && Debounce()) m_controller->TraverseToEndPosition(Axis::Z);
 		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoLeftButton_TYPE, GoLeftButton_ID)) {
-		if (m_controller) m_controller->TraverseToStartPosition(Axis::X);
+		if (m_controller && Debounce()) m_controller->TraverseToStartPosition(Axis::X);
 		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoRightButton_TYPE, GoRightButton_ID)) {
-		if (m_controller) m_controller->TraverseToEndPosition(Axis::X);
+		if (m_controller && Debounce()) m_controller->TraverseToEndPosition(Axis::X);
 		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoSafeButton_TYPE, GoSafeButton_ID)) {
-		if (m_controller) m_controller->TraverseToSafePosition(Axis::Y);
+		if (m_controller && Debounce()) m_controller->TraverseToSafePosition(Axis::Y);
 		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, GoWorkButton_TYPE, GoWorkButton_ID)) {
-		if (m_controller) m_controller->TraverseToWorkPosition(Axis::Y);
+		if (m_controller && Debounce()) m_controller->TraverseToWorkPosition(Axis::Y);
 		return;
 	}
 
@@ -623,11 +623,11 @@ void GrinderView::HandleHmiEvent(genieFrame& Event)
 		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, RoughFeedButton_TYPE, RoughFeedButton_ID)) {
-		if (m_controller) m_controller->FeedRough();
+		if (m_controller && Debounce()) m_controller->FeedRough();
 		return;
 	}
 	if (m_genie.EventIs(&Event, GENIE_REPORT_EVENT, FinishFeedButton_TYPE, FinishFeedButton_ID)) {
-		if (m_controller) m_controller->FeedFinish();
+		if (m_controller && Debounce()) m_controller->FeedFinish();
 		return;
 	}
 
@@ -643,4 +643,16 @@ void GrinderView::HandleHmiEvent(genieFrame& Event)
     Serial.print("data msb: ");
 	Serial.println(Event.reportObject.data_msb);
 
+}
+
+bool GrinderView::Debounce() {
+	static unsigned long lastDebounceTime = 0;
+	static unsigned long debounceDelay = 200;
+
+	unsigned long currentMillis = millis();
+	if (currentMillis - lastDebounceTime > debounceDelay) {
+		lastDebounceTime = currentMillis;
+		return true;
+	}
+	return false;
 }

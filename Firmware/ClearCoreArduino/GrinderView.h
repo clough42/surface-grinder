@@ -123,6 +123,8 @@ private:
     void UpdateCycleButtons();
     void SetForm(int form);
 
+    bool Debounce();
+
     // Hardware I/O
     DigitalInOut& m_eStop;
     DigitalInOut& m_cycleRun;
