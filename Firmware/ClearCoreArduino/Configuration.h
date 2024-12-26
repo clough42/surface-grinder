@@ -86,6 +86,26 @@ public:
 	UIParameters* GetUIParams() { return &uiParams; }
 	PredefinedGrindDepths* GetGrindDepths() { return &grindDepths; }
 
+    int32_t GetRoughFeedNm() {
+        if (uiParams.units == Units::INCHES) {
+            return grindDepths.RoughInchDepthsNm[flatGrindParams.roughPassDepthIndex];
+        }
+        if (uiParams.units == Units::MILLIMETERS) {
+            return grindDepths.RoughMmDepthsNm[flatGrindParams.roughPassDepthIndex];
+        }
+        return 0;
+    }
+
+    int32_t GetFinishFeedNm() {
+        if (uiParams.units == Units::INCHES) {
+            return grindDepths.FinishInchDepthsNm[flatGrindParams.finishPassDepthIndex];
+        }
+        if (uiParams.units == Units::MILLIMETERS) {
+            return grindDepths.FinishMmDepthsNm[flatGrindParams.finishPassDepthIndex];
+        }
+        return 0;
+    }
+
     //bool Load();
     //bool Save();
 
@@ -156,10 +176,10 @@ private:
 	GrindCycleParameters flatGrindParams = {
 		.roughPassDepthIndex = 1,
 		.finishPassDepthIndex = 3,
-		.roughPassCount = 3,
-		.finishPassCount = 2,
-		.sparkPassCount = 1,
-		.autoAdvance = true
+		.roughPassCount = 0,
+		.finishPassCount = 0,
+		.sparkPassCount = 0,
+		.autoAdvance = false
 	};
 
     // UI Configuration

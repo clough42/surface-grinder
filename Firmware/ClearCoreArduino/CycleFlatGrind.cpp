@@ -219,12 +219,40 @@ void CycleFlatGrind::TransitionToRewindZ() {
 
 void CycleFlatGrind::UpdateRewindZ() {
 	if (m_axes[AXIS_Z].MoveComplete()) {
+		Configuration::GrindCycleParameters *params = m_config.GetFlatGrindParams();
+		Configuration::ProcessValues *process = m_config.GetProcessValues(Axis::Y);
+		Configuration::PredefinedGrindDepths* depths = m_config.GetGrindDepths();
+
+		// more rough passes?
+		if (params->autoAdvance && params->roughPassCount > 0) {
+			process->workPosition = process->workPosition.Value() - m_config.GetRoughFeedNm();
+			params->roughPassCount--;
+			TransitionToLowerToWork();
+			return;
+		}
+
+		// more finish passes?
+		if (params->autoAdvance && params->finishPassCount > 0) {
+			process->workPosition = process->workPosition.Value() - m_config.GetFinishFeedNm();
+			params->finishPassCount--;
+			TransitionToLowerToWork();
+			return;
+		}
+
+		// more spark passes?
+		if (params->autoAdvance && params->sparkPassCount > 0) {
+			params->sparkPassCount--;
+			TransitionToLowerToWork();
+			return;
+		}
+
 		TransitionToFinal();
 	}
 }
 
 void CycleFlatGrind::TransitionToFinal() {
 	Serial.println("FlatGrind: Done");
+
 	currentState = FINAL;
 }
 
@@ -234,16 +262,10 @@ int32_t CycleFlatGrind::CalculateZAdvance() {
 	targetZ = m_axes[AXIS_Z].QuantizePositionNm(targetZ); // quantize so we can compare
 	int32_t zAdvance = targetZ - currentZ;
 
-	Serial.print("ZAdvance: ");
-	Serial.println(zAdvance);
-
 	// limit it to the stepover
 	int32_t stepoverNm = m_config.GetProcessValues(Axis::Z)->grindingStepoverNm;
 	if (zAdvance > stepoverNm) zAdvance = stepoverNm;
 	if (zAdvance < -stepoverNm) zAdvance = -stepoverNm;
-
-	Serial.print("ZAdvance (limited): ");
-	Serial.println(zAdvance);
 
 	return zAdvance;
 }

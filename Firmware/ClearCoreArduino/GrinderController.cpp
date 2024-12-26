@@ -33,6 +33,7 @@ void GrinderController::Init() {
 
 void GrinderController::Update() {
 	m_model.Update();
+	
 	if (m_status.Set(m_model.GetStatus())) {
 		m_view.SetStatus(m_status.Get());
 		UpdateResolutionAndAxisIndicators(); // update if state changes
@@ -41,6 +42,8 @@ void GrinderController::Update() {
 	UpdateDROs();
 	UpdateHomed();
 	UpdateError();
+	UpdateGrindingPassParameters();
+	UpdateLimitDros();
 
 	m_view.Update();
 }
@@ -109,8 +112,6 @@ void GrinderController::UpdateResolutionAndAxisIndicators() {
 }
 
 void GrinderController::Jog(int32_t clicks) {
-	Serial.println("Jog");
-
 	int32_t nmPerClick = ConvertToNm(m_selectedResolution);
 	if (m_selectedAxis.HasValue() && m_model.AllowJog(m_selectedAxis.Value(), nmPerClick)) {
 		int32_t nanometers = clicks * nmPerClick;
@@ -188,11 +189,11 @@ void GrinderController::SetGrindAuto(boolean enabled) {
 }
 
 void GrinderController::UpdateRoughDepthUnits() {
-	m_view.SetRoughDepth(m_config.GetFlatGrindParams()->roughPassDepthIndex, ConvertToUnits(GetRoughFeedNm()));
+	m_view.SetRoughDepth(m_config.GetFlatGrindParams()->roughPassDepthIndex, ConvertToUnits(m_config.GetRoughFeedNm()));
 }
 
 void GrinderController::UpdateFinishDepthUnits() {
-	m_view.SetFinishDepth(m_config.GetFlatGrindParams()->finishPassDepthIndex, ConvertToUnits(GetFinishFeedNm()));
+	m_view.SetFinishDepth(m_config.GetFlatGrindParams()->finishPassDepthIndex, ConvertToUnits(m_config.GetFinishFeedNm()));
 }
 
 void GrinderController::UpdatePassCounts() {
@@ -213,19 +214,9 @@ void GrinderController::FeedRough() {
 
 	Configuration::ProcessValues *values = m_config.GetProcessValues(Axis::Y);
 	if (values->workPosition.HasValue()) {
-		values->workPosition = values->workPosition.Value() - GetRoughFeedNm();
+		values->workPosition = values->workPosition.Value() - m_config.GetRoughFeedNm();
 		UpdateLimitDros();
 	}
-}
-
-int32_t GrinderController::GetRoughFeedNm() {
-	if (m_config.GetUIParams()->units == Units::INCHES) {
-		return m_config.GetGrindDepths()->RoughInchDepthsNm[m_config.GetFlatGrindParams()->roughPassDepthIndex];
-	}
-	if (m_config.GetUIParams()->units == Units::MILLIMETERS) {
-		return m_config.GetGrindDepths()->RoughMmDepthsNm[m_config.GetFlatGrindParams()->roughPassDepthIndex];
-	}
-	return 0;
 }
 
 void GrinderController::FeedFinish() {
@@ -233,22 +224,10 @@ void GrinderController::FeedFinish() {
 
 	Configuration::ProcessValues* values = m_config.GetProcessValues(Axis::Y);
 	if (values->workPosition.HasValue()) {
-		values->workPosition = values->workPosition.Value() - GetFinishFeedNm();
+		values->workPosition = values->workPosition.Value() - m_config.GetFinishFeedNm();
 		UpdateLimitDros();
 	}
 }
-
-int32_t GrinderController::GetFinishFeedNm() {
-	if (m_config.GetUIParams()->units == Units::INCHES) {
-		return m_config.GetGrindDepths()->FinishInchDepthsNm[m_config.GetFlatGrindParams()->finishPassDepthIndex];
-	}
-	if (m_config.GetUIParams()->units == Units::MILLIMETERS) {
-		return m_config.GetGrindDepths()->FinishMmDepthsNm[m_config.GetFlatGrindParams()->finishPassDepthIndex];
-	}
-	return 0;
-}
-
-
 
 void GrinderController::UpdateLimitDros() {
 	for (int i = 0; i < AXIS_COUNT; i++) {

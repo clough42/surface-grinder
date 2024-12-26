@@ -162,8 +162,6 @@ void GrinderView::WriteSafeDroValue(Axis axis) {
 }
 
 void GrinderView::SetWorkDroValue(Axis axis, Optional<int32_t> unitsValue) {
-	Serial.print("SetWorkDroValue: ");
-	Serial.println(static_cast<int>(axis));
 	if (m_workDroValues[static_cast<int>(axis)].Set(unitsValue)) {
 		WriteWorkDroValue(axis);
 	}
@@ -203,9 +201,6 @@ void GrinderView::WriteMessage() {
 }
 
 void GrinderView::SetRoughDepth(int index, int32_t unitsValue) {
-	Serial.print("SetRoughDepth unitsValue: ");
-	Serial.println(unitsValue);
-
 	bool changed = false;
 	changed |= m_roughDepthIndex.Set(index);
 	changed |= m_roughDepthUnitsValue.Set(unitsValue);
@@ -219,17 +214,11 @@ void GrinderView::WriteRoughDepth() {
 	bool result = false;
 
 	int16_t depth = static_cast<int16_t>(m_roughDepthUnitsValue.Get());
-	Serial.print("WriteRoughDepth: ");
-	Serial.println(depth);
-
 	result = m_genie.WriteObject(RoughDepthSlider_TYPE, RoughDepthSlider_ID, m_roughDepthIndex.Get());
 	result = m_genie.WriteIntLedDigits(RoughDepthDRO_ID, depth);
 }
 
 void GrinderView::SetFinishDepth(int index, int32_t unitsValue) {
-	Serial.print("GrinderView::SetFinishDepth unitsValue: ");
-	Serial.println(unitsValue);
-
 	bool changed = false;
 	changed |= m_finishDepthIndex.Set(index);
 	changed |= m_finishDepthUnitsValue.Set(unitsValue);
@@ -242,9 +231,6 @@ void GrinderView::WriteFinishDepth() {
 	using namespace HMI::FLATMODE;
 
 	int16_t depth = static_cast<int16_t>(m_finishDepthUnitsValue.Get());
-	Serial.print("WriteFinishDepth: ");
-	Serial.println(depth);
-
 	m_genie.WriteObject(FinishDepthSlider_TYPE, FinishDepthSlider_ID, m_finishDepthIndex.Get());
 	m_genie.WriteIntLedDigits(FinishDepthDRO_ID, depth);
 }
@@ -576,7 +562,6 @@ void GrinderView::HandleHmiEvent(genieFrame& Event)
 			if (m_controller) m_controller->SelectUnits(Units::MILLIMETERS);
             break;
         }
-		
         return;
     }
 
