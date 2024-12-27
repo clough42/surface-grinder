@@ -114,7 +114,7 @@ private:
 
     // Machine configuration values
     AxisConfig axisConfigs[AXIS_COUNT] = {
-        {
+		{ // X Axis (Table left/right)
             .stepsPerNmNumerator = 3,
             .stepsPerNmDenominator = 130175,
             .homingSpeedMmM = 1000,
@@ -125,10 +125,10 @@ private:
             .totalTravelNm = 482 * 1000 * 1000,
 			.joggleDistanceNm = 0,
             .motorDirection = Direction::NEGATIVE,
-            .droDirection = Direction::NEGATIVE,
+            .droDirection = Direction::POSITIVE,
             .homingDirection = Direction::POSITIVE
         },
-        {
+		{ // Y Axis (Wheel up/down)
             .stepsPerNmNumerator = 6,
             .stepsPerNmDenominator = 3175,
             .homingSpeedMmM = 300,
@@ -142,7 +142,7 @@ private:
             .droDirection = Direction::POSITIVE,
             .homingDirection = Direction::POSITIVE
         },
-        {
+		{ // Z Axis (Table in/out)
             .stepsPerNmNumerator = 3,
             .stepsPerNmDenominator = 6350,
             .homingSpeedMmM = 1000,
