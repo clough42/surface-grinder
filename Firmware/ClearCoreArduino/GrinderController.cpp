@@ -210,22 +210,24 @@ void GrinderController::UpdateGrindingPassParameters() {
 }
 
 void GrinderController::FeedRough() {
-	Serial.println("FeedRough");
-
-	Configuration::ProcessValues *values = m_config.GetProcessValues(Axis::Y);
-	if (values->workPosition.HasValue()) {
-		values->workPosition = values->workPosition.Value() - m_config.GetRoughFeedNm();
-		UpdateLimitDros();
+	if (m_model.GetStatus() == Status::IDLE) {
+		Serial.println("FeedRough");
+		Configuration::ProcessValues* values = m_config.GetProcessValues(Axis::Y);
+		if (values->workPosition.HasValue()) {
+			values->workPosition = values->workPosition.Value() - m_config.GetRoughFeedNm();
+			UpdateLimitDros();
+		}
 	}
 }
 
 void GrinderController::FeedFinish() {
-	Serial.println("FeedFine");
-
-	Configuration::ProcessValues* values = m_config.GetProcessValues(Axis::Y);
-	if (values->workPosition.HasValue()) {
-		values->workPosition = values->workPosition.Value() - m_config.GetFinishFeedNm();
-		UpdateLimitDros();
+	if (m_model.GetStatus() == Status::IDLE) {
+		Serial.println("FeedFinish");
+		Configuration::ProcessValues* values = m_config.GetProcessValues(Axis::Y);
+		if (values->workPosition.HasValue()) {
+			values->workPosition = values->workPosition.Value() - m_config.GetFinishFeedNm();
+			UpdateLimitDros();
+		}
 	}
 }
 
