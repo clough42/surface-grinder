@@ -39,6 +39,7 @@ public:
         GRIND_TO_START_X,
         ADVANCE_Z_AT_START,
         REWIND_Z,
+        JOGGLE_UP,
         FINAL
     };
 
@@ -73,9 +74,12 @@ private:
 	void UpdateAdvanceZAtStart();
     void TransitionToRewindZ();
 	void UpdateRewindZ();
+    void TransitionToJoggleUp();
+    void UpdateJoggleUp();
     void TransitionToFinal();
 
     int32_t CalculateZAdvance();
+    void FeedAndTransitionToNextPass(int32_t feedNm);
 
 };
 

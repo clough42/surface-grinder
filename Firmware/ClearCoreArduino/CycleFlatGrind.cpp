@@ -92,6 +92,9 @@ bool CycleFlatGrind::Update() {
 	case REWIND_Z:
 		UpdateRewindZ();
 		break;
+	case JOGGLE_UP:
+		UpdateJoggleUp();
+		break;
     case FINAL:
         return false; // we be done
     }
@@ -131,7 +134,7 @@ void CycleFlatGrind::TransitionToMoveToStart() {
 
 void CycleFlatGrind::UpdateMoveToStart() {
 	if (m_axes[AXIS_X].MoveComplete() && m_axes[AXIS_Z].MoveComplete()) {
-		TransitionToLowerToWork();
+		TransitionToJoggleUp();
 	}
 }
 
@@ -220,14 +223,13 @@ void CycleFlatGrind::TransitionToRewindZ() {
 void CycleFlatGrind::UpdateRewindZ() {
 	if (m_axes[AXIS_Z].MoveComplete()) {
 		Configuration::GrindCycleParameters *params = m_config.GetFlatGrindParams();
-		Configuration::ProcessValues *process = m_config.GetProcessValues(Axis::Y);
-		Configuration::PredefinedGrindDepths* depths = m_config.GetGrindDepths();
+		Configuration::ProcessValues* process = m_config.GetProcessValues(Axis::Y);
 
 		// more rough passes?
 		if (params->autoAdvance && params->roughPassCount > 0) {
 			process->workPosition = process->workPosition.Value() - m_config.GetRoughFeedNm();
 			params->roughPassCount--;
-			TransitionToLowerToWork();
+			TransitionToJoggleUp();
 			return;
 		}
 
@@ -235,7 +237,7 @@ void CycleFlatGrind::UpdateRewindZ() {
 		if (params->autoAdvance && params->finishPassCount > 0) {
 			process->workPosition = process->workPosition.Value() - m_config.GetFinishFeedNm();
 			params->finishPassCount--;
-			TransitionToLowerToWork();
+			TransitionToJoggleUp();
 			return;
 		}
 
@@ -247,6 +249,20 @@ void CycleFlatGrind::UpdateRewindZ() {
 		}
 
 		TransitionToFinal();
+	}
+}
+
+void CycleFlatGrind::TransitionToJoggleUp() {
+	Serial.println("FlatGrind: Joggling Up"); 
+	
+	int32_t joggleDistanceNm = m_config.GetAxisConfig(Axis::Y)->joggleDistanceNm;
+	m_axes[AXIS_Y].MoveToPositionNm(m_config.GetProcessValues(Axis::Y)->workPosition.Value() + joggleDistanceNm, m_config.GetAxisConfig(Axis::Y)->traverseSpeedMmM);
+	currentState = JOGGLE_UP;
+}
+
+void CycleFlatGrind::UpdateJoggleUp() {
+	if (m_axes[AXIS_Y].MoveComplete()) {
+		TransitionToLowerToWork();
 	}
 }
 

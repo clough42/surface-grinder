@@ -40,6 +40,7 @@ public:
         int32_t acceleration;
         int64_t homingBackoffNm;
         int64_t totalTravelNm;
+        int32_t joggleDistanceNm;   // Distance to back off before feeding
         Direction motorDirection;   // Direction of motor vs handwheel
 		Direction droDirection;     // Direction of DRO vs handwheel
 		Direction homingDirection;  // Direction of handwheel for homing
@@ -122,6 +123,7 @@ private:
             .acceleration = 50000,
             .homingBackoffNm = 5 * 1000 * 1000,
             .totalTravelNm = 482 * 1000 * 1000,
+			.joggleDistanceNm = 0,
             .motorDirection = Direction::NEGATIVE,
             .droDirection = Direction::NEGATIVE,
             .homingDirection = Direction::POSITIVE
@@ -135,6 +137,7 @@ private:
             .acceleration = 50000,
             .homingBackoffNm = 1 * 1000 * 1000,
             .totalTravelNm = 310 * 1000 * 1000,
+            .joggleDistanceNm = 1000000,    // 1mm
             .motorDirection = Direction::NEGATIVE,
             .droDirection = Direction::POSITIVE,
             .homingDirection = Direction::POSITIVE
@@ -148,6 +151,7 @@ private:
             .acceleration = 50000,
             .homingBackoffNm = 1 * 1000 * 1000,
             .totalTravelNm = 180 * 1000 * 1000,
+            .joggleDistanceNm = 0,
             .motorDirection = Direction::NEGATIVE,
             .droDirection = Direction::NEGATIVE,
             .homingDirection = Direction::NEGATIVE
