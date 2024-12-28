@@ -95,6 +95,8 @@ public:
 
     void HandleHmiEvent(genieFrame& Event);
 
+	void SafeDelay(uint32_t delayMillis);
+
 private:
     // Write mirror values to the HMI
     void WriteDroValue(Axis axis);

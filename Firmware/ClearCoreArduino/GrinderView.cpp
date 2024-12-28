@@ -476,6 +476,13 @@ void GrinderView::HmiEventHandler() {
     }
 }
 
+void GrinderView::SafeDelay(uint32_t delayMillis) {
+	uint32_t start = millis();
+	while (millis() - start < delayMillis) {
+		m_genie.DoEvents();
+	}
+}
+
 void GrinderView::HandleHmiEvent(genieFrame& Event)
 {
 	using namespace HMI::SETUPMODE;

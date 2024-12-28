@@ -121,8 +121,8 @@ private:
             .jogSpeedMmM = 30000,
             .traverseSpeedMmM = 5000,
             .acceleration = 50000,
-            .homingBackoffNm = 5 * 1000 * 1000,
-            .totalTravelNm = 482 * 1000 * 1000,
+            .homingBackoffNm = 0, // No backoff on X because what the motor gives us is enough
+            .totalTravelNm = 479 * 1000 * 1000,
 			.joggleDistanceNm = 0,
             .motorDirection = Direction::NEGATIVE,
             .droDirection = Direction::POSITIVE,
@@ -145,10 +145,10 @@ private:
 		{ // Z Axis (Table in/out)
             .stepsPerNmNumerator = 3,
             .stepsPerNmDenominator = 6350,
-            .homingSpeedMmM = 1000,
+            .homingSpeedMmM = 500,
             .jogSpeedMmM = 1800,
             .traverseSpeedMmM = 1000,
-            .acceleration = 50000,
+            .acceleration = 100000,
             .homingBackoffNm = 1 * 1000 * 1000,
             .totalTravelNm = 180 * 1000 * 1000,
             .joggleDistanceNm = 0,

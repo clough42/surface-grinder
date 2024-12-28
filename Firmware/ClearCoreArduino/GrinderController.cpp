@@ -264,6 +264,7 @@ void GrinderController::EnterEstop() {
 
 void GrinderController::ClearEstop() {
 	Serial.println("ClearEstop");
+	m_view.SafeDelay(5000); // wait for servo power to come on-line
 	m_model.Init();
 }
 
